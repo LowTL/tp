@@ -28,8 +28,4 @@ public class quantityCalculator {
 
         return value;
     }
-
-    public void updateQty(Item item) {
-        item.setQuantity(item.getQuantity() + convertUOM(item.getUom()));
-    }
 }

@@ -3,14 +3,12 @@ import constants.UOM;
 
 public class Item {
     public static int numberOfItems;
-    protected String itemName;
-    protected int quantity;
-    protected String uom;
-    protected String category;
-    protected boolean isOOS;
-
-
-
+    private final String itemName;
+    private int quantity;
+    private String uom;
+    private String category;
+    private boolean isOOS;
+    
     public Item(String name, int quantity, String uom, String category) {
         this.itemName = name;
         this.quantity = quantity;

@@ -1,9 +1,7 @@
 package command;
 
-import exceptions.CommandFormatException;
 import item.Item;
 import itemlist.Itemlist;
-import parser.CommandType;
 import storage.Storage;
 
 public class DeleteCommand extends Command {

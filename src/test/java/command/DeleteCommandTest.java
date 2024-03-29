@@ -4,6 +4,7 @@ import exceptions.CommandFormatException;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class DeleteCommandTest {
@@ -16,8 +17,9 @@ public class DeleteCommandTest {
         try {
             addCommandTest1.execute();
             deleteCommand.execute();
-            assert(!Itemlist.itemIsExist("testItem"));
+            assertFalse(Itemlist.itemIsExist("testItem"));
             deleteCommand.execute();
+            fail("Item does not exist");
         } catch (CommandFormatException e) {
             fail("Unable to delete.");
         }

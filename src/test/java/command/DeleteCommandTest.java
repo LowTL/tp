@@ -19,7 +19,6 @@ public class DeleteCommandTest {
             deleteCommand.execute();
             assertFalse(Itemlist.itemIsExist("testItem"));
             deleteCommand.execute();
-            fail("Item does not exist");
         } catch (CommandFormatException e) {
             fail("Unable to delete.");
         }

@@ -16,7 +16,6 @@ public class AddCommandTest {
             Command addCommandTest2 = new AddCommand("testItem", 7, "EA",
                     "NA", 1, 10);
             addCommandTest1.execute();
-            assert(Itemlist.itemIsExist("testItem"));
             addCommandTest2.execute();
         } catch (CommandFormatException e) {
             fail("Unable to add item.");

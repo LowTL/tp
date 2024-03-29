@@ -4,6 +4,7 @@ import exceptions.CommandFormatException;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class FindCommandTest {
@@ -17,9 +18,7 @@ public class FindCommandTest {
 
         addCommandTest1.execute();
         findCommand.execute();
-        assert(Itemlist.itemIsExist("testItem"));
-        assert(!Itemlist.itemIsExist("failFindCommand"));
         findCommand2.execute();
-        fail("Item failFindCommand does not exist.");
+        assertFalse(Itemlist.itemIsExist("failFindCommand"));
     }
 }

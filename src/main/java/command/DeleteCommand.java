@@ -11,25 +11,30 @@ public class DeleteCommand extends Command {
     protected String itemName;
 
     public DeleteCommand(String itemName) {
-        this.itemName = itemName;
+        this.itemName = itemName.toLowerCase(); //for checking later
     }
 
     public void execute() throws CommandFormatException {
         int index = -1;
-        for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().equals(itemName)) {
-                index = Itemlist.getItems().indexOf(item);
-                break;
+        try {
+            for (Item item : Itemlist.getItems()) {
+                if (item.getItemName().toLowerCase().equals(itemName)) {
+                    index = Itemlist.getItems().indexOf(item);
+                    break;
+                }
             }
-        }
-        if (index == -1) {
-            //throw exception;
-            throw new CommandFormatException(CommandType.DEL);
-        } else {
-            Itemlist.deleteItem(index);
-            System.out.println(itemName + " has been successfully deleted.");
-            Storage.overwriteFile(Itemlist.getItems());
-            assert(!Itemlist.getItem(index).getItemName().equals(itemName));
+            if (index == -1) {
+                //throw exception;
+                throw new CommandFormatException(CommandType.DEL);
+            } else {
+                Itemlist.deleteItem(index);
+                System.out.println(itemName + " has been successfully deleted.");
+                Storage.overwriteFile(Itemlist.getItems());
+                assert(!Itemlist.getItem(index).getItemName().equals(itemName));
+
+            }
+        } catch (CommandFormatException e) {
+            System.out.println("Unable to delete Item. Did you misspell it?");
         }
     }
 }

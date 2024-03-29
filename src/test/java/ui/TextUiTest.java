@@ -1,4 +1,4 @@
-/*package ui;
+package ui;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,4 +19,4 @@ public class TextUiTest {
         ByteArrayInputStream testIn = new ByteArrayInputStream(input.getBytes());
         System.setIn(testIn);
     }
-}*/
+}

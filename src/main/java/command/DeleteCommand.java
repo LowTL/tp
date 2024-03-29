@@ -14,27 +14,23 @@ public class DeleteCommand extends Command {
         this.itemName = itemName.toLowerCase(); //for checking later
     }
 
-    public void execute() throws CommandFormatException {
+    public void execute() {
         int index = -1;
-        try {
-            for (Item item : Itemlist.getItems()) {
-                if (item.getItemName().toLowerCase().equals(itemName)) {
-                    index = Itemlist.getItems().indexOf(item);
-                    break;
-                }
+        for (Item item : Itemlist.getItems()) {
+            if (item.getItemName().toLowerCase().equals(itemName)) {
+                index = Itemlist.getItems().indexOf(item);
+                break;
             }
-            if (index == -1) {
-                //throw exception;
-                throw new CommandFormatException(CommandType.DEL);
-            } else {
-                Itemlist.deleteItem(index);
-                System.out.println(itemName + " has been successfully deleted.");
-                Storage.overwriteFile(Itemlist.getItems());
-                assert(!Itemlist.getItem(index).getItemName().equals(itemName));
+        }
+        if (index == -1) {
+            //throw exception;
+            System.out.println("Item does not exist.");
+        } else {
+            Itemlist.deleteItem(index);
+            System.out.println(itemName + " has been successfully deleted.");
+            Storage.overwriteFile(Itemlist.getItems());
+            assert(!Itemlist.getItem(index).getItemName().equals(itemName));
 
-            }
-        } catch (CommandFormatException e) {
-            System.out.println("Unable to delete Item. Did you misspell it?");
         }
     }
 }

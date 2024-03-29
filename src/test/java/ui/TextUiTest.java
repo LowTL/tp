@@ -28,7 +28,6 @@ public class TextUiTest {
     @Test
     public <T> void testShowInventoryList() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStreamCaptor));
         ArrayList<String> itemList = new ArrayList<>();
         itemList.add("test 1");

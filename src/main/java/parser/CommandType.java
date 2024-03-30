@@ -5,6 +5,8 @@ public enum CommandType {
     LIST,
     HELP,
     ADD,
-    DELETE,
-    EDIT
+    DEL,
+    EDIT,
+    SELL,
+    FIND
 }

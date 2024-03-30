@@ -17,7 +17,7 @@ public class TextUi {
         this.in = new Scanner(System.in);
     }
 
-    public String getUserInput() {
+    public static String getUserInput() {
         System.out.println("Enter Command:");
         Scanner in = new Scanner(System.in);
         String userInput = in.hasNextLine() ? in.nextLine() : "";
@@ -52,23 +52,33 @@ public class TextUi {
 
     public static void replyToUser(String... message) {
         for (String m : message) {
-            System.out.println(m + "\n");
+            System.out.println(m);
         }
     }
 
     public static <T> void showInventoryList(ArrayList<T> arrayList) {
-        replyToUser("List: ");
-        for (T item : arrayList) {
-            if (item == null) {
-                break;
+        if (arrayList.isEmpty()) {
+            replyToUser("There is nothing here! Time to spend some money and stock em up!");
+        } else {
+            replyToUser("List: ");
+            for (T item : arrayList) {
+                if (item == null) {
+                    break;
+                }
+                replyToUser(arrayList.indexOf(item) + 1 + ". " + item);
             }
-            replyToUser(arrayList.indexOf(item) + 1 +". " + item);
         }
     }
 
     public static void showEditMessage(String item, int oldQuantity, int newQuantity) {
         replyToUser("\n" +
                 "Changed quantity of " + item + " from " + oldQuantity + " to " + newQuantity
+        );
+    }
+
+    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, int sellPrice) {
+        replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
+                "Quantity remaining: " + remainingQuantity
         );
     }
 }

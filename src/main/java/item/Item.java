@@ -1,7 +1,8 @@
 package item;
 
+import itemlist.Itemlist;
+
 public class Item {
-    public static int numberOfItems;
     private final String itemName;
     private int quantity;
     private final String uom;
@@ -27,7 +28,7 @@ public class Item {
         } else {
             this.isOOS = false;
         }
-        numberOfItems++;
+        Itemlist.noOfItems++;
     }
 
     public String getCategory() {

@@ -4,13 +4,13 @@ import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;
 
-public class EditCommand extends Command {
+public class EditCommand extends Command{
 
     protected String itemName;
 
     protected int newQuantity;
 
-    public EditCommand (String itemName, int newQuantity) {
+    public  EditCommand(String itemName, int newQuantity) {
         this.itemName = itemName;
         this.newQuantity = newQuantity;
     }

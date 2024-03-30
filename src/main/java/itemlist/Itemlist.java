@@ -4,8 +4,8 @@ import item.Item;
 import java.util.ArrayList;
 
 public class Itemlist {
-    private static final ArrayList<Item> items = new ArrayList<>();
     public static int noOfItems;
+    private static final ArrayList<Item> items = new ArrayList<>();
 
     public Itemlist() {
     }

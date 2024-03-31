@@ -1,17 +1,18 @@
 package item;
 
+import itemlist.Itemlist;
+
 public class Item {
-    public static int numberOfItems;
     private final String itemName;
     private int quantity;
     private final String uom;
     private final String category;
-    private int buyPrice;
-    private int sellPrice;
+    private float buyPrice;
+    private float sellPrice;
     private boolean isOOS;
 
 
-    public Item(String name, int quantity, String uom, String category, int buyPrice, int sellPrice) {
+    public Item(String name, int quantity, String uom, String category, float buyPrice, float sellPrice) {
         this.itemName = name;
         this.quantity = quantity;
         this.uom = uom;
@@ -27,7 +28,7 @@ public class Item {
         } else {
             this.isOOS = false;
         }
-        numberOfItems++;
+        Itemlist.noOfItems++;
     }
 
     public String getCategory() {
@@ -52,10 +53,10 @@ public class Item {
         this.quantity = newQuantity;
     }
 
-    public int getBuyPrice() {
+    public float getBuyPrice() {
         return buyPrice;
     }
-    public int getSellPrice() {
+    public float getSellPrice() {
         return sellPrice;
     }
 
@@ -68,8 +69,8 @@ public class Item {
     }
 
     public String toString() {
-        String categoryString = (getCategory() != null) ? " to " + getCategory() : ""; // Check if category is null
-        return (getItemName() + " (Qty " + getQuantity() + getUom() +
-                ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")" + categoryString);
+        String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
+        return (getItemName() + " (Qty: " + getQuantity() + getUom() +
+                ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

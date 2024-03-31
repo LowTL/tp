@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class Transaction {
     private String dateTime;
-    private int totalPrice;
-    private int profit;
+    private float totalPrice;
+    private float profit;
     private String itemName;
     private int quantity;
-    private int buyPrice;
-    private int sellPrice;
+    private float buyPrice;
+    private float sellPrice;
 
-    public Transaction(String name, int inputQty, int inputBuy, int inputSell) {
+    public Transaction(String name, int inputQty, float inputBuy, float inputSell) {
         setDateTime();
         itemName = name;
         quantity = inputQty;
@@ -40,7 +40,7 @@ public class Transaction {
         return this.quantity;
     }
 
-    public int getSellPrice() {
+    public float getSellPrice() {
         return this.sellPrice;
     }
 
@@ -48,11 +48,11 @@ public class Transaction {
         return this.dateTime;
     }
 
-    public int getTotalPrice() {
+    public float getTotalPrice() {
         return this.totalPrice;
     }
 
-    public int getProfit() {
+    public float getProfit() {
         return this.profit;
     }
 

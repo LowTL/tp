@@ -95,7 +95,7 @@ public class TextUi {
         );
     }
 
-    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, int sellPrice) {
+    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
         replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
                 "Quantity remaining: " + remainingQuantity
         );

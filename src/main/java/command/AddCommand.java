@@ -11,11 +11,11 @@ public class AddCommand extends Command {
     protected int quantity;
     protected String uom;
     protected String category = "NA";
-    protected int buyPrice;
-    protected int sellPrice;
+    protected float buyPrice;
+    protected float sellPrice;
     private final Item toAdd;
 
-    public AddCommand(String itemName, int quantity, String uom, String category, int buyPrice, int sellPrice) {
+    public AddCommand(String itemName, int quantity, String uom, String category, float buyPrice, float sellPrice) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.uom = uom;
@@ -37,10 +37,10 @@ public class AddCommand extends Command {
     public String getUom() {
         return uom;
     }
-    public int getBuyPrice() {
+    public float getBuyPrice() {
         return buyPrice;
     }
-    public int getSellPrice() {
+    public float getSellPrice() {
         return sellPrice;
     }
 

@@ -56,10 +56,18 @@ edit Phone qty/0
 ### Finding an item: `find`
 Finds all items that contains `KEYWORD` 
 
-Format: `find KEYWORD`
+Format: `find [/filter1/filter2] KEYWORD`
 
+* Filter will specify the parameters that is being searched.
+* If no filter is applied, it will search all items that contains `KEYWORD.
 * The search is case-insensitive e.g. `apple` will match `Apple`.
 * Partial words will be matched e.g. `app` will match `Apple`.
+
+Example of usage:
+```
+find /qty/cat Apple //search for `Apple` under `ITEM_QUANTITY` and `CATEGORY`
+find Apple //search all items that contains `Apple`
+```
 
 ### Listing all items: `list`
 Lists all stored items.

@@ -1,7 +1,6 @@
 package command;
 
 import exceptions.CommandFormatException;
-import item.Item;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 

@@ -1,3 +1,0 @@
-
-1. | potatoes | Qty: 491 pieces | Cat: food | BuyPrice: $0.5 | SellPrice: $1.2
-2. | cherries | Qty: 999 pieces | Cat: fruit | BuyPrice: $0.2 | SellPrice: $0.5

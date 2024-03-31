@@ -28,7 +28,9 @@ public class Parser {
             Pattern.compile("del (?<itemName>[^/]+)");
 
     public static final Pattern EDIT_COMMAND_FORMAT =
-            Pattern.compile("edit (?<itemName>[^/]+) qty/(?<newQuantity>\\d+)");
+        Pattern.compile("edit (?<itemName>[^/]+)" +
+                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUom>[^/]+)|" +
+                "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
             Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)(?: price/(?<sellPrice>[^/]+))?");
@@ -139,15 +141,27 @@ public class Parser {
 
     private Command prepareEdit(String args) throws CommandFormatException{
         final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
-        // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
         }
-        int newQuantity = Integer.parseInt(matcher.group("newQuantity"));
-        assert newQuantity >= 0 : "New quantity should not be negative.";
+        String itemName = matcher.group("itemName");
+        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        int newQuantity = matcher.group("newQuantity") != null ?
+                Integer.parseInt(matcher.group("newQuantity")) : -1;
+        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
+        String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        float newBuyPrice = matcher.group("newBuyPrice") != null ?
+                Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        float newSellPrice = matcher.group("newSellPrice") != null ?
+                Float.parseFloat(matcher.group("newSellPrice")) : -1;
         return new EditCommand(
-            matcher.group("itemName"),
-            newQuantity
+                itemName,
+                newItemName,
+                newQuantity,
+                newUom,
+                newCategory,
+                newBuyPrice,
+                newSellPrice
         );
     }
 

@@ -10,7 +10,7 @@ public class AddCommand extends Command {
     protected String itemName;
     protected int quantity;
     protected String uom;
-    protected String category = "NA";
+    protected String category;
     protected float buyPrice;
     protected float sellPrice;
     private final Item toAdd;

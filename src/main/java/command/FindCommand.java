@@ -13,14 +13,14 @@ public class FindCommand extends Command {
     protected String itemInfo;
 
     public FindCommand(String itemInfo, String keyword) {
-        this.keyword = keyword;
+        this.keyword = keyword.toLowerCase();
         this.itemInfo = itemInfo;
     }
 
     @Override
     public void execute() {
         if (itemInfo.equals("NA")) {
-            itemInfo = "item + qty + uom + cat + buy + sell" + itemInfo;
+            itemInfo = "item + qty + uom + cat + buy + sell";
         }
         ArrayList<String> searchList = filterList();
         TextUi.showInventoryList(searchList);
@@ -38,8 +38,10 @@ public class FindCommand extends Command {
             if (itemInfo.toLowerCase().contains("uom") && item.getUom().toLowerCase().contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
-            if (itemInfo.toLowerCase().contains("cat") && item.getCategory().toLowerCase().contains(keyword)) {
-                searchList.add(String.valueOf(item));
+            if (item.getCategory() != null) {
+                if (itemInfo.toLowerCase().contains("cat") && item.getCategory().toLowerCase().contains(keyword)) {
+                    searchList.add(String.valueOf(item));
+                }
             }
             if (itemInfo.toLowerCase().contains("buy") && Float.toString(item.getBuyPrice()).contains(keyword)) {
                 searchList.add(String.valueOf(item));

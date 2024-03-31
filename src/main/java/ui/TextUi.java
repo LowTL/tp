@@ -2,6 +2,7 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import item.Item;
 
 public class TextUi {
 
@@ -69,6 +70,24 @@ public class TextUi {
             }
         }
     }
+    public static void showCategoryList (ArrayList<Item> arrayList, String category) {
+        if (arrayList.isEmpty()) {
+            replyToUser("There is nothing here! Time to spend some money and stock em up!");
+        } else {
+            int flag = 0;
+            int counter = 1;
+            for (Item item : arrayList) {
+                if (item.getCategory().equals(category)) {
+                    replyToUser(counter + ". Item Index: " + (arrayList.indexOf(item) + 1) + ". " + item);
+                    counter++;
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                replyToUser("No items were found within the category " + category + ".");
+            }
+        }
+    }
 
     public static void showEditMessage(String item, int oldQuantity, int newQuantity) {
         replyToUser("\n" +
@@ -76,7 +95,7 @@ public class TextUi {
         );
     }
 
-    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, int sellPrice) {
+    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
         replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
                 "Quantity remaining: " + remainingQuantity
         );

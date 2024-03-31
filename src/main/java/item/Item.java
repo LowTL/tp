@@ -68,14 +68,9 @@ public class Item {
         this.isOOS = false;
     }
 
-/*    public String toString() {
-        String categoryString = (getCategory() != null) ? " to " + getCategory() : ""; // Check if category is null
-        return (getItemName() + " (Qty " + getQuantity() + getUom() +
-                ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")" + categoryString);
-    }*/
     public String toString() {
-    String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : ""; // Check if category is null
-    return (getItemName() + " (Qty: " + getQuantity() + getUom() +
-            ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
-}
+        String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
+        return (getItemName() + " (Qty: " + getQuantity() + getUom() +
+                ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
+    }
 }

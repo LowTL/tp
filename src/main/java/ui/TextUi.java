@@ -1,6 +1,5 @@
 package ui;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.ArrayList;
 import java.util.Scanner;
 import item.Item;

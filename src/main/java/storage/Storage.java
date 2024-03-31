@@ -65,7 +65,8 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(new File(fileName));
             while (scanner.hasNext()) {
-                String fileLine = "add" + scanner.nextLine();
+                //String fileLine = "add" + scanner.nextLine();
+                String fileLine = scanner.nextLine();
                 String[] keyCommands = fileLine.split(" \\| ");
                 String commandQty = "";
                 String commandCat = "";
@@ -74,7 +75,7 @@ public class Storage {
                 String commandSell = "";
                 String commandName = "";
                 for (String keyCommand : keyCommands) {
-                    if (keyCommand.contains(".")) {
+                    if (keyCommand.contains("add")) {
                         //do nothing.
                     } else if (keyCommand.contains("Qty: ")) {
                         String[] commandQtyUnit = keyCommand.replace("Qty: ", "").split(" ");
@@ -88,12 +89,13 @@ public class Storage {
                     } else if (keyCommand.contains("SellPrice: $")) {
                         commandSell = keyCommand.replace("SellPrice: $", "");
                     } else {
-                        commandName = keyCommand;
+                        commandName = keyCommand.trim();
                     }
                 }
                 Item toAdd = new Item(commandName, Integer.parseInt(commandQty), commandUom, commandCat,
-                        Integer.parseInt(commandBuy), Integer.parseInt(commandSell));
+                        Float.parseFloat(commandBuy), Float.parseFloat(commandSell));
                 Itemlist.addItem(toAdd);
+
             }
             scanner.close();
         } catch(FileNotFoundException e) {

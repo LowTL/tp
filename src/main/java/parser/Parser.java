@@ -139,32 +139,6 @@ public class Parser {
         return new DeleteCommand(matcher.group("itemName"));
     }
 
-    private Command prepareEdit(String args) throws CommandFormatException{
-        final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new CommandFormatException(CommandType.EDIT);
-        }
-        String itemName = matcher.group("itemName");
-        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
-        int newQuantity = matcher.group("newQuantity") != null ?
-                Integer.parseInt(matcher.group("newQuantity")) : -1;
-        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
-        String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
-        float newBuyPrice = matcher.group("newBuyPrice") != null ?
-                Float.parseFloat(matcher.group("newBuyPrice")) : -1;
-        float newSellPrice = matcher.group("newSellPrice") != null ?
-                Float.parseFloat(matcher.group("newSellPrice")) : -1;
-        return new EditCommand(
-                itemName,
-                newItemName,
-                newQuantity,
-                newUom,
-                newCategory,
-                newBuyPrice,
-                newSellPrice
-        );
-    }
-
     private Command prepareSell(String args) throws CommandFormatException{
         final Matcher matcher = SELL_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -192,6 +166,33 @@ public class Parser {
             throw new CommandFormatException(CommandType.FIND);
         }
         return new FindCommand(matcher.group("itemName"));
+    }
+
+    //@@author Fureimi
+    private Command prepareEdit(String args) throws CommandFormatException{
+        final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.EDIT);
+        }
+        String itemName = matcher.group("itemName");
+        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        int newQuantity = matcher.group("newQuantity") != null ?
+                Integer.parseInt(matcher.group("newQuantity")) : -1;
+        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
+        String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        float newBuyPrice = matcher.group("newBuyPrice") != null ?
+                Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        float newSellPrice = matcher.group("newSellPrice") != null ?
+                Float.parseFloat(matcher.group("newSellPrice")) : -1;
+        return new EditCommand(
+                itemName,
+                newItemName,
+                newQuantity,
+                newUom,
+                newCategory,
+                newBuyPrice,
+                newSellPrice
+        );
     }
 
     private Command prepareList(String args) throws CommandFormatException {

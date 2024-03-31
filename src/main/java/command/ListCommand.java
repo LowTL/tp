@@ -1,19 +1,26 @@
 package command;
 
+import item.Item;
 import ui.TextUi;
 
 import java.util.ArrayList;
 
 public class ListCommand<T> extends Command{
 
-    protected ArrayList<T> arrayList;
+    protected ArrayList<Item> arrayList;
+    protected String category;
 
-    public ListCommand(ArrayList<T> arrayList) {
+    public ListCommand(ArrayList<Item> arrayList, String category) {
         this.arrayList = arrayList;
+        this.category = category;
     }
 
     public void execute() {
-        TextUi.showInventoryList(arrayList);
+        if (!category.equals("NA")) {
+            TextUi.showCategoryList(arrayList, category);
+        } else {
+            TextUi.showInventoryList(arrayList);
+        }
     }
 }
 

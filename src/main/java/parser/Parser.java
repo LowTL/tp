@@ -39,6 +39,8 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    public static final Pattern LIST_COMMAND_FORMAT =
+            Pattern.compile("list(?: (?<category>[^/]+))?");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -62,7 +64,11 @@ public class Parser {
         case HELP:
             return new HelpCommand();
         case LIST:
-            return new ListCommand<>(Itemlist.getItems());
+            try {
+                return prepareList(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         case ADD:
             try {
                 return prepareAdd(userInput);
@@ -172,6 +178,16 @@ public class Parser {
             throw new CommandFormatException(CommandType.FIND);
         }
         return new FindCommand(matcher.group("itemName"));
+    }
+
+    private Command prepareList(String args) throws CommandFormatException {
+        final Matcher matcher = LIST_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.LIST);
+        }
+        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        return new ListCommand<>(Itemlist.getItems(), category);
     }
 }
 

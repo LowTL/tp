@@ -1,3 +1,4 @@
+//@@author Fureimi
 package itemlist;
 import item.Item;
 

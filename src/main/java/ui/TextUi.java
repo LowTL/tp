@@ -72,6 +72,13 @@ public class TextUi {
         }
     }
 
+    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
+        replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
+                "Quantity remaining: " + remainingQuantity
+        );
+    }
+
+    //@@author Fureimi
     public static void showCategoryList(ArrayList<Item> arrayList, String category) {
         if (arrayList.isEmpty()) {
             replyToUser("There is nothing here! Time to spend some money and stock em up!");
@@ -116,9 +123,4 @@ public class TextUi {
         }
     }
 
-    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
-        replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
-                "Quantity remaining: " + remainingQuantity
-        );
-    }
 }

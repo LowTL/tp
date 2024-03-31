@@ -36,7 +36,7 @@ public class Parser {
             Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)(?: price/(?<sellPrice>[^/]+))?");
 
     public static final Pattern FIND_COMMAND_FORMAT =
-            Pattern.compile("find (?<itemName>[^/]+)");
+            Pattern.compile("find(?: /(?<itemInfo>[^/]+))* (?<keyword>[^/]+)");
 
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
@@ -191,7 +191,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);
         }
-        return new FindCommand(matcher.group("itemName"));
+        String itemInfo = matcher.group("itemInfo") != null ? matcher.group("itemInfo") : "NA";
+        return new FindCommand(
+                itemInfo,
+                matcher.group("keyword"));
     }
 
     private Command prepareList(String args) throws CommandFormatException {

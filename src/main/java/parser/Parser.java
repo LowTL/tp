@@ -21,14 +21,16 @@ import java.util.regex.Pattern;
 public class Parser {
     public static final Pattern ADD_COMMAND_FORMAT =
             Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<uom>[^/]+)" +
-                    "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d+) sell/(?<sellPrice>\\d+)");
+                    "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
 
 
     public static final Pattern DELETE_COMMAND_FORMAT =
             Pattern.compile("del (?<itemName>[^/]+)");
 
     public static final Pattern EDIT_COMMAND_FORMAT =
-            Pattern.compile("edit (?<itemName>[^/]+) qty/(?<newQuantity>\\d+)");
+        Pattern.compile("edit (?<itemName>[^/]+)" +
+                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUom>[^/]+)|" +
+                "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
             Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)(?: price/(?<sellPrice>[^/]+))?");
@@ -39,6 +41,8 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    public static final Pattern LIST_COMMAND_FORMAT =
+            Pattern.compile("list(?: (?<category>[^/]+))?");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -62,7 +66,11 @@ public class Parser {
         case HELP:
             return new HelpCommand();
         case LIST:
-            return new ListCommand<>(Itemlist.getItems());
+            try {
+                return prepareList(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         case ADD:
             try {
                 return prepareAdd(userInput);
@@ -109,8 +117,8 @@ public class Parser {
         }
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
         int quantity = Integer.parseInt(matcher.group("quantity"));
-        int buyPrice = Integer.parseInt(matcher.group("buyPrice"));
-        int sellPrice = Integer.parseInt(matcher.group("sellPrice"));
+        float buyPrice = Float.parseFloat(matcher.group("buyPrice"));
+        float sellPrice = Float.parseFloat(matcher.group("sellPrice"));
         assert quantity >= 0 : "Quantity should not be negative.";
         return new AddCommand(
                 matcher.group("itemName"),
@@ -133,15 +141,27 @@ public class Parser {
 
     private Command prepareEdit(String args) throws CommandFormatException{
         final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
-        // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
         }
-        int newQuantity = Integer.parseInt(matcher.group("newQuantity"));
-        assert newQuantity >= 0 : "New quantity should not be negative.";
+        String itemName = matcher.group("itemName");
+        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        int newQuantity = matcher.group("newQuantity") != null ?
+                Integer.parseInt(matcher.group("newQuantity")) : -1;
+        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
+        String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        float newBuyPrice = matcher.group("newBuyPrice") != null ?
+                Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        float newSellPrice = matcher.group("newSellPrice") != null ?
+                Float.parseFloat(matcher.group("newSellPrice")) : -1;
         return new EditCommand(
-            matcher.group("itemName"),
-            newQuantity
+                itemName,
+                newItemName,
+                newQuantity,
+                newUom,
+                newCategory,
+                newBuyPrice,
+                newSellPrice
         );
     }
 
@@ -172,6 +192,16 @@ public class Parser {
             throw new CommandFormatException(CommandType.FIND);
         }
         return new FindCommand(matcher.group("itemName"));
+    }
+
+    private Command prepareList(String args) throws CommandFormatException {
+        final Matcher matcher = LIST_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.LIST);
+        }
+        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        return new ListCommand<>(Itemlist.getItems(), category);
     }
 }
 

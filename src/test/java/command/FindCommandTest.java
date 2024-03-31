@@ -12,9 +12,8 @@ public class FindCommandTest {
     public void findCommandTest() throws CommandFormatException {
         Command addCommandTest1 = new AddCommand("testItem", 1, "EA",
                 "NA", 1, 10);
-        Command findCommand = new FindCommand("testItem");
-        Command findCommand2 = new FindCommand("failFindCommand");
-
+        Command findCommand = new FindCommand("item","testItem");
+        Command findCommand2 = new FindCommand("NA","failFindCommand");
         addCommandTest1.execute();
         findCommand.execute();
         findCommand2.execute();

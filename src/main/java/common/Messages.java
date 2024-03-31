@@ -17,7 +17,9 @@ public class Messages {
             "'sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]'";
     public static final String INVALID_SELL_PRICE ="Price cannot be negative!";
 
-    public static final String INVALID_FIND_FORMAT ="Invalid command format. Please use format: 'find [ITEM_NAME]'";
+    public static final String INVALID_FIND_FORMAT ="Invalid command format. Please use format: " + "\n" +
+            "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
+            "2. 'find /filter1/filter2 [KEYWORD] to search under the filters";
     public static final String WELCOME = "Welcome to StockMaster, where you can master the knowledge on your " +
             "Stock!";
 

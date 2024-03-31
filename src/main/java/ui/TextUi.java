@@ -2,6 +2,7 @@ package ui;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import item.Item;
 
 public class TextUi {
@@ -70,7 +71,8 @@ public class TextUi {
             }
         }
     }
-    public static void showCategoryList (ArrayList<Item> arrayList, String category) {
+
+    public static void showCategoryList(ArrayList<Item> arrayList, String category) {
         if (arrayList.isEmpty()) {
             replyToUser("There is nothing here! Time to spend some money and stock em up!");
         } else {
@@ -89,10 +91,29 @@ public class TextUi {
         }
     }
 
-    public static void showEditMessage(String item, int oldQuantity, int newQuantity) {
-        replyToUser("\n" +
-                "Changed quantity of " + item + " from " + oldQuantity + " to " + newQuantity
-        );
+    public static void showEditMessage(String item, String editedParameter, String oldParameter, String newParameter) {
+        switch (editedParameter) {
+        case "newItemName":
+            replyToUser("Name of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newQuantity":
+            replyToUser("Quantity of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newUom":
+            replyToUser("Unit of Measurement of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newCategory":
+            replyToUser("Category of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newBuyPrice":
+            replyToUser("Buy Price of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newSellPrice":
+            replyToUser("Sell Price of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        default:
+            break;
+        }
     }
 
     public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {

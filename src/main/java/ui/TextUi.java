@@ -17,7 +17,7 @@ public class TextUi {
         this.in = new Scanner(System.in);
     }
 
-    public String getUserInput() {
+    public static String getUserInput() {
         System.out.println("Enter Command:");
         Scanner in = new Scanner(System.in);
         String userInput = in.hasNextLine() ? in.nextLine() : "";

@@ -59,6 +59,7 @@ public class Storage {
      * Read lines from the file and identify tasks written inside.
      * Add the identified tasks into a list of existing tasks.
      *
+     * @param fileName Name of the file to read from.
      */
     public static void readFromFile(String fileName) {
         try {
@@ -102,6 +103,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Writes to the indicated file without overwriting the previous information.
+     *
+     * @param items List of items with relevant details to write.
+     */
     public static void addToFile(ArrayList<Item> items) {
         assert items != null : "Items cannot be null.";
         Item lastItem = items.get(items.size() - 1);
@@ -112,6 +118,11 @@ public class Storage {
         updateFile(descriptionAdded, true);
     }
 
+    /**
+     * Writes to the indicated file and overwrite previous data.
+     *
+     * @param items List of items with relevant details to write.
+     */
     public static void overwriteFile(ArrayList<Item> items) {
         assert items != null : "Items cannot be null.";
         int length = items.size();

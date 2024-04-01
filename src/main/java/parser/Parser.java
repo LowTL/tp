@@ -178,14 +178,20 @@ public class Parser {
             throw new CommandFormatException(CommandType.EDIT);
         }
         String itemName = matcher.group("itemName");
+        // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity = matcher.group("newQuantity") != null ?
                 Integer.parseInt(matcher.group("newQuantity")) : -1;
+        // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
         String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
                 matcher.group("newUnitOfMeasurement") : "NA";
+        // check if category was edited. If no, newCategory will be NA
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice = matcher.group("newBuyPrice") != null ?
                 Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        // check if sellPrice was edited. If no, newSellPrice will be -1
         float newSellPrice = matcher.group("newSellPrice") != null ?
                 Float.parseFloat(matcher.group("newSellPrice")) : -1;
         return new EditCommand(

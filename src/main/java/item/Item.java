@@ -24,11 +24,7 @@ public class Item {
         }
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
-        if (quantity == 0) {
-            this.isOOS = true;
-        } else {
-            this.isOOS = false;
-        }
+        this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
     }
 

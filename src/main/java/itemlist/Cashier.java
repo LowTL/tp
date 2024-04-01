@@ -18,4 +18,28 @@ public class Cashier extends Itemlist {
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }
+
+    public static float getRevenue() {
+        float revenue = 0;
+        for (Transaction t : getTransactions()) {
+            if (!t.getIsVoided()) {
+                revenue += t.getTotalPrice();
+            }
+        }
+        return revenue;
+    }
+
+    public float getTotalProfit() {
+        float totalProfit = 0;
+        for (Transaction t: transactions) {
+            if (!t.getIsVoided()) {
+                totalProfit += t.getProfit();
+            }
+        }
+        return totalProfit;
+    }
+
+    public static Transaction getTransaction(int index) {
+        return transactions.get(index);
+    }
 }

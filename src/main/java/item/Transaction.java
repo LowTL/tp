@@ -1,5 +1,7 @@
 package item;
 
+import itemlist.Cashier;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,6 +13,7 @@ public class Transaction {
     private int quantity;
     private float buyPrice;
     private float sellPrice;
+    private Boolean isVoided;
 
     public Transaction(String name, int inputQty, float inputBuy, float inputSell) {
         setDateTime();
@@ -20,6 +23,7 @@ public class Transaction {
         sellPrice = inputSell;
         totalPrice = sellPrice * quantity;
         profit = totalPrice - buyPrice * quantity;
+        isVoided = false;
     }
 
     public Transaction(String name, int inputQty, int inputBuy, int inputSell, String storedTime) {
@@ -56,9 +60,18 @@ public class Transaction {
         return this.profit;
     }
 
+    public Boolean getIsVoided() {
+        return this.isVoided;
+    }
+
     public void setDateTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.dateTime = currentTime.format(formatter);
+    }
+
+    public void voidTransaction(int index) {
+        Transaction txn = Cashier.getTransaction(index);
+        txn.isVoided = true;
     }
 }

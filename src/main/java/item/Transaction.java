@@ -1,6 +1,7 @@
 package item;
 
 import itemlist.Cashier;
+import itemlist.Itemlist;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ public class Transaction {
     private String dateTime;
     private float totalPrice;
     private float profit;
-    private String itemName;
+    private Item item;
     private int quantity;
     private float buyPrice;
     private float sellPrice;
@@ -17,7 +18,7 @@ public class Transaction {
 
     public Transaction(String name, int inputQty, float inputBuy, float inputSell) {
         setDateTime();
-        itemName = name;
+        item = Itemlist.getItem(name);
         quantity = inputQty;
         buyPrice = inputBuy;
         sellPrice = inputSell;
@@ -28,7 +29,7 @@ public class Transaction {
 
     public Transaction(String name, int inputQty, int inputBuy, int inputSell, String storedTime) {
         dateTime = storedTime;
-        itemName = name;
+        item = Itemlist.getItem(name);
         quantity = inputQty;
         buyPrice = inputBuy;
         sellPrice = inputSell;
@@ -37,7 +38,7 @@ public class Transaction {
     }
 
     public String getItemName() {
-        return this.itemName;
+        return this.item.getItemName();
     }
 
     public int getQuantity() {

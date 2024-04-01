@@ -43,6 +43,14 @@ public class Itemlist {
         return items.get(index);
     }
 
+    public static Item getItem(String name) {
+        for (Item i: items) {
+            if (i.getItemName().equals(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
     public static int getIndex(Item item) {
         return items.indexOf(item);
     }

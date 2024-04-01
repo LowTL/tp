@@ -1,5 +1,6 @@
 package itemlist;
 
+import item.Item;
 import item.Transaction;
 
 import java.util.ArrayList;
@@ -41,5 +42,15 @@ public class Cashier extends Itemlist {
 
     public static Transaction getTransaction(int index) {
         return transactions.get(index);
+    }
+
+    public Item getBestseller() {
+        Item bestSeller = Itemlist.getItem(0);
+        for (Transaction t: transactions) {
+            if (!t.getIsVoided()) {
+
+            }
+        }
+        return bestSeller;
     }
 }

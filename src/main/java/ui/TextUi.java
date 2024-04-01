@@ -3,6 +3,8 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import item.Item;
+
 public class TextUi {
 
     public static final String DIVIDER = "----------------";
@@ -70,15 +72,55 @@ public class TextUi {
         }
     }
 
-    public static void showEditMessage(String item, int oldQuantity, int newQuantity) {
-        replyToUser("\n" +
-                "Changed quantity of " + item + " from " + oldQuantity + " to " + newQuantity
-        );
-    }
-
-    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, int sellPrice) {
+    public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
         replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
                 "Quantity remaining: " + remainingQuantity
         );
     }
+
+    //@@author Fureimi
+    public static void showCategoryList(ArrayList<Item> arrayList, String category) {
+        if (arrayList.isEmpty()) {
+            replyToUser("There is nothing here! Time to spend some money and stock em up!");
+        } else {
+            int flag = 0;
+            int counter = 1;
+            for (Item item : arrayList) {
+                if (item.getCategory().equals(category)) {
+                    replyToUser(counter + ". Item Index: " + (arrayList.indexOf(item) + 1) + ". " + item);
+                    counter++;
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                replyToUser("No items were found within the category " + category + ".");
+            }
+        }
+    }
+
+    public static void showEditMessage(String item, String editedParameter, String oldParameter, String newParameter) {
+        switch (editedParameter) {
+        case "newItemName":
+            replyToUser("Name of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newQuantity":
+            replyToUser("Quantity of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newUom":
+            replyToUser("Unit of Measurement of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newCategory":
+            replyToUser("Category of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newBuyPrice":
+            replyToUser("Buy Price of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        case "newSellPrice":
+            replyToUser("Sell Price of " + item + " from " + oldParameter + " to " + newParameter);
+            break;
+        default:
+            break;
+        }
+    }
+
 }

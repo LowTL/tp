@@ -7,14 +7,13 @@ import itemlist.Itemlist;
 import storage.Storage;
 import storage.TransactionLogs;
 
-
 public class SellCommand extends Command {
 
     protected String itemName;
     protected int sellQuantity;
-    protected int sellPrice;
+    protected float sellPrice;
 
-    public SellCommand (String itemName, int quantity, int price) {
+    public SellCommand (String itemName, int quantity, float price) {
         this.itemName = itemName;
         this.sellQuantity = quantity;
         this.sellPrice = price;
@@ -32,7 +31,7 @@ public class SellCommand extends Command {
             }
         }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        int sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
+        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
         if (index == -1) {
             //throw exception;
             System.out.println("Item not found!");

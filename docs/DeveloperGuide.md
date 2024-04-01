@@ -9,6 +9,11 @@
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 ### Exception
 ### Itemlist
+Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, remove functions, edit items inside
+the list.
+### Item
+Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item price, 
+quantity of item, and others.
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
 It contains command formats that must be adhered to for the methods to be called.

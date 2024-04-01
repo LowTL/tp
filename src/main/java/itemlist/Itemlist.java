@@ -1,9 +1,11 @@
+//@@author Fureimi
 package itemlist;
 import item.Item;
 
 import java.util.ArrayList;
 
 public class Itemlist {
+    public static int noOfItems;
     private static final ArrayList<Item> items = new ArrayList<>();
 
     public Itemlist() {

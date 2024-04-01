@@ -10,17 +10,17 @@ public class EditCommand extends Command{
     protected String itemName;
     protected String newItemName;
     protected int newQuantity;
-    protected String newUom;
+    protected String newUnitOfMeasurement;
     protected String newCategory;
     protected float newBuyPrice;
     protected float newSellPrice;
 
-    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUom, String newCategory,
+    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement, String newCategory,
                         float newBuyPrice, float newSellPrice) {
         this.itemName = itemName;
         this.newItemName = newItemName;
         this.newQuantity = newQuantity;
-        this.newUom = newUom;
+        this.newUnitOfMeasurement = newUnitOfMeasurement;
         this.newCategory = newCategory;
         this.newBuyPrice = newBuyPrice;
         this.newSellPrice = newSellPrice;
@@ -41,8 +41,7 @@ public class EditCommand extends Command{
         } else {
             Item item = Itemlist.getItem(index);
             String itemName = item.getItemName();
-            ui.TextUi.replyToUser("\n" +
-                    "Changed: ");
+            ui.TextUi.replyToUser("\n" + "Edited: ");
             if (!newItemName.equals("NA")) {
                 ui.TextUi.showEditMessage(itemName, "newItemName", itemName, newItemName);
                 item.setItemName(newItemName);
@@ -52,9 +51,9 @@ public class EditCommand extends Command{
                         String.valueOf(newQuantity));
                 item.setQuantity(newQuantity);
             }
-            if (!newUom.equals("NA")) {
-                ui.TextUi.showEditMessage(itemName, "newUom", item.getUom(), newUom);
-                item.setUom(newUom);
+            if (!newUnitOfMeasurement.equals("NA")) {
+                ui.TextUi.showEditMessage(itemName, "newUnitOfMeasurement", item.getUnitOfMeasurement(), newUnitOfMeasurement);
+                item.setUnitOfMeasurement(newUnitOfMeasurement);
             }
             if (!newCategory.equals("NA")) {
                 ui.TextUi.showEditMessage(itemName, "newCategory", String.valueOf(item.getCategory()),
@@ -72,6 +71,7 @@ public class EditCommand extends Command{
                 item.setSellPrice(newSellPrice);
             }
         }
+        ui.TextUi.replyToUser("End of Edits");
         ui.TextUi.replyToUser("");
         Storage.overwriteFile(Itemlist.getItems());
     }

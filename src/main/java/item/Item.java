@@ -6,17 +6,17 @@ import itemlist.Itemlist;
 public class Item {
     private String itemName;
     private int quantity;
-    private String uom;
+    private String unitOfMeasurement;
     private String category;
     private float buyPrice;
     private float sellPrice;
     private boolean isOOS;
 
-    public Item(String name, int quantity, String uom, String category, float buyPrice, float sellPrice) {
+    public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;
         this.quantity = quantity;
         assert quantity>= 0 : "Quantity should not be negative.";
-        this.uom = uom;
+        this.unitOfMeasurement = unitOfMeasurement;
         if (category.isEmpty()) {
             this.category = "NA";
         } else {
@@ -51,12 +51,12 @@ public class Item {
         this.itemName = newName;
     }
 
-    public String getUom() {
-        return uom;
+    public String getUnitOfMeasurement() {
+        return unitOfMeasurement;
     }
 
-    public void setUom(String newUom) {
-        this.uom = newUom;
+    public void setUnitOfMeasurement(String newUnitOfMeasurement) {
+        this.unitOfMeasurement = newUnitOfMeasurement;
     }
 
     public int getQuantity() {
@@ -93,7 +93,7 @@ public class Item {
 
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
-        return (getItemName() + " (Qty: " + getQuantity() + getUom() +
+        return (getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
                 ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

@@ -106,7 +106,7 @@ public class TextUi {
         case "newQuantity":
             replyToUser("Quantity of " + item + " from " + oldParameter + " to " + newParameter);
             break;
-        case "newUom":
+        case "newUnitOfMeasurement":
             replyToUser("Unit of Measurement of " + item + " from " + oldParameter + " to " + newParameter);
             break;
         case "newCategory":

@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<uom>[^/]+)" +
+            Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
                     "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
 
 
@@ -29,7 +29,7 @@ public class Parser {
 
     public static final Pattern EDIT_COMMAND_FORMAT =
         Pattern.compile("edit (?<itemName>[^/]+)" +
-                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUom>[^/]+)|" +
+                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUnitOfMeasurement>[^/]+)|" +
                 "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
@@ -123,7 +123,7 @@ public class Parser {
         return new AddCommand(
                 matcher.group("itemName"),
                 quantity,
-                matcher.group("uom"),
+                matcher.group("unitOfMeasurement"),
                 category,
                 buyPrice,
                 sellPrice
@@ -181,7 +181,8 @@ public class Parser {
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
         int newQuantity = matcher.group("newQuantity") != null ?
                 Integer.parseInt(matcher.group("newQuantity")) : -1;
-        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
+        String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
+                matcher.group("newUnitOfMeasurement") : "NA";
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
         float newBuyPrice = matcher.group("newBuyPrice") != null ?
                 Float.parseFloat(matcher.group("newBuyPrice")) : -1;
@@ -191,7 +192,7 @@ public class Parser {
                 itemName,
                 newItemName,
                 newQuantity,
-                newUom,
+                newUnitOfMeasurement,
                 newCategory,
                 newBuyPrice,
                 newSellPrice

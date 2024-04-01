@@ -41,6 +41,10 @@ public class Transaction {
         return this.item.getItemName();
     }
 
+    public Item getItem() {
+        return this.item;
+    }
+
     public int getQuantity() {
         return this.quantity;
     }

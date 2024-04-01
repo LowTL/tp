@@ -6,6 +6,7 @@ import item.Transaction;
 import java.util.ArrayList;
 
 public class Cashier extends Itemlist {
+
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
@@ -20,7 +21,7 @@ public class Cashier extends Itemlist {
         return transactions;
     }
 
-    public static float getRevenue() {
+    public static float getTotalRevenue() {
         float revenue = 0;
         for (Transaction t : getTransactions()) {
             if (!t.getIsVoided()) {
@@ -46,9 +47,15 @@ public class Cashier extends Itemlist {
 
     public Item getBestseller() {
         Item bestSeller = Itemlist.getItem(0);
+        float[] profits = new float[Itemlist.items.size()];
         for (Transaction t: transactions) {
             if (!t.getIsVoided()) {
-
+                profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+            }
+        }
+        for (int i = 1; i < Itemlist.items.size(); i++) {
+            if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
+                bestSeller = Itemlist.getItem(i);
             }
         }
         return bestSeller;

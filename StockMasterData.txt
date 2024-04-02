@@ -38,4 +38,3 @@
 38. | testItem | Qty: 1 EA | Cat: null | BuyPrice: $1.0 | SellPrice: $10.0
 39. | testItem | Qty: 1 EA | Cat: null | BuyPrice: $1.0 | SellPrice: $10.0
 40. | testItem | Qty: 1 EA | Cat: null | BuyPrice: $1.0 | SellPrice: $10.0
-41. | potatoes | Qty: 50 pieces | Cat: food | BuyPrice: $0.2 | SellPrice: $1.2

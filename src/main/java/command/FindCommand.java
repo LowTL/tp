@@ -35,7 +35,7 @@ public class FindCommand extends Command {
             if (itemInfo.toLowerCase().contains("qty") && Integer.toString(item.getQuantity()).contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
-            if (itemInfo.toLowerCase().contains("uom") && item.getUom().toLowerCase().contains(keyword)) {
+            if (itemInfo.toLowerCase().contains("uom") && item.getUnitOfMeasurement().toLowerCase().contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
             if (item.getCategory() != null) {

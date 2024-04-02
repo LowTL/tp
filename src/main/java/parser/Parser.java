@@ -34,7 +34,7 @@ public class Parser {
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     public static final Pattern LIST_COMMAND_FORMAT =
-            Pattern.compile("list(?: (?<category>[^/]+))?");
+            Pattern.compile("list(?:\\s+(?<isMark>marked))?(?:\\s+cat/(?<category>[^/]+))?");
 
     public static final Pattern MARK_COMMAND_FORMAT =
             Pattern.compile("mark (?<itemName>[^/]+)");
@@ -221,7 +221,8 @@ public class Parser {
             throw new CommandFormatException(CommandType.LIST);
         }
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
-        return new ListCommand<>(Itemlist.getItems(), category);
+        Boolean listMarked = matcher.group("isMark") != null;
+        return new ListCommand<>(Itemlist.getItems(), category, listMarked);
     }
 
     private Command prepareMark(String args) throws CommandFormatException {

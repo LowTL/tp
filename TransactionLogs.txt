@@ -1,0 +1,24 @@
+Date: 2024-04-01 21:17:43
+Transaction ID: 1
+Item Name: [ITEM_NAME]
+Quantity: 10
+Unit Price: 2.0
+Total Price: 20.0
+Profit: 15.0
+
+Date: 2024-04-01 21:22:03
+Transaction ID: 2
+Item Name: [ITEM_NAME]
+Quantity: 10
+Unit Price: 5.0
+Total Price: 50.0
+Profit: 45.0
+
+Date: 2024-04-01 21:24:46
+Transaction ID: 3
+Item Name: [ITEM_NAME]
+Quantity: 10
+Unit Price: 1.5
+Total Price: 15.0
+Profit: 10.0
+

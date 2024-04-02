@@ -3,6 +3,7 @@ package command;
 import exceptions.CommandFormatException;
 import itemlist.Itemlist;
 import item.Item;
+import storage.Storage;
 
 
 public class MarkCommand extends Command {
@@ -24,5 +25,6 @@ public class MarkCommand extends Command {
             item.mark();
             ui.TextUi.replyToUser("Successfully marked " + item + "!");
         }
+        Storage.overwriteFile(Itemlist.getItems());
     }
 }

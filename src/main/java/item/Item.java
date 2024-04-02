@@ -100,6 +100,10 @@ public class Item {
         this.isMark = false;
     }
 
+    public boolean getMarkStatus() {
+        return this.isMark;
+    }
+
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";

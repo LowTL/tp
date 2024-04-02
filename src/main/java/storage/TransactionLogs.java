@@ -35,7 +35,7 @@ public class TransactionLogs extends Storage {
             String commandDate = "";
             while (scanner.hasNext()) {
                 String fileLine = scanner.nextLine();
-                System.out.println(fileLine);
+                //System.out.println(fileLine);
                 if (fileLine.contains("Quantity: ")) {
                     commandQty = fileLine.replace("Quantity: ", "");
                 } else if (fileLine.contains("Date: ")) {

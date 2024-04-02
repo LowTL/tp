@@ -8,5 +8,7 @@ public enum CommandType {
     DEL,
     EDIT,
     SELL,
-    FIND
+    FIND,
+    MARK,
+    UNMARK
 }

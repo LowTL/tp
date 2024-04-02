@@ -26,6 +26,12 @@ public class CommandFormatException extends Exception{
         case HELP:
             System.out.println(Messages.HELP);
             break;
+        case MARK:
+            System.out.println(Messages.INVALID_MARK_FORMAT);
+            break;
+        case UNMARK:
+            System.out.println(Messages.INVALID_UNMARK_FORMAT);
+            break;
         default:
             System.out.println(Messages.INVALID_COMMAND);
             break;

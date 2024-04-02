@@ -11,6 +11,7 @@ public class Item {
     private float buyPrice;
     private float sellPrice;
     private boolean isOOS;
+    public boolean isMark;
 
     public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;
@@ -87,9 +88,18 @@ public class Item {
         this.isOOS = false;
     }
 
+    public void mark() {
+        this.isMark = true;
+    }
+
+    public void unmark() {
+        this.isMark = false;
+    }
+
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
-        return (getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
+        String markString = (this.isMark) ? "[X] " : "[ ] ";
+        return (markString + getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
                 ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

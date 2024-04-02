@@ -1,17 +1,9 @@
 package parser;
 
-import command.AddCommand;
-import command.Command;
-import command.DeleteCommand;
-import command.EditCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.HelpCommand;
-import command.IncorrectCommand;
-import command.ListCommand;
-import command.SellCommand;
+import command.*;
 import common.Messages;
 import exceptions.CommandFormatException;
+import item.Item;
 import itemlist.Itemlist;
 
 
@@ -43,6 +35,11 @@ public class Parser {
 
     public static final Pattern LIST_COMMAND_FORMAT =
             Pattern.compile("list(?: (?<category>[^/]+))?");
+
+    public static final Pattern MARK_COMMAND_FORMAT =
+            Pattern.compile("mark (?<itemName>[^/]+)");
+    public static final Pattern UNMARK_COMMAND_FORMAT =
+            Pattern.compile("unmark (?<itemName>[^/]+)");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -98,6 +95,18 @@ public class Parser {
         case SELL:
             try {
                 return prepareSell(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
+        case MARK:
+            try {
+                return prepareMark(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
+        case UNMARK:
+            try {
+                return prepareUnmark(userInput);
             } catch (CommandFormatException e) {
                 break;
             }
@@ -213,6 +222,24 @@ public class Parser {
         }
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
         return new ListCommand<>(Itemlist.getItems(), category);
+    }
+
+    private Command prepareMark(String args) throws CommandFormatException {
+        final Matcher matcher = MARK_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.MARK);
+        }
+        String itemName = matcher.group("itemName");
+        return new MarkCommand(itemName);
+    }
+
+    private Command prepareUnmark(String args) throws CommandFormatException {
+        final Matcher matcher = UNMARK_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.UNMARK);
+        }
+        String itemName = matcher.group("itemName");
+        return new UnmarkCommand(itemName);
     }
 }
 

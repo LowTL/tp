@@ -81,10 +81,11 @@ public class TextUi {
     }
 
     //@@author Fureimi
-    public static void showCategoryList(ArrayList<Item> arrayList, String category) {
+    public static void showCustomizedList(ArrayList<Item> arrayList, String category, boolean isListMarked) {
         if (arrayList.isEmpty()) {
             replyToUser("There is nothing here! Time to spend some money and stock em up!");
-        } else {
+            // case 1: user wants to list all items of a certain category
+        } else if (!category.equals("NA") && !isListMarked) {
             int flag = 0;
             int counter = 1;
             for (Item item : arrayList) {
@@ -97,6 +98,34 @@ public class TextUi {
             if (flag == 0) {
                 replyToUser("No items were found within the category " + category + ".");
             }
+            // case 2: user wants to list all marked items
+        } else if (category.equals("NA") && isListMarked) {
+            int flag = 0;
+            int counter = 1;
+            for (Item item : arrayList) {
+                if (item.isMark) {
+                    replyToUser(counter + ". Item Index: " + (arrayList.indexOf(item) + 1) + ". " + item);
+                    counter++;
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                replyToUser("There are no marked items in your inventory list!");
+            }
+            // case 3: user wants to list all marked items of a certain category
+        } else if (!category.equals("NA") && isListMarked) {
+            int flag = 0;
+            int counter = 1;
+            for (Item item : arrayList) {
+                if (item.isMark && item.getCategory().equals(category)) {
+                    replyToUser(counter + ". Item Index: " + (arrayList.indexOf(item) + 1) + ". " + item);
+                    counter++;
+                    flag = 1;
+                }
+            }
+            if (flag == 0) {
+                replyToUser("There are no marked items of category '" + category + "' in your inventory list!");
+            }
         }
     }
 
@@ -108,7 +137,7 @@ public class TextUi {
         case "newQuantity":
             replyToUser("Quantity of " + item + " from " + oldParameter + " to " + newParameter);
             break;
-        case "newUom":
+        case "newUnitOfMeasurement":
             replyToUser("Unit of Measurement of " + item + " from " + oldParameter + " to " + newParameter);
             break;
         case "newCategory":

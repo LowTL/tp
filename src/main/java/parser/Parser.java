@@ -1,7 +1,6 @@
 package parser;
 
 import command.AddCommand;
-import command.Command;
 import command.DeleteCommand;
 import command.EditCommand;
 import command.ExitCommand;
@@ -9,9 +8,12 @@ import command.FindCommand;
 import command.HelpCommand;
 import command.IncorrectCommand;
 import command.ListCommand;
+import command.MarkCommand;
 import command.SellCommand;
+import command.UnmarkCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
+import command.Command;
 import itemlist.Itemlist;
 
 
@@ -20,7 +22,7 @@ import java.util.regex.Pattern;
 
 public class Parser {
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<uom>[^/]+)" +
+            Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
                     "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
 
 
@@ -29,7 +31,7 @@ public class Parser {
 
     public static final Pattern EDIT_COMMAND_FORMAT =
         Pattern.compile("edit (?<itemName>[^/]+)" +
-                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUom>[^/]+)|" +
+                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUnitOfMeasurement>[^/]+)|" +
                 "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
@@ -42,7 +44,12 @@ public class Parser {
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     public static final Pattern LIST_COMMAND_FORMAT =
-            Pattern.compile("list(?: (?<category>[^/]+))?");
+            Pattern.compile("list(?:\\s+(?<isMark>marked))?(?:\\s+cat/(?<category>[^/]+))?");
+
+    public static final Pattern MARK_COMMAND_FORMAT =
+            Pattern.compile("mark (?<itemName>[^/]+)");
+    public static final Pattern UNMARK_COMMAND_FORMAT =
+            Pattern.compile("unmark (?<itemName>[^/]+)");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -101,6 +108,18 @@ public class Parser {
             } catch (CommandFormatException e) {
                 break;
             }
+        case MARK:
+            try {
+                return prepareMark(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
+        case UNMARK:
+            try {
+                return prepareUnmark(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
@@ -123,7 +142,7 @@ public class Parser {
         return new AddCommand(
                 matcher.group("itemName"),
                 quantity,
-                matcher.group("uom"),
+                matcher.group("unitOfMeasurement"),
                 category,
                 buyPrice,
                 sellPrice
@@ -178,20 +197,27 @@ public class Parser {
             throw new CommandFormatException(CommandType.EDIT);
         }
         String itemName = matcher.group("itemName");
+        // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity = matcher.group("newQuantity") != null ?
                 Integer.parseInt(matcher.group("newQuantity")) : -1;
-        String newUom = matcher.group("newUom") != null ? matcher.group("newUom") : "NA";
+        // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
+        String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
+                matcher.group("newUnitOfMeasurement") : "NA";
+        // check if category was edited. If no, newCategory will be NA
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice = matcher.group("newBuyPrice") != null ?
                 Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        // check if sellPrice was edited. If no, newSellPrice will be -1
         float newSellPrice = matcher.group("newSellPrice") != null ?
                 Float.parseFloat(matcher.group("newSellPrice")) : -1;
         return new EditCommand(
                 itemName,
                 newItemName,
                 newQuantity,
-                newUom,
+                newUnitOfMeasurement,
                 newCategory,
                 newBuyPrice,
                 newSellPrice
@@ -205,7 +231,26 @@ public class Parser {
             throw new CommandFormatException(CommandType.LIST);
         }
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
-        return new ListCommand<>(Itemlist.getItems(), category);
+        Boolean listMarked = matcher.group("isMark") != null;
+        return new ListCommand<>(Itemlist.getItems(), category, listMarked);
+    }
+
+    private Command prepareMark(String args) throws CommandFormatException {
+        final Matcher matcher = MARK_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.MARK);
+        }
+        String itemName = matcher.group("itemName");
+        return new MarkCommand(itemName);
+    }
+
+    private Command prepareUnmark(String args) throws CommandFormatException {
+        final Matcher matcher = UNMARK_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.UNMARK);
+        }
+        String itemName = matcher.group("itemName");
+        return new UnmarkCommand(itemName);
     }
 }
 

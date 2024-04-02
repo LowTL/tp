@@ -17,7 +17,7 @@ public class LowStockReminder {
 
     private static void outOfStockItemsReminder(){
         int count = 0;
-        System.out.println("Out-of-stock Items: ");
+        System.out.println("Out-of-stock Items:");
         for (Item item : Itemlist.getItems()) {
             if (item.getIsOOS()) {
                 System.out.println(item.getItemName());
@@ -31,7 +31,7 @@ public class LowStockReminder {
 
     private static void lowOnStockItemsReminder(){
         int count = 0;
-        System.out.println("Low-on-stock Items: ");
+        System.out.println("Low-on-stock Items:");
         for (Item item : Itemlist.getItems()) {
             if (item.getQuantity() <= 5 && item.getQuantity() > 0) {  //low stock condition
                 System.out.println(item.getItemName());

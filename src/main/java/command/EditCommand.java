@@ -15,7 +15,8 @@ public class EditCommand extends Command{
     protected float newBuyPrice;
     protected float newSellPrice;
 
-    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement, String newCategory,
+    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
+                        String newCategory,
                         float newBuyPrice, float newSellPrice) {
         this.itemName = itemName;
         this.newItemName = newItemName;
@@ -52,7 +53,8 @@ public class EditCommand extends Command{
                 item.setQuantity(newQuantity);
             }
             if (!newUnitOfMeasurement.equals("NA")) { // check if unitOfMeasurement was edited
-                ui.TextUi.showEditMessage(itemName, "newUnitOfMeasurement", item.getUnitOfMeasurement(), newUnitOfMeasurement);
+                ui.TextUi.showEditMessage(itemName, "newUnitOfMeasurement", item.getUnitOfMeasurement(),
+                        newUnitOfMeasurement);
                 item.setUnitOfMeasurement(newUnitOfMeasurement);
             }
             if (!newCategory.equals("NA")) { // check if category was edited

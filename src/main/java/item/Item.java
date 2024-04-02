@@ -4,6 +4,7 @@ package item;
 import itemlist.Itemlist;
 
 public class Item {
+    public boolean isMark;
     private String itemName;
     private int quantity;
     private String unitOfMeasurement;
@@ -11,7 +12,6 @@ public class Item {
     private float buyPrice;
     private float sellPrice;
     private boolean isOOS;
-    public boolean isMark;
 
     public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;

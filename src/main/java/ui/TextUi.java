@@ -73,8 +73,10 @@ public class TextUi {
     }
 
     public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
+        float totalValue = sellQuantity * sellPrice;
         replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
-                "Quantity remaining: " + remainingQuantity
+                "Quantity remaining: " + remainingQuantity + "\n" +
+                "Total value sold: " + totalValue
         );
     }
 

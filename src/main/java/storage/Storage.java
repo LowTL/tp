@@ -65,7 +65,6 @@ public class Storage {
         try {
             Scanner scanner = new Scanner(new File(fileName));
             while (scanner.hasNext()) {
-                //String fileLine = "add" + scanner.nextLine();
                 String fileLine = scanner.nextLine();
                 String[] keyCommands = fileLine.split(" \\| ");
                 String commandQty = "";
@@ -74,6 +73,7 @@ public class Storage {
                 String commandBuy = "";
                 String commandSell = "";
                 String commandName = "";
+                String commandIsMarked = "";
                 for (String keyCommand : keyCommands) {
                     if (keyCommand.contains("add")) {
                         //do nothing.
@@ -88,12 +88,19 @@ public class Storage {
                         commandBuy = keyCommand.replace("BuyPrice: $", "");
                     } else if (keyCommand.contains("SellPrice: $")) {
                         commandSell = keyCommand.replace("SellPrice: $", "");
+                    } else if (keyCommand.contains("[")) {
+                        commandIsMarked = keyCommand.contains("X") ? "true" : "false";
                     } else {
                         commandName = keyCommand.trim();
                     }
                 }
                 Item toAdd = new Item(commandName, Integer.parseInt(commandQty), commandUom, commandCat,
                         Float.parseFloat(commandBuy), Float.parseFloat(commandSell));
+                if (commandIsMarked.equals("true")) {
+                    toAdd.mark();
+                } else if (commandIsMarked.equals("false")) {
+                    toAdd.unmark();
+                }
                 Itemlist.addItem(toAdd);
 
             }
@@ -113,10 +120,12 @@ public class Storage {
     public static void addToFile(ArrayList<Item> items) {
         assert items != null : "Items cannot be null.";
         Item lastItem = items.get(items.size() - 1);
-        String descriptionAdded = (items.size()) + "." + " | " + lastItem.getItemName() +
-                " | " + "Qty: " + lastItem.getQuantity() + " " + lastItem.getUom() +
-                " | " + "Cat: " + lastItem.getCategory() + " | " + "BuyPrice: $" +
-                lastItem.getBuyPrice() + " | " + "SellPrice: $" + lastItem.getSellPrice() + "\n";
+        String markString = (lastItem.getMarkStatus()) ? "[X] " : "[ ] ";
+        String descriptionAdded = (items.size()) + "." + " | " + markString + " | " +
+                lastItem.getItemName() + " | " + "Qty: " + lastItem.getQuantity() + " " +
+                lastItem.getUnitOfMeasurement() + " | " + "Cat: " + lastItem.getCategory() +
+                " | " + "BuyPrice: $" + lastItem.getBuyPrice() + " | " + "SellPrice: $" +
+                lastItem.getSellPrice() + "\n";
         updateFile(descriptionAdded, true);
     }
 
@@ -129,11 +138,12 @@ public class Storage {
         assert items != null : "Items cannot be null.";
         int length = items.size();
         for (int index = 0; index < length; index++) {
-            String descriptionAdded = (index + 1) + "." + " | " + items.get(index).getItemName() +
-                    " | " + "Qty: " + items.get(index).getQuantity() + " " + items.get(index).getUom() +
-                    " | " + "Cat: " + items.get(index).getCategory() + " | " + "BuyPrice: $" +
-                    items.get(index).getBuyPrice() + " | " + "SellPrice: $" +
-                    items.get(index).getSellPrice() + "\n";
+            String markString = (items.get(index).getMarkStatus()) ? "[X] " : "[ ] ";
+            String descriptionAdded = (index + 1) + "." + " | " + markString + " | " +
+                    items.get(index).getItemName() + " | " + "Qty: " + items.get(index).getQuantity() +
+                    " " + items.get(index).getUnitOfMeasurement() + " | " + "Cat: " +
+                    items.get(index).getCategory() + " | " + "BuyPrice: $" + items.get(index).getBuyPrice() +
+                    " | " + "SellPrice: $" + items.get(index).getSellPrice() + "\n";
             if (index == 0) {
                 updateFile(descriptionAdded, false);
             } else {

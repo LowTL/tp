@@ -7,7 +7,6 @@ import itemlist.Itemlist;
 import storage.Storage;
 import storage.TransactionLogs;
 
-
 public class SellCommand extends Command {
 
     protected String itemName;

@@ -6,22 +6,50 @@ import ui.TextUi;
 
 import java.util.ArrayList;
 
-public class FindCommand extends Command{
+public class FindCommand extends Command {
 
-    protected String itemName;
+    protected String keyword;
 
-    public FindCommand(String itemName) {
-        this.itemName = itemName;
+    protected String itemInfo;
+
+    public FindCommand(String itemInfo, String keyword) {
+        this.keyword = keyword.toLowerCase();
+        this.itemInfo = itemInfo;
     }
 
     @Override
     public void execute() {
+        if (itemInfo.equals("NA")) {
+            itemInfo = "item + qty + uom + cat + buy + sell";
+        }
+        ArrayList<String> searchList = filterList();
+        TextUi.showInventoryList(searchList);
+    }
+
+    public ArrayList<String> filterList() {
         ArrayList<String> searchList = new ArrayList<>();
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().contains(itemName)) {
+            if (itemInfo.toLowerCase().contains("item") && item.getItemName().toLowerCase().contains(keyword)) {
+                searchList.add(String.valueOf(item));
+            }
+            if (itemInfo.toLowerCase().contains("qty") && Integer.toString(item.getQuantity()).contains(keyword)) {
+                searchList.add(String.valueOf(item));
+            }
+            if (itemInfo.toLowerCase().contains("uom") && item.getUnitOfMeasurement().toLowerCase().contains(keyword)) {
+                searchList.add(String.valueOf(item));
+            }
+            if (item.getCategory() != null) {
+                if (itemInfo.toLowerCase().contains("cat") && item.getCategory().toLowerCase().contains(keyword)) {
+                    searchList.add(String.valueOf(item));
+                }
+            }
+            if (itemInfo.toLowerCase().contains("buy") && Float.toString(item.getBuyPrice()).contains(keyword)) {
+                searchList.add(String.valueOf(item));
+            }
+            if (itemInfo.toLowerCase().contains("sell") && Float.toString(item.getSellPrice()).contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
         }
-        TextUi.showInventoryList(searchList);
+        return searchList;
     }
 }

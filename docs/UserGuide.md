@@ -19,14 +19,18 @@ StockMaster is a platform aimed at helping SMEs track and organise their invento
 ### Adding an item: `add`
 Adds a new item to the list of items.
 
-Format: `add ITEM_NAME qty/ITEM_QUANTITY [cat/CATEGORY]`
+Format: `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`
 
 * `CATEGORY` is an optional field. If blank, it will default to `N/A`.
 
+> [ !NOTE ]
+> 
+> Addition of an item with the same `ITEM_NAME` will edit the `ITEM_QUANTITY` instead
+
 Example of usage: 
 ```
-add Apples qty/50
-add Phone qty/5 cat/Electronics
+add Apple qty/50 /pieces cat/fruits buy/4 sell/5
+add Phone qty/5 /pieces cat/Electronics buy/100 sell/500
 ```
 
 ### Deleting an item: `del`
@@ -48,6 +52,21 @@ Example of usage:
 ```
 edit Apples qty/10
 edit Phone qty/0
+```
+### Finding an item: `find`
+Finds all items that contains `KEYWORD` 
+
+Format: `find [/filter1/filter2] KEYWORD`
+
+* Filter will specify the parameters that is being searched.
+* If no filter is applied, it will search all items that contains `KEYWORD.
+* The search is case-insensitive e.g. `apple` will match `Apple`.
+* Partial words will be matched e.g. `app` will match `Apple`.
+
+Example of usage:
+```
+find /qty/cat Apple //search for `Apple` under `ITEM_QUANTITY` and `CATEGORY`
+find Apple //search all items that contains `Apple`
 ```
 
 ### Listing all items: `list`
@@ -92,7 +111,13 @@ the application.
 
 ## Command Summary
 
-* Add new item: `add Apples qty/10 cat/Food`
-* Delete an item: `delete Apples`
-* List all items: `list`
-* List all commands: `help`
+| Action      | Format, Examples                                                                                                                                                       |
+|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add Item    | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5` |
+| Delete Item | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                  |
+| Edit Item   |                                                                                                                                                                        |
+| Find Item   | `find KEYWORD`<br/> `e.g. find University`                                                                                                                             |
+| Sell Item   |                                                                                                                                                                        |
+| List        | `list`                                                                                                                                                                 |
+| Help        | `help`                                                                                                                                                                 |
+| Exit        | `exit`                                                                                                                                                                 |

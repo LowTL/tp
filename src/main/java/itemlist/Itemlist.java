@@ -1,3 +1,4 @@
+//@@author Fureimi
 package itemlist;
 import item.Item;
 
@@ -5,7 +6,7 @@ import java.util.ArrayList;
 
 public class Itemlist {
     public static int noOfItems;
-    private static final ArrayList<Item> items = new ArrayList<>();
+    protected static ArrayList<Item> items = new ArrayList<>();
 
     public Itemlist() {
     }
@@ -42,6 +43,14 @@ public class Itemlist {
         return items.get(index);
     }
 
+    public static Item getItem(String name) {
+        for (Item i: items) {
+            if (i.getItemName().equals(name)) {
+                return i;
+            }
+        }
+        return null;
+    }
     public static int getIndex(Item item) {
         return items.indexOf(item);
     }

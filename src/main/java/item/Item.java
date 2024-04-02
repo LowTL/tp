@@ -80,6 +80,10 @@ public class Item {
         this.sellPrice = newSellPrice;
     }
 
+    public boolean getIsOOS() {
+        return isOOS;
+    }
+
     public void markOOS() {
         this.isOOS = true;
     }

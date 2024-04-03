@@ -9,20 +9,21 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "added: ";
     protected String itemName;
     protected int quantity;
-    protected String UnitOfMeasurement;
+    protected String unitOfMeasurement;
     protected String category;
     protected float buyPrice;
     protected float sellPrice;
     private final Item toAdd;
 
-    public AddCommand(String itemName, int quantity, String UnitOfMeasurement, String category, float buyPrice, float sellPrice) {
+    public AddCommand(String itemName, int quantity, String unitOfMeasurement, String category, float buyPrice,
+            float sellPrice) {
         this.itemName = itemName;
         this.quantity = quantity;
-        this.UnitOfMeasurement = UnitOfMeasurement;
+        this.unitOfMeasurement = unitOfMeasurement;
         this.category = category;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
-        this.toAdd = new Item(itemName, quantity, UnitOfMeasurement, category, buyPrice, sellPrice);
+        this.toAdd = new Item(itemName, quantity, unitOfMeasurement, category, buyPrice, sellPrice);
     }
 
     public String getItemName() {
@@ -35,7 +36,7 @@ public class AddCommand extends Command {
         return category;
     }
     public String getUnitOfMeasurement() {
-        return UnitOfMeasurement;
+        return unitOfMeasurement;
     }
     public float getBuyPrice() {
         return buyPrice;
@@ -50,8 +51,8 @@ public class AddCommand extends Command {
             updateQuantity(itemName);
         } else {
             Itemlist.addItem(toAdd);
-            System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement() +
-                    ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
+            System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement()
+                    + ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
             Storage.addToFile(Itemlist.getItems());
             if (!category.equals("NA")) {
                 System.out.println(" to " + getCategory());

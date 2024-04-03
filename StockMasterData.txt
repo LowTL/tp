@@ -1,1 +1,1 @@
-
+1. | apple | Qty: 50 pieces | Cat: fruits | BuyPrice: $4.0 | SellPrice: $5.0

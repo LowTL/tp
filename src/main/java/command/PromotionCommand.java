@@ -1,8 +1,10 @@
 package command;
 
+import exceptions.InvalidDateException;
 import item.Item;
 import promotion.Month;
 import promotion.Promotion;
+import promotion.Promotionlist;
 
 import java.time.DayOfWeek;
 
@@ -10,29 +12,25 @@ public class PromotionCommand extends Command {
 
     protected Promotion promotion;
 
-    public void promotionCommand(
+    public PromotionCommand(
             String itemName,
-            Float promoPrice,
+            Float discount,
             int startDate, Month startMonth, int startYear,
             int endDate, Month endMonth, int endYear,
-            DayOfWeek weekly,
             int startTime,
             int endTime) {
         this.promotion = new Promotion(
-                itemName, promoPrice,
+                itemName, discount,
                 startDate, startMonth, startYear,
                 endDate, endMonth, endYear,
-                weekly, startTime, endTime);
-    }
-
-
-    public Promotion getPromotion() {
-        return promotion;
+                startTime, endTime);
     }
 
 
     @Override
-    public void execute() {
+    public void execute() throws InvalidDateException {
+        System.out.println(promotion);
+        Promotionlist.addPromotion(promotion);
     }
 
 

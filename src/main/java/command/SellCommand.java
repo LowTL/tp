@@ -31,7 +31,8 @@ public class SellCommand extends Command {
             }
         }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
+        float originalSellPrice = Itemlist.getItem(index).getSellPrice();
+        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice * originalSellPrice : originalSellPrice;
         if (index == -1) {
             //throw exception;
             System.out.println("Item not found!");

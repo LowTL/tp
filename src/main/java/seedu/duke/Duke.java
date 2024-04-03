@@ -3,6 +3,7 @@ package seedu.duke;
 import command.Command;
 import command.ExitCommand;
 import exceptions.CommandFormatException;
+import exceptions.InvalidDateException;
 import parser.Parser;
 import storage.Storage;
 import storage.TransactionLogs;
@@ -20,11 +21,11 @@ public class Duke {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
-    public static void main(String[] args) throws IOException, CommandFormatException {
+    public static void main(String[] args) throws IOException, CommandFormatException, InvalidDateException {
         new Duke().run();
     }
 
-    public void run() throws IOException, CommandFormatException {
+    public void run() throws IOException, CommandFormatException, InvalidDateException {
         ui.showWelcomeMessage("StockMaster v2.0", "./StockMasterData.txt");
         Storage.updateFile("", true);
         Storage.readFromFile("./StockMasterData.txt");
@@ -34,7 +35,7 @@ public class Duke {
         ui.showGoodByeMessage("./StockMasterData.txt");
     }
 
-    private void normalOperation() throws IOException, CommandFormatException {
+    private void normalOperation() throws IOException, CommandFormatException, InvalidDateException {
         String userInput;
         do {
             userInput = ui.getUserInput();

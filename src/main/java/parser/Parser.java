@@ -9,10 +9,13 @@ import command.FindCommand;
 import command.HelpCommand;
 import command.IncorrectCommand;
 import command.ListCommand;
+import command.PromotionCommand;
 import command.SellCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
 import itemlist.Itemlist;
+import promotion.Month;
+import promotion.Promotionlist;
 
 
 import java.util.regex.Matcher;
@@ -33,7 +36,7 @@ public class Parser {
                 "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
-            Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)(?: price/(?<sellPrice>[^/]+))?");
+            Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)");
 
     public static final Pattern FIND_COMMAND_FORMAT =
             Pattern.compile("find(?: /(?<itemInfo>[^/]+))* (?<keyword>[^/]+)");
@@ -43,6 +46,12 @@ public class Parser {
 
     public static final Pattern LIST_COMMAND_FORMAT =
             Pattern.compile("list(?: (?<category>[^/]+))?");
+
+    final Pattern PROMOTION_COMMAND_FORMAT = Pattern.compile(
+            "promotion (?<itemName>[^\\s]+) discount/(?<discount>\\d+(\\.\\d{1,2})?) " +
+                    "period /from (?<startDate>\\d+) (?<startMonth>\\w+) (?<startYear>\\d+) " +
+                    "/to (?<endDate>\\d+) (?<endMonth>\\w+) (?<endYear>\\d+) " +
+                    "time /from (?<startTime>\\d+) /to (?<endTime>\\d+)");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -59,7 +68,6 @@ public class Parser {
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
         }
-
         switch (userCommand) {
         case EXIT:
             return new ExitCommand(true);
@@ -98,6 +106,12 @@ public class Parser {
         case SELL:
             try {
                 return prepareSell(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
+        case PROMOTION:
+            try {
+                return preparePromotion(userInput);
             } catch (CommandFormatException e) {
                 break;
             }
@@ -151,12 +165,26 @@ public class Parser {
         if (sellPriceIsPresent && inputPrice < 0) {
             throw new CommandFormatException("SELL_PRICE");
         }
-        int sellPrice = sellPriceIsPresent ? inputPrice : -1;
+        if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
+            return new SellCommand(
+                    matcher.group("itemName"),
+                    sellQuantity,
+                    Promotionlist.getPromotion("itemName").getDiscount()
+            );
+        } else {
+            return new SellCommand(
+                    matcher.group("itemName"),
+                    sellQuantity,
+                    -1
+            );
+        }
+
+        /*int sellPrice = sellPriceIsPresent ? inputPrice : -1;
         return new SellCommand(
                 matcher.group("itemName"),
                 sellQuantity,
                 sellPrice
-        );
+        );*/
     }
 
     private Command prepareFind(String args) throws CommandFormatException{
@@ -195,6 +223,37 @@ public class Parser {
                 newCategory,
                 newBuyPrice,
                 newSellPrice
+        );
+    }
+
+    private Command preparePromotion(String args) throws CommandFormatException {
+        final Matcher matcher = PROMOTION_COMMAND_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.PROMOTION);
+        }
+        String itemName = matcher.group("itemName");
+        float discount = Float.parseFloat(matcher.group("discount")) / 100;
+        int startDate = Integer.parseInt(matcher.group("startDate"));
+        String startMonth = matcher.group("startMonth");
+        int startYear = Integer.parseInt(matcher.group("startYear"));
+        int endDate = Integer.parseInt(matcher.group("endDate"));
+        String endMonth = matcher.group("endMonth");
+        int endYear = Integer.parseInt(matcher.group("endYear"));
+        int startTime = Integer.parseInt(matcher.group("startTime"));
+        int endTime = Integer.parseInt(matcher.group("endTime"));
+        System.out.println(Month.valueOf(startMonth.toUpperCase()));
+        return new PromotionCommand(
+                itemName,
+                discount,
+                startDate,
+                Month.valueOf(startMonth.toUpperCase()),
+                startYear,
+                endDate,
+                Month.valueOf(endMonth.toUpperCase()),
+                endYear,
+                startTime,
+                endTime
         );
     }
 

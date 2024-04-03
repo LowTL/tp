@@ -8,5 +8,6 @@ public enum CommandType {
     DEL,
     EDIT,
     SELL,
-    FIND
+    FIND,
+    PROMOTION
 }

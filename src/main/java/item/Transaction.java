@@ -27,7 +27,7 @@ public class Transaction {
         isVoided = false;
     }
 
-    public Transaction(String name, int inputQty, int inputBuy, int inputSell, String storedTime) {
+    public Transaction(String name, int inputQty, float inputBuy, float inputSell, String storedTime) {
         dateTime = storedTime;
         item = Itemlist.getItem(name);
         quantity = inputQty;

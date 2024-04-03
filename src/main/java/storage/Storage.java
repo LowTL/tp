@@ -11,9 +11,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- * Represents an add command where a new task is added to the existing list of task.
+ * Represents a class that stores and writes information of a list of items to a file.
  * String <code>FILENAME</code> represents the designated relative file path for the file.
- * File <code>dukeData</code> represents the File object created to be updated.
  */
 public class Storage {
     private static final String FILENAME = "./StockMasterData.txt";
@@ -56,6 +55,54 @@ public class Storage {
     }
 
     /**
+     * Write contents to the file.
+     *
+     * @param scanner The scanner to read the file.
+     * @throws NumberFormatException If number is found to be invalid type.
+     */
+    public static void interpretLines(Scanner scanner) throws NumberFormatException{
+        while (scanner.hasNext()) {
+            String fileLine = scanner.nextLine();
+            String[] keyCommands = fileLine.split(" \\| ");
+            String commandQty = "";
+            String commandCat = "";
+            String commandUom = "";
+            String commandBuy = "";
+            String commandSell = "";
+            String commandName = "";
+            String commandIsMarked = "";
+            for (String keyCommand : keyCommands) {
+                if (keyCommand.contains("add")) {
+                    //do nothing.
+                } else if (keyCommand.contains("Qty: ")) {
+                    String[] commandQtyUnit = keyCommand.replace("Qty: ", "").split(" ");
+                    assert commandQtyUnit.length == 2 : "length not 2!";
+                    commandQty = commandQtyUnit[0];
+                    commandUom = commandQtyUnit[1];
+                } else if (keyCommand.contains("Cat: ")) {
+                    commandCat = keyCommand.replace("Cat: ", "");
+                } else if (keyCommand.contains("BuyPrice: $")) {
+                    commandBuy = keyCommand.replace("BuyPrice: $", "");
+                } else if (keyCommand.contains("SellPrice: $")) {
+                    commandSell = keyCommand.replace("SellPrice: $", "");
+                } else if (keyCommand.contains("[")) {
+                    commandIsMarked = keyCommand.contains("X") ? "true" : "false";
+                } else {
+                    commandName = keyCommand.trim();
+                }
+            }
+            Item toAdd = new Item(commandName, Integer.parseInt(commandQty), commandUom, commandCat,
+                    Float.parseFloat(commandBuy), Float.parseFloat(commandSell));
+            if (commandIsMarked.equals("true")) {
+                toAdd.mark();
+            } else if (commandIsMarked.equals("false")) {
+                toAdd.unmark();
+            }
+            Itemlist.addItem(toAdd);
+        }
+    }
+
+    /**
      * Read lines from the file and identify tasks written inside.
      * Add the identified tasks into a list of existing tasks.
      *
@@ -64,39 +111,7 @@ public class Storage {
     public static void readFromFile(String fileName) {
         try {
             Scanner scanner = new Scanner(new File(fileName));
-            while (scanner.hasNext()) {
-                //String fileLine = "add" + scanner.nextLine();
-                String fileLine = scanner.nextLine();
-                String[] keyCommands = fileLine.split(" \\| ");
-                String commandQty = "";
-                String commandCat = "";
-                String commandUom = "";
-                String commandBuy = "";
-                String commandSell = "";
-                String commandName = "";
-                for (String keyCommand : keyCommands) {
-                    if (keyCommand.contains("add")) {
-                        //do nothing.
-                    } else if (keyCommand.contains("Qty: ")) {
-                        String[] commandQtyUnit = keyCommand.replace("Qty: ", "").split(" ");
-                        assert commandQtyUnit.length == 2 : "length not 2!";
-                        commandQty = commandQtyUnit[0];
-                        commandUom = commandQtyUnit[1];
-                    } else if (keyCommand.contains("Cat: ")) {
-                        commandCat = keyCommand.replace("Cat: ", "");
-                    } else if (keyCommand.contains("BuyPrice: $")) {
-                        commandBuy = keyCommand.replace("BuyPrice: $", "");
-                    } else if (keyCommand.contains("SellPrice: $")) {
-                        commandSell = keyCommand.replace("SellPrice: $", "");
-                    } else {
-                        commandName = keyCommand.trim();
-                    }
-                }
-                Item toAdd = new Item(commandName, Integer.parseInt(commandQty), commandUom, commandCat,
-                        Float.parseFloat(commandBuy), Float.parseFloat(commandSell));
-                Itemlist.addItem(toAdd);
-
-            }
+            interpretLines(scanner);
             scanner.close();
         } catch(FileNotFoundException e) {
             System.out.println("File does not exist.");
@@ -113,10 +128,12 @@ public class Storage {
     public static void addToFile(ArrayList<Item> items) {
         assert items != null : "Items cannot be null.";
         Item lastItem = items.get(items.size() - 1);
-        String descriptionAdded = (items.size()) + "." + " | " + lastItem.getItemName() +
-                " | " + "Qty: " + lastItem.getQuantity() + " " + lastItem.getUnitOfMeasurement() +
-                " | " + "Cat: " + lastItem.getCategory() + " | " + "BuyPrice: $" +
-                lastItem.getBuyPrice() + " | " + "SellPrice: $" + lastItem.getSellPrice() + "\n";
+        String markString = (lastItem.getMarkStatus()) ? "[X] " : "[ ] ";
+        String descriptionAdded = (items.size()) + "." + " | " + markString + " | " +
+                lastItem.getItemName() + " | " + "Qty: " + lastItem.getQuantity() + " " +
+                lastItem.getUnitOfMeasurement() + " | " + "Cat: " + lastItem.getCategory() +
+                " | " + "BuyPrice: $" + lastItem.getBuyPrice() + " | " + "SellPrice: $" +
+                lastItem.getSellPrice() + "\n";
         updateFile(descriptionAdded, true);
     }
 
@@ -129,11 +146,12 @@ public class Storage {
         assert items != null : "Items cannot be null.";
         int length = items.size();
         for (int index = 0; index < length; index++) {
-            String descriptionAdded = (index + 1) + "." + " | " + items.get(index).getItemName() +
-                    " | " + "Qty: " + items.get(index).getQuantity() + " " + items.get(index).getUnitOfMeasurement() +
-                    " | " + "Cat: " + items.get(index).getCategory() + " | " + "BuyPrice: $" +
-                    items.get(index).getBuyPrice() + " | " + "SellPrice: $" +
-                    items.get(index).getSellPrice() + "\n";
+            String markString = (items.get(index).getMarkStatus()) ? "[X] " : "[ ] ";
+            String descriptionAdded = (index + 1) + "." + " | " + markString + " | " +
+                    items.get(index).getItemName() + " | " + "Qty: " + items.get(index).getQuantity() +
+                    " " + items.get(index).getUnitOfMeasurement() + " | " + "Cat: " +
+                    items.get(index).getCategory() + " | " + "BuyPrice: $" + items.get(index).getBuyPrice() +
+                    " | " + "SellPrice: $" + items.get(index).getSellPrice() + "\n";
             if (index == 0) {
                 updateFile(descriptionAdded, false);
             } else {

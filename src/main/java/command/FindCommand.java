@@ -17,6 +17,14 @@ public class FindCommand extends Command {
         this.itemInfo = itemInfo;
     }
 
+    public String getItemInfo() {
+        return keyword;
+    }
+
+    public String getKeyword() {
+        return itemInfo;
+    }
+
     @Override
     public void execute() {
         if (itemInfo.equals("NA")) {
@@ -52,4 +60,5 @@ public class FindCommand extends Command {
         }
         return searchList;
     }
+
 }

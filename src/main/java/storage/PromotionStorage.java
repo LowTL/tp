@@ -74,6 +74,7 @@ public class PromotionStorage extends Storage{
                     System.out.println("Read Promotion File Error");
                 }
             }
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
         } catch (NumberFormatException e) {

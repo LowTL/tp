@@ -34,9 +34,12 @@ own business given a certain period and time. Additionally, it implements the fo
 * `del_promotion`
 * `list_promotions`
 
+
 The PromotionCommand will execute the appropriate command and prints messages to the user through the `TextUi`.
 
 **Add new promotion:**
+
+<img src="./Diagrams/AddPromotion.png" alt="Alt Text" width="250" height="250">
 
 Example: 
 
@@ -53,11 +56,17 @@ Lastly `isOnPromo(apple)` is called to check if there is already an existing pro
 promotion, the user will be unable to create another promotion for `apple`.
 
 **Delete promotion:**
+
+<img src="./Diagrams/DeletePromo.png" alt="Alt Text" width="300" height="200">
+
 The promotion will be deleted by calling `deletePromotion(index)` method in `Promotionlist.java`. 
 
 Example: `del_promo apple`
 
 **List promotion:**
+
+<img src="./Diagrams/ListPromotion.png" alt="Alt Text" width="300" height="150">
+
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
 Example: `list_promotions`

@@ -21,6 +21,14 @@ public class SellCommand extends Command {
         this.discount = discount;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getSellQuantity() {
+        return sellQuantity;
+    }
+
     @Override
     public void execute() {
         int index = -1;
@@ -52,4 +60,5 @@ public class SellCommand extends Command {
         Cashier.addItem(newTransaction);
         TransactionLogs.addToLog(Cashier.getTransactions());
     }
+
 }

@@ -4,6 +4,8 @@ import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
 import itemlist.Itemlist;
+import promotion.Promotion;
+import promotion.Promotionlist;
 import storage.Storage;
 import storage.TransactionLogs;
 
@@ -11,12 +13,12 @@ public class SellCommand extends Command {
 
     protected String itemName;
     protected int sellQuantity;
-    protected float sellPrice;
+    protected float discount;
 
-    public SellCommand (String itemName, int quantity, float price) {
+    public SellCommand (String itemName, int quantity, float discount) {
         this.itemName = itemName;
         this.sellQuantity = quantity;
-        this.sellPrice = price;
+        this.discount = discount;
     }
 
     @Override
@@ -30,16 +32,14 @@ public class SellCommand extends Command {
                 break;
             }
         }
-        //int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        //float originalSellPrice = Itemlist.getItem(index).getSellPrice();
-        //float sellPrice = (this.sellPrice >= 0) ? this.sellPrice * originalSellPrice : originalSellPrice;
         if (index == -1) {
             //throw exception;
             System.out.println("Item not found!");
             return;
         }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
+        float getSellPrice = Itemlist.getItem(index).getSellPrice();
+        float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
         if (remainingQuantity < 0) {
             System.out.println("There is insufficient stock!");
             return;

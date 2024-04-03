@@ -1,16 +1,8 @@
 package promotion;
 
-import command.EditCommand;
-import exceptions.CommandFormatException;
-import exceptions.InvalidDateException;
-import item.Item;
-import itemlist.Itemlist;
+import ui.TextUi;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import static promotion.Month.JAN;
 
 public class Promotion {
 
@@ -57,7 +49,7 @@ public class Promotion {
     }
 
 
-    public Float getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
@@ -98,6 +90,13 @@ public class Promotion {
     }
 
     public String toString() {
-        return getItemName() + getDiscount();
+        return getItemName() + " have a " + (getDiscount()*100) + "% discount" + "\n" +
+                "Period: " + getStartDate() + " " + getStartMonth() + " " + getStartYear() + " to " +
+                getEndDate()+ " " + getEndMonth() + " " + getEndYear() + "\n" +
+                "Time: " + getStartTime() + " to " + getEndTime();
+    }
+
+    public void print(String args) {
+        TextUi.replyToUser(args);
     }
 }

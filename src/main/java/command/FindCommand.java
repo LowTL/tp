@@ -23,7 +23,7 @@ public class FindCommand extends Command {
             itemInfo = "item + qty + uom + cat + buy + sell";
         }
         ArrayList<String> searchList = filterList();
-        TextUi.showInventoryList(searchList);
+        TextUi.showList(searchList);
     }
 
     public ArrayList<String> filterList() {

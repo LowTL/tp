@@ -1,5 +1,6 @@
 package storage;
 
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class StorageTest {
     @Test
-    public void readFromFile_fileNotFound() {
+    public void readFromFile_fileNotFound() throws InvalidDateException {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         String directory = "./testFile1.txt";

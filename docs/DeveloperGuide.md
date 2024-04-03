@@ -4,9 +4,9 @@
 
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
-## Design & implementation
+## Design
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+{Describe the design of the product. Use UML diagrams and short code snippets where applicable.}
 ### Exception
 ### Itemlist
 Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, remove functions, edit items inside
@@ -22,6 +22,45 @@ Storage class contains methods to write description of items to the file `./Stoc
 and retrieve information from the file when program restarts.
 ### UI
 
+## Implementation
+
+This section describes some noteworthy details on how certain features are implemented
+
+### [Proposed] Promotion feature
+
+The promotion mechanism is facilitated by `StockMaster`. It enables the user to design and create discount offers for his/her 
+own business given a certain period and time. Additionally, it implements the following operations:
+* `promotion`
+* `del_promotion`
+* `list_promotions`
+
+The PromotionCommand will execute the appropriate command and prints messages to the user through the `TextUi`.
+
+**Add new promotion:**
+
+Example: 
+
+```
+promotion apple discount/50 period /from 1 Jan 2024 /to 31 Dec 2024 time from/ 0000 /to 2359
+```
+This command will add a new promotion by calling `addPromotion(promotion)` method in `Promotionlist.java`. The 
+`addPromotion(promotion)` then calls `isItemExist(apple)` in `Itemlist.java` to check if the item exists in the inventory. 
+
+Next, it subsequently calls multiple of its own methods, `isValidMonth(1, Jan, 2024)` and `isValidMonth(31, Dec, 2024)` 
+to check if the date is valid. `isValidTime(0000, 2359)` is called to check if the time is valid 
+
+Lastly `isOnPromo(apple)` is called to check if there is already an existing promotion on `apple`. If there is an existing
+promotion, the user will be unable to create another promotion for `apple`.
+
+**Delete promotion:**
+The promotion will be deleted by calling `deletePromotion(index)` method in `Promotionlist.java`. 
+
+Example: `del_promo apple`
+
+**List promotion:**
+All of the `Promotions` will be shown to the user through the `TextUi`. 
+
+Example: `list_promotions`
 
 ## Product scope
 StockMaster allows users to use the following commands:

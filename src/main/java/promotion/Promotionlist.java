@@ -1,9 +1,9 @@
 package promotion;
 
-import command.EditCommand;
+import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
-import item.Item;
 import itemlist.Itemlist;
+import storage.PromotionStorage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,12 +15,15 @@ public class Promotionlist {
     public Promotionlist() {
     }
 
+    public static int getIndex(Promotion promotion) {
+        return promotions.indexOf(promotion);
+    }
     public static void deletePromotion(int index) {
         promotions.remove(index);
     }
 
     public static boolean itemIsOnPromo(String itemName) {
-        for (Promotion promotion : Promotionlist.getPromo()) {
+        for (Promotion promotion : promotions) {
             if (promotion.getItemName().toLowerCase().equals(itemName)) {
                 return true;
             }
@@ -43,7 +46,7 @@ public class Promotionlist {
         return year % 4 == 0;
     }
 
-    public static void addPromotion(Promotion promotion) throws InvalidDateException {
+    public static void addPromotion(Promotion promotion) throws InvalidDateException, CommandFormatException {
         int startDate = promotion.getStartDate();
         int endDate = promotion.getEndDate();
         Month startMonth = promotion.getStartMonth();
@@ -55,27 +58,24 @@ public class Promotionlist {
         String itemName = promotion.getItemName();
         float discount = promotion.getDiscount();
 
-        if (!Itemlist.itemIsExist(itemName)) { //promotion not created as item does not exist
-            throw new InvalidDateException();
+        if (!Itemlist.itemIsExist(itemName)) {
+            throw new CommandFormatException("ITEM_NOT_FOUND");
         }
-
-        //promotion not created as either invalid date for the month or year
+        if (discount < 0 || discount > 100) {
+            throw new CommandFormatException("INVALID_DISCOUNT");
+        }
         if (!isValidMonth(startDate, startMonth, startYear) || !isValidMonth(endDate, endMonth, endYear)) {
-            throw new InvalidDateException();
+            throw new InvalidDateException("INVALID_PERIOD");
         }
-        //
         if (!isValidTime(startTime, endTime)) {
-            throw new InvalidDateException();
+            throw new InvalidDateException("INVALID_TIME");
         }
-        promotions.add(promotion); //promotion is valid and created
-        //add in writeToPromotionList
-
+        if (Promotionlist.isOnPromo(itemName)) {
+            throw new InvalidDateException("ITEM_IS_PROMO");
+        }
+        promotions.add(promotion);
+        PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
     }
-
-    public void deletePromo(int index) {
-        promotions.remove(index);
-    }
-
 
     public static boolean isPromoExist(Promotion promotion) {
         LocalDateTime currentTime = LocalDateTime.now();
@@ -88,7 +88,7 @@ public class Promotionlist {
         int year = Integer.parseInt(formattedYear);
         int month = Integer.parseInt(formattedMonth);
         int date = Integer.parseInt(formattedDate);
-        if (year < promotion.getStartDate() || year > promotion.getEndDate()) {
+        if (year < promotion.getStartYear() || year > promotion.getEndYear()) {
             return false;
         }
         if (month < promotion.getStartMonth().getValue() || month > promotion.getEndMonth().getValue()) {
@@ -100,10 +100,13 @@ public class Promotionlist {
         return true;
     }
 
-    public static boolean isValidTime(int startTime, int endTime) throws InvalidDateException {
+    public static boolean isValidTime(int startTime, int endTime) {
         boolean startIsValid = isVerifiedTime(startTime);
         boolean endIsValid = isVerifiedTime(endTime);
-        if (!startIsValid || !endIsValid) { //format for date and time is valid
+        if (!startIsValid || !endIsValid) {
+            return false;
+        }
+        if (startTime > endTime) {
             return false;
         }
         return true;
@@ -145,7 +148,7 @@ public class Promotionlist {
         case JUN:
             return date <= 30 && date >= 1;
         default:
-            throw new InvalidDateException();
+            throw new InvalidDateException("INVALID_TIME");
         }
     }
 
@@ -158,7 +161,7 @@ public class Promotionlist {
         return null;
     }
 
-    public static ArrayList<Promotion> getPromo() {
+    public static ArrayList<Promotion> getAllPromotion() {
         return promotions;
     }
 }

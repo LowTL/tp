@@ -6,6 +6,7 @@ import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
 import parser.Parser;
 import reminder.LowStockReminder;
+import storage.PromotionStorage;
 import storage.Storage;
 import storage.TransactionLogs;
 import ui.TextUi;
@@ -18,6 +19,10 @@ public class Duke {
     private final TextUi ui = new TextUi();
     private final Parser parser = new Parser();
     private Itemlist itemlist = new Itemlist();
+    private static final String STORAGE_FILE = "./StockMasterData.txt";
+    private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
+    private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
+
 
     /**
      * Main entry-point for the java.duke.Duke application.
@@ -27,14 +32,16 @@ public class Duke {
     }
 
     public void run() throws IOException, CommandFormatException, InvalidDateException {
-        ui.showWelcomeMessage("StockMaster v2.0", "./StockMasterData.txt");
+        ui.showWelcomeMessage("StockMaster v2.0", STORAGE_FILE);
         Storage.updateFile("", true);
-        Storage.readFromFile("./StockMasterData.txt");
+        Storage.readFromFile(STORAGE_FILE);
         TransactionLogs.updateFile("", true);
-        TransactionLogs.readFromFile("./TransactionLogs.txt");
+        TransactionLogs.readFromFile(TRANSACTION_FILE);
+        PromotionStorage.updateFile("", true);
+        PromotionStorage.readFromFile(PROMOTION_STORAGE_FILE);
         LowStockReminder.execute();
         this.normalOperation();
-        ui.showGoodByeMessage("./StockMasterData.txt");
+        ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
     private void normalOperation() throws IOException, CommandFormatException, InvalidDateException {

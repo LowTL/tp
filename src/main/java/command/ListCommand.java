@@ -17,6 +17,10 @@ public class ListCommand<T> extends Command{
         this.isListMarked = isListMarked;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     //@@author Fureimi
     public void execute() {
         if (category.equals("NA") && !isListMarked) {
@@ -25,5 +29,6 @@ public class ListCommand<T> extends Command{
             TextUi.showCustomizedList(arrayList, category, isListMarked);
         }
     }
+
 }
 

@@ -44,15 +44,23 @@ del Apples
 ```
 
 ### Editing an item: `edit`
-Edits the quantity of the item.
+Edits the parameters of the item.
 
-Format: `edit ITEM_NAME qty/NEW_QUANTITY`
+Format: `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`
 
 Example of usage:
 ```
-edit Apples qty/10
-edit Phone qty/0
+`edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`
+`edit fish name/Salmon qty/1 uom/pieces cat/fish device buy/1.00 sell/10.00`
 ```
+User can choose to edit at least 1 parameter up to all available parameters.
+
+Example of usage:
+```
+edit apple buy/1.00 sell/2.00
+edit fish name/Salmon qty/1 cat/fish
+```
+
 ### Finding an item: `find`
 Finds all items that contains `KEYWORD` 
 
@@ -111,13 +119,13 @@ the application.
 
 ## Command Summary
 
-| Action      | Format, Examples                                                                                                                                                       |
-|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Add Item    | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5` |
-| Delete Item | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                  |
-| Edit Item   |                                                                                                                                                                        |
-| Find Item   | `find KEYWORD`<br/> `e.g. find University`                                                                                                                             |
-| Sell Item   |                                                                                                                                                                        |
-| List        | `list`                                                                                                                                                                 |
-| Help        | `help`                                                                                                                                                                 |
-| Exit        | `exit`                                                                                                                                                                 |
+| Action      | Format, Examples                                                                                                                                                                                                        |
+|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add Item    | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                 |
+| Delete Item | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                   |
+| Edit Item   | `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`  |
+| Find Item   | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                              |
+| Sell Item   | `sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]`<br/> `e.g. sell apple qty/50 price/4.50`                                                                                                                      |
+| List        | `list`                                                                                                                                                                                                                  |
+| Help        | `help`                                                                                                                                                                                                                  |
+| Exit        | `exit`                                                                                                                                                                                                                  |

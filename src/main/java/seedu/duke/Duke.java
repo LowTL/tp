@@ -5,6 +5,7 @@ import command.ExitCommand;
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
 import parser.Parser;
+import reminder.LowStockReminder;
 import storage.Storage;
 import storage.TransactionLogs;
 import ui.TextUi;
@@ -31,6 +32,7 @@ public class Duke {
         Storage.readFromFile("./StockMasterData.txt");
         TransactionLogs.updateFile("", true);
         TransactionLogs.readFromFile("./TransactionLogs.txt");
+        LowStockReminder.execute();
         this.normalOperation();
         ui.showGoodByeMessage("./StockMasterData.txt");
     }

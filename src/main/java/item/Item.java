@@ -4,19 +4,20 @@ package item;
 import itemlist.Itemlist;
 
 public class Item {
+    public boolean isMark;
     private String itemName;
     private int quantity;
-    private String uom;
+    private String unitOfMeasurement;
     private String category;
     private float buyPrice;
     private float sellPrice;
     private boolean isOOS;
 
-    public Item(String name, int quantity, String uom, String category, float buyPrice, float sellPrice) {
+    public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;
         this.quantity = quantity;
         assert quantity>= 0 : "Quantity should not be negative.";
-        this.uom = uom;
+        this.unitOfMeasurement = unitOfMeasurement;
         if (category.isEmpty()) {
             this.category = "NA";
         } else {
@@ -24,11 +25,7 @@ public class Item {
         }
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
-        if (quantity == 0) {
-            this.isOOS = true;
-        } else {
-            this.isOOS = false;
-        }
+        this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
     }
 
@@ -51,12 +48,12 @@ public class Item {
         this.itemName = newName;
     }
 
-    public String getUom() {
-        return uom;
+    public String getUnitOfMeasurement() {
+        return unitOfMeasurement;
     }
 
-    public void setUom(String newUom) {
-        this.uom = newUom;
+    public void setUnitOfMeasurement(String newUnitOfMeasurement) {
+        this.unitOfMeasurement = newUnitOfMeasurement;
     }
 
     public int getQuantity() {
@@ -83,6 +80,10 @@ public class Item {
         this.sellPrice = newSellPrice;
     }
 
+    public boolean getIsOOS() {
+        return isOOS;
+    }
+
     public void markOOS() {
         this.isOOS = true;
     }
@@ -91,9 +92,22 @@ public class Item {
         this.isOOS = false;
     }
 
+    public void mark() {
+        this.isMark = true;
+    }
+
+    public void unmark() {
+        this.isMark = false;
+    }
+
+    public boolean getMarkStatus() {
+        return this.isMark;
+    }
+
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
-        return (getItemName() + " (Qty: " + getQuantity() + getUom() +
+        String markString = (this.isMark) ? "[X] " : "[ ] ";
+        return (markString + getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
                 ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

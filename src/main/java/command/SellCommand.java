@@ -30,14 +30,17 @@ public class SellCommand extends Command {
                 break;
             }
         }
-        int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        float originalSellPrice = Itemlist.getItem(index).getSellPrice();
-        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice * originalSellPrice : originalSellPrice;
+        //int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
+        //float originalSellPrice = Itemlist.getItem(index).getSellPrice();
+        //float sellPrice = (this.sellPrice >= 0) ? this.sellPrice * originalSellPrice : originalSellPrice;
         if (index == -1) {
             //throw exception;
             System.out.println("Item not found!");
             return;
-        } else if (remainingQuantity < 0) {
+        }
+        int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
+        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
+        if (remainingQuantity < 0) {
             System.out.println("There is insufficient stock!");
             return;
         } else {

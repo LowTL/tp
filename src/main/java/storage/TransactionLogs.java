@@ -78,25 +78,4 @@ public class TransactionLogs extends Storage {
         descriptionAdded += "\n";
         updateFile(descriptionAdded, true);
     }
-
-    public static void overwriteLog(ArrayList<Transaction> transactions) {
-        assert transactions != null : "Items cannot be null.";
-        int length = transactions.size();
-        for (int index = 0; index < length; index++) {
-            String descriptionAdded = "";
-            descriptionAdded += "Date: " + transactions.get(index).getDateTime() + "\n";
-            descriptionAdded += "Transaction ID: " + transactions.get(index + 1) + "\n";
-            descriptionAdded += "Item Name: " + transactions.get(index).getItemName() + "\n";
-            descriptionAdded += "Quantity: " + transactions.get(index).getQuantity() + "\n";
-            descriptionAdded += "Unit Price: " + transactions.get(index).getSellPrice() + "\n";
-            descriptionAdded += "Total Price: " + transactions.get(index).getTotalPrice() + "\n";
-            descriptionAdded += "Profit: " + transactions.get(index).getProfit() + "\n";
-            descriptionAdded += "\n";
-            if (index == 0) {
-                updateFile(descriptionAdded, false);
-            } else {
-                updateFile(descriptionAdded, true);
-            }
-        }
-    }
 }

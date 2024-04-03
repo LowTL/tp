@@ -1,19 +1,8 @@
 package parser;
 
-import command.AddCommand;
-import command.DeleteCommand;
-import command.EditCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.HelpCommand;
-import command.IncorrectCommand;
-import command.ListCommand;
-import command.MarkCommand;
-import command.SellCommand;
-import command.UnmarkCommand;
+import command.*;
 import common.Messages;
 import exceptions.CommandFormatException;
-import command.Command;
 import itemlist.Itemlist;
 
 
@@ -50,6 +39,12 @@ public class Parser {
             Pattern.compile("mark (?<itemName>[^/]+)");
     public static final Pattern UNMARK_COMMAND_FORMAT =
             Pattern.compile("unmark (?<itemName>[^/]+)");
+    public static final Pattern TOTAL_PROFIT_FORMAT =
+            Pattern.compile("profit");
+    public static final Pattern TOTAL_REVENUE_FORMAT =
+            Pattern.compile("revenue");
+    public static final Pattern BESTSELLER_FORMAT =
+            Pattern.compile("bestseller");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -120,6 +115,13 @@ public class Parser {
             } catch (CommandFormatException e) {
                 break;
             }
+        case TOTAL_PROFIT:
+            //fallthrough
+        case TOTAL_REVENUE:
+            //fallthrough
+        case BESTSELLER:
+            prepareCashierCommands(userInput, commandWord);
+            break;
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
@@ -251,6 +253,11 @@ public class Parser {
         }
         String itemName = matcher.group("itemName");
         return new UnmarkCommand(itemName);
+    }
+
+    private Command prepareCashierCommands(String args, String command) {
+        final Matcher matcher = TOTAL_PROFIT_FORMAT.matcher(args.trim());
+        return new CashierCommands(command);
     }
 }
 

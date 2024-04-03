@@ -12,6 +12,7 @@ import command.ListCommand;
 import command.MarkCommand;
 import command.SellCommand;
 import command.UnmarkCommand;
+import command.CashierCommands;
 import common.Messages;
 import exceptions.CommandFormatException;
 import itemlist.Itemlist;

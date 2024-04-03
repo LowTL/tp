@@ -43,6 +43,19 @@ Example of usage:
 del Apples
 ```
 
+### Selling an item: `sell`
+Sells a quantity of an item from the list of items at a stated price.
+
+Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]`
+
+* `SELL_PRICE` is an optional field. If blank, it will default to the item's set sell price.
+
+Example of usage:
+```
+sell Apple qty/20 price/6
+sell Phone qty/1
+```
+
 ### Editing an item: `edit`
 Edits the parameters of the item.
 

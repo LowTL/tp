@@ -9,20 +9,20 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "added: ";
     protected String itemName;
     protected int quantity;
-    protected String uom;
+    protected String UnitOfMeasurement;
     protected String category;
     protected float buyPrice;
     protected float sellPrice;
     private final Item toAdd;
 
-    public AddCommand(String itemName, int quantity, String uom, String category, float buyPrice, float sellPrice) {
+    public AddCommand(String itemName, int quantity, String UnitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = itemName;
         this.quantity = quantity;
-        this.uom = uom;
+        this.UnitOfMeasurement = UnitOfMeasurement;
         this.category = category;
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
-        this.toAdd = new Item(itemName, quantity, uom, category, buyPrice, sellPrice);
+        this.toAdd = new Item(itemName, quantity, UnitOfMeasurement, category, buyPrice, sellPrice);
     }
 
     public String getItemName() {
@@ -34,8 +34,8 @@ public class AddCommand extends Command {
     public String getCategory() {
         return category;
     }
-    public String getUom() {
-        return uom;
+    public String getUnitOfMeasurement() {
+        return UnitOfMeasurement;
     }
     public float getBuyPrice() {
         return buyPrice;
@@ -50,7 +50,7 @@ public class AddCommand extends Command {
             updateQuantity(itemName);
         } else {
             Itemlist.addItem(toAdd);
-            System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUom() +
+            System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement() +
                     ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
             Storage.addToFile(Itemlist.getItems());
             if (!category.equals("NA")) {

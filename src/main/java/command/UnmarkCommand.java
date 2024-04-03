@@ -14,6 +14,10 @@ public class UnmarkCommand extends Command {
         this.itemName = itemName;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+
     @Override
     public void execute() throws CommandFormatException {
         Item item = Itemlist.getItem(itemName);
@@ -27,4 +31,5 @@ public class UnmarkCommand extends Command {
         }
         Storage.overwriteFile(Itemlist.getItems());
     }
+
 }

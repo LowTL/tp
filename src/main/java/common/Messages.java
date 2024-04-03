@@ -58,8 +58,8 @@ public class Messages {
 
     public static final String INVALID_MONTH = "Invalid Month has been entered. Please use format: MMM (e.g. JAN, DEC)";
 
-    public static final String INVALID_DISCOUNT = "Invalid Discount has been entered. Please ensure it falls within the " +
-            "range of 0 to 100";
+    public static final String INVALID_DISCOUNT = "Invalid Discount has been entered. " +
+            "Please ensure it falls within the " + "range of 0 to 100";
 
     public static final String INVALID_MARK_FORMAT = "Invalid Command Format. Please use format : " +
             "mark [ITEM_NAME]";

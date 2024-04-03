@@ -2,7 +2,6 @@ package storage;
 
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
-import item.Item;
 import promotion.Month;
 import promotion.Promotion;
 import promotion.Promotionlist;
@@ -33,9 +32,14 @@ public class PromotionStorage extends Storage{
         int count = 0;
         String itemName = "";
         float discount = 0;
-        int startDate = 0, startYear = 0, endDate = 0, endYear = 0;
-        Month startMonth = null,endMonth = null;
-        int startTime = 0, endTime = 0;
+        int startDate = 0;
+        int startYear = 0;
+        int endDate = 0;
+        int endYear = 0;
+        Month startMonth = null;
+        Month endMonth = null;
+        int startTime = 0;
+        int endTime = 0;
         try {
             Scanner scanner = new Scanner(new File(fileName));
             while (scanner.hasNext()) {
@@ -84,16 +88,15 @@ public class PromotionStorage extends Storage{
         }
     }
 
-
-
     public static void addToPromotionFile(ArrayList<Promotion> promotions) {
         assert promotions != null : "Promotions cannot be null.";
         Promotion lastPromotion = promotions.get(promotions.size() - 1);
         String descriptionAdded = (lastPromotion.getItemName() + " have a " +
-                (lastPromotion.getDiscount()*100) + "% discount" + "\n" + "Period: " + lastPromotion.getStartDate() +
-                " " + lastPromotion.getStartMonth() + " " + lastPromotion.getStartYear() + " to " +
-                lastPromotion.getEndDate()+ " " + lastPromotion.getEndMonth() + " " + lastPromotion.getEndYear() + "\n" +
-                "Time: " + lastPromotion.getStartTime() + " to " + lastPromotion.getEndTime() + "\n");
+                (lastPromotion.getDiscount()*100) + "% discount" + "\n" + "Period: " +
+                lastPromotion.getStartDate() + " " + lastPromotion.getStartMonth() + " " + lastPromotion.getStartYear()
+                + " to " + lastPromotion.getEndDate()+ " " + lastPromotion.getEndMonth() + " " +
+                lastPromotion.getEndYear() + "\n" + "Time: " + lastPromotion.getStartTime() + " to " +
+                lastPromotion.getEndTime() + "\n");
         updateFile(descriptionAdded, true);
     }
 

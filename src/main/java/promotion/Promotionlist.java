@@ -127,24 +127,23 @@ public class Promotionlist {
 
     public static boolean isValidMonth(int date, Month month, int year) throws InvalidDateException {
         switch (month) {
-        case JAN:
-            if (date > 31 || date < 1) {
-                return false;
-            }
         case FEB:
             if (isLeapYear(year) && (date > 29 || date < 1)) {
                 return false;
-            } else return date <= 28 && date >= 1;
-        case MAR:
-        case MAY:
-        case JUL:
-        case DEC:
-        case OCT:
+            } else {
+                return date <= 28 && date >= 1;
+            }
+        case JAN: //fall through
+        case MAR: //fall through
+        case MAY: //fall through
+        case JUL: //fall through
+        case DEC: //fall through
+        case OCT: //fall through
         case AUG:
             return date <= 31 && date >= 1;
-        case APR:
-        case SEP:
-        case NOV:
+        case APR: //fall through
+        case SEP: //fall through
+        case NOV: //fall through
         case JUN:
             return date <= 30 && date >= 1;
         default:

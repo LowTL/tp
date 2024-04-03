@@ -2,7 +2,6 @@ package command;
 
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
-import org.w3c.dom.Text;
 import promotion.Month;
 import promotion.Promotion;
 import promotion.Promotionlist;

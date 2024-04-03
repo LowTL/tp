@@ -56,7 +56,7 @@ public class Parser {
     public static final Pattern UNMARK_COMMAND_FORMAT =
             Pattern.compile("unmark (?<itemName>[^/]+)");
 
-    final Pattern PROMOTION_COMMAND_FORMAT =
+    public static final Pattern PROMOTION_COMMAND_FORMAT =
             Pattern.compile("promotion (?<itemName>[^/]+) discount/(?<discount>\\d+(\\.\\d{1,2})?) " +
                     "period /from (?<startDate>\\d+) (?<startMonth>\\w+) (?<startYear>\\d+) " +
                     "/to (?<endDate>\\d+) (?<endMonth>\\w+) (?<endYear>\\d+) " +
@@ -91,7 +91,7 @@ public class Parser {
                 break;
             }
         case LIST_PROMOTIONS:
-                return preparePromotionList();
+            return preparePromotionList();
         case DEL_PROMO:
             try {
                 return prepareDeletePromo(userInput);

@@ -16,12 +16,13 @@ import itemlist.Itemlist;
 import java.io.IOException;
 
 public class Duke {
-    private final TextUi ui = new TextUi();
-    private final Parser parser = new Parser();
-    private Itemlist itemlist = new Itemlist();
     private static final String STORAGE_FILE = "./StockMasterData.txt";
     private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
+    private final TextUi ui = new TextUi();
+    private final Parser parser = new Parser();
+    private Itemlist itemlist = new Itemlist();
+
 
 
     /**

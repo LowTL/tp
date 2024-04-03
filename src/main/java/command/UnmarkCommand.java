@@ -3,6 +3,7 @@ package command;
 import exceptions.CommandFormatException;
 import itemlist.Itemlist;
 import item.Item;
+import storage.Storage;
 
 
 public class UnmarkCommand extends Command {
@@ -24,5 +25,6 @@ public class UnmarkCommand extends Command {
             item.unmark();
             ui.TextUi.replyToUser("Successfully unmarked " + item + "!");
         }
+        Storage.overwriteFile(Itemlist.getItems());
     }
 }

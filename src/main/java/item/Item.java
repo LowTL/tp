@@ -80,6 +80,10 @@ public class Item {
         this.sellPrice = newSellPrice;
     }
 
+    public boolean getIsOOS() {
+        return isOOS;
+    }
+
     public void markOOS() {
         this.isOOS = true;
     }
@@ -94,6 +98,10 @@ public class Item {
 
     public void unmark() {
         this.isMark = false;
+    }
+
+    public boolean getMarkStatus() {
+        return this.isMark;
     }
 
     public String toString() {

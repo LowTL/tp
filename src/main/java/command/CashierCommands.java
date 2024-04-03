@@ -5,8 +5,6 @@ import itemlist.Cashier;
 import parser.CommandType;
 import ui.TextUi;
 
-import java.text.DecimalFormat;
-
 public class CashierCommands extends Command {
     protected CommandType commandType;
 

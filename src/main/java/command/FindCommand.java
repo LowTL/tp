@@ -17,13 +17,21 @@ public class FindCommand extends Command {
         this.itemInfo = itemInfo;
     }
 
+    public String getItemInfo() {
+        return itemInfo;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
     @Override
     public void execute() {
         if (itemInfo.equals("NA")) {
             itemInfo = "item + qty + uom + cat + buy + sell";
         }
         ArrayList<String> searchList = filterList();
-        TextUi.showInventoryList(searchList);
+        TextUi.showList(searchList);
     }
 
     public ArrayList<String> filterList() {
@@ -52,4 +60,5 @@ public class FindCommand extends Command {
         }
         return searchList;
     }
+
 }

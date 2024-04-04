@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.CommandFormatException;
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -18,6 +19,8 @@ public class AddCommandTest {
             addCommandTest2.execute();
         } catch (CommandFormatException e) {
             fail("Unable to add item.");
+        } catch (InvalidDateException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,8 +1,24 @@
-Date: 2024-04-01 21:32:44
+Date: 2024-04-03 20:24:38
 Transaction ID: 1
 Item Name: apple
-Quantity: 5
-Unit Price: 3.0
-Total Price: 15.0
-Profit: -5.0
+Quantity: 1
+Unit Price: 2.5
+Total Price: 2.5
+Profit: -1.5
+
+Date: 2024-04-03 20:24:46
+Transaction ID: 2
+Item Name: apple iphone
+Quantity: 1
+Unit Price: 250.0
+Total Price: 250.0
+Profit: 150.0
+
+Date: 2024-04-04 03:59:13
+Transaction ID: 1
+Item Name: apple
+Quantity: 10
+Unit Price: 2.5
+Total Price: 25.0
+Profit: -15.0
 

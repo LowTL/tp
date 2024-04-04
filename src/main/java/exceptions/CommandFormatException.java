@@ -26,8 +26,17 @@ public class CommandFormatException extends Exception{
         case HELP:
             System.out.println(Messages.HELP);
             break;
-        case LIST:
+        case LIST_ITEMS:
             System.out.println(Messages.INVALID_LIST_FORMAT);
+            break;
+        case LIST_PROMOTIONS:
+            System.out.println(Messages.INVALID_PROMOLIST_FORMAT);
+            break;
+        case DEL_PROMO:
+            System.out.println(Messages.INVALID_DEL_PROMO_FORMAT);
+            break;
+        case PROMOTION:
+            System.out.println(Messages.INVALID_PROMOTION_FORMAT);
             break;
         case MARK:
             System.out.println(Messages.INVALID_MARK_FORMAT);
@@ -39,20 +48,20 @@ public class CommandFormatException extends Exception{
             System.out.println(Messages.INVALID_COMMAND);
             break;
         }
-
     }
 
     public CommandFormatException(String error) {
         switch (error) {
 
-        case "SELL_PRICE":
-            System.out.println(Messages.INVALID_SELL_PRICE);
+        case "ITEM_NOT_FOUND":
+            System.out.println(Messages.ITEM_NOT_FOUND);
+            break;
+        case "INVALID_DISCOUNT":
+            System.out.println(Messages.INVALID_DISCOUNT);
             break;
         default:
             System.out.println("Error Detected");
         }
-
-
 
     }
 }

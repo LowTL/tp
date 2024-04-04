@@ -84,4 +84,5 @@ public class Messages {
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
             "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
             " /to [END_TIME]";
+
 }

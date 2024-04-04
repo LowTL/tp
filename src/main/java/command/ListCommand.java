@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.EmptyListException;
 import item.Item;
 import item.Transaction;
 import ui.TextUi;
@@ -27,7 +28,10 @@ public class ListCommand<T> extends Command{
     }
 
     //@@author Fureimi
-    public void execute() {
+    public void execute() throws EmptyListException {
+        if (arrayList.isEmpty()) {
+            throw new EmptyListException(arrayList.getClass().getSimpleName());
+        }
         if (category.equals("NA") && !isListMarked) {
             TextUi.showList(arrayList);
         } else if (arrayList.getClass().getSimpleName().equals("Item")) {

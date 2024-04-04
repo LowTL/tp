@@ -2,7 +2,6 @@ package command;
 
 import item.Item;
 import itemlist.Cashier;
-import parser.CommandType;
 import ui.TextUi;
 
 public class BestsellerCommand extends Command {

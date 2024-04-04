@@ -18,11 +18,11 @@ public class FindCommand extends Command {
     }
 
     public String getItemInfo() {
-        return keyword;
+        return itemInfo;
     }
 
     public String getKeyword() {
-        return itemInfo;
+        return keyword;
     }
 
     @Override

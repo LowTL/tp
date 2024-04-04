@@ -14,10 +14,12 @@ import command.AddPromotionCommand;
 import command.MarkCommand;
 import command.SellCommand;
 import command.UnmarkCommand;
-import command.CashierCommands;
+import command.BestsellerCommand;
+import command.TotalProfitCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
+import itemlist.Cashier;
 import itemlist.Itemlist;
 import promotion.Month;
 import promotion.Promotionlist;
@@ -65,6 +67,9 @@ public class Parser {
     public static final Pattern DELETE_PROMO_COMMAND_FORMAT =
             Pattern.compile("del_promo (?<itemName>[^/]+)");
 
+    public static final Pattern LIST_TRANSACTION_COMMAND_FORMAT =
+            Pattern.compile("list_txn+\\s?(?:void/[NY])*");
+
     public Command parseInput(String userInput){
         final CommandType userCommand;
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -93,6 +98,12 @@ public class Parser {
             }
         case LIST_PROMOTIONS:
             return preparePromotionList();
+        case LIST_TRANSACTIONS:
+            try {
+                return prepareTransactionList(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         case DEL_PROMO:
             try {
                 return prepareDeletePromo(userInput);
@@ -150,14 +161,9 @@ public class Parser {
         case TOTAL_PROFIT:
             //fallthrough
         case TOTAL_REVENUE:
-            //fallthrough
+            return new TotalProfitCommand(userCommand);
         case BESTSELLER:
-            try {
-                return prepareCashierCommands(userInput, CommandType.valueOf(commandWord));
-            } catch (CommandFormatException e) {
-
-                break;
-            }
+            return new BestsellerCommand();
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
@@ -343,18 +349,15 @@ public class Parser {
         return new UnmarkCommand(itemName);
     }
 
-    private Command prepareCashierCommands(String args, CommandType command) throws CommandFormatException{
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+    private Command prepareTransactionList(String args) throws CommandFormatException {
+        final Matcher matcher = LIST_TRANSACTION_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            System.out.println(Messages.INVALID_COMMAND);
-            return new IncorrectCommand();
-        }
-        if (command != CommandType.BESTSELLER && command
-                    != CommandType.TOTAL_PROFIT && command
-                    != CommandType.TOTAL_REVENUE) {
             throw new CommandFormatException(Messages.INVALID_COMMAND);
         }
-        return new CashierCommands(command);
+        //is true if void/Y
+        boolean isVoided = matcher.group("isVoid").equals("Y");
+
+        return new ListCommand<>(Cashier.getTransactions(), isVoided);
     }
 }
 

@@ -1,6 +1,7 @@
 package command;
 
 import item.Item;
+import item.Transaction;
 import ui.TextUi;
 
 import java.util.ArrayList;
@@ -16,6 +17,10 @@ public class ListCommand<T> extends Command{
         this.category = category;
         this.isListMarked = isListMarked;
     }
+    public ListCommand(ArrayList<T> transactions, boolean isVoided) {
+        this.arrayList = transactions;
+        this.isListMarked = isVoided;
+    }
 
     public String getCategory() {
         return category;
@@ -25,10 +30,13 @@ public class ListCommand<T> extends Command{
     public void execute() {
         if (category.equals("NA") && !isListMarked) {
             TextUi.showList(arrayList);
-        } else if (arrayList.getClass().getSimpleName().equals("Item")){
+        } else if (arrayList.getClass().getSimpleName().equals("Item")) {
             TextUi.showCustomizedList((ArrayList<Item>) arrayList, category, isListMarked);
+        } else if (arrayList.getClass().getSimpleName().equals("Transaction")) {
+            TextUi.showTransactionList((ArrayList<Transaction>) arrayList);
         }
     }
+
 
 }
 

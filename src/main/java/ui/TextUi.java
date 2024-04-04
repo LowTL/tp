@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import common.Messages;
 import item.Item;
+import item.Transaction;
 
 public class TextUi {
 
@@ -127,6 +128,15 @@ public class TextUi {
             if (flag == 0) {
                 replyToUser("There are no marked items of category '" + category + "' in your inventory list!");
             }
+        }
+    }
+
+    public static void showTransactionList(ArrayList<Transaction> transactions) {
+        int counter = 0;
+        for (Transaction t: transactions) {
+            counter++;
+            replyToUser(counter + ". " + t.getItemName() + " " +
+                    (t.getProfit() > 0 ? "earned " : "lost ") + t.getProfit());
         }
     }
 

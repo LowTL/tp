@@ -15,7 +15,7 @@ import itemlist.Itemlist;
 
 import java.io.IOException;
 
-public class Duke {
+public class StockMaster {
     private static final String STORAGE_FILE = "./StockMasterData.txt";
     private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
@@ -26,10 +26,10 @@ public class Duke {
 
 
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the java.duke.StockMaster application.
      */
     public static void main(String[] args) throws IOException, CommandFormatException, InvalidDateException {
-        new Duke().run();
+        new StockMaster().run();
     }
 
     public void run() throws IOException, CommandFormatException, InvalidDateException {

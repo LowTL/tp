@@ -18,11 +18,11 @@ public class FindCommand extends Command {
     }
 
     public String getItemInfo() {
-        return keyword;
+        return itemInfo;
     }
 
     public String getKeyword() {
-        return itemInfo;
+        return keyword;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class FindCommand extends Command {
             itemInfo = "item + qty + uom + cat + buy + sell";
         }
         ArrayList<String> searchList = filterList();
-        TextUi.showInventoryList(searchList);
+        TextUi.showList(searchList);
     }
 
     public ArrayList<String> filterList() {

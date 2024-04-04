@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.CommandFormatException;
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
@@ -16,6 +17,8 @@ public class SellCommandTest {
             sellCommandTest2.execute();
         } catch (CommandFormatException e) {
             fail("Unable to sell item.");
+        } catch (InvalidDateException e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -6,15 +6,11 @@ StockMaster is a platform aimed at helping SMEs track and organise their invento
 
 ## Quick Start
 
-{Give steps to get started quickly}
-
 1. Ensure that you have Java 11 or above installed.
 2. Download the latest version of `StockMaster` from [here](http://link.to/duke).
-3. 
+3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar StockMaster.jar` command to run the application.
 
-## Features 
-
-{Give detailed description of each feature}
+## Features
 
 ### Adding an item: `add`
 Adds a new item to the list of items.
@@ -29,8 +25,8 @@ Format: `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy
 
 Example of usage: 
 ```
-add Apple qty/50 /pieces cat/fruits buy/4 sell/5
-add Phone qty/5 /pieces cat/Electronics buy/100 sell/500
+add apple qty/50 /pieces cat/fruits buy/4 sell/5
+add phone qty/5 /pieces cat/Electronics buy/100 sell/500
 ```
 
 ### Deleting an item: `del`
@@ -40,20 +36,18 @@ Format: `del ITEM_NAME`
 
 Example of usage:
 ```
-del Apples
+del apples
 ```
 
 ### Selling an item: `sell`
 Sells a quantity of an item from the list of items at a stated price.
 
-Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]`
+Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY]`
 
-* `SELL_PRICE` is an optional field. If blank, it will default to the item's set sell price.
 
 Example of usage:
 ```
-sell Apple qty/20 price/6
-sell Phone qty/1
+sell apple qty/20 
 ```
 
 ### Editing an item: `edit`
@@ -90,18 +84,81 @@ find /qty/cat Apple //search for `Apple` under `ITEM_QUANTITY` and `CATEGORY`
 find Apple //search all items that contains `Apple`
 ```
 
-### Listing all items: `list`
+### Listing all items: `list_items`
 Lists all stored items.
 
-Format: `list [cat/CATEGORY]`
+Format: `list_items [cat/CATEGORY]`
 
 * `CATEGORY` is an optional field. By default, it will list all the stored items.
 
 Example of usage:
 ```
-list
-list Electronics
+list_items
+list_items Electronics
 ```
+### Get bestselling item: `bestseller`
+Reads all the Transactions and returns the item with the highest profit.
+
+Format: `bestseller`
+
+Example of usage:
+```
+bestseller
+```
+
+### Get total profits: `total_profit`
+Reads all the Transactions and returns the total profits.
+
+Format: `total_profit`
+
+Example of usage:
+```
+total_profit
+```
+
+### Get total revenue: `total_revenue`
+Reads all the Transactions and returns the total profits.
+
+Format: `total_revenue`
+
+Example of usage:
+```
+total_revenue
+```
+
+### Add promotion to items: `promotion`
+Creates a promotion for items that changes the sell price.
+
+Format: `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]
+time /from [TIME] /to [TIME]`
+
+* `DISCOUNT` ranges from 0 to 100 and can take in up to 2 decimal place.
+* `[DATE]` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
+* `[TIME]` must range from 0000 to 2359. In addition, time range must be valid.
+
+Example of usage:
+```
+promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500
+```
+### Delete a promotion: `del_promo`
+Deletes a promotion for an item.
+
+Format: `del_promo [ITEM_NAME]`
+
+Example of usage:
+```
+del_promo apple
+```
+### List promotions: `list_promotions`
+List all the promotions created.
+
+Format: `list_promotions`
+
+Example of usage:
+```
+list_promotions
+```
+
 
 ### List all available commands: `help`
 Lists all commands as per the command summary below.
@@ -127,18 +184,24 @@ Format: `exit`
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: Simply copy and paste the saved folder that is created upon launch of 
+**A**: Simply copy and paste the saved folders that is created upon launch of 
 the application.
 
 ## Command Summary
 
-| Action      | Format, Examples                                                                                                                                                                                                        |
-|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Add Item    | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                 |
-| Delete Item | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                   |
-| Edit Item   | `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`  |
-| Find Item   | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                              |
-| Sell Item   | `sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]`<br/> `e.g. sell apple qty/50 price/4.50`                                                                                                                      |
-| List        | `list`                                                                                                                                                                                                                  |
-| Help        | `help`                                                                                                                                                                                                                  |
-| Exit        | `exit`                                                                                                                                                                                                                  |
+| Action           | Format, Examples                                                                                                                                                                                                                             |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add Item         | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                                      |
+| Delete Item      | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                                        |
+| Edit Item        | `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`                       |
+| Find Item        | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                                                   |
+| Sell Item        | `sell [ITEM_NAME] qty/[SELL_QUANTITY] `<br/> `e.g. sell apple qty/50`                                                                                                                                                                        |
+| List Inventory   | `list_items`                                                                                                                                                                                                                                 |
+| Get Best Seller  | `bestseller`                                                                                                                                                                                                                                 |
+| Get Profit       | `total_profit`                                                                                                                                                                                                                               |
+| Get Revenue      | `total_revenue`                                                                                                                                                                                                                              |
+| Create Promotion | `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]time /from [TIME] /to [TIME]`<br/> `e.g. promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500` |
+| Delete Promotion | `del_promo ITEM_NAME` <br/> `e.g. del_promo apple`                                                                                                                                                                                           |
+| List Promotion   | `list_promotions`                                                                                                                                                                                                                            |
+| Help             | `help`                                                                                                                                                                                                                                       |
+| Exit             | `exit`                                                                                                                                                                                                                                       |

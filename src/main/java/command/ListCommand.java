@@ -1,7 +1,9 @@
 package command;
 
+import common.Messages;
 import item.Item;
 import item.Transaction;
+import promotion.Promotion;
 import ui.TextUi;
 
 import java.util.ArrayList;
@@ -28,15 +30,59 @@ public class ListCommand<T> extends Command{
 
     //@@author Fureimi
     public void execute() {
-        if (category.equals("NA") && !isListMarked) {
+        if (containsItems(arrayList)) {
+            if (category.equals("NA") && !isListMarked) {
+                TextUi.showList(arrayList);
+            } else {
+                showCustomizedItemList();
+            }
+        } else if (containsPromotions(arrayList)) {
             TextUi.showList(arrayList);
-        } else if (arrayList.getClass().getSimpleName().equals("Item")) {
-            TextUi.showCustomizedList((ArrayList<Item>) arrayList, category, isListMarked);
-        } else if (arrayList.getClass().getSimpleName().equals("Transaction")) {
-            TextUi.showTransactionList((ArrayList<Transaction>) arrayList);
+        } else if (containsTransactions(arrayList)) {
+            showTransactionList();
+        } else {
+            TextUi.replyToUser(Messages.EMPTY_LIST);
         }
     }
 
+    private void showTransactionList() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Transaction> transactionList = (ArrayList<Transaction>) arrayList;
+        TextUi.showTransactionList(transactionList);
+    }
+
+    private void showCustomizedItemList() {
+        @SuppressWarnings("unchecked")
+        ArrayList<Item> itemList = (ArrayList<Item>) arrayList;
+        TextUi.showCustomizedList(itemList, category, isListMarked);
+    }
+
+    private static boolean containsItems(ArrayList<?> arrayList) {
+        for (Object obj : arrayList) {
+            if (obj instanceof Item) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean containsTransactions(ArrayList<?> arrayList) {
+        for (Object obj : arrayList) {
+            if (obj instanceof Transaction) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean containsPromotions(ArrayList<?> arrayList) {
+        for (Object obj : arrayList) {
+            if (obj instanceof Promotion) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
 

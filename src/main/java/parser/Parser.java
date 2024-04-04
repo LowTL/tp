@@ -1,5 +1,6 @@
 package parser;
 
+import command.Command;
 import command.AddCommand;
 import command.DeleteCommand;
 import command.DeletePromotionCommand;
@@ -13,9 +14,9 @@ import command.AddPromotionCommand;
 import command.MarkCommand;
 import command.SellCommand;
 import command.UnmarkCommand;
+import command.CashierCommands;
 import common.Messages;
 import exceptions.CommandFormatException;
-import command.Command;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
 import promotion.Month;
@@ -144,6 +145,17 @@ public class Parser {
             try {
                 return prepareUnmark(userInput);
             } catch (CommandFormatException e) {
+                break;
+            }
+        case TOTAL_PROFIT:
+            //fallthrough
+        case TOTAL_REVENUE:
+            //fallthrough
+        case BESTSELLER:
+            try {
+                return prepareCashierCommands(userInput, CommandType.valueOf(commandWord));
+            } catch (CommandFormatException e) {
+
                 break;
             }
         default:
@@ -329,6 +341,20 @@ public class Parser {
         }
         String itemName = matcher.group("itemName");
         return new UnmarkCommand(itemName);
+    }
+
+    private Command prepareCashierCommands(String args, CommandType command) throws CommandFormatException{
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            System.out.println(Messages.INVALID_COMMAND);
+            return new IncorrectCommand();
+        }
+        if (command != CommandType.BESTSELLER && command
+                    != CommandType.TOTAL_PROFIT && command
+                    != CommandType.TOTAL_REVENUE) {
+            throw new CommandFormatException(Messages.INVALID_COMMAND);
+        }
+        return new CashierCommands(command);
     }
 }
 

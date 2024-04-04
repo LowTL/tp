@@ -13,5 +13,8 @@ public enum CommandType {
     FIND,
     PROMOTION,
     MARK,
-    UNMARK
+    UNMARK,
+    TOTAL_PROFIT,
+    TOTAL_REVENUE,
+    BESTSELLER,
 }

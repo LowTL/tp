@@ -6,11 +6,23 @@
 
 ## Design
 
+{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
+### Command
+The Command class is an abstract class which is extended to execute the various commands 
+used in the product.
+
 {Describe the design of the product. Use UML diagrams and short code snippets where applicable.}
 ### Exception
+
 ### Itemlist
 Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, remove functions, edit items inside
 the list.
+
+The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
+
+![AddCommand_SequenceDiagram](./Diagrams/AddCommand_Sequence_Diagram.png)
+
 ### Item
 Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item price, 
 quantity of item, and others.
@@ -22,6 +34,12 @@ Storage class contains methods to write description of items to the file `./Stoc
 and retrieve information from the file when program restarts.
 ### UI
 
+<<<<<<< HEAD
+### Cashier
+Cashier class extends Itemlist class
+![CashierCommands_SequenceDiagram](./Diagrams/CashierCommands_SequenceDiagram.png)
+
+=======
 ## Implementation
 
 This section describes some noteworthy details on how certain features are implemented
@@ -70,6 +88,7 @@ Example: `del_promo apple`
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
 Example: `list_promotions`
+>>>>>>> 066333f49202f21788226cf5159f4e6c67f2dbde
 
 ## Product scope
 StockMaster allows users to use the following commands:
@@ -100,13 +119,13 @@ a typical mouse/GUI driven app
 
 ## User Stories
 
-|Version| As a ... | I want to ...               | So that I can ...                                          |
-|--------|----------|-----------------------------|------------------------------------------------------------|
-|v1.0|new user| see usage instructions      | refer to them when I forget how to use the application     |
-|v1.0|user| add new items               |                                                            |
-|v1.0|user| make changes to added items | change details about items such as quantity or price       |
-|v1.0|user| search for specific items   ||
-|v2.0|user| find a to-do item by name   | locate a to-do without having to go through the entire list |
+| Version | As a ... | I want to ...               | So that I can ...                                           |
+|---------|----------|-----------------------------|-------------------------------------------------------------|
+| v1.0    | new user | see usage instructions      | refer to them when I forget how to use the application      |
+| v1.0    | user     | add new items               |                                                             |
+| v1.0    | user     | make changes to added items | change details about items such as quantity or price        |
+| v1.0    | user     | search for specific items   |                                                             |
+| v2.0    | user     | find a to-do item by name   | locate a to-do without having to go through the entire list |
 
 ## Non-Functional Requirements
 

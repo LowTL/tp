@@ -22,16 +22,16 @@ public class Cashier extends Itemlist {
     }
 
     public static float getTotalRevenue() {
-        float revenue = 0;
+        float totalRevenue = 0;
         for (Transaction t : getTransactions()) {
             if (!t.getIsVoided()) {
-                revenue += t.getTotalPrice();
+                totalRevenue += t.getTotalPrice();
             }
         }
-        return revenue;
+        return totalRevenue;
     }
 
-    public float getTotalProfit() {
+    public static float getTotalProfit() {
         float totalProfit = 0;
         for (Transaction t: transactions) {
             if (!t.getIsVoided()) {
@@ -45,7 +45,7 @@ public class Cashier extends Itemlist {
         return transactions.get(index);
     }
 
-    public Item getBestseller() {
+    public static Item getBestseller() {
         Item bestSeller = Itemlist.getItem(0);
         float[] profits = new float[Itemlist.items.size()];
         for (Transaction t: transactions) {

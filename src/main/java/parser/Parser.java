@@ -3,19 +3,24 @@ package parser;
 import command.Command;
 import command.AddCommand;
 import command.DeleteCommand;
+import command.DeletePromotionCommand;
 import command.EditCommand;
 import command.ExitCommand;
 import command.FindCommand;
 import command.HelpCommand;
 import command.IncorrectCommand;
 import command.ListCommand;
+import command.AddPromotionCommand;
 import command.MarkCommand;
 import command.SellCommand;
 import command.UnmarkCommand;
 import command.CashierCommands;
 import common.Messages;
 import exceptions.CommandFormatException;
+import exceptions.InvalidDateException;
 import itemlist.Itemlist;
+import promotion.Month;
+import promotion.Promotionlist;
 
 
 import java.util.regex.Matcher;
@@ -36,7 +41,7 @@ public class Parser {
                 "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
 
     public static final Pattern SELL_COMMAND_FORMAT =
-            Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)(?: price/(?<sellPrice>[^/]+))?");
+            Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)");
 
     public static final Pattern FIND_COMMAND_FORMAT =
             Pattern.compile("find(?: /(?<itemInfo>[^/]+))* (?<keyword>[^/]+)");
@@ -44,19 +49,21 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final Pattern LIST_COMMAND_FORMAT =
-            Pattern.compile("list(?:\\s+(?<isMark>marked))?(?:\\s+cat/(?<category>[^/]+))?");
+    public static final Pattern LIST_ITEM_COMMAND_FORMAT =
+            Pattern.compile("list_items(?:\\s+(?<isMark>marked))?(?:\\s+cat/(?<category>[^/]+))?");
 
     public static final Pattern MARK_COMMAND_FORMAT =
             Pattern.compile("mark (?<itemName>[^/]+)");
     public static final Pattern UNMARK_COMMAND_FORMAT =
             Pattern.compile("unmark (?<itemName>[^/]+)");
-    public static final Pattern TOTAL_PROFIT_FORMAT =
-            Pattern.compile("profit");
-    public static final Pattern TOTAL_REVENUE_FORMAT =
-            Pattern.compile("revenue");
-    public static final Pattern BESTSELLER_FORMAT =
-            Pattern.compile("bestseller");
+
+    public static final Pattern PROMOTION_COMMAND_FORMAT =
+            Pattern.compile("promotion (?<itemName>[^/]+) discount/(?<discount>\\d+(\\.\\d{1,2})?) " +
+                    "period /from (?<startDate>\\d+) (?<startMonth>\\w+) (?<startYear>\\d+) " +
+                    "/to (?<endDate>\\d+) (?<endMonth>\\w+) (?<endYear>\\d+) " +
+                    "time /from (?<startTime>\\d{4}) /to (?<endTime>\\d{4})");
+    public static final Pattern DELETE_PROMO_COMMAND_FORMAT =
+            Pattern.compile("del_promo (?<itemName>[^/]+)");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -73,15 +80,22 @@ public class Parser {
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
         }
-
         switch (userCommand) {
         case EXIT:
             return new ExitCommand(true);
         case HELP:
             return new HelpCommand();
-        case LIST:
+        case LIST_ITEMS:
             try {
-                return prepareList(userInput);
+                return prepareItemList(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
+        case LIST_PROMOTIONS:
+            return preparePromotionList();
+        case DEL_PROMO:
+            try {
+                return prepareDeletePromo(userInput);
             } catch (CommandFormatException e) {
                 break;
             }
@@ -115,6 +129,12 @@ public class Parser {
             } catch (CommandFormatException e) {
                 break;
             }
+        case PROMOTION:
+            try {
+                return preparePromotion(userInput);
+            } catch (CommandFormatException | InvalidDateException e) {
+                break;
+            }
         case MARK:
             try {
                 return prepareMark(userInput);
@@ -133,7 +153,7 @@ public class Parser {
             //fallthrough
         case BESTSELLER:
             try {
-                return prepareCashierCommands(userInput, commandWord);
+                return prepareCashierCommands(userInput, CommandType.valueOf(commandWord));
             } catch (CommandFormatException e) {
 
                 break;
@@ -176,6 +196,7 @@ public class Parser {
         return new DeleteCommand(matcher.group("itemName"));
     }
 
+
     private Command prepareSell(String args) throws CommandFormatException{
         final Matcher matcher = SELL_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -183,17 +204,20 @@ public class Parser {
             throw new CommandFormatException(CommandType.SELL);
         }
         int sellQuantity = Integer.parseInt(matcher.group("sellQuantity").trim());
-        boolean sellPriceIsPresent = matcher.group("sellPrice") != null;
-        int inputPrice = (sellPriceIsPresent) ? Integer.parseInt(matcher.group("sellPrice")): 0;
-        if (sellPriceIsPresent && inputPrice < 0) {
-            throw new CommandFormatException("SELL_PRICE");
+        if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
+            float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
+            return new SellCommand(
+                    matcher.group("itemName"),
+                    sellQuantity,
+                    getDiscount
+            );
+        } else {
+            return new SellCommand(
+                    matcher.group("itemName"),
+                    sellQuantity,
+                    -1
+            );
         }
-        int sellPrice = sellPriceIsPresent ? inputPrice : -1;
-        return new SellCommand(
-                matcher.group("itemName"),
-                sellQuantity,
-                sellPrice
-        );
     }
 
     private Command prepareFind(String args) throws CommandFormatException{
@@ -242,15 +266,63 @@ public class Parser {
         );
     }
 
-    private Command prepareList(String args) throws CommandFormatException {
-        final Matcher matcher = LIST_COMMAND_FORMAT.matcher(args.trim());
+    private Command preparePromotion(String args) throws CommandFormatException, InvalidDateException {
+        final Matcher matcher = PROMOTION_COMMAND_FORMAT.matcher(args.trim());
+
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.PROMOTION);
+        }
+        String itemName = matcher.group("itemName");
+        float discount = Float.parseFloat(matcher.group("discount")) / 100;
+        int startDate = Integer.parseInt(matcher.group("startDate"));
+        String startMonth = matcher.group("startMonth");
+        int startYear = Integer.parseInt(matcher.group("startYear"));
+        int endDate = Integer.parseInt(matcher.group("endDate"));
+        String endMonth = matcher.group("endMonth");
+        int endYear = Integer.parseInt(matcher.group("endYear"));
+        int startTime = Integer.parseInt(matcher.group("startTime"));
+        int endTime = Integer.parseInt(matcher.group("endTime"));
+        try {
+            Month startMonthEnum = Month.valueOf(startMonth.toUpperCase());
+            Month endMonthEnum = Month.valueOf(endMonth.toUpperCase());
+            return new AddPromotionCommand(
+                    itemName,
+                    discount,
+                    startDate,
+                    Month.valueOf(startMonth.toUpperCase()),
+                    startYear,
+                    endDate,
+                    Month.valueOf(endMonth.toUpperCase()),
+                    endYear,
+                    startTime,
+                    endTime
+            );
+        } catch (IllegalArgumentException e) {
+            throw new InvalidDateException("INVALID_MONTH");
+        }
+    }
+
+    private Command prepareDeletePromo(String args) throws CommandFormatException{
+        final Matcher matcher = DELETE_PROMO_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            throw new CommandFormatException(CommandType.LIST);
+            throw new CommandFormatException(CommandType.DEL_PROMO);
+        }
+        return new DeletePromotionCommand(matcher.group("itemName"));
+    }
+    private Command prepareItemList(String args) throws CommandFormatException {
+        final Matcher matcher = LIST_ITEM_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.LIST_ITEMS);
         }
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
-        Boolean listMarked = matcher.group("isMark") != null;
+        boolean listMarked = matcher.group("isMark") != null;
         return new ListCommand<>(Itemlist.getItems(), category, listMarked);
+    }
+
+    private Command preparePromotionList() {
+        return new ListCommand<>(Promotionlist.getAllPromotion(), "NA", false);
     }
 
     private Command prepareMark(String args) throws CommandFormatException {

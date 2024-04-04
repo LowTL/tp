@@ -34,7 +34,6 @@ Storage class contains methods to write description of items to the file `./Stoc
 and retrieve information from the file when program restarts.
 ### UI
 
-<<<<<<< HEAD
 ### Cashier
 Cashier class extends Itemlist class
 ![CashierCommands_SequenceDiagram](./Diagrams/CashierCommands_SequenceDiagram.png)
@@ -88,7 +87,7 @@ Example: `del_promo apple`
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
 Example: `list_promotions`
->>>>>>> 066333f49202f21788226cf5159f4e6c67f2dbde
+
 
 ## Product scope
 StockMaster allows users to use the following commands:

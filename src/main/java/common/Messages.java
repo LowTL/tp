@@ -9,12 +9,12 @@ public class Messages {
             "|_________________________________________________________________________________________|\n" +
             "| Commands | Format                                                                       |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "| list     | list                                                                         |\n" +
+            "|list items| list_items                                                                       |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] |\n" +
             "|          |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "| sell     | sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]                      |\n" +
+            "| sell     | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| edit     | edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]            |\n" +
             "|          |      cat/[NEW_CATEGORY]                                                      |\n" +
@@ -25,6 +25,15 @@ public class Messages {
             "| find     | 1. find [KEYWORD]  - to search the entire Item List                          |\n" +
             "|          | 2. find /filter1/filter2 [KEYWORD]  - to search under the filters*           |\n" +
             "|          |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
+            "|----------|------------------------------------------------------------------------------|\n" +
+            "|promotion | promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] |\n" +
+            "|          | to [DATE] [MONTH] [YEAR] time /from [TIME] /to [TIME]                        |\n" +
+            "|----------|------------------------------------------------------------------------------|\n" +
+            "|delete    | del_promo [ITEM_NAME]                                                        |\n" +
+            "|promotion |                                                                              |\n" +
+            "|----------|------------------------------------------------------------------------------|\n" +
+            "|list      | list_promotions                                                              |\n" +
+            "|promotions|                                                                              |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| exit     | exit                                                                         |\n" +
             "|__________|______________________________________________________________________________|\n";

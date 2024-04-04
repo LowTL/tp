@@ -3,16 +3,14 @@ package ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import common.Messages;
 import item.Item;
+import item.Transaction;
 
 public class TextUi {
 
     public static final String DIVIDER = "----------------";
 
-    public static final String WELCOME_MESSAGE = "Welcome to StockMaster, where you can master the knowledge on your " +
-            "Stock!";
-
-    public static final String GOODBYE_MESSAGE = "Thank you for using StockMaster, hope we have helped your lazy ass!";
     private final Scanner in;
 
     public TextUi() {
@@ -39,16 +37,20 @@ public class TextUi {
                 version,
                 DIVIDER,
                 "Data is being extracted from: " + storageFilePath,
-                WELCOME_MESSAGE
+                Messages.WELCOME_MESSAGE
         );
     }
 
-    public void showGoodByeMessage(String storageFilePath) {
+    public void showGoodByeMessage(String storageFilePath, String transactionLogPath, String promotionStoragePath) {
         replyToUser(
                 DIVIDER,
-                "Data is being saved to :" + storageFilePath,
+                "Inventory is being saved to :" + storageFilePath,
                 DIVIDER,
-                GOODBYE_MESSAGE
+                "Transactions are being saved to:" + transactionLogPath,
+                DIVIDER,
+                "Promotions are being saved to: " + promotionStoragePath,
+                DIVIDER,
+                Messages.GOODBYE_MESSAGE
         );
     }
 
@@ -58,9 +60,9 @@ public class TextUi {
         }
     }
 
-    public static <T> void showInventoryList(ArrayList<T> arrayList) {
+    public static <T> void showList(ArrayList<T> arrayList) {
         if (arrayList.isEmpty()) {
-            replyToUser("There is nothing here! Time to spend some money and stock em up!");
+            replyToUser(Messages.EMPTY_LIST);
         } else {
             replyToUser("List: ");
             for (T item : arrayList) {
@@ -83,7 +85,7 @@ public class TextUi {
     //@@author Fureimi
     public static void showCustomizedList(ArrayList<Item> arrayList, String category, boolean isListMarked) {
         if (arrayList.isEmpty()) {
-            replyToUser("There is nothing here! Time to spend some money and stock em up!");
+            replyToUser(Messages.EMPTY_LIST);
             // case 1: user wants to list all items of a certain category
         } else if (!category.equals("NA") && !isListMarked) {
             int flag = 0;
@@ -129,6 +131,15 @@ public class TextUi {
         }
     }
 
+    public static void showTransactionList(ArrayList<Transaction> transactions) {
+        int counter = 0;
+        for (Transaction t: transactions) {
+            counter++;
+            replyToUser(counter + ". " + t.getItemName() + " " +
+                    (t.getProfit() > 0 ? "earned " : "lost ") + t.getProfit());
+        }
+    }
+
     public static void showEditMessage(String item, String editedParameter, String oldParameter, String newParameter) {
         switch (editedParameter) {
         case "newItemName":
@@ -153,5 +164,4 @@ public class TextUi {
             break;
         }
     }
-
 }

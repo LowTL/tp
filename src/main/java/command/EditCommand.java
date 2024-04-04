@@ -27,6 +27,34 @@ public class EditCommand extends Command{
         this.newSellPrice = newSellPrice;
     }
 
+    public String getItemName() {
+        return itemName;
+    }
+
+    public String getNewItemName() {
+        return newItemName;
+    }
+
+    public int getNewQuantity() {
+        return newQuantity;
+    }
+
+    public String getNewUnitOfMeasurement() {
+        return newUnitOfMeasurement;
+    }
+
+    public String getNewCategory() {
+        return newCategory;
+    }
+
+    public float getNewBuyPrice() {
+        return newBuyPrice;
+    }
+
+    public float getNewSellPrice() {
+        return newSellPrice;
+    }
+
     @Override
     public void execute() {
         int index = -1; // flag to check if item exists in Itemlist
@@ -77,4 +105,5 @@ public class EditCommand extends Command{
         ui.TextUi.replyToUser("");
         Storage.overwriteFile(Itemlist.getItems());
     }
+
 }

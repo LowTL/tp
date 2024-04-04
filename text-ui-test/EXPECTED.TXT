@@ -9,6 +9,10 @@ Low-on-stock Items:
 No items low on stock
 Enter Command:
 ----------------
-Data is being saved to :./StockMasterData.txt
+Inventory is being saved to :./StockMasterData.txt
+----------------
+Transactions are being saved to:./TransactionLogs.txt
+----------------
+Promotions are being saved to: ./PromotionStorage.txt
 ----------------
 Thank you for using StockMaster, hope we have helped your lazy ass!

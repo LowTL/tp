@@ -43,6 +43,19 @@ Example of usage:
 del Apples
 ```
 
+### Selling an item: `sell`
+Sells a quantity of an item from the list of items at a stated price.
+
+Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]`
+
+* `SELL_PRICE` is an optional field. If blank, it will default to the item's set sell price.
+
+Example of usage:
+```
+sell Apple qty/20 price/6
+sell Phone qty/1
+```
+
 ### Editing an item: `edit`
 Edits the parameters of the item.
 
@@ -88,6 +101,35 @@ Example of usage:
 ```
 list
 list Electronics
+```
+### Get bestselling item: `bestseller`
+Reads all the Transactions and returns the item with the highest profit.
+
+Format: `bestseller`
+
+Example of usage:
+```
+bestseller
+```
+
+### Get total profits: `total_profit`
+Reads all the Transactions and returns the total profits.
+
+Format: `total_profit`
+
+Example of usage:
+```
+total_profit
+```
+
+### Get total revenue: `total_revenue`
+Reads all the Transactions and returns the total profits.
+
+Format: `total_revenue`
+
+Example of usage:
+```
+total_revenue
 ```
 
 ### List all available commands: `help`

@@ -11,12 +11,20 @@ public class SellCommand extends Command {
 
     protected String itemName;
     protected int sellQuantity;
-    protected float sellPrice;
+    protected float discount;
 
-    public SellCommand (String itemName, int quantity, float price) {
+    public SellCommand (String itemName, int quantity, float discount) {
         this.itemName = itemName;
         this.sellQuantity = quantity;
-        this.sellPrice = price;
+        this.discount = discount;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public int getSellQuantity() {
+        return sellQuantity;
     }
 
     @Override
@@ -36,7 +44,8 @@ public class SellCommand extends Command {
             return;
         }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
-        float sellPrice = (this.sellPrice >= 0) ? this.sellPrice : Itemlist.getItem(index).getSellPrice();
+        float getSellPrice = Itemlist.getItem(index).getSellPrice();
+        float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
         if (remainingQuantity < 0) {
             System.out.println("There is insufficient stock!");
             return;
@@ -49,4 +58,5 @@ public class SellCommand extends Command {
         Cashier.addItem(newTransaction);
         TransactionLogs.addToLog(Cashier.getTransactions());
     }
+
 }

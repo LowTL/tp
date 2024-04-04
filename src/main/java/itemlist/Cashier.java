@@ -13,25 +13,30 @@ public class Cashier extends Itemlist {
         transactions.add(transaction);
     }
 
-    public static void deleteItem(int index) {
-        transactions.remove(index);
-    }
-
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-
-    public static float getTotalRevenue() {
-        float revenue = 0;
-        for (Transaction t : getTransactions()) {
-            if (!t.getIsVoided()) {
-                revenue += t.getTotalPrice();
+    public static ArrayList<Transaction> getTransactions(Item item) {
+        ArrayList<Transaction> results = new ArrayList<>();
+        for (Transaction t: transactions) {
+            if (t.getItem() == item) {
+                results.add(t);
             }
         }
-        return revenue;
+        return results;
     }
 
-    public float getTotalProfit() {
+    public static float getTotalRevenue() {
+        float totalRevenue = 0;
+        for (Transaction t : getTransactions()) {
+            if (!t.getIsVoided()) {
+                totalRevenue += t.getTotalPrice();
+            }
+        }
+        return totalRevenue;
+    }
+
+    public static float getTotalProfit() {
         float totalProfit = 0;
         for (Transaction t: transactions) {
             if (!t.getIsVoided()) {
@@ -45,7 +50,7 @@ public class Cashier extends Itemlist {
         return transactions.get(index);
     }
 
-    public Item getBestseller() {
+    public static Item getBestseller() {
         Item bestSeller = Itemlist.getItem(0);
         float[] profits = new float[Itemlist.items.size()];
         for (Transaction t: transactions) {

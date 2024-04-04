@@ -13,12 +13,17 @@ public class Cashier extends Itemlist {
         transactions.add(transaction);
     }
 
-    public static void deleteItem(int index) {
-        transactions.remove(index);
-    }
-
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
+    }
+    public static ArrayList<Transaction> getTransactions(Item item) {
+        ArrayList<Transaction> results = new ArrayList<>();
+        for (Transaction t: transactions) {
+            if (t.getItem() == item) {
+                results.add(t);
+            }
+        }
+        return results;
     }
 
     public static float getTotalRevenue() {

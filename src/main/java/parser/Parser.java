@@ -349,7 +349,9 @@ public class Parser {
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
         }
-        if (command != CommandType.BESTSELLER && command != CommandType.TOTAL_PROFIT && command != CommandType.TOTAL_REVENUE) {
+        if (command != CommandType.BESTSELLER && command
+                    != CommandType.TOTAL_PROFIT && command
+                    != CommandType.TOTAL_REVENUE) {
             throw new CommandFormatException(Messages.INVALID_COMMAND);
         }
         return new CashierCommands(command);

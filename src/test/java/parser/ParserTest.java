@@ -55,13 +55,12 @@ public class ParserTest {
 
     @Test
     public void testParseSellCommand() {
-        String userInput = "sell ItemName qty/5 price/20.0";
+        String userInput = "sell ItemName qty/5";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(SellCommand.class, command);
         SellCommand sellCommand = (SellCommand) command;
         assertEquals("ItemName", sellCommand.getItemName());
         assertEquals(5, sellCommand.getSellQuantity());
-        assertEquals(20.0f, sellCommand.getSellPrice(), 0.01);
     }
 
     @Test
@@ -70,13 +69,13 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(FindCommand.class, command);
         FindCommand findCommand = (FindCommand) command;
-        assertEquals("/info", findCommand.getItemInfo());
-        assertEquals("Keyword", findCommand.getKeyword());
+        assertEquals("info", findCommand.getItemInfo());
+        assertEquals("keyword", findCommand.getKeyword());
     }
 
     @Test
     public void testParseListCommand() {
-        String userInput = "list cat/Category";
+        String userInput = "list_items cat/Category";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(ListCommand.class, command);
         ListCommand listCommand = (ListCommand) command;

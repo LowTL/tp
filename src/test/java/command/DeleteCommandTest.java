@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.CommandFormatException;
+import exceptions.InvalidDateException;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,8 @@ public class DeleteCommandTest {
             deleteCommand.execute();
         } catch (CommandFormatException e) {
             fail("Unable to delete.");
+        } catch (InvalidDateException e) {
+            throw new RuntimeException(e);
         }
 
     }

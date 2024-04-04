@@ -132,8 +132,12 @@ public class Parser {
         case TOTAL_REVENUE:
             //fallthrough
         case BESTSELLER:
-            prepareCashierCommands(userInput, commandWord);
-            break;
+            try {
+                return prepareCashierCommands(userInput, commandWord);
+            } catch (CommandFormatException e) {
+
+                break;
+            }
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
@@ -267,8 +271,15 @@ public class Parser {
         return new UnmarkCommand(itemName);
     }
 
-    private Command prepareCashierCommands(String args, String command) {
-        final Matcher matcher = TOTAL_PROFIT_FORMAT.matcher(args.trim());
+    private Command prepareCashierCommands(String args, CommandType command) throws CommandFormatException{
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            System.out.println(Messages.INVALID_COMMAND);
+            return new IncorrectCommand();
+        }
+        if (command != CommandType.BESTSELLER && command != CommandType.TOTAL_PROFIT && command != CommandType.TOTAL_REVENUE) {
+            throw new CommandFormatException(Messages.INVALID_COMMAND);
+        }
         return new CashierCommands(command);
     }
 }

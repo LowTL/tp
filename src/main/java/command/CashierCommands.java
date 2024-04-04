@@ -8,8 +8,8 @@ import ui.TextUi;
 public class CashierCommands extends Command {
     protected CommandType commandType;
 
-    public CashierCommands(String command) {
-        this.commandType = CommandType.valueOf(command);
+    public CashierCommands(CommandType command) {
+        this.commandType = command;
     }
 
     @Override

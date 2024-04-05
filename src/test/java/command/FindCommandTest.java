@@ -11,14 +11,18 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class FindCommandTest {
 
     @Test
-    public void findCommandTest() throws CommandFormatException, InvalidDateException, EmptyListException {
+    public void findCommandTest() throws CommandFormatException, InvalidDateException {
         Command addCommandTest1 = new AddCommand("testItem", 1, "EA",
                 "NA", 1, 10);
         Command findCommand = new FindCommand("item","testItem");
         Command findCommand2 = new FindCommand("NA","failFindCommand");
-        addCommandTest1.execute();
-        findCommand.execute();
-        findCommand2.execute();
+        try {
+            addCommandTest1.execute();
+            findCommand.execute();
+            findCommand2.execute();
+        } catch (EmptyListException e) {
+            throw new RuntimeException();
+        }
         assertFalse(Itemlist.itemIsExist("failFindCommand"));
     }
 }

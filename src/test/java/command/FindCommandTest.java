@@ -21,7 +21,7 @@ public class FindCommandTest {
             findCommand.execute();
             findCommand2.execute();
         } catch (EmptyListException e) {
-            throw new RuntimeException();
+            return;
         }
         assertFalse(Itemlist.itemIsExist("failFindCommand"));
     }

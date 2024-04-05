@@ -29,6 +29,23 @@ add apple qty/50 /pieces cat/fruits buy/4 sell/5
 add phone qty/5 /pieces cat/Electronics buy/100 sell/500
 ```
 
+### Listing all items: `list_items`
+Lists all stored items.
+
+Format: `list_items [marked] [cat/CATEGORY]`
+
+* `marked` is an optional field. If used, it will only list marked items.
+* `CATEGORY` is an optional field. By default, it will list all the stored items.
+
+Example of usage:
+```
+list_items
+list_items cat/Electronics
+list_items marked cat/fruits
+```
+_**Note**_<br>
+_marked **MUST** be before cat/[CATEGORY]_
+
 ### Deleting an item: `del`
 Deletes the item from the list of items.
 
@@ -42,7 +59,7 @@ del apples
 ### Selling an item: `sell`
 Sells a quantity of an item from the list of items at a stated price.
 
-Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY]`
+Format: `sell ITEM_NAME qty/SELL_QUANTITY`
 
 
 Example of usage:
@@ -53,16 +70,17 @@ sell apple qty/20
 ### Marking an item: `mark`
 Marks items in the inventory list.
 
-Format: `mark [ITEM_NAME]`
+Format: `mark ITEM_NAME`
 
 Example of usage:
 ```
 mark apple iphone
 ```
+
 ### Unmarking an item: `unmark`
 Unmarks a marked item in the inventory list.
 
-Format: `unmark [ITEM_NAME]`
+Format: `unmark ITEM_NAME`
 
 Example of usage:
 ```
@@ -72,8 +90,8 @@ unmark apple iphone
 ### Editing an item: `edit`
 Edits the parameters of the item.
 
-Format: `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] 
-cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>
+Format: `edit ITEM_NAME [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM] 
+[cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [sell/NEW_SELL_PRICE]`<br/>
 
 Example of usage:
 ```
@@ -87,6 +105,7 @@ Example of usage:
 edit apple qty/45 buy/3.50 sell/5.50
 edit fish name/Salmon qty/1 cat/fish
 ```
+
 Expected Output:
 ```
 Edited: 
@@ -112,22 +131,8 @@ find /qty/cat Apple //search for `Apple` under `ITEM_QUANTITY` and `CATEGORY`
 find Apple //search all items that contains `Apple`
 ```
 
-### Listing all items: `list_items`
-Lists all stored items.
 
-Format: `list_items 'marked' [cat/CATEGORY]`
 
-* `marked` is an optional field. If used, it will only list marked items.
-* `CATEGORY` is an optional field. By default, it will list all the stored items.
-
-Example of usage:
-```
-list_items
-list_items cat/Electronics
-list_items marked cat/fruits
-```
-_**Note**_<br>
-_marked **MUST** be before cat/[CATEGORY]_
 ### Get bestselling item: `bestseller`.
 Reads all the Transactions and returns the item with the highest profit.
 
@@ -136,6 +141,11 @@ Format: `bestseller`
 Example of usage:
 ```
 bestseller
+```
+
+Expected output:
+```
+The current best-selling item is {ITEM_NAME}.
 ```
 
 ### Get total profits: `total_profit`
@@ -148,6 +158,11 @@ Example of usage:
 total_profit
 ```
 
+Expected output:
+```
+You have earned {PROFIT} in profits so far. 
+```
+
 ### Get total revenue: `total_revenue`
 Reads all the Transactions and returns the total profits.
 
@@ -156,6 +171,11 @@ Format: `total_revenue`
 Example of usage:
 ```
 total_revenue
+```
+
+Expected output:
+```
+You have earned {REVENUE} in revenue so far. 
 ```
 
 ### Add promotion to items: `promotion`

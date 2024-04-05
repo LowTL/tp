@@ -11,7 +11,7 @@ public class EmptyListException extends Exception {
         case "Transaction":
             System.out.println("There are no transactions with your search query.");
         default:
-            System.out.println(Messages.INVALID_COMMAND);
+            System.out.println(error);
         }
     }
 

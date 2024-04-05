@@ -1,0 +1,30 @@
+@startuml
+participant CashierCommands
+participant Cashier
+participant TextUi
+
+CashierCommands -> Cashier: getBestseller()
+activate Cashier
+Cashier -> Cashier: retrieve bestseller
+Cashier <-- CashierCommands: bestseller
+deactivate Cashier
+CashierCommands -> TextUi: replyToUser("The bestseller is {bestseller.getItemName()}")
+deactivate CashierCommands
+
+CashierCommands -> Cashier: getTotalProfit()
+activate Cashier
+Cashier -> Cashier: calculate total profit
+Cashier <-- CashierCommands: profit
+deactivate Cashier
+CashierCommands -> TextUi: replyToUser("The total profit so far is {formattedProfit}")
+deactivate CashierCommands
+
+CashierCommands -> Cashier: getTotalRevenue()
+activate Cashier
+Cashier -> Cashier: calculate total revenue
+Cashier <-- CashierCommands: revenue
+deactivate Cashier
+CashierCommands -> TextUi: replyToUser("The total revenue so far is {formattedRevenue}")
+deactivate CashierCommands
+
+@enduml

@@ -128,8 +128,8 @@ public class Promotionlist {
     public static boolean isValidMonth(int date, Month month, int year) throws InvalidDateException {
         switch (month) {
         case FEB:
-            if (isLeapYear(year) && (date > 29 || date < 1)) {
-                return false;
+            if (isLeapYear(year) && (date < 30 && date > 0)) {
+                return true;
             } else {
                 return date <= 28 && date >= 1;
             }

@@ -42,7 +42,7 @@ del apples
 ### Selling an item: `sell`
 Sells a quantity of an item from the list of items at a stated price.
 
-Format: `sell [ITEM_NAME] qty/[SELL_QUANTITY]`
+Format: `sell ITEM_NAME qty/SELL_QUANTITY`
 
 
 Example of usage:
@@ -53,7 +53,7 @@ sell apple qty/20
 ### Editing an item: `edit`
 Edits the parameters of the item.
 
-Format: `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`
+Format: `edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`
 
 Example of usage:
 ```
@@ -129,12 +129,12 @@ total_revenue
 ### Add promotion to items: `promotion`
 Creates a promotion for items that changes the sell price.
 
-Format: `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]
-time /from [TIME] /to [TIME]`
+Format: `promotion ITEM_NAME discount/DISCOUNT period /from DATE MONTH YEAR /to DATE MONTH YEAR
+time /from START_TIME /to END_TIME`
 
 * `DISCOUNT` ranges from 0 to 100 and can take in up to 2 decimal place.
-* `[DATE]` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
-* `[TIME]` must range from 0000 to 2359. In addition, time range must be valid.
+* `DATE` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
+* `START_TIME` & `END_TIME` must range from 0000 to 2359. In addition, time range must be valid.
 
 Example of usage:
 ```
@@ -143,7 +143,7 @@ promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 12
 ### Delete a promotion: `del_promo`
 Deletes a promotion for an item.
 
-Format: `del_promo [ITEM_NAME]`
+Format: `del_promo ITEM_NAME`
 
 Example of usage:
 ```

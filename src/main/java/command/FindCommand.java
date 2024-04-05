@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.EmptyListException;
 import item.Item;
 import itemlist.Itemlist;
 import ui.TextUi;
@@ -26,7 +27,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws EmptyListException {
         if (itemInfo.equals("NA")) {
             itemInfo = "item + qty + uom + cat + buy + sell";
         }
@@ -34,7 +35,7 @@ public class FindCommand extends Command {
         TextUi.showList(searchList);
     }
 
-    public ArrayList<String> filterList() {
+    public ArrayList<String> filterList() throws EmptyListException {
         ArrayList<String> searchList = new ArrayList<>();
         for (Item item : Itemlist.getItems()) {
             if (itemInfo.toLowerCase().contains("item") && item.getItemName().toLowerCase().contains(keyword)) {
@@ -57,6 +58,9 @@ public class FindCommand extends Command {
             if (itemInfo.toLowerCase().contains("sell") && Float.toString(item.getSellPrice()).contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
+        }
+        if (searchList.isEmpty()) {
+            throw new EmptyListException("No items found!");
         }
         return searchList;
     }

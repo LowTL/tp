@@ -11,7 +11,7 @@ public class Messages {
             "|----------|------------------------------------------------------------------------------|\n" +
             "|list items| list_items                                                                       |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] |\n" +
+            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY] |\n" +
             "|          |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| sell     | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +
@@ -93,4 +93,5 @@ public class Messages {
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
             "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
             " /to [END_TIME]";
+
 }

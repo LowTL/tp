@@ -22,7 +22,7 @@ public class MarkCommand extends Command {
     public void execute() throws CommandFormatException {
         Item item = Itemlist.getItem(itemName);
         if (item == null) {
-            ui.TextUi.replyToUser("Item of " + itemName + " not found! Please try again.");
+            ui.TextUi.replyToUser("Item of item name '" + itemName + "' not found! Please try again.");
         } else if (item.isMark) {
             ui.TextUi.replyToUser("Item is already marked!");
         } else {

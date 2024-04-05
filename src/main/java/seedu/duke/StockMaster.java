@@ -29,7 +29,8 @@ public class StockMaster {
     /**
      * Main entry-point for the java.duke.StockMaster application.
      */
-    public static void main(String[] args) throws IOException, CommandFormatException, InvalidDateException, EmptyListException {
+    public static void main(String[] args) throws IOException, CommandFormatException,
+            InvalidDateException, EmptyListException {
         new StockMaster().run();
     }
 
@@ -46,7 +47,8 @@ public class StockMaster {
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
-    private void normalOperation() throws IOException, CommandFormatException, InvalidDateException, EmptyListException {
+    private void normalOperation() throws IOException, CommandFormatException,
+            InvalidDateException, EmptyListException {
         String userInput;
         do {
             userInput = ui.getUserInput();

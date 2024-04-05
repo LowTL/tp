@@ -31,8 +31,12 @@ public class ListCommand<T> extends Command{
 
     //@@author Fureimi
     public void execute() throws EmptyListException {
-        if (arrayList.isEmpty()) {
-            throw new EmptyListException(arrayList.getClass().getSimpleName());
+        try {
+            if (arrayList.isEmpty()) {
+                throw new EmptyListException(arrayList.getClass().getSimpleName());
+            }
+        } catch (EmptyListException e) {
+            return;
         }
         if (category.equals("NA") && !isListMarked) {
             TextUi.showList(arrayList);

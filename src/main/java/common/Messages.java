@@ -11,7 +11,7 @@ public class Messages {
             "|----------|------------------------------------------------------------------------------|\n" +
             "|list items| list_items                                                                       |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] |\n" +
+            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY] |\n" +
             "|          |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| sell     | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +

@@ -1,2 +1,2 @@
-1. | [ ]  | apple | Qty: 50 pieces | Cat: fruits | BuyPrice: $4.0 | SellPrice: $5.0
-2. | [ ]  | apple iphone | Qty: 10 pieces | Cat: electronics | BuyPrice: $100.0 | SellPrice: $500.0
+1. | [X]  | apple | Qty: 45 pieces | Cat: fruits | BuyPrice: $3.5 | SellPrice: $5.5
+2. | [X]  | apple iphone | Qty: 10 pieces | Cat: electronics | BuyPrice: $100.0 | SellPrice: $500.0

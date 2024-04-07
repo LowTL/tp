@@ -3,6 +3,7 @@ package seedu.duke;
 import command.Command;
 import command.ExitCommand;
 import exceptions.CommandFormatException;
+import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import parser.Parser;
 import reminder.LowStockReminder;
@@ -15,7 +16,7 @@ import itemlist.Itemlist;
 
 import java.io.IOException;
 
-public class Duke {
+public class StockMaster {
     private static final String STORAGE_FILE = "./StockMasterData.txt";
     private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
@@ -26,13 +27,14 @@ public class Duke {
 
 
     /**
-     * Main entry-point for the java.duke.Duke application.
+     * Main entry-point for the java.duke.StockMaster application.
      */
-    public static void main(String[] args) throws IOException, CommandFormatException, InvalidDateException {
-        new Duke().run();
+    public static void main(String[] args) throws IOException, CommandFormatException,
+            InvalidDateException, EmptyListException {
+        new StockMaster().run();
     }
 
-    public void run() throws IOException, CommandFormatException, InvalidDateException {
+    public void run() throws IOException, CommandFormatException, InvalidDateException, EmptyListException {
         ui.showWelcomeMessage("StockMaster v2.0", STORAGE_FILE);
         Storage.updateFile("", true);
         Storage.readFromFile(STORAGE_FILE);
@@ -45,7 +47,8 @@ public class Duke {
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
-    private void normalOperation() throws IOException, CommandFormatException, InvalidDateException {
+    private void normalOperation() throws IOException, CommandFormatException,
+            InvalidDateException, EmptyListException {
         String userInput;
         do {
             userInput = ui.getUserInput();

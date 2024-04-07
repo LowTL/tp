@@ -60,7 +60,7 @@ public class CommandFormatException extends Exception{
             System.out.println(Messages.INVALID_DISCOUNT);
             break;
         default:
-            System.out.println("Error Detected");
+            System.out.println(error);
         }
 
     }

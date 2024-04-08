@@ -1,5 +1,6 @@
 package itemlist;
 
+import exceptions.EmptyListException;
 import item.Item;
 import item.Transaction;
 
@@ -34,7 +35,7 @@ public class Cashier extends Itemlist {
     public static float getTotalRevenue() {
         float totalRevenue = 0;
         ArrayList<Transaction> allTransactions = getTransactions();
-        if (allTransactions != null) {
+        if (!allTransactions.isEmpty()) {
             for (Transaction t : allTransactions) {
                 if (!t.getIsVoided()) {
                     totalRevenue += t.getTotalPrice();
@@ -46,18 +47,19 @@ public class Cashier extends Itemlist {
 
     public static float getTotalProfit() {
         float totalProfit = 0;
-        if (!transactions.isEmpty()) {
-            for (Transaction t : transactions) {
-                if (!t.getIsVoided()) {
-                    totalProfit += t.getProfit();
-                }
+        try {
+            if (transactions.isEmpty()) {
+                throw new EmptyListException("Transaction");
             }
-            return totalProfit;
-        }
-        else {
-            System.out.println("No transactions found.");
+        } catch (EmptyListException e) {
             return 0;
         }
+        for (Transaction t : transactions) {
+            if (!t.getIsVoided()) {
+                totalProfit += t.getProfit();
+            }
+        }
+        return totalProfit;
     }
 
     public static Transaction getTransaction(int index) {

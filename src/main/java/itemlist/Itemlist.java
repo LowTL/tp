@@ -43,9 +43,7 @@ public class Itemlist {
         try {
             return items.get(index);
         } catch (IndexOutOfBoundsException e) {
-            if (index == 0) {
-                System.out.println("Itemlist is empty.");
-            } else {
+            if (index != 0) {
                 System.out.println("Index " + index + " entered is out of bound.");
             }
             return null;

@@ -36,9 +36,14 @@ and retrieve information from the file when program restarts.
 
 ### Cashier
 Cashier class extends Itemlist class
+
+#### Class diagram
+![CashierClassDiagram](./Diagrams/CashierClassDiagram.png)
+The Cashier class extends the Itemlist Class.
+
 ![CashierCommands_SequenceDiagram](./Diagrams/CashierCommands_SequenceDiagram.png)
 
-=======
+
 ## Implementation
 
 This section describes some noteworthy details on how certain features are implemented

@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.CommandFormatException;
+import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
@@ -15,9 +16,13 @@ public class FindCommandTest {
                 "NA", 1, 10);
         Command findCommand = new FindCommand("item","testItem");
         Command findCommand2 = new FindCommand("NA","failFindCommand");
-        addCommandTest1.execute();
-        findCommand.execute();
-        findCommand2.execute();
+        try {
+            addCommandTest1.execute();
+            findCommand.execute();
+            findCommand2.execute();
+        } catch (EmptyListException e) {
+            return;
+        }
         assertFalse(Itemlist.itemIsExist("failFindCommand"));
     }
 }

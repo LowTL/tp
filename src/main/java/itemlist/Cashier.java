@@ -18,19 +18,27 @@ public class Cashier extends Itemlist {
     }
     public static ArrayList<Transaction> getTransactions(Item item) {
         ArrayList<Transaction> results = new ArrayList<>();
-        for (Transaction t: transactions) {
-            if (t.getItem() == item) {
-                results.add(t);
+        if (!transactions.isEmpty()) {
+            for (Transaction t : transactions) {
+                if (t.getItem() == item) {
+                    results.add(t);
+                }
             }
+            return results;
         }
-        return results;
+        else {
+            return null;
+        }
     }
 
     public static float getTotalRevenue() {
         float totalRevenue = 0;
-        for (Transaction t : getTransactions()) {
-            if (!t.getIsVoided()) {
-                totalRevenue += t.getTotalPrice();
+        ArrayList<Transaction> allTransactions = getTransactions();
+        if (allTransactions != null) {
+            for (Transaction t : allTransactions) {
+                if (!t.getIsVoided()) {
+                    totalRevenue += t.getTotalPrice();
+                }
             }
         }
         return totalRevenue;
@@ -38,16 +46,31 @@ public class Cashier extends Itemlist {
 
     public static float getTotalProfit() {
         float totalProfit = 0;
-        for (Transaction t: transactions) {
-            if (!t.getIsVoided()) {
-                totalProfit += t.getProfit();
+        if (!transactions.isEmpty()) {
+            for (Transaction t : transactions) {
+                if (!t.getIsVoided()) {
+                    totalProfit += t.getProfit();
+                }
             }
+            return totalProfit;
         }
-        return totalProfit;
+        else {
+            System.out.println("No transactions found.");
+            return 0;
+        }
     }
 
     public static Transaction getTransaction(int index) {
-        return transactions.get(index);
+        try {
+            return transactions.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            if (index == 0) {
+                System.out.println("No transactions found.");
+            } else {
+                System.out.println("Index " + index + " entered is out of bound.");
+            }
+            return null;
+        }
     }
 
     public static Item getBestseller() {

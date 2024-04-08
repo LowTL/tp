@@ -40,7 +40,16 @@ public class Itemlist {
     }
 
     public static Item getItem(int index) {
-        return items.get(index);
+        try {
+            return items.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            if (index == 0) {
+                System.out.println("Itemlist is empty.");
+            } else {
+                System.out.println("Index " + index + " entered is out of bound.");
+            }
+            return null;
+        }
     }
 
     public static Item getItem(String name) {

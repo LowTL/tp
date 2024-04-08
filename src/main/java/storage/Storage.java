@@ -114,7 +114,7 @@ public class Storage {
             interpretLines(scanner);
             scanner.close();
         } catch(FileNotFoundException e) {
-            System.out.println("File does not exist.");
+            System.out.println("File does not exist. Creating a new Text File");
         } catch(NumberFormatException e) {
             System.out.println("Invalid numbers found.");
         }

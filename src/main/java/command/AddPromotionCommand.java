@@ -35,7 +35,8 @@ public class AddPromotionCommand extends Command {
                     "Period: " + promotion.getStartDate() + " " + promotion.getStartMonth() +
                             " " + promotion.getStartYear() + " to " + promotion.getEndDate() + " " +
                             promotion.getEndMonth() + " " + promotion.getEndYear(),
-                    "Time: " + promotion.getStartTime() + " to " + promotion.getEndTime()
+                    "Time: " + String.format("%04d", promotion.getStartTime()) + " to " +
+                            String.format("%04d", promotion.getEndTime())
             );
         } catch (InvalidDateException | CommandFormatException e){
             System.out.println("");

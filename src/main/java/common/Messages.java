@@ -37,22 +37,23 @@ public class Messages {
             "|----------|------------------------------------------------------------------------------|\n" +
             "| exit     | exit                                                                         |\n" +
             "|__________|______________________________________________________________________________|\n";
-    public static final String INVALID_ADD_FORMAT ="Invalid command format. Please use format: " + "\n" +
+    public static final String INVALID_ADD_FORMAT = "Invalid command format. Please use format: " + "\n" +
             "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
             "buy/[BUY_PRICE] sell/[SELL_PRICE]'";
-    public static final String INVALID_DELETE_FORMAT ="Invalid command format. Please use format: 'del [ITEM_NAME]'";
-    public static final String INVALID_EDIT_FORMAT ="Invalid edit command format. Please use format: " +
+    public static final String INVALID_DELETE_FORMAT = "Invalid command format. Please use format: 'del [ITEM_NAME]'";
+    public static final String INVALID_EDIT_FORMAT = "Invalid edit command format. Please use format: " +
             "'edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] " +
             "buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]'\n" + "You can edit at least 1 parameter up to all available" +
             " parameters. For example, if you only wish to update buy and sell price, you can input:\n" +
             "'edit [ITEM_NAME] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]'";
-    public static final String INVALID_SELL_FORMAT ="Invalid command format. Please use format: " +
-            "'sell [ITEM_NAME] qty/[SELL_QUANTITY] price/[SELL_PRICE]'";
-    public static final String ITEM_NOT_FOUND ="Item is not available";
+    public static final String INVALID_SELL_FORMAT = "Invalid command format. Please use format: " +
+            "'sell [ITEM_NAME] qty/[SELL_QUANTITY]'";
+    public static final String ITEM_NOT_FOUND = "Item is not available";
 
-    public static final String INVALID_FIND_FORMAT ="Invalid command format. Please use format: " + "\n" +
+    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exits for this item and hence cannot be deleted";
+    public static final String INVALID_FIND_FORMAT = "Invalid command format. Please use format: " + "\n" +
             "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
-            "2. 'find /filter1/filter2 [KEYWORD] to search under the filters";
+            "2. 'find /filter1/filter2 [KEYWORD]' to search under the filters";
 
     public static final String EMPTY_LIST = "There is nothing here! Time to spend some money and stock em up!";
     public static final String WELCOME_MESSAGE = "Welcome to StockMaster, where you can master the knowledge on your " +

@@ -61,7 +61,7 @@ public class Promotionlist {
         if (!Itemlist.itemIsExist(itemName)) {
             throw new CommandFormatException("ITEM_NOT_FOUND");
         }
-        if (discount < 0 || discount > 100) {
+        if (discount < 0 || discount > 1) {
             throw new CommandFormatException("INVALID_DISCOUNT");
         }
         if (!isValidMonth(startDate, startMonth, startYear) || !isValidMonth(endDate, endMonth, endYear)) {
@@ -70,6 +70,10 @@ public class Promotionlist {
         if (!isValidTime(startTime, endTime)) {
             throw new InvalidDateException("INVALID_TIME");
         }
+        if (!isValidDuration(startDate, startMonth, startYear, endDate, endMonth, endYear)) {
+            throw new InvalidDateException("INVALID_PERIOD");
+        }
+
         if (Promotionlist.isOnPromo(itemName)) {
             throw new InvalidDateException("ITEM_IS_PROMO");
         }
@@ -101,8 +105,10 @@ public class Promotionlist {
     }
 
     public static boolean isValidTime(int startTime, int endTime) {
-        boolean startIsValid = isVerifiedTime(startTime);
-        boolean endIsValid = isVerifiedTime(endTime);
+        String startTimeStr = String.format("%04d", startTime);
+        String endTimeStr = String.format("%04d", endTime);
+        boolean startIsValid = isVerifiedTime(startTimeStr);
+        boolean endIsValid = isVerifiedTime(endTimeStr);
         if (!startIsValid || !endIsValid) {
             return false;
         }
@@ -112,17 +118,38 @@ public class Promotionlist {
         return true;
     }
 
-    public static boolean isVerifiedTime(int time) {
-        String[] splitTime = String.valueOf(time).split("(?<=.)");
+    public static boolean isVerifiedTime(String timeStr) {
+        String[] splitTime = timeStr.split("(?<=.)");
         if (splitTime.length != 4) {
             return false;
         }
+        int time = Integer.parseInt(timeStr);
         int hour = time / 100;
         int min = time % 100;
         if (hour > 23 || hour < 0) {
             return false;
         }
         return min <= 59 && min >= 0;
+    }
+
+    public static boolean isValidDuration (int startDate, Month startMonth, int startYear, int endDate, Month endMonth,
+                                           int endYear) {
+        int startMonthInt = startMonth.getValue();
+        int endMonthInt = endMonth.getValue();
+        if (endYear > startYear) {
+            return true;
+        } else if (endYear < startYear) {
+            return false;
+        }
+        if (endMonthInt > startMonthInt) {
+            return true;
+        } else if (endMonthInt < startMonthInt) {
+            return false;
+        }
+        if (endDate > startDate) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean isValidMonth(int date, Month month, int year) throws InvalidDateException {
@@ -147,7 +174,8 @@ public class Promotionlist {
         case JUN:
             return date <= 30 && date >= 1;
         default:
-            throw new InvalidDateException("INVALID_TIME");
+            System.out.println("Date does not exist.");
+            throw new InvalidDateException("INVALID_PERIOD");
         }
     }
 

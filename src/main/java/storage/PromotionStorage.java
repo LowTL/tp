@@ -92,11 +92,11 @@ public class PromotionStorage extends Storage{
         assert promotions != null : "Promotions cannot be null.";
         Promotion lastPromotion = promotions.get(promotions.size() - 1);
         String descriptionAdded = (lastPromotion.getItemName() + " have a " +
-                (lastPromotion.getDiscount()*100) + "% discount" + "\n" + "Period: " +
-                lastPromotion.getStartDate() + " " + lastPromotion.getStartMonth() + " " + lastPromotion.getStartYear()
-                + " to " + lastPromotion.getEndDate()+ " " + lastPromotion.getEndMonth() + " " +
-                lastPromotion.getEndYear() + "\n" + "Time: " + lastPromotion.getStartTime() + " to " +
-                lastPromotion.getEndTime() + "\n");
+                String.format("%.2f", (lastPromotion.getDiscount()*100)) + "% discount" + "\n" +
+                "Period: " + lastPromotion.getStartDate() + " " + lastPromotion.getStartMonth() +
+                " " + lastPromotion.getStartYear() + " to " + lastPromotion.getEndDate()+ " " +
+                lastPromotion.getEndMonth() + " " + lastPromotion.getEndYear() + "\n" + "Time: " +
+                lastPromotion.getStartTime() + " to " + lastPromotion.getEndTime() + "\n");
         updateFile(descriptionAdded, true);
     }
 
@@ -105,11 +105,11 @@ public class PromotionStorage extends Storage{
         int length = promotions.size();
         for (Promotion promotion: promotions) {
             String descriptionAdded = (promotion.getItemName() + " have a " +
-                    (promotion.getDiscount()*100) + "% discount" + "\n" + "Period: " + promotion.getStartDate() +
-                    " " + promotion.getStartMonth() + " " + promotion.getStartYear() + " to " +
-                    promotion.getEndDate()+ " " + promotion.getEndMonth() + " " + promotion.getEndYear() + "\n" +
-                    "Time: " + promotion.getStartTime() + " to " + promotion.getEndTime() + "\n");
-            if ( promotions.indexOf(promotion) == 0) {
+                    String.format("%.2f", (promotion.getDiscount()*100)) + "% discount" + "\n" + "Period: " +
+                    promotion.getStartDate() + " " + promotion.getStartMonth() + " " + promotion.getStartYear() +
+                    " to " + promotion.getEndDate()+ " " + promotion.getEndMonth() + " " + promotion.getEndYear() +
+                    "\n" + "Time: " + promotion.getStartTime() + " to " + promotion.getEndTime() + "\n");
+            if (promotions.indexOf(promotion) == 0) {
                 updateFile(descriptionAdded, false);
             } else {
                 updateFile(descriptionAdded, true);

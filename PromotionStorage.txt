@@ -1,6 +1,6 @@
-apple have a 50.0% discount
-Period: 2 APR 2024 to 4 APR 2024
-Time: 1200 to 1500
-apple iphone have a 10.0% discount
-Period: 1 APR 2024 to 4 FEB 2025
-Time: 1300 to 1600
+item have a 30.00% discount
+Period: 27 MAR 2024 to 18 APR 2024
+Time: 1200 to 2359
+item have a 10.00% discount
+Period: 31 MAR 2024 to 7 APR 2024
+Time: 1200 to 2359

@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.EmptyListException;
 import common.Messages;
 import item.Item;
 import item.Transaction;
@@ -29,14 +30,15 @@ public class ListCommand<T> extends Command{
     }
 
     //@@author Fureimi
-    public void execute() {
-        if (containsItems(arrayList)) {
-            if (category.equals("NA") && !isListMarked) {
-                TextUi.showList(arrayList);
-            } else {
-                showCustomizedItemList();
+    public void execute() throws EmptyListException {
+        try {
+            if (arrayList.isEmpty()) {
+                throw new EmptyListException(arrayList.getClass().getSimpleName());
             }
-        } else if (containsPromotions(arrayList)) {
+        } catch (EmptyListException e) {
+            return;
+        }
+        if (category.equals("NA") && !isListMarked) {
             TextUi.showList(arrayList);
         } else if (containsTransactions(arrayList)) {
             showTransactionList();

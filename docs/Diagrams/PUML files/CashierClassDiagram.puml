@@ -1,0 +1,36 @@
+@startuml
+
+class Cashier {
+    - transactions: ArrayList<Transaction>
+    + addItem(transaction: Transaction): void
+    + getTransactions(): ArrayList<Transaction>
+    + getTransactions(item: Item): ArrayList<Transaction>
+    + getTotalRevenue(): float
+    + getTotalProfit(): float
+    + getTransaction(index: int): Transaction
+    + getBestseller(): Item
+}
+
+class Transaction {
+    - item: Item
+    - totalPrice: float
+    - isVoided: boolean
+    + getItem(): Item
+    + getTotalPrice(): float
+    + getIsVoided(): boolean
+    + getProfit(): float
+}
+
+class Item {
+    - name: String
+    - price: float
+    - cost: float
+    + getName(): String
+    + getPrice(): float
+    + getCost(): float
+}
+
+Cashier --> Transaction : has 1..* transactions
+Transaction --> Item : has 1 item
+
+@enduml

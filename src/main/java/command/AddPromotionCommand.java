@@ -31,8 +31,8 @@ public class AddPromotionCommand extends Command {
             Promotionlist.addPromotion(promotion);
             TextUi.replyToUser(
                     "The following promotion has been added",
-                    promotion.getItemName() + " have a " + promotion.getDiscount() * 100 + "% discount",
-                    "Period: " + promotion.getStartDate() + " " + promotion.getStartMonth() +
+                    promotion.getItemName() + " have a " + String.format("%.2f", promotion.getDiscount() * 100) +
+                            "% discount", "Period: " + promotion.getStartDate() + " " + promotion.getStartMonth() +
                             " " + promotion.getStartYear() + " to " + promotion.getEndDate() + " " +
                             promotion.getEndMonth() + " " + promotion.getEndYear(),
                     "Time: " + String.format("%04d", promotion.getStartTime()) + " to " +

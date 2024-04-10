@@ -30,6 +30,23 @@ add apple qty/50 /pieces cat/fruits buy/4 sell/5
 add phone qty/5 /pieces cat/Electronics buy/100 sell/500
 ```
 
+### Listing all items: `list_items`
+Lists all stored items.
+
+Format: `list_items [marked] [cat/CATEGORY]`
+
+* `marked` is an optional field. If used, it will only list marked items.
+* `CATEGORY` is an optional field. By default, it will list all the stored items.
+
+Example of usage:
+```
+list_items
+list_items cat/Electronics
+list_items marked cat/fruits
+```
+_**Note**_<br>
+_marked **MUST** be before cat/[CATEGORY]_
+
 ### Deleting an item: `del`
 Deletes the item from the list of items.
 
@@ -51,22 +68,52 @@ Example of usage:
 sell apple qty/20 
 ```
 
-### Editing an item: `edit`
-Edits the parameters of the item.
+### Marking an item: `mark`
+Marks items in the inventory list.
 
-Format: `edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`
+Format: `mark ITEM_NAME`
 
 Example of usage:
 ```
-`edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`
-`edit fish name/Salmon qty/1 uom/pieces cat/fish device buy/1.00 sell/10.00`
+mark apple iphone
+```
+
+### Unmarking an item: `unmark`
+Unmarks a marked item in the inventory list.
+
+Format: `unmark ITEM_NAME`
+
+Example of usage:
+```
+unmark apple iphone
+```
+
+### Editing an item: `edit`
+Edits the parameters of the item.
+
+Format: `edit ITEM_NAME [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM] 
+[cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [sell/NEW_SELL_PRICE]`<br/>
+
+Example of usage:
+```
+edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00
+edit fish name/Salmon qty/1 uom/pieces cat/fish device buy/1.00 sell/10.00
 ```
 User can choose to edit at least 1 parameter up to all available parameters.
 
 Example of usage:
 ```
-edit apple buy/1.00 sell/2.00
+edit apple qty/45 buy/3.50 sell/5.50
 edit fish name/Salmon qty/1 cat/fish
+```
+
+Expected Output:
+```
+Edited: 
+Quantity of apple from 50 to 45
+Buy Price of apple from 4.0 to 3.5
+Sell Price of apple from 5.0 to 5.5
+End of Edits
 ```
 
 ### Finding an item: `find`
@@ -86,19 +133,9 @@ find /qty/cat Apple //search for `Apple` under `ITEM_QUANTITY` and `CATEGORY`
 find Apple //search all items that contains `Apple`
 ```
 
-### Listing all items: `list_items`
-Lists all stored items.
 
-Format: `list_items [cat/CATEGORY]`
 
-* `CATEGORY` is an optional field. By default, it will list all the stored items.
-
-Example of usage:
-```
-list_items
-list_items Electronics
-```
-### Get bestselling item: `bestseller`
+### Get bestselling item: `bestseller`.
 Reads all the Transactions and returns the item with the highest profit.
 
 Format: `bestseller`
@@ -106,6 +143,11 @@ Format: `bestseller`
 Example of usage:
 ```
 bestseller
+```
+
+Expected output:
+```
+The current best-selling item is {ITEM_NAME}.
 ```
 
 ### Get total profits: `total_profit`
@@ -118,6 +160,11 @@ Example of usage:
 total_profit
 ```
 
+Expected output:
+```
+You have earned {PROFIT} in profits so far. 
+```
+
 ### Get total revenue: `total_revenue`
 Reads all the Transactions and returns the total profits.
 
@@ -126,6 +173,11 @@ Format: `total_revenue`
 Example of usage:
 ```
 total_revenue
+```
+
+Expected output:
+```
+You have earned {REVENUE} in revenue so far. 
 ```
 
 ### Add promotion to items: `promotion`

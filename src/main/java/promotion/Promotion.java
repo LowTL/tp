@@ -93,7 +93,8 @@ public class Promotion {
         return getItemName() + " have a " + String.format("%.2f", (getDiscount()*100)) +
                 "% discount" + "\n" + "Period: " + getStartDate() + " " + getStartMonth() + " "
                 + getStartYear() + " to " + getEndDate()+ " " + getEndMonth() + " " +
-                getEndYear() + "\n" + "Time: " + getStartTime() + " to " + getEndTime();
+                getEndYear() + "\n" + "Time: " + String.format("%04d", getStartTime()) + " to " +
+                String.format("%04d", getEndTime());
     }
 
     public void print(String args) {

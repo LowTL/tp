@@ -1,0 +1,1 @@
+1. | [ ]  | apple iphone | Qty: 10 pieces | Cat: electronics | BuyPrice: $100.0 | SellPrice: $500.0

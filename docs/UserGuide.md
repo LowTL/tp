@@ -187,6 +187,7 @@ Format: `promotion ITEM_NAME discount/DISCOUNT period /from DATE MONTH YEAR /to 
 time /from START_TIME /to END_TIME`
 
 * `DISCOUNT` ranges from 0 to 100 and can take in up to 2 decimal place.
+*  Format for `MONTH` is 3 alphabets `MMM`. E.g. For January, `Jan`. For December, `Dec`.  
 * `DATE` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
 * `START_TIME` & `END_TIME` must range from 0000 to 2359. In addition, time range must be valid.
 

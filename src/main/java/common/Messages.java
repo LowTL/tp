@@ -38,8 +38,8 @@ public class Messages {
             "|total     | total_revenue                                                                |\n" +
             "|revenue   |                                                                              |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "|promotion | promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] |\n" +
-            "|          | to [DATE] [MONTH] [YEAR] time /from [TIME] /to [TIME]                        |\n" +
+            "|promotion | promotion ITEM_NAME discount/DISCOUNT period /from DD MMM YYYY               |\n" +
+            "|          | to DD MMM YYYY time /from TIME /to TIME                                     |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "|delete    | del_promo [ITEM_NAME]                                                        |\n" +
             "|promotion |                                                                              |\n" +

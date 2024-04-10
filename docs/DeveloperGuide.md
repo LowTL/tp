@@ -92,7 +92,7 @@ Example: `del_promo apple`
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
 Example: `list_promotions`
->>>>>>> 066333f49202f21788226cf5159f4e6c67f2dbde
+
 
 ## Product scope
 StockMaster allows users to use the following commands:

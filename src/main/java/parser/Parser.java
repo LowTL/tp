@@ -284,7 +284,7 @@ public class Parser {
     }
 
     //@@author Fureimi
-    private Command prepareEdit(String args) throws CommandFormatException{
+    private Command prepareEdit(String args) throws CommandFormatException, EditException {
         final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
@@ -295,7 +295,7 @@ public class Parser {
         }
 
         // check if itemName was edited. If no, newItemName will be NA
-        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName").trim() : "NA";
         if (newItemName.isBlank() || newItemName.isEmpty()) {
             throw new EditException("ITEM_NAME");
         }

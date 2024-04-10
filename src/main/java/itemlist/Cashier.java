@@ -26,8 +26,7 @@ public class Cashier extends Itemlist {
                 }
             }
             return results;
-        }
-        else {
+        } else {
             return null;
         }
     }

@@ -178,29 +178,41 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.ADD);
         }
-        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+
+        String category = matcher.group("category") != null ? matcher.group("category").trim() : "NA";
+        if (category.isEmpty()) {
+            throw new CommandFormatException("INVALID_CATEGORY");
+        }
+
         int quantity;
         try {
             quantity = Integer.parseInt(matcher.group("quantity"));
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Quantity is too large");
+            throw new CommandFormatException("QTY_TOO_LARGE");
         }
+
         float buyPrice;
         try {
             buyPrice = Float.parseFloat(matcher.group("buyPrice"));
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Buy price is too large");
+            throw new CommandFormatException("BUY_TOO_LARGE");
         }
+
         float sellPrice;
         try {
             sellPrice = Float.parseFloat(matcher.group("sellPrice"));
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Sell price is too large");
+            throw new CommandFormatException("SELL_TOO_LARGE");
         }
 
         assert quantity >= 0 : "Quantity should not be negative.";
         return new AddCommand(
-                matcher.group("itemName"),
+                itemName,
                 quantity,
                 matcher.group("unitOfMeasurement"),
                 category,
@@ -215,7 +227,11 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL);
         }
-        return new DeleteCommand(matcher.group("itemName"));
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+        return new DeleteCommand(itemName);
     }
 
 
@@ -225,12 +241,19 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.SELL);
         }
+
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+
         int sellQuantity;
         try {
             sellQuantity = Integer.parseInt(matcher.group("sellQuantity").trim());
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Quantity is too large");
+            throw new CommandFormatException("QTY_TOO_LARGE");
         }
+
         if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
             float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
             return new SellCommand(
@@ -240,7 +263,7 @@ public class Parser {
             );
         } else {
             return new SellCommand(
-                    matcher.group("itemName"),
+                    itemName,
                     sellQuantity,
                     -1
             );
@@ -265,7 +288,11 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
         }
-        String itemName = matcher.group("itemName");
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+
         // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
         // check if quantity was edited. If no, newQuantity will be -1
@@ -274,28 +301,32 @@ public class Parser {
             newQuantity = matcher.group("newQuantity") != null ?
                     Integer.parseInt(matcher.group("newQuantity")) : -1;
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Quantity is too large");
+            throw new CommandFormatException("QTY_TOO_LARGE");
         }
+
         // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
         String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
                 matcher.group("newUnitOfMeasurement") : "NA";
+
         // check if category was edited. If no, newCategory will be NA
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
         // check if BuyPrice was edited. If no, newBuyPrice will be -1
+
         float newBuyPrice;
         try {
             newBuyPrice = matcher.group("newBuyPrice") != null ?
                     Float.parseFloat(matcher.group("newBuyPrice")) : -1;
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Buy price is too large");
+            throw new CommandFormatException("BUY_TOO_LARGE");
         }
+
         // check if sellPrice was edited. If no, newSellPrice will be -1
         float newSellPrice;
         try {
             newSellPrice = matcher.group("newSellPrice") != null ?
                     Float.parseFloat(matcher.group("newSellPrice")) : -1;
         } catch (NumberFormatException e) {
-            throw new CommandFormatException("Sell price is too large");
+            throw new CommandFormatException("SELL_TOO_LARGE");
         }
         return new EditCommand(
                 itemName,
@@ -314,7 +345,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.PROMOTION);
         }
-        String itemName = matcher.group("itemName");
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
         float discount = Float.parseFloat(matcher.group("discount")) / 100;
         int startDate = Integer.parseInt(matcher.group("startDate"));
         String startMonth = matcher.group("startMonth");
@@ -358,7 +392,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LIST_ITEMS);
         }
-        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        String category = matcher.group("category") != null ? matcher.group("category").trim() : "NA";
+        if (category.isEmpty()) {
+            throw new CommandFormatException("INVALID_CATEGORY");
+        }
         boolean listMarked = matcher.group("isMark") != null;
         return new ListCommand<>(Itemlist.getItems(), category, listMarked);
     }
@@ -372,7 +409,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.MARK);
         }
-        String itemName = matcher.group("itemName");
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
         return new MarkCommand(itemName);
     }
 
@@ -381,7 +421,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.UNMARK);
         }
-        String itemName = matcher.group("itemName");
+        String itemName = matcher.group("itemName").trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
         return new UnmarkCommand(itemName);
     }
 

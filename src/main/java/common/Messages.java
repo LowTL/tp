@@ -9,9 +9,9 @@ public class Messages {
             "|_________________________________________________________________________________________|\n" +
             "| Commands | Format                                                                       |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "|list items| list_items                                                                       |\n" +
+            "|list items| list_items                                                                   |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
-            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY] |\n" +
+            "| add      | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY]   |\n" +
             "|          |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
             "|----------|------------------------------------------------------------------------------|\n" +
             "| sell     | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +
@@ -105,5 +105,17 @@ public class Messages {
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
             "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
             " /to [END_TIME]";
+
+    public static final String INVALID_ITEM_NAME = "Invalid item name. Please input an item name.";
+
+    public static final String INVALID_CATEGORY = "Blank category detected. Please input a category.";
+
+    public static final String QTY_TOO_LARGE = "Quantity is too large. Please input a smaller quantity.";
+
+    public static final String BUY_TOO_LARGE = "Buy price is too large. Please input a smaller buy price.";
+
+    public static final String SELL_TOO_LARGE = "Sell price is too large. Please input a smaller sell price.";
+
+
 
 }

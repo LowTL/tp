@@ -1,0 +1,56 @@
+Date: 2024-04-11 01:48:39
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 01:58:16
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 01:58:38
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 01:59:21
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 01:59:34
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 02:03:01
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+
+Date: 2024-04-11 02:03:27
+Transaction ID: 1
+Item Name: testItem
+Quantity: 1
+Unit Price: 30.0
+Total Price: 30.0
+Profit: 29.0
+

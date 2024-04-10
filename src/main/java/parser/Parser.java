@@ -32,7 +32,7 @@ import java.util.regex.Pattern;
 public class Parser {
 
     public static final Pattern HELP_COMMAND_FORMAT =
-            Pattern.compile("help (?: c/(?<command>[^/]+))?");
+            Pattern.compile("help(?: c/(?<command>[^/]+))?");
     public static final Pattern ADD_COMMAND_FORMAT =
             Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
                     "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");

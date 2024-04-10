@@ -5,11 +5,10 @@ import itemlist.Itemlist;
 
 public class LowStockReminder {
 
+    private static final int DEFAULT_LOW_STOCK_THRESHOLD = 5;
+
     protected String itemName;
-    //protected int QuantityInStock;
-    //protected int QuantitySoldPerMonth;
-    //protected float newSellPrice;
-    protected static int DEFAULT_LOW_STOCK_THRESHOLD = 5;
+
 
     public static void execute(){
         outOfStockItemsReminder();

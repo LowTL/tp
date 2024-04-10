@@ -88,6 +88,9 @@ public class Promotionlist {
         int year = Integer.parseInt(formattedYear);
         int month = Integer.parseInt(formattedMonth);
         int date = Integer.parseInt(formattedDate);
+        if (promotion == null) {
+            return false;
+        }
         if (year < promotion.getStartYear() || year > promotion.getEndYear()) {
             return false;
         }
@@ -153,7 +156,7 @@ public class Promotionlist {
 
     public static Promotion getPromotion(String itemName) {
         for (Promotion promotion: promotions) {
-            if (promotion.getItemName().equals(itemName)) {
+            if (promotion.getItemName().equals(itemName) || promotion.getItemName().toLowerCase().equals(itemName)) {
                 return promotion;
             }
         }

@@ -54,7 +54,7 @@ public class SellCommand extends Command {
             Itemlist.editQuantity(index, remainingQuantity);
         }
         Storage.overwriteFile(Itemlist.getItems());
-        Transaction newTransaction = new Transaction(itemName, sellQuantity, toSell.getBuyPrice(), sellPrice);
+        Transaction newTransaction = new Transaction(Itemlist.getItem(index).getItemName(), sellQuantity, toSell.getBuyPrice(), sellPrice);
         Cashier.addItem(newTransaction);
         TransactionLogs.addToLog(Cashier.getTransactions());
     }

@@ -4,3 +4,6 @@ Time: 1200 to 2359
 item have a 10.00% discount
 Period: 31 MAR 2024 to 7 APR 2024
 Time: 1200 to 2359
+ESP32 have a 0.00% discount
+Period: 1 APR 2022 to 2 APR 2022
+Time: 1800 to 1900

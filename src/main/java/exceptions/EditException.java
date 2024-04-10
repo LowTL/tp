@@ -23,7 +23,11 @@ public class EditException extends Exception {
         case "SELL_PRICE":
             TextUi.replyToUser("New sell price should be larger than 0!");
             break;
+        default:
+            TextUi.replyToUser("Error with edits!");
+            break;
         }
+
     }
 
 }

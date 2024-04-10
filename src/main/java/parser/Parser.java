@@ -179,11 +179,27 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.ADD);
         }
-        String category = matcher.group("category") != null ? matcher.group("category").toLowerCase() :
-                "NA";
-        int quantity = Integer.parseInt(matcher.group("quantity"));
-        float buyPrice = Float.parseFloat(matcher.group("buyPrice"));
-        float sellPrice = Float.parseFloat(matcher.group("sellPrice"));
+
+        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        int quantity;
+        try {
+            quantity = Integer.parseInt(matcher.group("quantity"));
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Quantity is too large");
+        }
+        float buyPrice;
+        try {
+            buyPrice = Float.parseFloat(matcher.group("buyPrice"));
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Buy price is too large");
+        }
+        float sellPrice;
+        try {
+            sellPrice = Float.parseFloat(matcher.group("sellPrice"));
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Sell price is too large");
+        }
+
         assert quantity >= 0 : "Quantity should not be negative.";
         return new AddCommand(
                 matcher.group("itemName"),
@@ -211,7 +227,12 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.SELL);
         }
-        int sellQuantity = Integer.parseInt(matcher.group("sellQuantity").trim());
+        int sellQuantity;
+        try {
+            sellQuantity = Integer.parseInt(matcher.group("sellQuantity").trim());
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Quantity is too large");
+        }
         if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
             float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
             return new SellCommand(
@@ -253,10 +274,15 @@ public class Parser {
             throw new EditException("ITEM_NAME");
         }
         // check if quantity was edited. If no, newQuantity will be -1
-        int newQuantity = matcher.group("newQuantity") != null ?
-                Integer.parseInt(matcher.group("newQuantity")) : -1;
-        if (matcher.group("newQuantity") != null && newQuantity < 0) {
-            throw new EditException("QUANTITY");
+        int newQuantity;
+        try {
+            newQuantity = matcher.group("newQuantity") != null ?
+                    Integer.parseInt(matcher.group("newQuantity")) : -1;
+            if (matcher.group("newQuantity") != null && newQuantity < 0) {
+                throw new EditException("QUANTITY");
+            }
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Quantity is too large");
         }
         // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
         String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
@@ -270,16 +296,26 @@ public class Parser {
             throw new EditException("CATEGORY");
         }
         // check if BuyPrice was edited. If no, newBuyPrice will be -1
-        float newBuyPrice = matcher.group("newBuyPrice") != null ?
-                Float.parseFloat(matcher.group("newBuyPrice")) : -1;
-        if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
-            throw new EditException("BUY_PRICE");
+        float newBuyPrice;
+        try {
+            newBuyPrice = matcher.group("newBuyPrice") != null ?
+                    Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+            if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
+                throw new EditException("BUY_PRICE");
+            }
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Buy price is too large");
         }
         // check if sellPrice was edited. If no, newSellPrice will be -1
-        float newSellPrice = matcher.group("newSellPrice") != null ?
-                Float.parseFloat(matcher.group("newSellPrice")) : -1;
-        if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
-            throw new EditException("SELL_PRICE");
+        float newSellPrice;
+        try {
+            newSellPrice = matcher.group("newSellPrice") != null ?
+                    Float.parseFloat(matcher.group("newSellPrice")) : -1;
+            if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
+                throw new EditException("SELL_PRICE");
+            }
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("Sell price is too large");
         }
         return new EditCommand(
                 itemName,

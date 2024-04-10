@@ -1,0 +1,3 @@
+1. | [ ]  | item | Qty: 1 [UNIT_OF_MEASUREMENT] | Cat: [CATEGORY] | BuyPrice: $1.0 | SellPrice: $0.5
+2. | [ ]  | ESP32 | Qty: 999 amt | Cat: electronics | BuyPrice: $6.0 | SellPrice: $7.0
+3. | [ ]  | test | Qty: 20 nope | Cat: NULL | BuyPrice: $2.3 | SellPrice: $2309.0

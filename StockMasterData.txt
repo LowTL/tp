@@ -1,2 +1,0 @@
-1. | [X]  | test | Qty: 30 pieces | Cat: food | BuyPrice: $3.21324354E14 | SellPrice: $2.4
-2. | [ ]  | food | Qty: 200 pieces | Cat: fruit | BuyPrice: $1.2 | SellPrice: $2.5

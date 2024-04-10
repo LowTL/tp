@@ -18,6 +18,7 @@ import command.BestsellerCommand;
 import command.TotalProfitCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
+import exceptions.EditException;
 import exceptions.InvalidDateException;
 import itemlist.Cashier;
 import itemlist.Itemlist;
@@ -125,7 +126,7 @@ public class Parser {
         case EDIT:
             try {
                 return prepareEdit(userInput);
-            } catch (CommandFormatException e) {
+            } catch (CommandFormatException | EditException e) {
                 break;
             }
         case FIND:
@@ -240,7 +241,7 @@ public class Parser {
     }
 
     //@@author Fureimi
-    private Command prepareEdit(String args) throws CommandFormatException{
+    private Command prepareEdit(String args) throws CommandFormatException, EditException {
         final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
@@ -248,20 +249,38 @@ public class Parser {
         String itemName = matcher.group("itemName");
         // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        if (newItemName.isBlank() || newItemName.isEmpty()) {
+            throw new EditException("ITEM_NAME");
+        }
         // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity = matcher.group("newQuantity") != null ?
                 Integer.parseInt(matcher.group("newQuantity")) : -1;
+        if (matcher.group("newQuantity") != null && newQuantity < 0) {
+            throw new EditException("QUANTITY");
+        }
         // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
         String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
                 matcher.group("newUnitOfMeasurement") : "NA";
+        if (newUnitOfMeasurement.isEmpty() || newUnitOfMeasurement.isBlank()) {
+            throw new EditException("UNIT_OF_MEASUREMENT");
+        }
         // check if category was edited. If no, newCategory will be NA
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        if (newCategory.isBlank() || newCategory.isEmpty()) {
+            throw new EditException("CATEGORY");
+        }
         // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice = matcher.group("newBuyPrice") != null ?
                 Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+        if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
+            throw new EditException("BUY_PRICE");
+        }
         // check if sellPrice was edited. If no, newSellPrice will be -1
         float newSellPrice = matcher.group("newSellPrice") != null ?
                 Float.parseFloat(matcher.group("newSellPrice")) : -1;
+        if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
+            throw new EditException("SELL_PRICE");
+        }
         return new EditCommand(
                 itemName,
                 newItemName,

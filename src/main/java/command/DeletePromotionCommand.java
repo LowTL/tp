@@ -1,5 +1,6 @@
 package command;
 
+import common.Messages;
 import exceptions.CommandFormatException;
 import promotion.Promotion;
 import promotion.Promotionlist;
@@ -22,7 +23,7 @@ public class DeletePromotionCommand extends Command {
             TextUi.replyToUser("Promotion for " + itemName + " has been removed");
             PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
         } else {
-            throw new CommandFormatException("ITEM_NOT_ON_PROMO");
+            System.out.println(Messages.ITEM_NOT_ON_PROMO);
         }
     }
 }

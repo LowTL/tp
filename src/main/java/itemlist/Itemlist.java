@@ -29,7 +29,7 @@ public class Itemlist {
 
     public static boolean itemIsExist(String itemName) {
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().equals(itemName)) {
+            if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
                 return true;
             }
         }

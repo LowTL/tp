@@ -57,6 +57,7 @@ public class ListCommand<T> extends Command{
         }
     }
 
+
     private void showTransactionList() {
         TextUi.showTransactionList(transactionList);
     }

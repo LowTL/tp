@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
         int index = -1;
         try {
             for (Item item : Itemlist.getItems()) {
-                if (item.getItemName().toLowerCase().equals(itemName)) {
+                if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
                     index = Itemlist.getItems().indexOf(item);
                     break;
                 }
@@ -28,8 +28,11 @@ public class DeleteCommand extends Command {
                 Itemlist.deleteItem(index);
                 System.out.println(itemName + " has been successfully deleted.");
                 Storage.overwriteFile(Itemlist.getItems());
-                assert(!Itemlist.getItem(index).getItemName().equals(itemName));
-
+                if (index == Itemlist.getItems().size()) {
+                    assert (Itemlist.getItem(index) == null);
+                } else {
+                    assert (!Itemlist.getItem(index).getItemName().equals(itemName));
+                }
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Itemlist is empty.");

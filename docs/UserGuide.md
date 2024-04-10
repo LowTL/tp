@@ -15,13 +15,14 @@ StockMaster is a platform aimed at helping SMEs track and organise their invento
 ### Adding an item: `add`
 Adds a new item to the list of items.
 
-Format: `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`
+Format: `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/BUY_PRICE sell/SELL_PRICE`
 
 * `CATEGORY` is an optional field. If blank, it will default to `N/A`.
 
 > [ !NOTE ]
 > 
-> Addition of an item with the same `ITEM_NAME` will edit the `ITEM_QUANTITY` instead
+> Addition of an item with the same `ITEM_NAME` will increase the `ITEM_QUANTITY`,  and update the `UNIT_OF_MEASUREMENT`, 
+> `CATEGORY`, `BUY_PRICE` and `SELL_PRICE` instead of adding a duplicated entry for the same item.
 
 Example of usage: 
 ```
@@ -120,7 +121,8 @@ Finds all items that contains `KEYWORD`
 
 Format: `find [/filter1/filter2] KEYWORD`
 
-* Filter will specify the parameters that is being searched.
+* Filter are optional and will specify the parameters that is being searched.
+* Filters can be `item`, `qty`, `cat`, `uom`, `buy`, `sell`. Any other values will show an empty list.
 * If no filter is applied, it will search all items that contains `KEYWORD.
 * The search is case-insensitive e.g. `apple` will match `Apple`.
 * Partial words will be matched e.g. `app` will match `Apple`.
@@ -181,12 +183,13 @@ You have earned {REVENUE} in revenue so far.
 ### Add promotion to items: `promotion`
 Creates a promotion for items that changes the sell price.
 
-Format: `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]
-time /from [TIME] /to [TIME]`
+Format: `promotion ITEM_NAME discount/DISCOUNT period /from DATE MONTH YEAR /to DATE MONTH YEAR
+time /from START_TIME /to END_TIME`
 
 * `DISCOUNT` ranges from 0 to 100 and can take in up to 2 decimal place.
-* `[DATE]` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
-* `[TIME]` must range from 0000 to 2359. In addition, time range must be valid.
+*  Format for `MONTH` is 3 alphabets `MMM`. E.g. For January, `Jan`. For December, `Dec`.  
+* `DATE` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
+* `START_TIME` & `END_TIME` must range from 0000 to 2359. In addition, time range must be valid.
 
 Example of usage:
 ```
@@ -195,7 +198,7 @@ promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 12
 ### Delete a promotion: `del_promo`
 Deletes a promotion for an item.
 
-Format: `del_promo [ITEM_NAME]`
+Format: `del_promo ITEM_NAME`
 
 Example of usage:
 ```

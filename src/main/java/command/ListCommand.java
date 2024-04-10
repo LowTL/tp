@@ -40,12 +40,15 @@ public class ListCommand<T> extends Command{
         }
         if (category.equals("NA") && !isListMarked) {
             TextUi.showList(arrayList);
+        } else if (containsItems(arrayList)) {
+            showCustomizedItemList();
         } else if (containsTransactions(arrayList)) {
             showTransactionList();
         } else {
             TextUi.replyToUser(Messages.EMPTY_LIST);
         }
     }
+
 
     private void showTransactionList() {
         @SuppressWarnings("unchecked")

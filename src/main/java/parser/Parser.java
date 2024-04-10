@@ -178,7 +178,8 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.ADD);
         }
-        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        String category = matcher.group("category") != null ? matcher.group("category").toLowerCase() :
+                "NA";
         int quantity = Integer.parseInt(matcher.group("quantity"));
         float buyPrice = Float.parseFloat(matcher.group("buyPrice"));
         float sellPrice = Float.parseFloat(matcher.group("sellPrice"));
@@ -322,7 +323,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LIST_ITEMS);
         }
-        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        String category = matcher.group("category") != null ? matcher.group("category").toLowerCase(): "NA";
         boolean listMarked = matcher.group("isMark") != null;
         return new ListCommand<>(Itemlist.getItems(), category, listMarked);
     }

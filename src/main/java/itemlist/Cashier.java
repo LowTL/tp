@@ -1,5 +1,6 @@
 package itemlist;
 
+import exceptions.EmptyListException;
 import item.Item;
 import item.Transaction;
 
@@ -13,27 +14,47 @@ public class Cashier extends Itemlist {
         transactions.add(transaction);
     }
 
-    public static void deleteItem(int index) {
-        transactions.remove(index);
-    }
-
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-
-    public static float getTotalRevenue() {
-        float revenue = 0;
-        for (Transaction t : getTransactions()) {
-            if (!t.getIsVoided()) {
-                revenue += t.getTotalPrice();
+    public static ArrayList<Transaction> getTransactions(Item item) {
+        ArrayList<Transaction> results = new ArrayList<>();
+        if (!transactions.isEmpty()) {
+            for (Transaction t : transactions) {
+                if (t.getItem() == item) {
+                    results.add(t);
+                }
             }
+            return results;
         }
-        return revenue;
+        else {
+            return null;
+        }
     }
 
-    public float getTotalProfit() {
+    public static float getTotalRevenue() {
+        float totalRevenue = 0;
+        ArrayList<Transaction> allTransactions = getTransactions();
+        if (!allTransactions.isEmpty()) {
+            for (Transaction t : allTransactions) {
+                if (!t.getIsVoided()) {
+                    totalRevenue += t.getTotalPrice();
+                }
+            }
+        }
+        return totalRevenue;
+    }
+
+    public static float getTotalProfit() {
         float totalProfit = 0;
-        for (Transaction t: transactions) {
+        try {
+            if (transactions.isEmpty()) {
+                throw new EmptyListException("Transaction");
+            }
+        } catch (EmptyListException e) {
+            return 0;
+        }
+        for (Transaction t : transactions) {
             if (!t.getIsVoided()) {
                 totalProfit += t.getProfit();
             }
@@ -42,10 +63,19 @@ public class Cashier extends Itemlist {
     }
 
     public static Transaction getTransaction(int index) {
-        return transactions.get(index);
+        try {
+            return transactions.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            if (index == 0) {
+                System.out.println("No transactions found.");
+            } else {
+                System.out.println("Index " + index + " entered is out of bound.");
+            }
+            return null;
+        }
     }
 
-    public Item getBestseller() {
+    public static Item getBestseller() {
         Item bestSeller = Itemlist.getItem(0);
         float[] profits = new float[Itemlist.items.size()];
         for (Transaction t: transactions) {

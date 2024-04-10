@@ -7,19 +7,17 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AddCommandTest {
+public class SellCommandTest {
 
     @Test
-    public void addItemTest() {
+    public void sellItemTest() {
         try {
-            Command addCommandTest1 = new AddCommand("testItem", 1, "EA",
-                    "NA", 1, 10);
-            Command addCommandTest2 = new AddCommand("testItem", 7, "EA",
-                    "NA", 1, 10);
-            addCommandTest1.execute();
-            addCommandTest2.execute();
+            Command sellCommandTest1 = new SellCommand("testItem", 1, 3);
+            Command sellCommandTest2 = new SellCommand("testItem", 7, 14);
+            sellCommandTest1.execute();
+            sellCommandTest2.execute();
         } catch (CommandFormatException e) {
-            fail("Unable to add item.");
+            fail("Unable to sell item.");
         } catch (InvalidDateException | EmptyListException e) {
             throw new RuntimeException(e);
         }

@@ -18,6 +18,7 @@ import command.BestsellerCommand;
 import command.TotalProfitCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
+import exceptions.EditException;
 import exceptions.InvalidDateException;
 import itemlist.Cashier;
 import itemlist.Itemlist;
@@ -125,7 +126,7 @@ public class Parser {
         case EDIT:
             try {
                 return prepareEdit(userInput);
-            } catch (CommandFormatException e) {
+            } catch (CommandFormatException | EditException e) {
                 break;
             }
         case FIND:
@@ -178,6 +179,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.ADD);
         }
+
         String category = matcher.group("category") != null ? matcher.group("category") : "NA";
         int quantity;
         try {
@@ -260,7 +262,7 @@ public class Parser {
     }
 
     //@@author Fureimi
-    private Command prepareEdit(String args) throws CommandFormatException{
+    private Command prepareEdit(String args) throws CommandFormatException, EditException {
         final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
@@ -268,24 +270,39 @@ public class Parser {
         String itemName = matcher.group("itemName");
         // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ? matcher.group("newItemName") : "NA";
+        if (newItemName.isBlank() || newItemName.isEmpty()) {
+            throw new EditException("ITEM_NAME");
+        }
         // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity;
         try {
             newQuantity = matcher.group("newQuantity") != null ?
                     Integer.parseInt(matcher.group("newQuantity")) : -1;
+            if (matcher.group("newQuantity") != null && newQuantity < 0) {
+                throw new EditException("QUANTITY");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("Quantity is too large");
         }
         // check if unitOfMeasurement was edited. If no, newUnitOfMeasurement will be NA
         String newUnitOfMeasurement = matcher.group("newUnitOfMeasurement") != null ?
                 matcher.group("newUnitOfMeasurement") : "NA";
+        if (newUnitOfMeasurement.isEmpty() || newUnitOfMeasurement.isBlank()) {
+            throw new EditException("UNIT_OF_MEASUREMENT");
+        }
         // check if category was edited. If no, newCategory will be NA
         String newCategory = matcher.group("newCategory") != null ? matcher.group("newCategory") : "NA";
+        if (newCategory.isBlank() || newCategory.isEmpty()) {
+            throw new EditException("CATEGORY");
+        }
         // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice;
         try {
             newBuyPrice = matcher.group("newBuyPrice") != null ?
                     Float.parseFloat(matcher.group("newBuyPrice")) : -1;
+            if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
+                throw new EditException("BUY_PRICE");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("Buy price is too large");
         }
@@ -294,6 +311,9 @@ public class Parser {
         try {
             newSellPrice = matcher.group("newSellPrice") != null ?
                     Float.parseFloat(matcher.group("newSellPrice")) : -1;
+            if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
+                throw new EditException("SELL_PRICE");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("Sell price is too large");
         }
@@ -358,7 +378,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LIST_ITEMS);
         }
-        String category = matcher.group("category") != null ? matcher.group("category") : "NA";
+        String category = matcher.group("category") != null ? matcher.group("category").toLowerCase(): "NA";
         boolean listMarked = matcher.group("isMark") != null;
         return new ListCommand<>(Itemlist.getItems(), category, listMarked);
     }

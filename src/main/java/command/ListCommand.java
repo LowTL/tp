@@ -11,18 +11,24 @@ import java.util.ArrayList;
 
 public class ListCommand<T> extends Command{
 
-    protected ArrayList<T> arrayList;
+    protected ArrayList<Item> itemList;
+    protected ArrayList<Transaction> transactionList;
+    protected ArrayList<Promotion> promotionList;
     protected String category;
     protected boolean isListMarked;
 
-    public ListCommand(ArrayList<T> arrayList, String category, boolean isListMarked) {
-        this.arrayList = arrayList;
+    public ListCommand(ArrayList<Item> arrayList, String category, boolean isListMarked) {
+        this.itemList= arrayList;
         this.category = category;
         this.isListMarked = isListMarked;
     }
-    public ListCommand(ArrayList<T> transactions, boolean isVoided) {
-        this.arrayList = transactions;
+    public ListCommand(ArrayList<Transaction> transactions, boolean isVoided) {
+        this.transactionList= transactions;
         this.isListMarked = isVoided;
+    }
+
+    public ListCommand(ArrayList<Promotion> promotionList) {
+        this.promotionList = promotionList;
     }
 
     public String getCategory() {
@@ -32,31 +38,35 @@ public class ListCommand<T> extends Command{
     //@@author Fureimi
     public void execute() throws EmptyListException {
         try {
-            if (arrayList.isEmpty()) {
-                throw new EmptyListException(arrayList.getClass().getSimpleName());
+            if (itemList.isEmpty() && transactionList.isEmpty() && promotionList.isEmpty()) {
+                throw new EmptyListException("There are no results.");
             }
         } catch (EmptyListException e) {
             return;
         }
         if (category.equals("NA") && !isListMarked) {
-            TextUi.showList(arrayList);
-        } else if (containsTransactions(arrayList)) {
+            TextUi.showList(itemList);
+        } else if (containsTransactions(transactionList)) {
             showTransactionList();
+        } else if (containsItems(itemList)) {
+            showCustomizedItemList();
+        } else if (containsPromotions(promotionList)) {
+            showPromotionList();
         } else {
             TextUi.replyToUser(Messages.EMPTY_LIST);
         }
     }
 
     private void showTransactionList() {
-        @SuppressWarnings("unchecked")
-        ArrayList<Transaction> transactionList = (ArrayList<Transaction>) arrayList;
         TextUi.showTransactionList(transactionList);
     }
 
     private void showCustomizedItemList() {
-        @SuppressWarnings("unchecked")
-        ArrayList<Item> itemList = (ArrayList<Item>) arrayList;
         TextUi.showCustomizedList(itemList, category, isListMarked);
+    }
+
+    private void showPromotionList() {
+        TextUi.showPromotionList(promotionList);
     }
 
     private static boolean containsItems(ArrayList<?> arrayList) {

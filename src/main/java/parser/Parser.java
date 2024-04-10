@@ -328,7 +328,7 @@ public class Parser {
     }
 
     private Command preparePromotionList() {
-        return new ListCommand<>(Promotionlist.getAllPromotion(), "NA", false);
+        return new ListCommand<>(Promotionlist.getAllPromotion());
     }
 
     private Command prepareMark(String args) throws CommandFormatException {

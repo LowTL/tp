@@ -89,6 +89,7 @@ public class Promotion {
         return itemName;
     }
 
+    @Override
     public String toString() {
         return getItemName() + " have a " + (getDiscount()*100) + "% discount" + "\n" +
                 "Period: " + getStartDate() + " " + getStartMonth() + " " + getStartYear() + " to " +

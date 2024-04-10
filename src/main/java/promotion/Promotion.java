@@ -91,10 +91,10 @@ public class Promotion {
 
     @Override
     public String toString() {
-        return getItemName() + " have a " + (getDiscount()*100) + "% discount" + "\n" +
-                "Period: " + getStartDate() + " " + getStartMonth() + " " + getStartYear() + " to " +
-                getEndDate()+ " " + getEndMonth() + " " + getEndYear() + "\n" +
-                "Time: " + getStartTime() + " to " + getEndTime();
+        return getItemName() + " have a " + String.format("%.2f", (getDiscount()*100)) +
+                "% discount" + "\n" + "Period: " + getStartDate() + " " + getStartMonth() + " "
+                + getStartYear() + " to " + getEndDate()+ " " + getEndMonth() + " " +
+                getEndYear() + "\n" + "Time: " + getStartTime() + " to " + getEndTime();
     }
 
     public void print(String args) {

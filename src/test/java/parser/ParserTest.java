@@ -30,7 +30,7 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(AddCommand.class, command);
         AddCommand addCommand = (AddCommand) command;
-        assertEquals("ItemName", addCommand.getItemName());
+        assertEquals("itemname", addCommand.getItemName());
         assertEquals(10, addCommand.getQuantity());
         assertEquals("unitOfMeasurement", addCommand.getUnitOfMeasurement());
         assertEquals("Category", addCommand.getCategory());

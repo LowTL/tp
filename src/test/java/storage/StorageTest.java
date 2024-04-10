@@ -23,7 +23,7 @@ public class StorageTest {
             Storage.writeToFile(directory, "", true);
             testFile.delete();
             Storage.readFromFile(directory);
-            assertEquals("File does not exist." + System.lineSeparator(), outputStream.toString());
+            assertEquals("File does not exist. Creating a new Text File" + System.lineSeparator(), outputStream.toString());
         } catch (IOException e) {
             fail("failed to create a file.");
         }

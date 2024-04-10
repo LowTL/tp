@@ -67,7 +67,7 @@ public class AddCommand extends Command {
         System.out.println("Item already exists and quantity has been changed");
         int indexOfItem = -1;
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
+            if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 indexOfItem = Itemlist.getIndex(item);
             }
         }

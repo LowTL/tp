@@ -1,0 +1,25 @@
+@startuml
+
+actor User
+participant "Parser" as Parser
+participant "AddCommand" as AddCommand
+participant "Itemlist" as Itemlist
+
+User -> Parser: add command
+activate Parser
+
+Parser -> AddCommand: prepareAdd(userInput)
+activate AddCommand
+AddCommand -> Itemlist: itemIsExist(itemName)
+activate Itemlist
+Itemlist -> AddCommand: false
+deactivate Itemlist
+AddCommand -> AddCommand: create new Item
+AddCommand -> Itemlist: addItem(Item)
+activate Itemlist
+deactivate Itemlist
+AddCommand -> User: Output success message
+deactivate AddCommand
+deactivate Parser
+
+@enduml

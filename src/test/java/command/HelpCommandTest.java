@@ -13,7 +13,7 @@ public class HelpCommandTest {
     public void testExecute() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
-        HelpCommand helpCommand = new HelpCommand();
+        HelpCommand helpCommand = new HelpCommand("NA");
         helpCommand.execute();
         String expectedOutput = Messages.HELP + System.lineSeparator();
         assertEquals(expectedOutput, outputStreamCaptor.toString());

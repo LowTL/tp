@@ -9,6 +9,7 @@ public class LowStockReminder {
     //protected int QuantityInStock;
     //protected int QuantitySoldPerMonth;
     //protected float newSellPrice;
+    protected static int DEFAULT_LOW_STOCK_THRESHOLD = 5;
 
     public static void execute(){
         outOfStockItemsReminder();
@@ -33,7 +34,7 @@ public class LowStockReminder {
         int count = 0;
         System.out.println("Low-on-stock Items:");
         for (Item item : Itemlist.getItems()) {
-            if (item.getQuantity() <= 5 && item.getQuantity() > 0) {  //low stock condition
+            if (item.getQuantity() <= DEFAULT_LOW_STOCK_THRESHOLD && item.getQuantity() > 0) {  //low stock condition
                 System.out.println(item.getItemName());
                 count++;
             }

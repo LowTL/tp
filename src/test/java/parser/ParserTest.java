@@ -79,7 +79,7 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(ListCommand.class, command);
         ListCommand listCommand = (ListCommand) command;
-        assertEquals("Category", listCommand.getCategory());
+        assertEquals("category", listCommand.getCategory());
     }
 
     @Test

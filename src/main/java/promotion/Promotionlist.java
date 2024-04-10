@@ -32,14 +32,7 @@ public class Promotionlist {
     }
 
     public static boolean isOnPromo(String itemName) {
-        if (!Promotionlist.itemIsOnPromo(itemName)) {
-            return false;
-        }
-        assert getPromotion(itemName) != null;
-        if (!isPromoExist(getPromotion(itemName))) {
-            return false;
-        }
-        return true;
+        return Promotionlist.itemIsOnPromo(itemName);
     }
 
     public static boolean isLeapYear(int year) {
@@ -61,7 +54,10 @@ public class Promotionlist {
         if (!Itemlist.itemIsExist(itemName)) {
             throw new CommandFormatException("ITEM_NOT_FOUND");
         }
-        if (discount < 0 || discount > 1) {
+        if (Promotionlist.isOnPromo(itemName)) {
+            throw new InvalidDateException("ITEM_IS_PROMO");
+        }
+        if (!isValidDiscount(discount)) {
             throw new CommandFormatException("INVALID_DISCOUNT");
         }
         if (!isValidMonth(startDate, startMonth, startYear) || !isValidMonth(endDate, endMonth, endYear)) {
@@ -73,14 +69,14 @@ public class Promotionlist {
         if (!isValidDuration(startDate, startMonth, startYear, endDate, endMonth, endYear)) {
             throw new InvalidDateException("INVALID_PERIOD");
         }
-
-        if (Promotionlist.isOnPromo(itemName)) {
-            throw new InvalidDateException("ITEM_IS_PROMO");
-        }
         promotions.add(promotion);
         PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
     }
 
+    public static boolean isValidDiscount (float discount) {
+        return !(discount < 0) && !(discount > 1);
+    }
+    
     public static boolean isPromoExist(Promotion promotion) {
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");

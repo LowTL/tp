@@ -17,11 +17,11 @@ public class Cashier extends Itemlist {
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-    public static ArrayList<Transaction> getTransactions(Item item) {
+    public static ArrayList<Transaction> getTransactions(String itemName) {
         ArrayList<Transaction> results = new ArrayList<>();
         if (!transactions.isEmpty()) {
             for (Transaction t : transactions) {
-                if (t.getItem() == item) {
+                if (t.getItem().getItemName().equals(itemName)) {
                     results.add(t);
                 }
             }

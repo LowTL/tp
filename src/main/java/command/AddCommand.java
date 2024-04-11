@@ -17,7 +17,7 @@ public class AddCommand extends Command {
 
     public AddCommand(String itemName, int quantity, String unitOfMeasurement, String category, float buyPrice,
             float sellPrice) {
-        this.itemName = itemName;
+        this.itemName = itemName.toLowerCase();
         this.quantity = quantity;
         this.unitOfMeasurement = unitOfMeasurement;
         this.category = category;
@@ -64,17 +64,17 @@ public class AddCommand extends Command {
     }
 
     public void updateQuantity(String itemName) {
-        System.out.println("Item already exists and quantity has been changed");
+        System.out.println("Item already exists and item information has been updated");
         int indexOfItem = -1;
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
+            if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 indexOfItem = Itemlist.getIndex(item);
             }
         }
         assert indexOfItem != -1;
         int currentQty = Itemlist.getItem(indexOfItem).getQuantity();
         int newQty = getQuantity() + currentQty;
-        new EditCommand(getItemName(), "NA", newQty, "NA", "NA", -1,
-                -1).execute();
+        new EditCommand(getItemName(), "NA", newQty, getUnitOfMeasurement(), getCategory(), getBuyPrice(),
+                getSellPrice()).execute();
     }
 }

@@ -6,6 +6,7 @@ import java.util.Scanner;
 import common.Messages;
 import item.Item;
 import item.Transaction;
+import promotion.Promotion;
 
 public class TextUi {
 
@@ -63,6 +64,22 @@ public class TextUi {
     public static <T> void showList(ArrayList<T> arrayList) {
         if (arrayList.isEmpty()) {
             replyToUser(Messages.EMPTY_LIST);
+            return;
+        }
+        replyToUser("List: ");
+        int index = 1;
+        for (T item : arrayList) {
+            if (item == null) {
+                break;
+            }
+            String listItem = index + ". " + item;
+            replyToUser(listItem);
+            index++;
+        }
+
+
+        /*if (arrayList.isEmpty()) {
+            replyToUser(Messages.EMPTY_LIST);
         } else {
             replyToUser("List: ");
             for (T item : arrayList) {
@@ -71,7 +88,7 @@ public class TextUi {
                 }
                 replyToUser(arrayList.indexOf(item) + 1 + ". " + item);
             }
-        }
+        }*/
     }
 
     public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
@@ -137,6 +154,14 @@ public class TextUi {
             counter++;
             replyToUser(counter + ". " + t.getItemName() + " " +
                     (t.getProfit() > 0 ? "earned " : "lost ") + t.getProfit());
+        }
+    }
+
+    public static void showPromotionList(ArrayList<Promotion> promotionList) {
+        int counter = 0;
+        for (Promotion p: promotionList) {
+            counter++;
+            replyToUser(counter + ". " + p.toString());
         }
     }
 

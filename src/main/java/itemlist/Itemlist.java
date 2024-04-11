@@ -29,7 +29,7 @@ public class Itemlist {
 
     public static boolean itemIsExist(String itemName) {
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
+            if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 return true;
             }
         }
@@ -45,6 +45,8 @@ public class Itemlist {
         } catch (IndexOutOfBoundsException e) {
             if (index != 0) {
                 System.out.println("Index " + index + " entered is out of bound.");
+            } else {
+                System.out.println("There are no items added yet!");
             }
             return null;
         }

@@ -1,7 +1,6 @@
 package common;
 
 public class Messages {
-    public static final String DIVIDER = "----------------";
     public static final String INVALID_COMMAND = "Invalid command detected. Type 'help' for list of valid commands";
     public static final String HELP =
             " ___________________________________________________________________________________________\n" +
@@ -46,6 +45,8 @@ public class Messages {
             "|------------|------------------------------------------------------------------------------|\n" +
             "| list       | list_promotions                                                              |\n" +
             "| promotions |                                                                              |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| low stock  | low_stock                                                                    |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| exit       | exit                                                                         |\n" +
             "|____________|______________________________________________________________________________|\n";

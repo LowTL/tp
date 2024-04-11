@@ -1,21 +1,6 @@
 package parser;
 
-import command.Command;
-import command.AddCommand;
-import command.DeleteCommand;
-import command.DeletePromotionCommand;
-import command.EditCommand;
-import command.ExitCommand;
-import command.FindCommand;
-import command.HelpCommand;
-import command.IncorrectCommand;
-import command.ListCommand;
-import command.AddPromotionCommand;
-import command.MarkCommand;
-import command.SellCommand;
-import command.UnmarkCommand;
-import command.BestsellerCommand;
-import command.TotalProfitCommand;
+import command.*;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;
@@ -172,6 +157,8 @@ public class Parser {
             return new TotalProfitCommand(userCommand);
         case BESTSELLER:
             return new BestsellerCommand();
+        case LOW_STOCK:
+            return new LowStockCommand();
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();

@@ -10,6 +10,11 @@ import ui.TextUi;
 
 import java.util.ArrayList;
 
+/**
+ * Prints out the various <code>ArrayLists</code>, full or partial, based on modifiers.
+ * @param <T> is the Type of <code>ArrayList</code> ie <code>Item</code>,
+ *         <code>Transaction</code> or <code>Promotion</code>
+ */
 public class ListCommand<T> extends Command{
 
     protected ArrayList<Item> itemList;
@@ -18,23 +23,26 @@ public class ListCommand<T> extends Command{
     protected String category;
     protected boolean isListMarked;
 
+    /**
+    * Instantiates a <code>ListCommand</code> with the <code>ArrayList arrayList</code>
+     * and any other modifiers available to that type of <code>ArrayList</code>.
+     */
     public ListCommand(ArrayList<Item> arrayList, String category, boolean isListMarked) {
         this.itemList= arrayList;
         this.category = category;
         this.isListMarked = isListMarked;
     }
 
-    //Overloaded command to get a filtered transactionList
-    public ListCommand(ArrayList<Transaction> transactions, String itemName) {
+    public ListCommand(ArrayList<Transaction> arrayList, String itemName) {
         if (itemName.isEmpty()) {
-            this.transactionList = transactions;
+            this.transactionList = arrayList;
         } else {
             this.transactionList = Cashier.getTransactions(itemName);
         }
     }
 
-    public ListCommand(ArrayList<Promotion> promotionList) {
-        this.promotionList = promotionList;
+    public ListCommand(ArrayList<Promotion> arrayList) {
+        this.promotionList = arrayList;
     }
 
     public String getCategory() {
@@ -42,6 +50,11 @@ public class ListCommand<T> extends Command{
     }
 
     //@@author Fureimi
+    /*
+    * Runs the list command with 3 cases
+    * Depending on which ArrayList is not empty, it prints that list.
+    * @throws EmptyListException if all Lists are empty.
+    * */
     public void execute() throws EmptyListException {
         try {
             if (itemList.isEmpty() && transactionList.isEmpty() && promotionList.isEmpty()) {

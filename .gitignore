@@ -7,7 +7,9 @@
 *.class
 
 #Generated storage text files
-*.txt
+PromotionStorage.txt
+StockMasterData.txt
+TransactionLogs.txt
 
 # Gradle build files
 /.gradle/

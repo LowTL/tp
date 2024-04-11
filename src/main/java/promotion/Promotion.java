@@ -2,8 +2,6 @@ package promotion;
 
 import ui.TextUi;
 
-import java.time.DayOfWeek;
-
 public class Promotion {
 
     protected String itemName;
@@ -21,8 +19,6 @@ public class Promotion {
     protected Month endMonth;
 
     protected int endYear;
-
-    protected DayOfWeek weekly;
 
     protected int startTime;
 

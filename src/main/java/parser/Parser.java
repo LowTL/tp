@@ -30,6 +30,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
+
+    public static final Pattern HELP_COMMAND_FORMAT =
+            Pattern.compile("help(?: c/(?<command>[^/]+))?");
     public static final Pattern ADD_COMMAND_FORMAT =
             Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
                     "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
@@ -90,7 +93,11 @@ public class Parser {
         case EXIT:
             return new ExitCommand(true);
         case HELP:
-            return new HelpCommand();
+            try {
+                return prepareHelp(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         case LIST_ITEMS:
             try {
                 return prepareItemList(userInput);
@@ -172,6 +179,21 @@ public class Parser {
         return new IncorrectCommand();
     }
 
+    private Command prepareHelp(String args) throws CommandFormatException{
+        final Matcher matcher = HELP_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.HELP);
+        }
+
+        String command = matcher.group("command") != null ?
+                matcher.group("command").toLowerCase().trim() : "NA";
+        if (command.isEmpty()) {
+            throw new CommandFormatException("INVALID_HELP_COMMAND");
+        }
+
+        return new HelpCommand(command);
+    }
 
     private Command prepareAdd(String args) throws CommandFormatException{
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
@@ -255,7 +277,7 @@ public class Parser {
             throw new CommandFormatException("QTY_TOO_LARGE");
         }
 
-        if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
+        if (Promotionlist.isPromoExistNow(matcher.group("itemName"))) {
             float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
             return new SellCommand(
                     matcher.group("itemName"),

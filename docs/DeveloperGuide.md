@@ -57,41 +57,90 @@ own business given a certain period and time. Additionally, it implements the fo
 * `list_promotions`
 
 
+Given below is the overall sequence diagram for the `PromotionCommand`.
+
+![PromotionSequenceDiagram](./Diagrams/Promotion_SequenceDigram.png)
+
+
 The PromotionCommand will execute the appropriate command and prints messages to the user through the `TextUi`.
 
-**Add new promotion:**
+#### Add new promotion:
 
-<img src="./Diagrams/AddPromotion.png" alt="Alt Text" width="250" height="250">
+The add promotion command has 5 compulsory arguments `ITEM_NAME`, `discount/`, `period /from`, `/to`, `time /from` and `to`
 
 Example: 
 
 ```
 promotion apple discount/50 period /from 1 Jan 2024 /to 31 Dec 2024 time from/ 0000 /to 2359
 ```
+#### Add Promotion Class Diagram
+
+Given below is the class diagram showing the class structure of the add promotion mechanism:
+
+![AddPromotion Class Diagram](./Diagrams/AddPromotion_ClassDiagram.png)
+
+#### Add Promotion Sequence Diagram
+
+Given below is the sequence diagram showing the add promotion mechanism:
+
+![AddPromotion Sequence Diagram](./Diagrams/AddPromotion.png)
+
 This command will add a new promotion by calling `addPromotion(promotion)` method in `Promotionlist.java`. The 
 `addPromotion(promotion)` then calls `isItemExist(apple)` in `Itemlist.java` to check if the item exists in the inventory. 
 
-Next, it subsequently calls multiple of its own methods, `isValidMonth(1, Jan, 2024)` and `isValidMonth(31, Dec, 2024)` 
-to check if the date is valid. `isValidTime(0000, 2359)` is called to check if the time is valid 
 
-Lastly `isOnPromo(apple)` is called to check if there is already an existing promotion on `apple`. If there is an existing
-promotion, the user will be unable to create another promotion for `apple`.
+Next, it subsequently calls multiple of its own methods. 
+1. `ItemIsOnPromo()` checks if there is already an existing `promotion` for the item. If there is an existing promotion
+the user will be unable to create another promotion for the same item.
+2. `isValidDiscount()` checks if the `discount` inputed lies between the range of 0 to 100.
+3. `isValidMonth()` checks if the `date` entered is valid. E.g. `30 FEB 2024` does not exists.
+4. `isValidTime()` checks if the time is a valid range.
+5. `isValidDuration()` checks if the duration of the promotion is valid. E.g. A promotion that starts on `1 FEB 2024` and
+ends on `1 JAN 2024` is not valid.
+
+Then, `add(promotion)` method is called in `Promotion.java` to create the promotion. 
+
+A response will then be printed to the `TextUi` to inform the user on the successful creation of the promotion.
 
 **Delete promotion:**
 
-<img src="./Diagrams/DeletePromo.png" alt="Alt Text" width="300" height="200">
+This command has one compulsory argument `ITEM_NAME`.
 
-The promotion will be deleted by calling `deletePromotion(index)` method in `Promotionlist.java`. 
+Example: 
+```
+del_promo apple
+```
 
-Example: `del_promo apple`
+#### Delete Promotion Sequence Diagram
+
+Given below is the sequence diagram showing the delete promotion mechanism:
+
+![DeletePromotion](./Diagrams/DeletePromotion.png)
+
+This command will initially check if there is such an item in `Promotionlist`. If it does not exists, it will print an
+error message. Otherwise, it will execute the deletion of the `promotion`.
+
+To execute the deletion, `getPromotion()` and `getIndex()` methods are called to obtain the index of the item in the
+`Promotionlist`. 
+
+The promotion will be deleted by calling `deletePromotion(index)` method in `Promotionlist.java` and will inform the
+user on the successful deletion of the promotion via the `TextUi`.
 
 **List promotion:**
 
-<img src="./Diagrams/ListPromotion.png" alt="Alt Text" width="300" height="150">
+This command lists all the `promotion` in `Promotionlist`.
+
+Example:
+```
+list_promotions
+```
+
+#### List Promotion Sequence Diagram
+
+![ListPromotion](./Diagrams/Promotion_SequenceDigram.png)
 
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
-Example: `list_promotions`
 
 
 ## Product scope

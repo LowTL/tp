@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant ":PromotionCommand" as PromotionCommand
+participant "<<class>>\nPromotionlist" as PromotionList
+participant TextUi
+participant "<<class>>\nItemlist" as Itemlist
+participant "<<class>\n Promotion" as Promotion
+
+
+-> PromotionCommand: execute()
+
+alt promotion
+    ref over PromotionCommand, PromotionList, Itemlist, Promotion, TextUi : AddPromotion
+else delete
+    ref over PromotionCommand, PromotionList, TextUi : DeletePromotion
+else list_promotions
+    PromotionCommand -> TextUi: printPromotion()
+else invalid_command
+end
+
+<-- PromotionCommand
+
+@enduml

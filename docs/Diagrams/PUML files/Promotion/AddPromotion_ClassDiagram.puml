@@ -1,28 +1,38 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
+skinparam classFontColor automatic
 
-class AddPromotionCommand {
+class AddPromotionCommand #LightPink {
     # promotion : Promotion
     + execute()
 }
 
-class Promotionlist {
+class Promotionlist #Honeydew {
     - promotions : ArrayList <Promotion>
     + getIndex(promotion : Promotions)
-    + deletePromotion(getIndex : Int)
     + itemIsOnPromo(itemName: String)
     + isLeapYear(year: Int)
     + addPromotion((promotion : Promotions)
     + isValidDiscount(discount: Float)
     + isVerifiedTime(startTime: Int, endTime: Int)
-    + isValidDuration(startDate : Int, startMonth : Month, startYear : Int, endDate : Int, endMonth : Month, endYear : Int,
+    + isValidDuration(...)
     + isValidMonth( date: Int, month: Month, year: Int)
-    + getPromotion((itemName: String)
     + getAllPromotion()
 }
 
-class Promotion {
+note right
+    Parameters for isValidDuration
+    startDate : Int,
+    startMonth : Month,
+    startYear : Int,
+    endDate : Int,
+    endMonth : Month,
+    endYear : Int
+end note
+
+
+class Promotion #LightBlue {
     # itemName : String
     # discount : Float
     # startDate : Int
@@ -35,7 +45,7 @@ class Promotion {
     # endTime : Int
 }
 
-enum Month {
+enum Month #LightYellow {
     JAN(1)
     FEB(2)
     MAR(3)
@@ -53,4 +63,7 @@ enum Month {
 AddPromotionCommand --> Promotionlist : 1
 Promotionlist --> Promotion : 0..*
 
+
+hide circle
+skinparam classAttributeIconSize 0
 @enduml

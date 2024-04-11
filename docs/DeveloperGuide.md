@@ -48,7 +48,7 @@ The Cashier class extends the Itemlist Class.
 
 This section describes some noteworthy details on how certain features are implemented
 
-### [Proposed] Promotion feature
+### Promotion feature
 
 The promotion mechanism is facilitated by `StockMaster`. It enables the user to design and create discount offers for his/her 
 own business given a certain period and time. Additionally, it implements the following operations:
@@ -57,7 +57,8 @@ own business given a certain period and time. Additionally, it implements the fo
 * `list_promotions`
 
 
-Given below is the overall sequence diagram for the `PromotionCommand`.
+Given below is the overall sequence diagram for the `PromotionCommand`. The reference frames are shown when explaining
+the operations.
 
 ![PromotionSequenceDiagram](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
 
@@ -81,7 +82,7 @@ Given below is the class diagram showing the class structure of the add promotio
 
 #### Add Promotion Sequence Diagram
 
-Given below is the sequence diagram showing the add promotion mechanism:
+Given below is the sequence diagram showing the add promotion mechanism.
 
 ![AddPromotion Sequence Diagram](Diagrams/Images/Promotion/AddPromotion.png)
 
@@ -97,6 +98,9 @@ the user will be unable to create another promotion for the same item.
 4. `isValidTime()` checks if the time is a valid range.
 5. `isValidDuration()` checks if the duration of the promotion is valid. E.g. A promotion that starts on `1 FEB 2024` and
 ends on `1 JAN 2024` is not valid.
+
+The sequence diagram shows the successful creation of a promotion. However, if any of the `boolean` values do not follow
+as per the diagram, an error message will be shown to the user via the `TextUi`.
 
 Then, `add(promotion)` method is called in `Promotion.java` to create the promotion. 
 
@@ -137,28 +141,21 @@ list_promotions
 
 #### List Promotion Sequence Diagram
 
-![ListPromotion](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
+![ListPromotion](Diagrams/Images/Promotion/ListPromotion_SequenceDigram.png)
 
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 
 
 
 ## Product scope
-StockMaster allows users to use the following commands:
-* add: add an item, quantity, category, buy price and sell price
-* del: delete an item
-* edit: edit the quantity of an item
-* sell: sell a certain quantity of an item at a stated price
-* find: find a specific item using a keyword
-* list: list all items in the inventory
-* help: list all commands
-* exit: exit StockMaster
 
 ### Target user profile
 
 Small Business Owners who:
 * has a need to manage a significant number of inventory products
 * able to track revenue/loss of the business
+* set up promotions for the items
+* needs reminders for items that are low on stock
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -166,23 +163,43 @@ Small Business Owners who:
 
 ### Value proposition
 
-Help small business owners organise and better manage their inventory faster than 
-a typical mouse/GUI driven app
+StockMaster helps small business owners organise and manage their business. The purpose of such application is to provide
+users with a range of tools and features to help them better operate their business. This will enable them to make more
+informed decisions to ensure that they are consistently having a profit. The application allows users to keep track of 
+their inventory, promotions and transaction logs. It also lets the user see the earnings/loss of the business. Furthermore, 
+it also allows users to see which item has generated the most profit in the business.
 
 
 ## User Stories
 
-| Version | As a ... | I want to ...               | So that I can ...                                           |
-|---------|----------|-----------------------------|-------------------------------------------------------------|
-| v1.0    | new user | see usage instructions      | refer to them when I forget how to use the application      |
-| v1.0    | user     | add new items               |                                                             |
-| v1.0    | user     | make changes to added items | change details about items such as quantity or price        |
-| v1.0    | user     | search for specific items   |                                                             |
-| v2.0    | user     | find a to-do item by name   | locate a to-do without having to go through the entire list |
+| Version | As a ...    | I want to ...                                                 | So that I can ...                                                            |
+|---------|-------------|---------------------------------------------------------------|------------------------------------------------------------------------------|
+| v1.0    | new user    | see usage instructions                                        | refer to them when I forget how to use the application                       |
+| v1.0    | user        | add new items                                                 | update my inventory list                                                     |
+| v1.0    | user        | make changes to added items                                   | change details about items such as quantity, price                           |
+| v1.0    | user        | delete item                                                   | remove items that are no longer required                                     |
+| v1.0    | user        | search for specific item                                      | easily check how much quantity I have left for that item                     |
+| v1.0    | user        | list out my inventory                                         | view all items that I have                                                   |
+| v2.0    | store owner | include new item information such as buying and selling price | operate my business and sell to customers                                    |
+| v2.0    | store owner | search for items in a filtered list                           | easily check the item information based on the filtered list                 |
+| v2.0    | store owner | keep track of how much I spend                                | generate my overall expenditure                                              |
+| v2.0    | store owner | keep track of how much I earn                                 | generate my overall revenue                                                  |
+| v2.0    | store owner | get my overall profit                                         | know if my business is earning or losing money                               |
+| v2.0    | store owner | sell items                                                    | start earning money from my business                                         |
+| v2.0    | store owner | see reminders for items that are low on stock                 | easily know which item I have to schedule for a restock                      |
+| v2.0    | store owner | add promotions for a time period                              | automatically change the sell price of the items during the promotion period |
+| v2.0    | store owner | delete promotions                                             | remove promotions when it is over                                            |
+| v2.0    | store owner | list promotions                                               | view all promotions that I have created                                      |
+| v2.0    | store owner | mark items of different categories at my own discretion       | easily view the list of marked items when I want to                                                                             |
+| v2.0    | store owner | see what is my best selling item                              | identify which item is most popular among customers                          |
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+* The application should work on main OS (Windows, Linux, Mac) that has Java 11 installed.
+* The application is designed for a single user.
+* This application is targeted towards users who have an above average typing speed.
+* This application requires the user to have an accurate clock on the main OS.
+* This application does not allow users to amend the text file that are used as storage.
 
 ## Glossary
 

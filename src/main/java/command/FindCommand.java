@@ -41,7 +41,7 @@ public class FindCommand extends Command {
             if (itemInfo.toLowerCase().contains("item") && item.getItemName().toLowerCase().contains(keyword)) {
                 searchList.add(String.valueOf(item));
             }
-            if (itemInfo.toLowerCase().contains("qty") && Integer.toString(item.getQuantity()).contains(keyword)) {
+            if (itemInfo.toLowerCase().contains("qty") && Integer.toString(item.getQuantity()).equals(keyword)) {
                 searchList.add(String.valueOf(item));
             }
             if (itemInfo.toLowerCase().contains("uom") && item.getUnitOfMeasurement().toLowerCase().contains(keyword)) {
@@ -52,10 +52,10 @@ public class FindCommand extends Command {
                     searchList.add(String.valueOf(item));
                 }
             }
-            if (itemInfo.toLowerCase().contains("buy") && Float.toString(item.getBuyPrice()).contains(keyword)) {
+            if (itemInfo.toLowerCase().contains("buy") && Float.toString(item.getBuyPrice()).equals(keyword)) {
                 searchList.add(String.valueOf(item));
             }
-            if (itemInfo.toLowerCase().contains("sell") && Float.toString(item.getSellPrice()).contains(keyword)) {
+            if (itemInfo.toLowerCase().contains("sell") && Float.toString(item.getSellPrice()).equals(keyword)) {
                 searchList.add(String.valueOf(item));
             }
         }

@@ -10,39 +10,43 @@
 
 ### Command
 The Command class is an abstract class which is extended to execute the various commands 
-used in the product.
+used in the product. It contains the abstract method `execute`, which is overridden by all other Command child classes.
 
 {Describe the design of the product. Use UML diagrams and short code snippets where applicable.}
 ### Exception
 
+### Item
+Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item 
+price, quantity of item, and others.
+
 ### Itemlist
-Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, remove functions, edit items inside
-the list.
+Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, 
+remove functions, edit items inside  the list.
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
 ![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_Sequence_Diagram.png)
 
-### Item
-Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item price, 
-quantity of item, and others.
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
 It contains command formats that must be adhered to for the methods to be called.
+
 ### Storage
 Storage class contains methods to write description of items to the file `./StockMasterData.txt`, 
 and retrieve information from the file when program restarts.
 ### UI
 
 ### Cashier
-Cashier class extends Itemlist class
+Cashier class extends Itemlist class, and stores `Transactions` instead of `Items`.
 
-#### Class diagram
+#### Class Diagram
 ![CashierClassDiagram](Diagrams/Images/Cashier/CashierClassDiagram.png)
-The Cashier class extends the Itemlist Class.
 
-![CashierCommands_SequenceDiagram](./Diagrams/CashierCommands_SequenceDiagram.png)
+#### Sequence Diagrams
+![BestsellerCommand](Diagrams/Images/Cashier/BestsellerCommand_SequenceDiagram.png)
+The `BestsellerCommand` calls the `getBestseller()` command from the Cashier
 
+![TotalProfitCommand](Diagrams/Images/Cashier/TotalProfitCommand_SequenceDiagram.png)
 
 ## Implementation
 

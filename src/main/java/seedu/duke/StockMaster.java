@@ -22,9 +22,6 @@ public class StockMaster {
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
     private final TextUi ui = new TextUi();
     private final Parser parser = new Parser();
-    private Itemlist itemlist = new Itemlist();
-
-
 
     /**
      * Main entry-point for the java.duke.StockMaster application.

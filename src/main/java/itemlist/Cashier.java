@@ -36,9 +36,7 @@ public class Cashier extends Itemlist {
         ArrayList<Transaction> allTransactions = getTransactions();
         if (!allTransactions.isEmpty()) {
             for (Transaction t : allTransactions) {
-                if (!t.getIsVoided()) {
-                    totalRevenue += t.getTotalPrice();
-                }
+                totalRevenue += t.getTotalPrice();
             }
         }
         return totalRevenue;
@@ -54,9 +52,7 @@ public class Cashier extends Itemlist {
             return 0;
         }
         for (Transaction t : transactions) {
-            if (!t.getIsVoided()) {
-                totalProfit += t.getProfit();
-            }
+            totalProfit += t.getProfit();
         }
         return totalProfit;
     }
@@ -78,9 +74,7 @@ public class Cashier extends Itemlist {
         Item bestSeller = Itemlist.getItem(0);
         float[] profits = new float[Itemlist.items.size()];
         for (Transaction t: transactions) {
-            if (!t.getIsVoided()) {
-                profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
-            }
+            profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
         }
         for (int i = 1; i < Itemlist.items.size(); i++) {
             if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {

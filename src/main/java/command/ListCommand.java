@@ -22,9 +22,10 @@ public class ListCommand<T> extends Command{
         this.category = category;
         this.isListMarked = isListMarked;
     }
-    public ListCommand(ArrayList<Transaction> transactions, boolean isVoided) {
+
+    //boolean overloaded is just to overload the function
+    public ListCommand(ArrayList<Transaction> transactions, boolean overloaded) {
         this.transactionList= transactions;
-        this.isListMarked = isVoided;
     }
 
     public ListCommand(ArrayList<Promotion> promotionList) {

@@ -1,6 +1,22 @@
 package parser;
 
-import command.*;
+import command.AddCommand;
+import command.AddPromotionCommand;
+import command.BestsellerCommand;
+import command.Command;
+import command.DeleteCommand;
+import command.DeletePromotionCommand;
+import command.EditCommand;
+import command.ExitCommand;
+import command.FindCommand;
+import command.HelpCommand;
+import command.IncorrectCommand;
+import command.ListCommand;
+import command.LowStockCommand;
+import command.MarkCommand;
+import command.SellCommand;
+import command.TotalProfitCommand;
+import command.UnmarkCommand;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;

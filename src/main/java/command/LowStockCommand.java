@@ -5,7 +5,7 @@ import itemlist.Itemlist;
 
 public class LowStockCommand extends Command{
 
-    protected static int DEFAULT_LOW_STOCK_THRESHOLD = 5;
+    protected static final int DEFAULT_LOW_STOCK_THRESHOLD = 5;
     protected int lowStockAmount;
 
     public LowStockCommand(){

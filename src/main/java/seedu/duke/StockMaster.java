@@ -2,7 +2,6 @@ package seedu.duke;
 
 import command.Command;
 import command.ExitCommand;
-import command.LowStockCommand;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;

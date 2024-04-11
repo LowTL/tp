@@ -14,10 +14,8 @@ class Cashier {
 class Transaction {
     - item: Item
     - totalPrice: float
-    - isVoided: boolean
     + getItem(): Item
     + getTotalPrice(): float
-    + getIsVoided(): boolean
     + getProfit(): float
 }
 

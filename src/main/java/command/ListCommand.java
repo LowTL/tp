@@ -4,6 +4,7 @@ import exceptions.EmptyListException;
 import common.Messages;
 import item.Item;
 import item.Transaction;
+import itemlist.Cashier;
 import promotion.Promotion;
 import ui.TextUi;
 
@@ -23,9 +24,13 @@ public class ListCommand<T> extends Command{
         this.isListMarked = isListMarked;
     }
 
-    //boolean overloaded is just to overload the function
-    public ListCommand(ArrayList<Transaction> transactions, boolean overloaded) {
-        this.transactionList= transactions;
+    //Overloaded command to get a filtered transactionList
+    public ListCommand(ArrayList<Transaction> transactions, String itemName) {
+        if (itemName.isEmpty()) {
+            this.transactionList = transactions;
+        } else {
+            this.transactionList = Cashier.getTransactions(itemName);
+        }
     }
 
     public ListCommand(ArrayList<Promotion> promotionList) {

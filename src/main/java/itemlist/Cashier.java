@@ -17,6 +17,7 @@ public class Cashier extends Itemlist {
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }
+    //Overloading of function allows for getting of Transactions with the specific itemName
     public static ArrayList<Transaction> getTransactions(String itemName) {
         ArrayList<Transaction> results = new ArrayList<>();
         if (!transactions.isEmpty()) {

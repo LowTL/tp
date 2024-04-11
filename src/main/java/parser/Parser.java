@@ -72,7 +72,7 @@ public class Parser {
             Pattern.compile("del_promo (?<itemName>[^/]+)");
 
     public static final Pattern LIST_TRANSACTION_COMMAND_FORMAT =
-            Pattern.compile("list_transactions");
+            Pattern.compile("^list_transactions(?:\\s+item/\\w+)?$");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -475,7 +475,9 @@ public class Parser {
             throw new CommandFormatException(Messages.INVALID_COMMAND);
         }
 
-        return new ListCommand<>(Cashier.getTransactions(), false);
+        String itemName = matcher.group(1).trim();
+
+        return new ListCommand<>(Cashier.getTransactions(), itemName);
     }
 }
 

@@ -1,6 +1,5 @@
 package item;
 
-import itemlist.Cashier;
 import itemlist.Itemlist;
 
 import java.time.LocalDateTime;

@@ -21,7 +21,7 @@ the list.
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
-![AddCommand_SequenceDiagram](./Diagrams/AddCommand_Sequence_Diagram.png)
+![AddCommand_SequenceDiagram](./Diagrams/AddCommand_SequenceDiagram.png)
 
 ### Item
 Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item price, 

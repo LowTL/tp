@@ -8,6 +8,7 @@ import ui.TextUi;
 public class BestsellerCommand extends Command {
 
 
+    //@author LowTL
     @Override
     public void execute() {
         Item bs = Cashier.getBestseller();

@@ -472,7 +472,7 @@ public class Parser {
     private Command prepareTransactionList(String args) throws CommandFormatException {
         final Matcher matcher = LIST_TRANSACTION_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new CommandFormatException(Messages.INVALID_COMMAND);
+            throw new CommandFormatException(CommandType.LIST_TRANSACTIONS);
         }
 
         String itemName = matcher.group(1).trim();

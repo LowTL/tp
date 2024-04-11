@@ -21,7 +21,7 @@ the list.
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
-![AddCommand_SequenceDiagram](./Diagrams/AddCommand_Sequence_Diagram.png)
+![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_Sequence_Diagram.png)
 
 ### Item
 Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item price, 
@@ -38,7 +38,7 @@ and retrieve information from the file when program restarts.
 Cashier class extends Itemlist class
 
 #### Class diagram
-![CashierClassDiagram](./Diagrams/CashierClassDiagram.png)
+![CashierClassDiagram](Diagrams/Images/Cashier/CashierClassDiagram.png)
 The Cashier class extends the Itemlist Class.
 
 ![CashierCommands_SequenceDiagram](./Diagrams/CashierCommands_SequenceDiagram.png)
@@ -59,7 +59,7 @@ own business given a certain period and time. Additionally, it implements the fo
 
 Given below is the overall sequence diagram for the `PromotionCommand`.
 
-![PromotionSequenceDiagram](./Diagrams/Promotion_SequenceDigram.png)
+![PromotionSequenceDiagram](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
 
 
 The PromotionCommand will execute the appropriate command and prints messages to the user through the `TextUi`.
@@ -77,13 +77,13 @@ promotion apple discount/50 period /from 1 Jan 2024 /to 31 Dec 2024 time from/ 0
 
 Given below is the class diagram showing the class structure of the add promotion mechanism:
 
-![AddPromotion Class Diagram](./Diagrams/AddPromotion_ClassDiagram.png)
+![AddPromotion Class Diagram](Diagrams/Images/Promotion/AddPromotion_ClassDiagram.png)
 
 #### Add Promotion Sequence Diagram
 
 Given below is the sequence diagram showing the add promotion mechanism:
 
-![AddPromotion Sequence Diagram](./Diagrams/AddPromotion.png)
+![AddPromotion Sequence Diagram](Diagrams/Images/Promotion/AddPromotion.png)
 
 This command will add a new promotion by calling `addPromotion(promotion)` method in `Promotionlist.java`. The 
 `addPromotion(promotion)` then calls `isItemExist(apple)` in `Itemlist.java` to check if the item exists in the inventory. 
@@ -115,7 +115,7 @@ del_promo apple
 
 Given below is the sequence diagram showing the delete promotion mechanism:
 
-![DeletePromotion](./Diagrams/DeletePromotion.png)
+![DeletePromotion](Diagrams/Images/Promotion/DeletePromotion.png)
 
 This command will initially check if there is such an item in `Promotionlist`. If it does not exists, it will print an
 error message. Otherwise, it will execute the deletion of the `promotion`.
@@ -137,7 +137,7 @@ list_promotions
 
 #### List Promotion Sequence Diagram
 
-![ListPromotion](./Diagrams/Promotion_SequenceDigram.png)
+![ListPromotion](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
 
 All of the `Promotions` will be shown to the user through the `TextUi`. 
 

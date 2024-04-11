@@ -1,1 +1,4 @@
-1. | [ ]  | testItem | Qty: 0 EA | Cat: null | BuyPrice: $1.0 | SellPrice: $10.0
+1. | [ ]  | apple iphone | Qty: 10 pieces | Cat: electronics | BuyPrice: $100.0 | SellPrice: $500.0
+2. | [ ]  | ESP32 | Qty: 27 amt | Cat: electronics | BuyPrice: $32.0 | SellPrice: $32.0
+3. | [ ]  | ITEM | Qty: 51 kg | Cat: null | BuyPrice: $150.0 | SellPrice: $30.0
+4. | [ ]  | apple | Qty: 40 pieces | Cat: fruits | BuyPrice: $4.0 | SellPrice: $5.0

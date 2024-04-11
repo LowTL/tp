@@ -277,7 +277,7 @@ public class Parser {
             throw new CommandFormatException("QTY_TOO_LARGE");
         }
 
-        if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
+        if (Promotionlist.isPromoExistNow(matcher.group("itemName"))) {
             float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
             return new SellCommand(
                     matcher.group("itemName"),

@@ -1,0 +1,8 @@
+Date: 2024-04-12 01:14:34
+Transaction ID: 1
+Item Name: apple
+Quantity: 1
+Unit Price: 5.0
+Total Price: 5.0
+Profit: 1.0
+

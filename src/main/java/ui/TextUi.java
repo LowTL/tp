@@ -76,19 +76,6 @@ public class TextUi {
             replyToUser(listItem);
             index++;
         }
-
-
-        /*if (arrayList.isEmpty()) {
-            replyToUser(Messages.EMPTY_LIST);
-        } else {
-            replyToUser("List: ");
-            for (T item : arrayList) {
-                if (item == null) {
-                    break;
-                }
-                replyToUser(arrayList.indexOf(item) + 1 + ". " + item);
-            }
-        }*/
     }
 
     public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {

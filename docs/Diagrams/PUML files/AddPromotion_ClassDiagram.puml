@@ -1,0 +1,56 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+
+class AddPromotionCommand {
+    # promotion : Promotion
+    + execute()
+}
+
+class Promotionlist {
+    - promotions : ArrayList <Promotion>
+    + getIndex(promotion : Promotions)
+    + deletePromotion(getIndex : Int)
+    + itemIsOnPromo(itemName: String)
+    + isLeapYear(year: Int)
+    + addPromotion((promotion : Promotions)
+    + isValidDiscount(discount: Float)
+    + isVerifiedTime(startTime: Int, endTime: Int)
+    + isValidDuration(startDate : Int, startMonth : Month, startYear : Int, endDate : Int, endMonth : Month, endYear : Int,
+    + isValidMonth( date: Int, month: Month, year: Int)
+    + getPromotion((itemName: String)
+    + getAllPromotion()
+}
+
+class Promotion {
+    # itemName : String
+    # discount : Float
+    # startDate : Int
+    # startMonth : Month
+    # startYear : Int
+    # endDate : Int
+    # endMonth : Month
+    # endYear : Int
+    # startTime : Int
+    # endTime : Int
+}
+
+enum Month {
+    JAN(1)
+    FEB(2)
+    MAR(3)
+    APR(4)
+    MAY(5)
+    JUN(6)
+    JUL(7)
+    AUG(8)
+    SEP(9)
+    OCT(10)
+    NOV(11)
+    DEC(12)
+}
+
+AddPromotionCommand --> Promotionlist : 1
+Promotionlist --> Promotion : 0..*
+
+@enduml

@@ -18,6 +18,7 @@ public class Promotionlist {
     public static int getIndex(Promotion promotion) {
         return promotions.indexOf(promotion);
     }
+
     public static void deletePromotion(int index) {
         promotions.remove(index);
     }
@@ -29,17 +30,6 @@ public class Promotionlist {
             }
         }
         return false;
-    }
-
-    public static boolean isOnPromo(String itemName) {
-        if (!Promotionlist.itemIsOnPromo(itemName)) {
-            return false;
-        }
-        assert getPromotion(itemName) != null;
-        if (!isPromoExist(getPromotion(itemName))) {
-            return false;
-        }
-        return true;
     }
 
     public static boolean isLeapYear(int year) {
@@ -61,7 +51,10 @@ public class Promotionlist {
         if (!Itemlist.itemIsExist(itemName)) {
             throw new CommandFormatException("ITEM_NOT_FOUND");
         }
-        if (discount < 0 || discount > 100) {
+        if (Promotionlist.itemIsOnPromo(itemName)) {
+            throw new InvalidDateException("ITEM_IS_PROMO");
+        }
+        if (!isValidDiscount(discount)) {
             throw new CommandFormatException("INVALID_DISCOUNT");
         }
         if (!isValidMonth(startDate, startMonth, startYear) || !isValidMonth(endDate, endMonth, endYear)) {
@@ -70,42 +63,51 @@ public class Promotionlist {
         if (!isValidTime(startTime, endTime)) {
             throw new InvalidDateException("INVALID_TIME");
         }
-        if (Promotionlist.isOnPromo(itemName)) {
-            throw new InvalidDateException("ITEM_IS_PROMO");
+        if (!isValidDuration(startDate, startMonth, startYear, endDate, endMonth, endYear)) {
+            throw new InvalidDateException("INVALID_PERIOD");
         }
         promotions.add(promotion);
         PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
     }
 
-    public static boolean isPromoExist(Promotion promotion) {
-        LocalDateTime currentTime = LocalDateTime.now();
-        DateTimeFormatter yearFormatter = DateTimeFormatter.ofPattern("yyyy");
-        DateTimeFormatter monthFormatter = DateTimeFormatter.ofPattern("M");
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd");
-        String formattedYear= currentTime.format(yearFormatter);
-        String formattedMonth = currentTime.format(monthFormatter);
-        String formattedDate = currentTime.format(dateFormatter);
-        int year = Integer.parseInt(formattedYear);
-        int month = Integer.parseInt(formattedMonth);
-        int date = Integer.parseInt(formattedDate);
-        if (promotion == null) {
+    public static boolean isValidDiscount (float discount) {
+        return !(discount < 0) && !(discount > 1);
+    }
+
+    public static boolean isPromoExistNow(String itemName) {
+        if (!itemIsOnPromo(itemName)) {
             return false;
         }
+        Promotion promotion = getPromotion(itemName);
+        LocalDateTime currentDateTime = LocalDateTime.now();
+
+        int year = currentDateTime.getYear();
+        int month = currentDateTime.getMonthValue();
+        int day = currentDateTime.getDayOfMonth();
+        int hour = currentDateTime.getHour();
+        int minute = currentDateTime.getMinute();
+        String formattedTime = String.valueOf(hour) + String.valueOf(minute);
+        int time = Integer.parseInt(formattedTime);
         if (year < promotion.getStartYear() || year > promotion.getEndYear()) {
             return false;
         }
         if (month < promotion.getStartMonth().getValue() || month > promotion.getEndMonth().getValue()) {
             return false;
         }
-        if (date < promotion.getStartDate() || date > promotion.getEndDate()) {
+        if (day < promotion.getStartDate() || day > promotion.getEndDate()) {
+            return false;
+        }
+        if (time < promotion.getStartTime() || time > promotion.getEndTime()) {
             return false;
         }
         return true;
     }
 
     public static boolean isValidTime(int startTime, int endTime) {
-        boolean startIsValid = isVerifiedTime(startTime);
-        boolean endIsValid = isVerifiedTime(endTime);
+        String startTimeStr = String.format("%04d", startTime);
+        String endTimeStr = String.format("%04d", endTime);
+        boolean startIsValid = isVerifiedTime(startTimeStr);
+        boolean endIsValid = isVerifiedTime(endTimeStr);
         if (!startIsValid || !endIsValid) {
             return false;
         }
@@ -115,11 +117,12 @@ public class Promotionlist {
         return true;
     }
 
-    public static boolean isVerifiedTime(int time) {
-        String[] splitTime = String.valueOf(time).split("(?<=.)");
+    public static boolean isVerifiedTime(String timeStr) {
+        String[] splitTime = timeStr.split("(?<=.)");
         if (splitTime.length != 4) {
             return false;
         }
+        int time = Integer.parseInt(timeStr);
         int hour = time / 100;
         int min = time % 100;
         if (hour > 23 || hour < 0) {
@@ -128,11 +131,31 @@ public class Promotionlist {
         return min <= 59 && min >= 0;
     }
 
+    public static boolean isValidDuration (int startDate, Month startMonth, int startYear, int endDate, Month endMonth,
+                                           int endYear) {
+        int startMonthInt = startMonth.getValue();
+        int endMonthInt = endMonth.getValue();
+        if (endYear > startYear) {
+            return true;
+        } else if (endYear < startYear) {
+            return false;
+        }
+        if (endMonthInt > startMonthInt) {
+            return true;
+        } else if (endMonthInt < startMonthInt) {
+            return false;
+        }
+        if (endDate > startDate) {
+            return true;
+        }
+        return false;
+    }
+
     public static boolean isValidMonth(int date, Month month, int year) throws InvalidDateException {
         switch (month) {
         case FEB:
-            if (isLeapYear(year) && (date > 29 || date < 1)) {
-                return false;
+            if (isLeapYear(year) && (date < 30 && date > 0)) {
+                return true;
             } else {
                 return date <= 28 && date >= 1;
             }
@@ -150,7 +173,8 @@ public class Promotionlist {
         case JUN:
             return date <= 30 && date >= 1;
         default:
-            throw new InvalidDateException("INVALID_TIME");
+            System.out.println("Date does not exist.");
+            throw new InvalidDateException("INVALID_PERIOD");
         }
     }
 

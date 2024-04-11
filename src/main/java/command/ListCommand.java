@@ -4,25 +4,45 @@ import exceptions.EmptyListException;
 import common.Messages;
 import item.Item;
 import item.Transaction;
+import itemlist.Cashier;
 import promotion.Promotion;
 import ui.TextUi;
 
 import java.util.ArrayList;
 
+/**
+ * Prints out the various <code>ArrayLists</code>, full or partial, based on modifiers.
+ * @param <T> is the Type of <code>ArrayList</code> ie <code>Item</code>,
+ *         <code>Transaction</code> or <code>Promotion</code>
+ */
 public class ListCommand<T> extends Command{
 
-    protected ArrayList<T> arrayList;
+    protected ArrayList<Item> itemList;
+    protected ArrayList<Transaction> transactionList;
+    protected ArrayList<Promotion> promotionList;
     protected String category;
     protected boolean isListMarked;
 
-    public ListCommand(ArrayList<T> arrayList, String category, boolean isListMarked) {
-        this.arrayList = arrayList;
+    /**
+    * Instantiates a <code>ListCommand</code> with the <code>ArrayList arrayList</code>
+     * and any other modifiers available to that type of <code>ArrayList</code>.
+     */
+    public ListCommand(ArrayList<Item> arrayList, String category, boolean isListMarked) {
+        this.itemList= arrayList;
         this.category = category;
         this.isListMarked = isListMarked;
     }
-    public ListCommand(ArrayList<T> transactions, boolean isVoided) {
-        this.arrayList = transactions;
-        this.isListMarked = isVoided;
+
+    public ListCommand(ArrayList<Transaction> arrayList, String itemName) {
+        if (itemName.isEmpty()) {
+            this.transactionList = arrayList;
+        } else {
+            this.transactionList = Cashier.getTransactions(itemName);
+        }
+    }
+
+    public ListCommand(ArrayList<Promotion> arrayList) {
+        this.promotionList = arrayList;
     }
 
     public String getCategory() {
@@ -30,20 +50,27 @@ public class ListCommand<T> extends Command{
     }
 
     //@@author Fureimi
+    /*
+    * Runs the list command with 3 cases
+    * Depending on which ArrayList is not empty, it prints that list.
+    * @throws EmptyListException if all Lists are empty.
+    * */
     public void execute() throws EmptyListException {
         try {
-            if (arrayList.isEmpty()) {
-                throw new EmptyListException(arrayList.getClass().getSimpleName());
+            if (itemList.isEmpty() && transactionList.isEmpty() && promotionList.isEmpty()) {
+                throw new EmptyListException("There are no results.");
             }
         } catch (EmptyListException e) {
             return;
         }
         if (category.equals("NA") && !isListMarked) {
-            TextUi.showList(arrayList);
-        } else if (containsItems(arrayList)) {
-            showCustomizedItemList();
-        } else if (containsTransactions(arrayList)) {
+            TextUi.showList(itemList);
+        } else if (containsTransactions(transactionList)) {
             showTransactionList();
+        } else if (containsItems(itemList)) {
+            showCustomizedItemList();
+        } else if (containsPromotions(promotionList)) {
+            showPromotionList();
         } else {
             TextUi.replyToUser(Messages.EMPTY_LIST);
         }
@@ -51,15 +78,15 @@ public class ListCommand<T> extends Command{
 
 
     private void showTransactionList() {
-        @SuppressWarnings("unchecked")
-        ArrayList<Transaction> transactionList = (ArrayList<Transaction>) arrayList;
         TextUi.showTransactionList(transactionList);
     }
 
     private void showCustomizedItemList() {
-        @SuppressWarnings("unchecked")
-        ArrayList<Item> itemList = (ArrayList<Item>) arrayList;
         TextUi.showCustomizedList(itemList, category, isListMarked);
+    }
+
+    private void showPromotionList() {
+        TextUi.showPromotionList(promotionList);
     }
 
     private static boolean containsItems(ArrayList<?> arrayList) {

@@ -46,7 +46,7 @@ public class Messages {
             "| list       | list_promotions                                                              |\n" +
             "| promotions |                                                                              |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| low stock  | low_stock                                                                    |\n" +
+            "| low stock  | low_stock /AMOUNT                                                            |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| exit       | exit                                                                         |\n" +
             "|____________|______________________________________________________________________________|\n" +
@@ -68,7 +68,7 @@ public class Messages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| low stock  | low_stock                                                                    |\n" +
+            "| low stock  | low_stock /AMOUNT                                                            |\n" +
             "|____________|______________________________________________________________________________|\n";
 
     public static final String HELP_LIST_PROMO =
@@ -273,7 +273,7 @@ public class Messages {
             "4. 'list marked cat/[CATEGORY]' to list all marked items in that category.\n" +
             "Please note that marked must be in front of cat/[CATEGORY].";
 
-    public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format:\n" +
+    public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format: " +
             "del_promo [ITEM_NAME]";
     public static final String INVALID_PROMOLIST_FORMAT = "Invalid Command Format.";
 
@@ -283,6 +283,9 @@ public class Messages {
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
             "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
             " /to [END_TIME]";
+
+    public static final String INVALID_LOW_STOCK_FORMAT = "Invalid Command Format. Please use format: " +
+            "low_stock /AMOUNT";
 
     public static final String INVALID_ITEM_NAME = "Invalid item name. Please input an item name.";
 
@@ -296,6 +299,7 @@ public class Messages {
 
     public static final String SELL_TOO_LARGE = "Sell price is too large. Please input a smaller sell price.";
 
+    public static final String INVALID_LOW_STOCK_AMOUNT = "Please input a valid amount.";
 
 
 }

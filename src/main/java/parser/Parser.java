@@ -59,6 +59,9 @@ public class Parser {
     public static final Pattern LIST_TRANSACTION_COMMAND_FORMAT =
             Pattern.compile("^list_transactions(?:\\s+item/\\w+)?$");
 
+    public static final Pattern LOW_STOCK_COMMAND_FORMAT =
+            Pattern.compile("low_stock /(?<amount>[^/]+)");
+
     public Command parseInput(String userInput){
         final CommandType userCommand;
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -158,7 +161,11 @@ public class Parser {
         case BESTSELLER:
             return new BestsellerCommand();
         case LOW_STOCK:
-            return new LowStockCommand();
+            try {
+                return prepareLowStock(userInput);
+            } catch (CommandFormatException e) {
+                break;
+            }
         default:
             System.out.println(Messages.INVALID_COMMAND);
             return new IncorrectCommand();
@@ -467,6 +474,24 @@ public class Parser {
 
         return new ListCommand<>(Cashier.getTransactions(), itemName);
     }
+
+    private Command prepareLowStock(String args) throws CommandFormatException{
+        final Matcher matcher = LOW_STOCK_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.LOW_STOCK);
+        }
+
+        int amount;
+        try {
+            amount = Integer.parseInt(matcher.group("amount"));
+        } catch (NumberFormatException e) {
+            throw new CommandFormatException("INVALID_LOW_STOCK_AMOUNT");
+        }
+
+        return new LowStockCommand(amount);
+    }
+
 }
 
 

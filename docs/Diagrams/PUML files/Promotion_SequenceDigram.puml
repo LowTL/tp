@@ -18,4 +18,7 @@ else list_promotions
     PromotionCommand -> TextUi: printPromotion()
 else invalid_command
 end
+
+<-- PromotionCommand
+
 @enduml

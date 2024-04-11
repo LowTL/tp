@@ -1,11 +1,32 @@
 @startuml
 'https://plantuml.com/sequence-diagram
 
-autonumber
+mainframe sd AddPromotion
+autoactivate on
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+participant ":PromotionCommand" as PromotionCommand
+participant "<<class>>\nPromotionlist" as Promotionlist
+participant TextUi
+participant "<<class>>\nItemlist" as Itemlist
+participant "<<class>\n Promotion" as Promotion
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+PromotionCommand -> Promotionlist : addPromotion(promotion)
+Promotionlist -> Itemlist : isItemExist(itemName)
+Itemlist --> Promotionlist : isExists
+Promotionlist -> Promotionlist : itemIsOnPromo(itemName)
+return notOnPromo
+Promotionlist -> Promotionlist : isValidDiscount()
+return isValid
+Promotionlist -> Promotionlist : isValidMonth()
+return isValid
+Promotionlist -> Promotionlist : isValidTime()
+return isValid
+Promotionlist -> Promotionlist : isValidDuration()
+return isValid
+Promotionlist -> Promotion : add(promotion)
+Promotion --> Promotionlist
+Promotionlist -> TextUi : print(AddPromotion)
+TextUi --> Promotionlist
+Promotionlist --> PromotionCommand
+
 @enduml

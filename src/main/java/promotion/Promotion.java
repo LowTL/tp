@@ -22,8 +22,6 @@ public class Promotion {
 
     protected int endYear;
 
-    protected DayOfWeek weekly;
-
     protected int startTime;
 
     protected int endTime;

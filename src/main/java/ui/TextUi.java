@@ -6,6 +6,7 @@ import java.util.Scanner;
 import common.Messages;
 import item.Item;
 import item.Transaction;
+import promotion.Promotion;
 
 public class TextUi {
 
@@ -153,6 +154,14 @@ public class TextUi {
             counter++;
             replyToUser(counter + ". " + t.getItemName() + " " +
                     (t.getProfit() > 0 ? "earned " : "lost ") + t.getProfit());
+        }
+    }
+
+    public static void showPromotionList(ArrayList<Promotion> promotionList) {
+        int counter = 0;
+        for (Promotion p: promotionList) {
+            counter++;
+            replyToUser(counter + ". " + p.toString());
         }
     }
 

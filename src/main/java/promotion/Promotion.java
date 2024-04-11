@@ -2,8 +2,6 @@ package promotion;
 
 import ui.TextUi;
 
-import java.time.DayOfWeek;
-
 public class Promotion {
 
     protected String itemName;
@@ -21,8 +19,6 @@ public class Promotion {
     protected Month endMonth;
 
     protected int endYear;
-
-    protected DayOfWeek weekly;
 
     protected int startTime;
 
@@ -89,6 +85,7 @@ public class Promotion {
         return itemName;
     }
 
+    @Override
     public String toString() {
         return getItemName() + " have a " + String.format("%.2f", (getDiscount()*100)) +
                 "% discount" + "\n" + "Period: " + getStartDate() + " " + getStartMonth() + " "

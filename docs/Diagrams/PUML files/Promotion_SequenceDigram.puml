@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+participant ":PromotionCommand" as PromotionCommand
+participant "<<class>>\nPromotionlist" as PromotionList
+participant ":TextUi" as TextUi
+participant "<<class>>\nItemlist" as Itemlist
+participant "<<class>>\n Promotion" as Promotion
+
+
+-> PromotionCommand: execute()
+
+alt if user wants to create a promotion
+    ref over PromotionCommand, PromotionList, Itemlist, Promotion, TextUi : AddPromotion
+else if user wants to delete a promotion
+    ref over PromotionCommand, PromotionList, TextUi : DeletePromotion
+else #Pink if user wants to list all promotions
+    PromotionCommand -> TextUi: printPromotion()
+else if user enters invalid command
+end
+
+<-- PromotionCommand
+
+hide footbox
+@enduml

@@ -1,0 +1,33 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+mainframe sd AddPromotion
+autoactivate on
+
+participant ":PromotionCommand" as PromotionCommand
+participant "<<class>>\nPromotionlist" as Promotionlist
+participant ":TextUi" as TextUi
+participant "<<class>>\nItemlist" as Itemlist
+participant "<<class>>\n Promotion" as Promotion
+
+PromotionCommand -> Promotionlist : addPromotion(promotion)
+Promotionlist -> Itemlist : isItemExist(itemName)
+Itemlist --> Promotionlist : true
+Promotionlist -> Promotionlist : itemIsOnPromo(itemName)
+return false
+Promotionlist -> Promotionlist : isValidDiscount()
+return true
+Promotionlist -> Promotionlist : isValidMonth()
+return true
+Promotionlist -> Promotionlist : isValidTime()
+return true
+Promotionlist -> Promotionlist : isValidDuration()
+return true
+Promotionlist -> Promotion : add(promotion)
+Promotion --> Promotionlist
+Promotionlist -> TextUi : print(AddPromotion)
+TextUi --> Promotionlist
+Promotionlist --> PromotionCommand
+
+hide footbox
+@enduml

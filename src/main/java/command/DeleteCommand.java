@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
         int index = -1;
         try {
             for (Item item : Itemlist.getItems()) {
-                if (item.getItemName().toLowerCase().equals(itemName) || item.getItemName().equals(itemName)) {
+                if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                     index = Itemlist.getItems().indexOf(item);
                     break;
                 }

@@ -3,6 +3,14 @@
 /out/
 /*.iml
 
+#Compiled class files
+*.class
+
+#Generated storage text files
+PromotionStorage.txt
+StockMasterData.txt
+TransactionLogs.txt
+
 # Gradle build files
 /.gradle/
 /build/

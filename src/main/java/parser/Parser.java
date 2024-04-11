@@ -72,7 +72,7 @@ public class Parser {
             Pattern.compile("del_promo (?<itemName>[^/]+)");
 
     public static final Pattern LIST_TRANSACTION_COMMAND_FORMAT =
-            Pattern.compile("list_txn+\\s?(?:void/[NY])*");
+            Pattern.compile("^list_transactions(?:\\s+item/\\w+)?$");
 
     public Command parseInput(String userInput){
         final CommandType userCommand;
@@ -277,7 +277,7 @@ public class Parser {
             throw new CommandFormatException("QTY_TOO_LARGE");
         }
 
-        if (Promotionlist.isOnPromo(matcher.group("itemName"))) {
+        if (Promotionlist.isPromoExistNow(matcher.group("itemName"))) {
             float getDiscount = (Promotionlist.getPromotion(matcher.group("itemName"))).getDiscount();
             return new SellCommand(
                     matcher.group("itemName"),
@@ -443,7 +443,7 @@ public class Parser {
     }
 
     private Command preparePromotionList() {
-        return new ListCommand<>(Promotionlist.getAllPromotion(), "NA", false);
+        return new ListCommand<>(Promotionlist.getAllPromotion());
     }
 
     private Command prepareMark(String args) throws CommandFormatException {
@@ -475,10 +475,10 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(Messages.INVALID_COMMAND);
         }
-        //is true if void/Y
-        boolean isVoided = matcher.group("isVoid").equals("Y");
 
-        return new ListCommand<>(Cashier.getTransactions(), isVoided);
+        String itemName = matcher.group(1).trim();
+
+        return new ListCommand<>(Cashier.getTransactions(), itemName);
     }
 }
 

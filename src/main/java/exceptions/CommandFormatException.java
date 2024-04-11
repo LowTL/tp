@@ -74,6 +74,9 @@ public class CommandFormatException extends Exception{
         case "QTY_TOO_LARGE":
             System.out.println(Messages.QTY_TOO_LARGE);
             break;
+        case "ITEM_OOS":
+            System.out.println(Messages.ITEM_OOS);
+            break;
         case "BUY_TOO_LARGE":
             System.out.println(Messages.BUY_TOO_LARGE);
             break;

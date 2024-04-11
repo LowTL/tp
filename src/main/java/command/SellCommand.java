@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.CommandFormatException;
 import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
@@ -28,7 +29,7 @@ public class SellCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws CommandFormatException {
         int index = -1;
         Item toSell = Itemlist.getItems().get(0);
         for (Item item : Itemlist.getItems()) {
@@ -42,6 +43,9 @@ public class SellCommand extends Command {
             //throw exception;
             System.out.println("Item not found!");
             return;
+        }
+        if (toSell.getIsOOS()) {
+            throw new CommandFormatException("ITEM_OOS");
         }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();

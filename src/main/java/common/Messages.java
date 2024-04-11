@@ -152,6 +152,7 @@ public class Messages {
     public static final String INVALID_HELP_COMMAND = "Please input a valid command to inquire about.";
 
     public static final String QTY_TOO_LARGE = "Quantity is too large. Please input a smaller quantity.";
+    public static final String ITEM_OOS = "This item is out of stock!";
 
     public static final String BUY_TOO_LARGE = "Buy price is too large. Please input a smaller buy price.";
 

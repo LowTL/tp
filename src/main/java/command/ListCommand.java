@@ -33,6 +33,10 @@ public class ListCommand<T> extends Command{
         this.isListMarked = isListMarked;
     }
 
+    /**
+     * Instantiates a <code>ListCommand</code> with the <code>ArrayList arrayList</code>
+     * and any other modifiers available to that type of <code>ArrayList</code>.
+     */
     public ListCommand(ArrayList<Transaction> arrayList, String itemName) {
         if (itemName.isEmpty()) {
             this.transactionList = arrayList;
@@ -41,6 +45,10 @@ public class ListCommand<T> extends Command{
         }
     }
 
+    /**
+     * Instantiates a <code>ListCommand</code> with the <code>ArrayList arrayList</code>
+     * and any other modifiers available to that type of <code>ArrayList</code>.
+     */
     public ListCommand(ArrayList<Promotion> arrayList) {
         this.promotionList = arrayList;
     }
@@ -49,12 +57,12 @@ public class ListCommand<T> extends Command{
         return category;
     }
 
-    //@@author Fureimi
     /**
-    * Runs the list command with 3 cases
-    * Depending on which ArrayList is not empty, it prints that list.
-    * @throws EmptyListException if all Lists are empty.
-    * */
+     * Runs the list command with 3 cases
+     * Depending on which ArrayList is not empty, it prints that list.
+     * @throws EmptyListException if all Lists are empty.
+     * */
+    //@@author Fureimi
     public void execute() throws EmptyListException {
         try {
             if (itemList.isEmpty() && transactionList.isEmpty() && promotionList.isEmpty()) {

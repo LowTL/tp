@@ -44,13 +44,10 @@ public class SellCommand extends Command {
             System.out.println("Item not found!");
             return;
         }
-        if (toSell.getIsOOS()) {
-            throw new CommandFormatException("ITEM_OOS");
-        }
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();
         float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
-        if (remainingQuantity < 0) {
+        if (toSell.getIsOOS() || remainingQuantity < 0) {
             System.out.println("There is insufficient stock!");
             return;
         } else {

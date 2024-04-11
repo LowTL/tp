@@ -1,37 +1,46 @@
-## Product Overview
-
-The product that my group created is called StockMaster. StockMaster helps small business owners organise and manage 
-their business. The purpose of such application is to provide users with a range of tools and features to help them 
-better operate their business.
-
-## Code Contribution
-
-### Enhancement Implemented
-
-#### Promotion Feature
-
-During version `v2.0`, I had implemented a `Promotion` feature inside our application. A `Promotion` is when there is a 
-`discount` on a certain item within a certain range.  This `Promotion` feature works similarly to how an actual 
-promotion will happen.
-
-As a store owner, he/she is able to add a `Promotion` for a certain `ITEM` by entering the `discount`, `startDate`, 
-`endDate`, `startTime` and `endTime`. When a `Promotion` is added for an `ITEM`, when the store owner uses the sell
-feature in the application, the discount will be immediately applied to the `sell price` and the discounted price will 
-be shown. 
-
-In addition, this feature takes in the `Time` and `Date`, such that an `ITEM` on promotion will only be discounted when 
-it is within the promotion `Date/Time`. 
-
-For instance, if a promotion was created for `apples`, at a `20`% discount, from `11 Apr 2024` to `13 Apr 2024`, 
-`1200 to 1800` hours, the user can input the following into the application to achieve the above.
-
-```
-promotion apples discount/20 period /from 11 Apr 2024 /to 13 Apr 2024 time /from 1200 /to 1800
-```
-The promotion will be successfully created. 
+# Heng Shu Hong's Project Portfolio Page
 
 
+## Project: StockMaster
+
+StockMaster is  a desktop inventory and management that provides the user with a range of tools and features to help them 
+manage and operate their business.
 
 
-This is the [link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=hengshuhong&breakdown=true) to my code contribution for StockMaster
+### Code Contribution
 
+- **New Feature:** Added the capability to add/delete/list promotions
+  - What it does: allows the user to add a `Promotion` for a certain `ITEM` by entering the `discount`, `startDate`,
+    `endDate`, `startTime` and `endTime`. When a `Promotion` is added for an `ITEM`, when the store owner uses the sell
+    feature in the application, the discount will be immediately applied to the `sell` price and the discounted price will
+    be shown.
+  - Justification: This feature improves the application as the user now have the option to create a discount campaign
+  and make adjustments to the `sell` price automatically rather than having to manually use the `edit` feature. 
+  - Highlights: This enhancement was challenging as it involved the integration with the `sell` command. In particular, 
+one difficulty was to ensure that the original price of the `ITEM` would not be changed even during a promotion period.
+
+
+- **New Feature:** Enhanced the find command to allow the user to search based on the specified item information. 
+  - What it does: allows the user to look through a filtered list to find the `ITEM` information based on the `KEYWORD`
+For instance, the user can find all `ITEMS` that has a `buy` price or `sell` price of $`1`
+  - Justification: This feature increases the capabilities of the search function, as it can allow the user to quickly
+retrieve the data that is being searched for by narrow the scope of the search.
+  - Highlights: The difficulty in this enhancement was the approach to implement this improvement. This is because this 
+enhancement is an extension of the previous `find` command, meaning that it must still be able to retain its original
+feature, but yet still able to provide more than 1 filter to narrow the scope.
+
+- **New Feature:** Enhanced the add command to prevent duplicate entries
+  - What it does: it prevents the user from accidentally inputting duplicated items. Instead, when the user adds a 
+duplicated item, the item information will be updated based on the latest input and the quantity will be increased.
+  - Justification: This feature enables the user to not have duplicate entries of the same items to avoid the 
+overflowing of the inventory list with duplicated item.
+
+- **Code Contributed:** [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=hengshuhong&breakdown=true)
+
+- **Documentation**
+  - User Guide:
+    - Added  documentation for the features `add`, `find`, `promotion`, `del_promo` and `list_promotions`
+    - Added the Quick Start
+    - Update the Command Summary
+  - Developer Guide:
+    - Added implementation details of the `promotion` feature.

@@ -24,7 +24,7 @@ public class CommandFormatException extends Exception{
             System.out.println(Messages.INVALID_FIND_FORMAT);
             break;
         case HELP:
-            System.out.println(Messages.HELP);
+            System.out.println(Messages.INVALID_HELP_FORMAT);
             break;
         case LIST_ITEMS:
             System.out.println(Messages.INVALID_LIST_FORMAT);
@@ -64,6 +64,9 @@ public class CommandFormatException extends Exception{
             break;
         case "INVALID_CATEGORY":
             System.out.println(Messages.INVALID_CATEGORY);
+            break;
+        case "INVALID_COMMAND":
+            System.out.println(Messages.INVALID_HELP_COMMAND);
             break;
         case "QTY_TOO_LARGE":
             System.out.println(Messages.QTY_TOO_LARGE);

@@ -32,7 +32,7 @@ public class SellCommand extends Command {
         int index = -1;
         Item toSell = Itemlist.getItems().get(0);
         for (Item item : Itemlist.getItems()) {
-            if (item.getItemName().equals(itemName) || item.getItemName().toLowerCase().equals(itemName)) {
+            if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 index = Itemlist.getItems().indexOf(item);
                 toSell = item;
                 break;
@@ -54,7 +54,8 @@ public class SellCommand extends Command {
             Itemlist.editQuantity(index, remainingQuantity);
         }
         Storage.overwriteFile(Itemlist.getItems());
-        Transaction newTransaction = new Transaction(itemName, sellQuantity, toSell.getBuyPrice(), sellPrice);
+        Transaction newTransaction = new Transaction(Itemlist.getItem(index).getItemName(),
+                sellQuantity, toSell.getBuyPrice(), sellPrice);
         Cashier.addItem(newTransaction);
         TransactionLogs.addToLog(Cashier.getTransactions());
     }

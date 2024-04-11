@@ -179,7 +179,7 @@ public class Promotionlist {
 
     public static Promotion getPromotion(String itemName) {
         for (Promotion promotion: promotions) {
-            if (promotion.getItemName().equals(itemName)) {
+            if (promotion.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 return promotion;
             }
         }

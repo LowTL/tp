@@ -2,8 +2,6 @@ package promotion;
 
 import ui.TextUi;
 
-import java.time.DayOfWeek;
-
 public class Promotion {
 
     protected String itemName;

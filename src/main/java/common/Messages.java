@@ -1,7 +1,6 @@
 package common;
 
 public class Messages {
-    public static final String DIVIDER = "----------------";
     public static final String INVALID_COMMAND = "Invalid command detected. Type 'help' for list of valid commands";
     public static final String HELP =
             " ___________________________________________________________________________________________\n" +
@@ -11,23 +10,23 @@ public class Messages {
             "|------------|------------------------------------------------------------------------------|\n" +
             "| list items | list_items                                                                   |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| add        | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY]   |\n" +
-            "|            |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
+            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
+            "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| sell       | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +
+            "| sell       | sell ITEM_NAME qty/SELL_QUANTITY                                             |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| edit       | edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]            |\n" +
-            "|            |      cat/[NEW_CATEGORY]                                                      |\n" +
-            "|            |      (use AT LEAST 1 of: qty/, uom/, cat/)                                   |\n" +
+            "| edit       | edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]              |\n" +
+            "|            |      cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] SELL/[NEW_SELL_PRICE]            |\n" +
+            "|            |      (use AT LEAST 1 of: name/ qty/, uom/, cat/, buy/, sell/)                |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| mark       | mark [ITEM_NAME]                                                             |\n" +
+            "| mark       | mark ITEM_NAME                                                               |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| unmark     | unmark [ITEM_NAME]                                                           |\n" +
+            "| unmark     | unmark ITEM_NAME                                                             |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| delete     | del [ITEM_NAME]                                                              |\n" +
+            "| delete     | del ITEM_NAME                                                                |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| find       | 1. find [KEYWORD]  - to search the entire Item List                          |\n" +
-            "|            | 2. find /filter1/filter2 [KEYWORD]  - to search under the filters*           |\n" +
+            "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
+            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
             "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| bestseller | bestseller                                                                   |\n" +
@@ -41,13 +40,112 @@ public class Messages {
             "| promotion  | promotion ITEM_NAME discount/DISCOUNT period /from DD MMM YYYY               |\n" +
             "|            | to DD MMM YYYY time /from TIME /to TIME                                      |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| delete     | del_promo [ITEM_NAME]                                                        |\n" +
+            "| delete     | del_promo ITEM_NAME                                                          |\n" +
             "| promotion  |                                                                              |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| list       | list_promotions                                                              |\n" +
             "| promotions |                                                                              |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
+            "| low stock  | low_stock /AMOUNT                                                            |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
             "| exit       | exit                                                                         |\n" +
+            "|____________|______________________________________________________________________________|\n" +
+            "* type help c/COMMAND for more detailed explanations\n" +
+            "  (use the command names on the left column)";
+
+    public static final String HELP_EXIT =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| exit       | exit                                                                         |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_LOW_STOCK =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| low stock  | low_stock /AMOUNT                                                            |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_LIST_PROMO =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| list       | list_promotions                                                              |\n" +
+            "| promotions |                                                                              |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_DEL_PROMO =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| delete     | del_promo ITEM_NAME                                                          |\n" +
+            "| promotion  |                                                                              |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_PROMOTION =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| promotion  | promotion ITEM_NAME discount/DISCOUNT period /from DD MMM YYYY               |\n" +
+            "|            | to DD MMM YYYY time /from TIME /to TIME                                      |\n" +
+            "|            |------------------------------------------------------------------------------|\n" +
+            "| example:   | promotion milk discount/5 period /from 03 MAR 2024 to 09 MAR 2024            |\n" +
+            "|            |           time /from 0000 /to 2359                                           |\n" +
+            "|            |------------------------------------------------------------------------------|\n" +
+            "| remarks:   | discount is a percentage discount of the original sell price                 |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_TOTAL_REVENUE =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| total      | total_revenue                                                                |\n" +
+            "| revenue    |                                                                              |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_TOTAL_PROFIT =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| total      | total_profit                                                                 |\n" +
+            "| profit     |                                                                              |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_BESTSELLER =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| bestseller | bestseller                                                                   |\n" +
+            "|____________|______________________________________________________________________________|\n";
+    public static final String HELP_FIND =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
+            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
+            "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
+            "|            |------------------------------------------------------------------------------|\n" +
+            "| example:   | find apple                                                                   |\n" +
+            "|            | find /cat fruit                                                              |\n" +
             "|____________|______________________________________________________________________________|\n";
 
     public static final String HELP_LIST_ITEMS =
@@ -59,19 +157,45 @@ public class Messages {
             "| list items | list_items                                                                   |\n" +
             "|____________|______________________________________________________________________________|\n";
 
-    public static final String HELP_ADD =
+    public static final String HELP_MARK =
             " ___________________________________________________________________________________________\n" +
             "|                                        STOCKMASTER                                        |\n" +
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| add        | add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /UNIT_OF_MEASUREMENT cat/[CATEGORY]   |\n" +
-            "|            |     buy/[BUY_PRICE] sell/[SELL_PRICE]                                        |\n" +
+            "| mark       | mark ITEM_NAME                                                               |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_UNMARK =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| unmark     | unmark ITEM_NAME                                                             |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_DEL =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| delete     | del ITEM_NAME                                                                |\n" +
+            "|____________|______________________________________________________________________________|\n";
+    public static final String HELP_EDIT =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| edit       | edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]              |\n" +
+            "|            |      cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] SELL/[NEW_SELL_PRICE]            |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
-            "| example:   | add apple qty/100 /pcs cat/fruit buy/1.50 sell/2.50                          |\n" +
-            "|            | add flour qty/15 /kg buy/5.10 sell/7.45                                      |\n" +
+            "| example:   | edit apple qty/15 /pcs cat/fruit buy/2.50 sell/3.50                          |\n" +
+            "|            | edit plastic bag qty/150                                                     |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
-            "| remarks:   | category is optional                                                         |\n" +
+            "| remarks:   | use AT LEAST 1 of: qty/, uom/, cat/, buy/, sell/                             |\n" +
             "|____________|______________________________________________________________________________|\n";
 
     public static final String HELP_SELL =
@@ -80,9 +204,24 @@ public class Messages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| sell       | sell [ITEM_NAME] qty/[SELL_QUANTITY]                                         |\n" +
+            "| sell       | sell ITEM_NAME qty/SELL_QUANTITY                                             |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
             "| example:   | sell apple qty/5                                                             |\n" +
+            "|____________|______________________________________________________________________________|\n";
+
+    public static final String HELP_ADD =
+            " ___________________________________________________________________________________________\n" +
+            "|                                        STOCKMASTER                                        |\n" +
+            "|___________________________________________________________________________________________|\n" +
+            "| Commands   | Format                                                                       |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
+            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
+            "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
+            "|            |------------------------------------------------------------------------------|\n" +
+            "| example:   | add apple qty/100 /pcs cat/fruit buy/1.50 sell/2.50                          |\n" +
+            "|            | add flour qty/15 /kg buy/5.10 sell/7.45                                      |\n" +
+            "|            |------------------------------------------------------------------------------|\n" +
+            "| remarks:   | category is optional                                                         |\n" +
             "|____________|______________________________________________________________________________|\n";
 
     public static final String INVALID_HELP_FORMAT = "Invalid command format. Please use format: 'help' or " +
@@ -134,7 +273,7 @@ public class Messages {
             "4. 'list marked cat/[CATEGORY]' to list all marked items in that category.\n" +
             "Please note that marked must be in front of cat/[CATEGORY].";
 
-    public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format:\n" +
+    public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format: " +
             "del_promo [ITEM_NAME]";
     public static final String INVALID_PROMOLIST_FORMAT = "Invalid Command Format.";
 
@@ -144,6 +283,9 @@ public class Messages {
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
             "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
             " /to [END_TIME]";
+
+    public static final String INVALID_LOW_STOCK_FORMAT = "Invalid Command Format. Please use format: " +
+            "low_stock /AMOUNT";
 
     public static final String INVALID_ITEM_NAME = "Invalid item name. Please input an item name.";
 
@@ -157,6 +299,7 @@ public class Messages {
 
     public static final String SELL_TOO_LARGE = "Sell price is too large. Please input a smaller sell price.";
 
+    public static final String INVALID_LOW_STOCK_AMOUNT = "Please input a valid amount.";
 
 
 }

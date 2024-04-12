@@ -34,6 +34,12 @@ It contains command formats that must be adhered to for the methods to be called
 * `overwriteFile()` write data of items to the default file directory, overwriting previous contents in the file.
 * Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `Item` object, which is added to 
 the Itemlist by `addItem()` method.
+
+### Class diagram
+![Storage_ClassDiagram](./Diagrams/Storage_ClassDiagram.png)
+### Sequence diagram
+![Storage_sequenceDiagram](./Diagrams/Storage_sequenceDiagram.png)
+
 ### UI
 
 ### Cashier

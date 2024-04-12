@@ -184,8 +184,7 @@ public class Promotionlist {
      * @param endDay
      * @param endMonth
      * @param endYear
-     * @return true if promotion period is valid
-     * @return false if end of promotion is earlier than the start of promotion
+     * @return true if promotion period is valid, return false if end is earlier than the start of promotion
      */
     public static boolean isValidDuration (int startDay, Month startMonth, int startYear, int endDay, Month endMonth,
                                            int endYear) {
@@ -213,8 +212,8 @@ public class Promotionlist {
      * @param day
      * @param month
      * @param year
-     * @return
-     * @throws InvalidDateException
+     * @return true if day exists, false if does not exists
+     * @throws InvalidDateException is thrown when the day does not exists in the month
      */
     public static boolean isValidMonth(int day, Month month, int year) throws InvalidDateException {
         switch (month) {
@@ -246,8 +245,7 @@ public class Promotionlist {
      * Gets the promotion for the item
      *
      * @param itemName
-     * @return promotion of the item
-     * @return null if there is no promotion
+     * @return promotion of the item, return null if there is no promotion
      */
     public static Promotion getPromotion(String itemName) {
         for (Promotion promotion: promotions) {

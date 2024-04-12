@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class Itemlist {
     public static int noOfItems;
-    protected static final Logger logger = Logger.getLogger(Itemlist.class.getName());
+    protected static final Logger LOGGER = Logger.getLogger(Itemlist.class.getName());
     protected static ArrayList<Item> items = new ArrayList<>();
 
     public Itemlist() {
@@ -47,10 +47,10 @@ public class Itemlist {
             return items.get(index);
         } catch (IndexOutOfBoundsException e) {
             if (index != 0) {
-                logger.log(Level.WARNING, "Index out of bound", e);
+                LOGGER.log(Level.WARNING, "Index out of bound", e);
                 System.out.println("Index " + index + " entered is out of bound.");
             } else {
-                logger.warning("There are no items.");
+                LOGGER.warning("There are no items.");
                 System.out.println("There are no items added yet!");
             }
             return null;
@@ -60,11 +60,11 @@ public class Itemlist {
     public static Item getItem(String name) {
         for (Item i: items) {
             if (i.getItemName().equals(name)) {
-                logger.info("Item found.");
+                LOGGER.info("Item found.");
                 return i;
             }
         }
-        logger.warning("Item not found.");
+        LOGGER.warning("Item not found.");
         return null;
     }
     public static int getIndex(Item item) {

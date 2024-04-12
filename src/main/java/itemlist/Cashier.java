@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 
 public class Cashier extends Itemlist {
 
-    protected static final Logger logger = Logger.getLogger(Cashier.class.getName());
+    protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
@@ -28,10 +28,10 @@ public class Cashier extends Itemlist {
                     results.add(t);
                 }
             }
-            logger.info("Transactions filtered.");
+            LOGGER.info("Transactions filtered.");
             return results;
         } else {
-            logger.warning("No transactions found.");
+            LOGGER.warning("No transactions found.");
             return null;
         }
     }
@@ -47,7 +47,7 @@ public class Cashier extends Itemlist {
                 totalRevenue += t.getTotalPrice();
             }
         } catch (EmptyListException e) {
-            logger.warning("No transactions found.");
+            LOGGER.warning("No transactions found.");
             return 0;
         }
         return totalRevenue;
@@ -63,7 +63,7 @@ public class Cashier extends Itemlist {
                 totalProfit += t.getProfit();
             }
         } catch (EmptyListException e) {
-            logger.warning("No transactions found.");
+            LOGGER.warning("No transactions found.");
             return 0;
         }
         return totalProfit;
@@ -74,10 +74,10 @@ public class Cashier extends Itemlist {
             return transactions.get(index);
         } catch (IndexOutOfBoundsException e) {
             if (index == 0) {
-                logger.warning("No transactions found.");
+                LOGGER.warning("No transactions found.");
                 System.out.println("No transactions found.");
             } else {
-                logger.warning("Index out of bounds.");
+                LOGGER.warning("Index out of bounds.");
                 System.out.println("Index " + index + " entered is out of bound.");
             }
             return null;
@@ -102,7 +102,7 @@ public class Cashier extends Itemlist {
                 }
             }
         } catch (EmptyListException e)  {
-            logger.warning("No transactions found.");
+            LOGGER.warning("No transactions found.");
         }
         return bestSeller;
     }

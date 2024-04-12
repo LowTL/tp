@@ -30,8 +30,10 @@ quantity of item, and others.
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
 It contains command formats that must be adhered to for the methods to be called.
 ### Storage
-Storage class contains methods to write description of items to the file `./StockMasterData.txt`, 
-and retrieve information from the file when program restarts.
+* Storage class contains method `addToFile()` to write data of items to the default file directory, `./StockMasterData.txt`.
+* `overwriteFile()` write data of items to the default file directory, overwriting previous contents in the file.
+* Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `Item` object, which is added to 
+the Itemlist by `addItem()` method.
 ### UI
 
 ### Cashier

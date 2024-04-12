@@ -64,6 +64,7 @@ public class HelpCommand extends Command{
             break;
         case "list_transactions":
             System.out.println(HelpMessages.HELP_LIST_TRANSACTIONS);
+            break;
         default:
             System.out.println(Messages.INVALID_HELP_COMMAND);
             LOGGER.warning("Invalid help command received.");

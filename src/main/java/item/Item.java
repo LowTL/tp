@@ -3,8 +3,6 @@ package item;
 
 import itemlist.Itemlist;
 
-import java.util.logging.Logger;
-
 public class Item {
     public boolean isMark;
     private String itemName;

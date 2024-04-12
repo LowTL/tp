@@ -31,7 +31,7 @@ public class SellCommand extends Command {
     @Override
     public void execute() throws CommandFormatException {
         int index = -1;
-        Item toSell = Itemlist.getItems().get(0);
+        Item toSell = null;
         for (Item item : Itemlist.getItems()) {
             if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 index = Itemlist.getItems().indexOf(item);

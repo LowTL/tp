@@ -1,36 +1,12 @@
-Date: 2024-04-12 01:14:34
+Date: 2024-04-12 11:10:19
 Transaction ID: 1
 Item Name: apple
-Quantity: 1
+Quantity: 3
 Unit Price: 5.0
-Total Price: 5.0
-Profit: 1.0
+Total Price: 15.0
+Profit: 3.0
 
-Date: 2024-04-12 01:35:53
-Transaction ID: 1
-Item Name: testItem
-Quantity: 1
-Unit Price: 30.0
-Total Price: 30.0
-Profit: 29.0
-
-Date: 2024-04-12 01:36:43
-Transaction ID: 1
-Item Name: testItem
-Quantity: 1
-Unit Price: 30.0
-Total Price: 30.0
-Profit: 29.0
-
-Date: 2024-04-12 01:37:18
-Transaction ID: 1
-Item Name: testItem
-Quantity: 1
-Unit Price: 30.0
-Total Price: 30.0
-Profit: 29.0
-
-Date: 2024-04-12 01:37:30
+Date: 2024-04-12 11:12:40
 Transaction ID: 1
 Item Name: testItem
 Quantity: 1

@@ -1,5 +1,6 @@
 package parser;
 
+import command.AddPromotionCommand;
 import command.Command;
 import command.AddCommand;
 import command.EditCommand;
@@ -9,8 +10,12 @@ import command.ListCommand;
 import command.MarkCommand;
 import command.SellCommand;
 import command.UnmarkCommand;
+import exceptions.CommandFormatException;
+import exceptions.EmptyListException;
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import promotion.Month;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
@@ -54,13 +59,33 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseSellCommand() {
+    public void testParseSellCommand1() {
         String userInput = "sell ItemName qty/5";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(SellCommand.class, command);
         SellCommand sellCommand = (SellCommand) command;
         assertEquals("itemname", sellCommand.getItemName());
         assertEquals(5, sellCommand.getSellQuantity());
+    }
+
+    @Test
+    public void testParseSellCommand2() {
+        Command addCommandTest1 = new AddCommand("lemon", 5, "fruits",
+                "NA", 1, 1);
+        Command promotionTest1 = new AddPromotionCommand("lemon", 0.3F, 2, Month.valueOf("FEB"),
+                2024, 4, Month.valueOf("APR"), 2025, 0000, 2359);
+        try {
+            promotionTest1.execute();
+            addCommandTest1.execute();
+        } catch (CommandFormatException | InvalidDateException | EmptyListException e) {
+            throw new RuntimeException(e);
+        }
+        String userInput1 = "sell lemon qty/1";
+        Command command1 = parser.parseInput(userInput1);
+        assertInstanceOf(SellCommand.class, command1);
+        SellCommand sellCommand = (SellCommand) command1;
+        assertEquals("lemon", sellCommand.getItemName());
+        assertEquals(1, sellCommand.getSellQuantity());
     }
 
     @Test
@@ -106,4 +131,13 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(HelpCommand.class, command);
     }
+
+    @Test
+    public void testParsePromotionCommand() {
+        String userInput = "promotion apple discount/10 period /from 2 Apr 2024 /to 3 Apr 2024 time /from 0000 /to 2359";
+        Command command = parser.parseInput(userInput);
+        assertInstanceOf(AddPromotionCommand.class, command);
+    }
 }
+
+

@@ -57,7 +57,7 @@ public class AddCommand extends Command {
             if (!category.equals("NA")) {
                 System.out.println(" to " + getCategory());
             } else {
-                System.out.println();
+                System.out.println("");
                 assert category.equals("NA");
             }
         }

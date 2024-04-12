@@ -4,6 +4,7 @@ import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
+import promotion.Month;
 
 import static org.junit.jupiter.api.Assertions.fail;
 

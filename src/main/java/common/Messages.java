@@ -239,7 +239,7 @@ public class Messages {
             "'sell [ITEM_NAME] qty/[SELL_QUANTITY]'";
     public static final String ITEM_NOT_FOUND = "Item is not available";
 
-    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exits for this item and hence cannot be deleted";
+    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exists for this item and hence cannot be deleted";
     public static final String INVALID_FIND_FORMAT = "Invalid command format. Please use format: " + "\n" +
             "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
             "2. 'find /filter1/filter2 [KEYWORD]' to search under the filters";
@@ -255,6 +255,7 @@ public class Messages {
     public static final String INVALID_TIME = "Invalid Time Format. Please ensure that the time is in 24 hours " +
             "format and have a valid range:" + "\n" + "e.g. time /from 0000 /to 2359";
 
+    public static final String INVALID_DATE = "Invalid Date has been entered. Please ensure that the date exists.";
     public static final String INVALID_MONTH = "Invalid Month has been entered. Please use format: MMM (e.g. JAN, DEC)";
 
     public static final String INVALID_DISCOUNT = "Invalid Discount has been entered. " +

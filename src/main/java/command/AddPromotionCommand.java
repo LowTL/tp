@@ -39,7 +39,7 @@ public class AddPromotionCommand extends Command {
                             String.format("%04d", promotion.getEndTime())
             );
         } catch (InvalidDateException | CommandFormatException e){
-            System.out.println("");
+            System.out.print("");
         }
     }
 }

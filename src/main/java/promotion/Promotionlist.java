@@ -11,9 +11,6 @@ import java.util.ArrayList;
 public class Promotionlist {
     private static final ArrayList<Promotion> promotions = new ArrayList<>();
 
-    public Promotionlist() {
-    }
-
     public static int getIndex(Promotion promotion) {
         return promotions.indexOf(promotion);
     }
@@ -57,7 +54,7 @@ public class Promotionlist {
             throw new CommandFormatException("INVALID_DISCOUNT");
         }
         if (!isValidMonth(startDate, startMonth, startYear) || !isValidMonth(endDate, endMonth, endYear)) {
-            throw new InvalidDateException("INVALID_PERIOD");
+            throw new InvalidDateException("INVALID_DATE");
         }
         if (!isValidTime(startTime, endTime)) {
             throw new InvalidDateException("INVALID_TIME");
@@ -87,16 +84,22 @@ public class Promotionlist {
         int minute = currentDateTime.getMinute();
         String formattedTime = String.valueOf(hour) + String.valueOf(minute);
         int time = Integer.parseInt(formattedTime);
+        if (time < promotion.getStartTime() || time > promotion.getEndTime()) {
+            return false;
+        }
         if (year < promotion.getStartYear() || year > promotion.getEndYear()) {
             return false;
+        }
+        if (year > promotion.getStartYear() && year < promotion.getEndYear()) {
+            return true;
         }
         if (month < promotion.getStartMonth().getValue() || month > promotion.getEndMonth().getValue()) {
             return false;
         }
-        if (day < promotion.getStartDate() || day > promotion.getEndDate()) {
-            return false;
+        if (month > promotion.getStartMonth().getValue() && month < promotion.getEndMonth().getValue()) {
+            return true;
         }
-        if (time < promotion.getStartTime() || time > promotion.getEndTime()) {
+        if (day < promotion.getStartDate() || day > promotion.getEndDate()) {
             return false;
         }
         return true;
@@ -172,7 +175,6 @@ public class Promotionlist {
         case JUN:
             return date <= 30 && date >= 1;
         default:
-            System.out.println("Date does not exist.");
             throw new InvalidDateException("INVALID_PERIOD");
         }
     }

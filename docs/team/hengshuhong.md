@@ -8,7 +8,7 @@ manage and operate their business.
 
 
 ### Code Contribution
-
+ 
 - **New Feature:** Added the capability to add/delete/list promotions
     - What it does: allows the user to add a `Promotion` for a certain `ITEM` by entering the `discount`, `startDate`,
       `endDate`, `startTime` and `endTime`. When a `Promotion` is added for an `ITEM`, when the store owner uses the sell

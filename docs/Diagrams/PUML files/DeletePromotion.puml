@@ -5,17 +5,18 @@ mainframe sd DeletePromotion
 
 participant ":PromotionCommand" as PromotionCommand
 participant "<<class>>\nPromotionlist" as Promotionlist
-participant TextUi
+participant ":TextUi" as TextUi
 
-alt itemIsOnPromo
+alt item has an ongoing promotion
     PromotionCommand -> Promotionlist : getPromotion(itemName)
     Promotionlist -> PromotionCommand : promotion
     PromotionCommand -> Promotionlist : getIndex(promotion)
     Promotionlist --> PromotionCommand : index
     PromotionCommand -> Promotionlist : deletePromotion(index)
     PromotionCommand -> TextUi : print(deletePromotion)
-else else
+else item does not have any promotion
     PromotionCommand -> TextUi : print(ITEM_NOT_ON_PROMO)
 end
 
+hide footbox
 @enduml

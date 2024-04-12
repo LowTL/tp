@@ -6,27 +6,28 @@ autoactivate on
 
 participant ":PromotionCommand" as PromotionCommand
 participant "<<class>>\nPromotionlist" as Promotionlist
-participant TextUi
+participant ":TextUi" as TextUi
 participant "<<class>>\nItemlist" as Itemlist
-participant "<<class>\n Promotion" as Promotion
+participant "<<class>>\n Promotion" as Promotion
 
 PromotionCommand -> Promotionlist : addPromotion(promotion)
 Promotionlist -> Itemlist : isItemExist(itemName)
-Itemlist --> Promotionlist : isExists
+Itemlist --> Promotionlist : true
 Promotionlist -> Promotionlist : itemIsOnPromo(itemName)
-return notOnPromo
+return false
 Promotionlist -> Promotionlist : isValidDiscount()
-return isValid
+return true
 Promotionlist -> Promotionlist : isValidMonth()
-return isValid
+return true
 Promotionlist -> Promotionlist : isValidTime()
-return isValid
+return true
 Promotionlist -> Promotionlist : isValidDuration()
-return isValid
+return true
 Promotionlist -> Promotion : add(promotion)
 Promotion --> Promotionlist
 Promotionlist -> TextUi : print(AddPromotion)
 TextUi --> Promotionlist
 Promotionlist --> PromotionCommand
 
+hide footbox
 @enduml

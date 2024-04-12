@@ -45,6 +45,8 @@ public class Itemlist {
         } catch (IndexOutOfBoundsException e) {
             if (index != 0) {
                 System.out.println("Index " + index + " entered is out of bound.");
+            } else {
+                System.out.println("There are no items added yet!");
             }
             return null;
         }

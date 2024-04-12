@@ -97,8 +97,8 @@ This command will add a new promotion by calling `addPromotion(promotion)` metho
 Next, it subsequently calls multiple of its own methods. 
 1. `ItemIsOnPromo()` checks if there is already an existing `promotion` for the item. If there is an existing promotion
 the user will be unable to create another promotion for the same item.
-2. `isValidDiscount()` checks if the `discount` inputed lies between the range of 0 to 100.
-3. `isValidMonth()` checks if the `date` entered is valid. E.g. `30 FEB 2024` does not exists.
+2. `isValidDiscount()` checks if the `discount` input lies between the range of 0 to 100.
+3. `isValidMonth()` checks if the `date` entered is valid. E.g. `30 FEB 2024` does not exist.
 4. `isValidTime()` checks if the time is a valid range.
 5. `isValidDuration()` checks if the duration of the promotion is valid. E.g. A promotion that starts on `1 FEB 2024` and
 ends on `1 JAN 2024` is not valid.
@@ -125,7 +125,7 @@ Given below is the sequence diagram showing the delete promotion mechanism:
 
 ![DeletePromotion](Diagrams/Images/Promotion/DeletePromotion.png)
 
-This command will initially check if there is such an item in `Promotionlist`. If it does not exists, it will print an
+This command will initially check if there is such an item in `Promotionlist`. If it does not exist, it will print an
 error message. Otherwise, it will execute the deletion of the `promotion`.
 
 To execute the deletion, `getPromotion()` and `getIndex()` methods are called to obtain the index of the item in the
@@ -194,7 +194,7 @@ it also allows users to see which item has generated the most profit in the busi
 | v2.0    | store owner | add promotions for a time period                              | automatically change the sell price of the items during the promotion period |
 | v2.0    | store owner | delete promotions                                             | remove promotions when it is over                                            |
 | v2.0    | store owner | list promotions                                               | view all promotions that I have created                                      |
-| v2.0    | store owner | mark items of different categories at my own discretion       | easily view the list of marked items when I want to                                                                             |
+| v2.0    | store owner | mark items of different categories at my own discretion       | easily view the list of marked items when I want to                          |
 | v2.0    | store owner | see what is my best selling item                              | identify which item is most popular among customers                          |
 
 ## Non-Functional Requirements

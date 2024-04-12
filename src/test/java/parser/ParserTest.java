@@ -44,8 +44,8 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(EditCommand.class, command);
         EditCommand editCommand = (EditCommand) command;
-        assertEquals("ItemName", editCommand.getItemName());
-        assertEquals("NewName", editCommand.getNewItemName());
+        assertEquals("itemname", editCommand.getItemName());
+        assertEquals("newname", editCommand.getNewItemName());
         assertEquals(20, editCommand.getNewQuantity());
         assertEquals("NewUOM", editCommand.getNewUnitOfMeasurement());
         assertEquals("NewCategory", editCommand.getNewCategory());
@@ -59,7 +59,7 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(SellCommand.class, command);
         SellCommand sellCommand = (SellCommand) command;
-        assertEquals("ItemName", sellCommand.getItemName());
+        assertEquals("itemname", sellCommand.getItemName());
         assertEquals(5, sellCommand.getSellQuantity());
     }
 
@@ -88,7 +88,7 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(MarkCommand.class, command);
         MarkCommand markCommand = (MarkCommand) command;
-        assertEquals("ItemName", markCommand.getItemName());
+        assertEquals("itemname", markCommand.getItemName());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(UnmarkCommand.class, command);
         UnmarkCommand unmarkCommand = (UnmarkCommand) command;
-        assertEquals("ItemName", unmarkCommand.getItemName());
+        assertEquals("itemname", unmarkCommand.getItemName());
     }
 
     @Test

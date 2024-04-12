@@ -1,18 +1,18 @@
-package reminder;
+package command;
 
 import item.Item;
 import itemlist.Itemlist;
 
-public class LowStockReminder {
+public class LowStockCommand extends Command{
 
-    private static final int DEFAULT_LOW_STOCK_THRESHOLD = 5;
+    protected static final int DEFAULT_LOW_STOCK_THRESHOLD = 5;
+    protected int lowStockAmount;
 
-    protected String itemName;
-
-
-    public static void execute(){
-        outOfStockItemsReminder();
-        lowOnStockItemsReminder();
+    public LowStockCommand(){
+        this.lowStockAmount = DEFAULT_LOW_STOCK_THRESHOLD;
+    }
+    public LowStockCommand(int lowStockAmount){
+        this.lowStockAmount = lowStockAmount;
     }
 
     private static void outOfStockItemsReminder(){
@@ -29,11 +29,11 @@ public class LowStockReminder {
         }
     }
 
-    private static void lowOnStockItemsReminder(){
+    public static void lowOnStockItemsReminder(int lowStockAmount){
         int count = 0;
-        System.out.println("Low-on-stock Items:");
+        System.out.println("Low-on-stock Items: (less than " + lowStockAmount + ")");
         for (Item item : Itemlist.getItems()) {
-            if (item.getQuantity() <= DEFAULT_LOW_STOCK_THRESHOLD && item.getQuantity() > 0) {  //low stock condition
+            if (item.getQuantity() <= lowStockAmount && item.getQuantity() > 0) {  //low stock condition
                 System.out.println(item.getItemName());
                 count++;
             }
@@ -41,5 +41,10 @@ public class LowStockReminder {
         if (count == 0){
             System.out.println("No items low on stock");
         }
+    }
+    @Override
+    public void execute() {
+        outOfStockItemsReminder();
+        lowOnStockItemsReminder(lowStockAmount);
     }
 }

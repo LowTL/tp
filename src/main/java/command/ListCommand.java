@@ -17,11 +17,11 @@ import java.util.ArrayList;
  */
 public class ListCommand<T> extends Command{
 
-    protected ArrayList<Item> itemList;
-    protected ArrayList<Transaction> transactionList;
-    protected ArrayList<Promotion> promotionList;
-    protected String category;
-    protected boolean isListMarked;
+    protected ArrayList<Item> itemList =  new ArrayList<>();
+    protected ArrayList<Transaction> transactionList = new ArrayList<>();
+    protected ArrayList<Promotion> promotionList = new ArrayList<>();
+    protected String category = "NA";
+    protected boolean isListMarked = false;
 
     /**
     * Instantiates a <code>ListCommand</code> with the <code>ArrayList arrayList</code>
@@ -38,7 +38,7 @@ public class ListCommand<T> extends Command{
      * and any other modifiers available to that type of <code>ArrayList</code>.
      */
     public ListCommand(ArrayList<Transaction> arrayList, String itemName) {
-        if (itemName.isEmpty()) {
+        if (itemName.equals("NA")) {
             this.transactionList = arrayList;
         } else {
             this.transactionList = Cashier.getTransactions(itemName);
@@ -64,21 +64,15 @@ public class ListCommand<T> extends Command{
      * */
     //@@author Fureimi
     public void execute() throws EmptyListException {
-        try {
-            if (itemList.isEmpty() && transactionList.isEmpty() && promotionList.isEmpty()) {
-                throw new EmptyListException("There are no results.");
-            }
-        } catch (EmptyListException e) {
-            return;
-        }
-        if (category.equals("NA") && !isListMarked) {
-            TextUi.showList(itemList);
-        } else if (containsTransactions(transactionList)) {
+
+        if (containsTransactions(transactionList)) {
             showTransactionList();
-        } else if (containsItems(itemList)) {
-            showCustomizedItemList();
         } else if (containsPromotions(promotionList)) {
             showPromotionList();
+        } else if (category.equals("NA") && !isListMarked) {
+            TextUi.showList(itemList);
+        } else if (containsItems(itemList)) {
+            showCustomizedItemList();
         } else {
             TextUi.replyToUser(Messages.EMPTY_LIST);
         }

@@ -6,7 +6,6 @@ import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import parser.Parser;
-import reminder.LowStockReminder;
 import storage.PromotionStorage;
 import storage.Storage;
 import storage.TransactionLogs;
@@ -42,7 +41,6 @@ public class StockMaster {
         TransactionLogs.readFromFile(TRANSACTION_FILE);
         PromotionStorage.updateFile("", true);
         PromotionStorage.readFromFile(PROMOTION_STORAGE_FILE);
-        LowStockReminder.execute();
         this.normalOperation();
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }

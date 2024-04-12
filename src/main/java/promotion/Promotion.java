@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package promotion;
 
 public class Promotion {
@@ -6,13 +7,13 @@ public class Promotion {
 
     protected Float discount;
 
-    protected int startDate;
+    protected int startDay;
 
     protected Month startMonth;
 
     protected int startYear;
 
-    protected int endDate;
+    protected int endDay;
 
     protected Month endMonth;
 
@@ -25,16 +26,16 @@ public class Promotion {
     public Promotion(
             String itemName,
             Float discount,
-            int startDate, Month startMonth, int startYear,
-            int endDate, Month endMonth, int endYear,
+            int startDay, Month startMonth, int startYear,
+            int endDay, Month endMonth, int endYear,
             int startTime,
             int endTime) {
         this.itemName = itemName;
         this.discount = discount;
-        this.startDate = startDate;
+        this.startDay = startDay;
         this.startMonth = startMonth;
         this.startYear = startYear;
-        this.endDate = endDate;
+        this.endDay = endDay;
         this.endMonth = endMonth;
         this.endYear = endYear;
         this.startTime = startTime;
@@ -47,8 +48,8 @@ public class Promotion {
         return discount;
     }
 
-    public int getStartDate() {
-        return startDate;
+    public int getStartDay() {
+        return startDay;
     }
 
     public Month getStartMonth() {
@@ -59,8 +60,8 @@ public class Promotion {
         return startYear;
     }
 
-    public int getEndDate() {
-        return endDate;
+    public int getEndDay() {
+        return endDay;
     }
 
     public Month getEndMonth() {
@@ -86,8 +87,8 @@ public class Promotion {
     @Override
     public String toString() {
         return getItemName() + " have a " + String.format("%.2f", (getDiscount() * 100)) +
-                "% discount" + "\n" + "Period: " + getStartDate() + " " + getStartMonth() + " "
-                + getStartYear() + " to " + getEndDate() + " " + getEndMonth() + " " +
+                "% discount" + "\n" + "Period: " + getStartDay() + " " + getStartMonth() + " "
+                + getStartYear() + " to " + getEndDay() + " " + getEndMonth() + " " +
                 getEndYear() + "\n" + "Time: " + String.format("%04d", getStartTime()) + " to " +
                 String.format("%04d", getEndTime());
     }

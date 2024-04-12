@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package command;
 
 import exceptions.EmptyListException;
@@ -26,6 +27,11 @@ public class FindCommand extends Command {
         return keyword;
     }
 
+    /**
+     * Searches for item(s) given a specified keyword
+     *
+     * @throws EmptyListException when the filtered list is empty (nothing found)
+     */
     @Override
     public void execute() throws EmptyListException {
         if (itemInfo.equals("NA")) {
@@ -36,6 +42,12 @@ public class FindCommand extends Command {
         LOGGER.info("Itemlist successfully filtered.");
     }
 
+    /**
+     * Enhances the find feature by searching through a filtered list, e.g. search for "fruits" in /item /uom
+     *
+     * @return a list of items that matches the filter and the keyword
+     * @throws EmptyListException when the filtered list is empty (nothing found)
+     */
     public ArrayList<String> filterList() throws EmptyListException {
         ArrayList<String> searchList = new ArrayList<>();
         for (Item item : Itemlist.getItems()) {

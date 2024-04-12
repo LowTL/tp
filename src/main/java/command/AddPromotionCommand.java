@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package command;
 
 import exceptions.CommandFormatException;
@@ -28,6 +29,12 @@ public class AddPromotionCommand extends Command {
         LOGGER.info("AddPromotion successfully created.");
     }
 
+    /**
+     * Adds a new promotion for an item that is in the item list
+     *
+     * @throws InvalidDateException if there is an invalid date for promotion
+     * @throws CommandFormatException if item is not found in the list or there is an invalid discount
+     */
     @Override
     public void execute() throws InvalidDateException, CommandFormatException {
         try {
@@ -35,8 +42,8 @@ public class AddPromotionCommand extends Command {
             TextUi.replyToUser(
                     "The following promotion has been added",
                     promotion.getItemName() + " have a " + String.format("%.2f", promotion.getDiscount() * 100) +
-                            "% discount", "Period: " + promotion.getStartDate() + " " + promotion.getStartMonth() +
-                            " " + promotion.getStartYear() + " to " + promotion.getEndDate() + " " +
+                            "% discount", "Period: " + promotion.getStartDay() + " " + promotion.getStartMonth() +
+                            " " + promotion.getStartYear() + " to " + promotion.getEndDay() + " " +
                             promotion.getEndMonth() + " " + promotion.getEndYear(),
                     "Time: " + String.format("%04d", promotion.getStartTime()) + " to " +
                             String.format("%04d", promotion.getEndTime())

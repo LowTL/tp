@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package command;
 
 import item.Item;
@@ -46,10 +47,15 @@ public class AddCommand extends Command {
         return sellPrice;
     }
 
+
+    /**
+     * Adds item to the item list
+     * Category is an optional parameter and will be set to "NA" if left empty
+     */
     @Override
     public void execute() {
         if (Itemlist.itemIsExist(itemName)) {
-            updateQuantity(itemName);
+            updateItemInfo(itemName);
             LOGGER.info("Edited item instead.");
         } else {
             Itemlist.addItem(toAdd);
@@ -66,7 +72,14 @@ public class AddCommand extends Command {
         }
     }
 
-    public void updateQuantity(String itemName) {
+    /**
+     * Performs an edit on the item if the item already exists in the item list
+     * Only the item information that are different will be edited
+     *
+     * @param itemName
+     */
+
+    public void updateItemInfo(String itemName) {
         System.out.println("Item already exists and item information has been updated");
         int indexOfItem = -1;
         for (Item item : Itemlist.getItems()) {

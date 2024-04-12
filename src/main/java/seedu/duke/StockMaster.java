@@ -11,8 +11,6 @@ import storage.Storage;
 import storage.TransactionLogs;
 import ui.TextUi;
 
-import itemlist.Itemlist;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -55,17 +53,6 @@ public class StockMaster {
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
-    private void normalOperation() throws IOException, CommandFormatException,
-            InvalidDateException, EmptyListException {
-        String userInput;
-        do {
-            userInput = TextUi.getUserInput();
-            logger.info("Input received: " + userInput);
-            Command command = parser.parseInput(userInput);
-            command.execute();
-        } while (!ExitCommand.getIsExit());
-    }
-
     private static void initLogger() throws IOException {
         LogManager.getLogManager().reset(); //clears out any default settings
         ConsoleHandler ch = new ConsoleHandler(); //to print errors to console
@@ -85,6 +72,17 @@ public class StockMaster {
             logger.log(Level.SEVERE, "Unable to create FileHandler", e);
         }
 
+    }
+
+    private void normalOperation() throws IOException, CommandFormatException,
+            InvalidDateException, EmptyListException {
+        String userInput;
+        do {
+            userInput = TextUi.getUserInput();
+            logger.info("Input received: " + userInput);
+            Command command = parser.parseInput(userInput);
+            command.execute();
+        } while (!ExitCommand.getIsExit());
     }
 
 }

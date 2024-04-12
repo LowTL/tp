@@ -33,7 +33,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Parser {
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
 
     public static final Pattern HELP_COMMAND_FORMAT =
             Pattern.compile("help(?: c/(?<command>[^/]+))?");
@@ -82,6 +81,7 @@ public class Parser {
     public static final Pattern LOW_STOCK_COMMAND_FORMAT =
             Pattern.compile("low_stock /(?<amount>[^/]+)");
 
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
     public Command parseInput(String userInput){
         final CommandType userCommand;
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());

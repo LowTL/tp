@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
                 LOGGER.info("Item successfully deleted.");
             }
         } catch (IndexOutOfBoundsException | EmptyListException e) {
-            LOGGER.warning("Item not deleted.");
+            LOGGER.log(Level.WARNING, "Item not deleted.", e);
             System.out.println("Itemlist is empty.");
         }
     }

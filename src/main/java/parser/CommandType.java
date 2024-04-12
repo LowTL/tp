@@ -17,6 +17,7 @@ public enum CommandType {
     TOTAL_PROFIT,
     TOTAL_REVENUE,
     BESTSELLER,
-    LIST_TRANSACTIONS
+    LIST_TRANSACTIONS,
+    LOW_STOCK
 
 }

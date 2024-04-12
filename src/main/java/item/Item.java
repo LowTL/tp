@@ -3,6 +3,8 @@ package item;
 
 import itemlist.Itemlist;
 
+import java.util.logging.Logger;
+
 public class Item {
     public boolean isMark;
     private String itemName;
@@ -27,6 +29,7 @@ public class Item {
         this.sellPrice = sellPrice;
         this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
+
     }
 
     public String getCategory() {

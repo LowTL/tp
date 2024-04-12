@@ -7,6 +7,8 @@ import promotion.Promotion;
 import promotion.Promotionlist;
 import ui.TextUi;
 
+import java.util.logging.Level;
+
 public class AddPromotionCommand extends Command {
 
     protected Promotion promotion;
@@ -23,6 +25,7 @@ public class AddPromotionCommand extends Command {
                 startDate, startMonth, startYear,
                 endDate, endMonth, endYear,
                 startTime, endTime);
+        LOGGER.info("AddPromotion successfully created.");
     }
 
     @Override
@@ -38,8 +41,9 @@ public class AddPromotionCommand extends Command {
                     "Time: " + String.format("%04d", promotion.getStartTime()) + " to " +
                             String.format("%04d", promotion.getEndTime())
             );
+            LOGGER.info("Promotion successfully created.");
         } catch (InvalidDateException | CommandFormatException e){
-            System.out.println("");
+            LOGGER.log(Level.WARNING, "Unable to create promotion", e);
         }
     }
 }

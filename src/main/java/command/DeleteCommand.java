@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.EmptyListException;
 import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;
@@ -12,7 +13,7 @@ public class DeleteCommand extends Command {
         this.itemName = itemName.toLowerCase(); //for checking later
     }
 
-    public void execute() {
+    public void execute() throws EmptyListException {
         int index = -1;
         try {
             for (Item item : Itemlist.getItems()) {
@@ -23,7 +24,7 @@ public class DeleteCommand extends Command {
             }
             if (index == -1) {
                 //throw exception;
-                System.out.println("Item does not exist.");
+                throw new EmptyListException("Item");
             } else {
                 Itemlist.deleteItem(index);
                 System.out.println(itemName + " has been successfully deleted.");
@@ -34,7 +35,7 @@ public class DeleteCommand extends Command {
                     assert (!Itemlist.getItem(index).getItemName().equals(itemName));
                 }
             }
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException | EmptyListException e) {
             System.out.println("Itemlist is empty.");
         }
     }

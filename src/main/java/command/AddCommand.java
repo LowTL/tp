@@ -50,8 +50,10 @@ public class AddCommand extends Command {
     public void execute() {
         if (Itemlist.itemIsExist(itemName)) {
             updateQuantity(itemName);
+            LOGGER.info("Edited item instead.");
         } else {
             Itemlist.addItem(toAdd);
+            LOGGER.info("Item added successfully.");
             System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement()
                     + ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
             Storage.addToFile(Itemlist.getItems());

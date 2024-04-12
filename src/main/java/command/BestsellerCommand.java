@@ -17,7 +17,7 @@ public class BestsellerCommand extends Command {
                 throw new EmptyListException("Transaction");
             }
         } catch (EmptyListException e) {
-            return;
+            LOGGER.warning("No transaction found.");
         }
         TextUi.replyToUser("The current best-selling item is " +
                 bs.getItemName());

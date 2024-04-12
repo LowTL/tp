@@ -60,7 +60,7 @@ public class FindCommand extends Command {
             }
         }
         if (searchList.isEmpty()) {
-            throw new EmptyListException("No items found!");
+            throw new EmptyListException("Item");
         }
         return searchList;
     }

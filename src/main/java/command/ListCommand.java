@@ -66,7 +66,7 @@ public class ListCommand<T> extends Command{
         } else if (containsItems(itemList)) {
             showCustomizedItemList();
         } else {
-            TextUi.replyToUser(Messages.EMPTY_LIST);
+            throw new EmptyListException("Empty List");
         }
     }
 

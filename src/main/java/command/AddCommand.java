@@ -69,12 +69,19 @@ public class AddCommand extends Command {
         for (Item item : Itemlist.getItems()) {
             if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 indexOfItem = Itemlist.getIndex(item);
+                break;
             }
         }
         assert indexOfItem != -1;
-        int currentQty = Itemlist.getItem(indexOfItem).getQuantity();
+        Item item = Itemlist.getItem(indexOfItem);
+        assert item != null;
+        int currentQty = item.getQuantity();
         int newQty = getQuantity() + currentQty;
-        new EditCommand(getItemName(), "NA", newQty, getUnitOfMeasurement(), getCategory(), getBuyPrice(),
-                getSellPrice()).execute();
+        String newUOM = (getUnitOfMeasurement().equals(item.getUnitOfMeasurement())) ? "NA" : getUnitOfMeasurement();
+        String newCat = (getCategory().equals(item.getCategory())) ? "NA" : getCategory();
+        float newBuyPrice = (getBuyPrice() == (item.getBuyPrice())) ? -1 : getBuyPrice();
+        float newSellPrice = (getSellPrice() == (item.getSellPrice())) ? -1 : getSellPrice();
+        new EditCommand(getItemName(), "NA", newQty, newUOM, newCat, newBuyPrice,
+               newSellPrice).execute();
     }
 }

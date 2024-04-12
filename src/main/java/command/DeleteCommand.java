@@ -5,6 +5,8 @@ import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;
 
+import java.util.logging.Level;
+
 public class DeleteCommand extends Command {
 
     protected String itemName;
@@ -34,8 +36,10 @@ public class DeleteCommand extends Command {
                 } else {
                     assert (!Itemlist.getItem(index).getItemName().equals(itemName));
                 }
+                LOGGER.info("Item successfully deleted.");
             }
         } catch (IndexOutOfBoundsException | EmptyListException e) {
+            LOGGER.warning("Item not deleted.");
             System.out.println("Itemlist is empty.");
         }
     }

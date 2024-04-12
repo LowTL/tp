@@ -10,7 +10,7 @@ public class BestsellerCommand extends Command {
 
     //@author LowTL
     @Override
-    public void execute() {
+    public void execute() throws EmptyListException {
         Item bs = Cashier.getBestseller();
         try {
             if (bs == null) {

@@ -38,9 +38,9 @@ It contains command formats that must be adhered to for the methods to be called
 the Itemlist by `addItem()` method.
 
 ### Class diagram
-![Storage_ClassDiagram](./Diagrams/Storage_ClassDiagram.png)
+![Storage_ClassDiagram](Diagrams/Images/Storage/Storage_ClassDiagram.png)
 ### Sequence diagram
-![Storage_sequenceDiagram](./Diagrams/Storage_sequenceDiagram.png)
+![Storage_sequenceDiagram](Diagrams/Images/Storage/Storage_sequenceDiagram.png)
 
 ### UI
 

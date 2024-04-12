@@ -5,6 +5,7 @@ import command.ExitCommand;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
+import itemlist.Cashier;
 import parser.Parser;
 import storage.PromotionStorage;
 import storage.Storage;
@@ -56,6 +57,7 @@ public class StockMaster {
     private static void initLogger() {
         Logger parserLogger = Logger.getLogger(Parser.class.getName());
         Logger commandLogger = Logger.getLogger(Command.class.getName());
+        Logger cashierLogger = Logger.getLogger(Cashier.class.getName());
         LogManager.getLogManager().reset(); //clears out any default settings
         ConsoleHandler ch = new ConsoleHandler(); //to print errors to console
         logger.addHandler(ch);
@@ -72,6 +74,7 @@ public class StockMaster {
             logger.addHandler(fh);
             parserLogger.addHandler(fh);
             commandLogger.addHandler(fh);
+            cashierLogger.addHandler(fh);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to create FileHandler", e);
         }

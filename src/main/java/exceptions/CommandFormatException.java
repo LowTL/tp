@@ -44,6 +44,9 @@ public class CommandFormatException extends Exception{
         case UNMARK:
             System.out.println(Messages.INVALID_UNMARK_FORMAT);
             break;
+        case LIST_TRANSACTIONS:
+            System.out.println(Messages.INVALID_TRANSACTION_FORMAT);
+            break;
         case LOW_STOCK:
             System.out.println(Messages.INVALID_LOW_STOCK_FORMAT);
             break;

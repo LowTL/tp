@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.CommandFormatException;
 import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
@@ -28,9 +29,9 @@ public class SellCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute() throws CommandFormatException {
         int index = -1;
-        Item toSell = Itemlist.getItems().get(0);
+        Item toSell = null;
         for (Item item : Itemlist.getItems()) {
             if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 index = Itemlist.getItems().indexOf(item);
@@ -46,7 +47,7 @@ public class SellCommand extends Command {
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();
         float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
-        if (remainingQuantity < 0) {
+        if (toSell.getIsOOS() || remainingQuantity < 0) {
             System.out.println("There is insufficient stock!");
             return;
         } else {

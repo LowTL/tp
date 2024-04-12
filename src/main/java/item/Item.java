@@ -104,6 +104,7 @@ public class Item {
         return this.isMark;
     }
 
+    @Override
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";

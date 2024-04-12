@@ -11,17 +11,23 @@ import storage.Storage;
 import storage.TransactionLogs;
 import ui.TextUi;
 
-import itemlist.Itemlist;
-
+import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.FileHandler;
+import java.util.logging.SimpleFormatter;
+
 
 public class StockMaster {
     private static final String STORAGE_FILE = "./StockMasterData.txt";
     private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
+    private static final Logger logger = Logger.getLogger(StockMaster.class.getName()) ;
     private final TextUi ui = new TextUi();
     private final Parser parser = new Parser();
-    private Itemlist itemlist = new Itemlist();
 
 
 
@@ -34,6 +40,8 @@ public class StockMaster {
     }
 
     public void run() throws IOException, CommandFormatException, InvalidDateException, EmptyListException {
+        initLogger();
+        logger.finest("Run begin");
         ui.showWelcomeMessage("StockMaster v2.0", STORAGE_FILE);
         Storage.updateFile("", true);
         Storage.readFromFile(STORAGE_FILE);
@@ -45,11 +53,33 @@ public class StockMaster {
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
+    private static void initLogger() throws IOException {
+        LogManager.getLogManager().reset(); //clears out any default settings
+        ConsoleHandler ch = new ConsoleHandler(); //to print errors to console
+        logger.addHandler(ch);
+        logger.setLevel(Level.ALL); //to allow all logs to be logged
+        ch.setLevel(Level.SEVERE); //only print severe logs to console
+        try {
+            File dir = new File("logs");
+            if (!dir.exists()) {
+                dir.mkdir();
+            }
+            FileHandler fh = new FileHandler("logs/StockMasterLogs.log");
+            fh.setFormatter(new SimpleFormatter());
+            fh.setLevel(Level.FINER); //log finer and above logs
+            logger.addHandler(fh);
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Unable to create FileHandler", e);
+        }
+
+    }
+
     private void normalOperation() throws IOException, CommandFormatException,
             InvalidDateException, EmptyListException {
         String userInput;
         do {
-            userInput = ui.getUserInput();
+            userInput = TextUi.getUserInput();
+            logger.info("Input received: " + userInput);
             Command command = parser.parseInput(userInput);
             command.execute();
         } while (!ExitCommand.getIsExit());

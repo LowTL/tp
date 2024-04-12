@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 public class CashierTest {
 
     @Test
-    public void AddTransactionTest() {
+    public void addTransactionTest() {
         Item testItem = new Item("testItem", 1, "ea", "NA", 1.00F, 2.00F);
         Transaction testTransaction = new Transaction("testItem", 1, 1.00F, 2.00F);
         Cashier.addItem(testTransaction);

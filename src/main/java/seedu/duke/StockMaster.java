@@ -53,7 +53,9 @@ public class StockMaster {
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }
 
-    private static void initLogger() throws IOException {
+    private static void initLogger() {
+        Logger parserLogger = Logger.getLogger(Parser.class.getName());
+        Logger commandLogger = Logger.getLogger(Command.class.getName());
         LogManager.getLogManager().reset(); //clears out any default settings
         ConsoleHandler ch = new ConsoleHandler(); //to print errors to console
         logger.addHandler(ch);
@@ -66,12 +68,13 @@ public class StockMaster {
             }
             FileHandler fh = new FileHandler("logs/StockMasterLogs.log");
             fh.setFormatter(new SimpleFormatter());
-            fh.setLevel(Level.FINER); //log finer and above logs
+            fh.setLevel(Level.INFO); //log info and above logs
             logger.addHandler(fh);
+            parserLogger.addHandler(fh);
+            commandLogger.addHandler(fh);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to create FileHandler", e);
         }
-
     }
 
     private void normalOperation() throws IOException, CommandFormatException,

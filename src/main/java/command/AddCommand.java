@@ -24,6 +24,7 @@ public class AddCommand extends Command {
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         this.toAdd = new Item(itemName, quantity, unitOfMeasurement, category, buyPrice, sellPrice);
+        LOGGER.info("AddCommand successfully created.");
     }
 
     public String getItemName() {

@@ -14,6 +14,7 @@ public class EmptyListException extends Exception {
             break;
         case "Empty List":
             System.out.println(Messages.EMPTY_LIST);
+            break;
         default:
             System.out.println(error);
         }

@@ -6,13 +6,9 @@ import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 import promotion.Month;
-import promotion.Promotion;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public class AddPromotionCommandTest {
 

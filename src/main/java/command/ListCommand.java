@@ -1,7 +1,6 @@
 package command;
 
 import exceptions.EmptyListException;
-import common.Messages;
 import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
@@ -80,7 +79,6 @@ public class ListCommand<T> extends Command{
         } else {
             LOGGER.warning("No items found.");
             throw new EmptyListException("Empty List");
-
         }
     }
 

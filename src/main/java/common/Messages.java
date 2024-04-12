@@ -239,7 +239,8 @@ public class Messages {
             "'sell [ITEM_NAME] qty/[SELL_QUANTITY]'";
     public static final String ITEM_NOT_FOUND = "Item cannot be found/unavailable";
 
-    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exists for this item and hence cannot be deleted";
+    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exists for this item and hence " +
+            "cannot be deleted";
     public static final String INVALID_FIND_FORMAT = "Invalid command format. Please use format: " + "\n" +
             "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
             "2. 'find /filter1/filter2 [KEYWORD]' to search under the filters";

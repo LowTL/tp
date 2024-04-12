@@ -1,7 +1,5 @@
 package promotion;
 
-import ui.TextUi;
-
 public class Promotion {
 
     protected String itemName;

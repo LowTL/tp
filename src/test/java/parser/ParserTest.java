@@ -134,7 +134,8 @@ public class ParserTest {
 
     @Test
     public void testParsePromotionCommand() {
-        String userInput = "promotion apple discount/10 period /from 2 Apr 2024 /to 3 Apr 2024 time /from 0000 /to 2359";
+        String userInput = "promotion apple discount/10 period /from 2 Apr 2024 /to " +
+                "3 Apr 2024 time /from 0000 /to 2359";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(AddPromotionCommand.class, command);
     }

@@ -6,6 +6,10 @@
 #Compiled class files
 *.class
 
+#Logger files
+logs
+*.log
+
 #Generated storage text files
 PromotionStorage.txt
 StockMasterData.txt

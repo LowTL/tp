@@ -33,6 +33,7 @@ public class FindCommand extends Command {
         }
         ArrayList<String> searchList = filterList();
         TextUi.showList(searchList);
+        LOGGER.info("Itemlist successfully filtered.");
     }
 
     public ArrayList<String> filterList() throws EmptyListException {
@@ -60,6 +61,7 @@ public class FindCommand extends Command {
             }
         }
         if (searchList.isEmpty()) {
+            LOGGER.warning("Item not found.");
             throw new EmptyListException("Item");
         }
         return searchList;

@@ -1,0 +1,57 @@
+@startuml
+
+class Storage {
+    +readFromFile(fileName: String)
+    +addToFile(items: ArrayList<Item>)
+    +overwriteFile(items: ArrayList<Item>)
+}
+
+class TransactionLogs {
+    +readFromFile(fileName: String)
+    +addToLog(transactions: ArrayList<Transaction>)
+}
+
+class PromotionStorage {
+    +readFromFile(fileName: String)
+    +overwritePromotionFile(promotions: ArrayList<Promotion>)
+}
+
+class Itemlist {
+    +addItem(item: Item)
+}
+
+class Promotionlist {
+    +addPromotion(promotion: Promotion)
+}
+
+class AddCommand {
+    +execute()
+}
+
+class EditCommand {
+    +execute()
+}
+
+class SellCommand {
+    +execute()
+}
+
+class AddPromotionCommand {
+    +execute()
+}
+
+class DeletePromotionCommand {
+    +execute()
+}
+
+Storage <|-- TransactionLogs
+Storage <|-- PromotionStorage
+
+Storage --> Itemlist: uses
+PromotionStorage --> Promotionlist: uses
+AddCommand --> Storage: uses
+EditCommand --> Storage: uses
+SellCommand --> TransactionLogs: uses
+DeletePromotionCommand --> PromotionStorage: uses
+AddPromotionCommand --> PromotionStorage: uses
+@enduml

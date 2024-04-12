@@ -302,6 +302,8 @@ public class Messages {
 
     public static final String SELL_TOO_LARGE = "Sell price is too large. Please input a smaller sell price.";
 
+    public static final String INVALID_TRANSACTION_FORMAT = "Invalid format. Please input the format:" +
+            "list_transactions item/[ITEM_NAME]";
     public static final String INVALID_LOW_STOCK_AMOUNT = "Please input a valid amount.";
 
 

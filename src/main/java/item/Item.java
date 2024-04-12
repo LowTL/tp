@@ -27,6 +27,7 @@ public class Item {
         this.sellPrice = sellPrice;
         this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
+
     }
 
     public String getCategory() {
@@ -104,6 +105,7 @@ public class Item {
         return this.isMark;
     }
 
+    @Override
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";

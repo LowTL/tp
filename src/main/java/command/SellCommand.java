@@ -8,6 +8,8 @@ import itemlist.Itemlist;
 import storage.Storage;
 import storage.TransactionLogs;
 
+import java.util.Objects;
+
 public class SellCommand extends Command {
 
     protected String itemName;
@@ -41,24 +43,29 @@ public class SellCommand extends Command {
         }
         if (index == -1) {
             //throw exception;
+            LOGGER.warning("Item not found.");
             System.out.println("Item not found!");
             return;
         }
+        assert (Objects.nonNull(Itemlist.getItem(index)));
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();
         float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
         if (toSell.getIsOOS() || remainingQuantity < 0) {
+            LOGGER.warning("Item has insufficient quantity.");
             System.out.println("There is insufficient stock!");
             return;
         } else {
             ui.TextUi.showSellMessage(itemName, sellQuantity, remainingQuantity, sellPrice);
             Itemlist.editQuantity(index, remainingQuantity);
+            LOGGER.info("Item successfully sold.");
         }
         Storage.overwriteFile(Itemlist.getItems());
         Transaction newTransaction = new Transaction(Itemlist.getItem(index).getItemName(),
                 sellQuantity, toSell.getBuyPrice(), sellPrice);
         Cashier.addItem(newTransaction);
         TransactionLogs.addToLog(Cashier.getTransactions());
+        LOGGER.info("Transaction successfully recorded.");
     }
 
 }

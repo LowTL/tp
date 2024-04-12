@@ -67,14 +67,19 @@ public class ListCommand<T> extends Command{
 
         if (containsTransactions(transactionList)) {
             showTransactionList();
+            LOGGER.info("Transactions listed.");
         } else if (containsPromotions(promotionList)) {
             showPromotionList();
+            LOGGER.info("Promotions listed.");
         } else if (category.equals("NA") && !isListMarked) {
             TextUi.showList(itemList);
+            LOGGER.info("All items listed.");
         } else if (containsItems(itemList)) {
             showCustomizedItemList();
+            LOGGER.info("Items listed.");
         } else {
             TextUi.replyToUser(Messages.EMPTY_LIST);
+            LOGGER.warning("No items found.");
         }
     }
 

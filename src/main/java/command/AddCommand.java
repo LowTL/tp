@@ -24,6 +24,7 @@ public class AddCommand extends Command {
         this.buyPrice = buyPrice;
         this.sellPrice = sellPrice;
         this.toAdd = new Item(itemName, quantity, unitOfMeasurement, category, buyPrice, sellPrice);
+        LOGGER.info("AddCommand successfully created.");
     }
 
     public String getItemName() {
@@ -49,8 +50,10 @@ public class AddCommand extends Command {
     public void execute() {
         if (Itemlist.itemIsExist(itemName)) {
             updateQuantity(itemName);
+            LOGGER.info("Edited item instead.");
         } else {
             Itemlist.addItem(toAdd);
+            LOGGER.info("Item added successfully.");
             System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement()
                     + ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
             Storage.addToFile(Itemlist.getItems());

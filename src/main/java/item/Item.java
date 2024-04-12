@@ -27,6 +27,7 @@ public class Item {
         this.sellPrice = sellPrice;
         this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
+
     }
 
     public String getCategory() {

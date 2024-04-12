@@ -10,14 +10,14 @@ public class BestsellerCommand extends Command {
 
     //@author LowTL
     @Override
-    public void execute() {
+    public void execute() throws EmptyListException {
         Item bs = Cashier.getBestseller();
         try {
             if (bs == null) {
                 throw new EmptyListException("Transaction");
             }
         } catch (EmptyListException e) {
-            return;
+            LOGGER.warning("No transaction found.");
         }
         TextUi.replyToUser("The current best-selling item is " +
                 bs.getItemName());

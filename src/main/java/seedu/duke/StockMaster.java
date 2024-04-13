@@ -26,7 +26,7 @@ public class StockMaster {
     private static final String STORAGE_FILE = "./StockMasterData.txt";
     private static final String TRANSACTION_FILE = "./TransactionLogs.txt";
     private static final String PROMOTION_STORAGE_FILE = "./PromotionStorage.txt";
-    private static final Logger logger = Logger.getLogger(StockMaster.class.getName()) ;
+    private static final Logger logger = Logger.getLogger(StockMaster.class.getName());
     private final TextUi ui = new TextUi();
     private final Parser parser = new Parser();
 
@@ -58,6 +58,7 @@ public class StockMaster {
         Logger parserLogger = Logger.getLogger(Parser.class.getName());
         Logger commandLogger = Logger.getLogger(Command.class.getName());
         Logger cashierLogger = Logger.getLogger(Cashier.class.getName());
+        Logger storageLogger = Logger.getLogger(Storage.class.getName());
         LogManager.getLogManager().reset(); //clears out any default settings
         ConsoleHandler ch = new ConsoleHandler(); //to print errors to console
         logger.addHandler(ch);
@@ -75,6 +76,7 @@ public class StockMaster {
             parserLogger.addHandler(fh);
             commandLogger.addHandler(fh);
             cashierLogger.addHandler(fh);
+            storageLogger.addHandler(fh);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to create FileHandler", e);
         }

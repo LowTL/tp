@@ -1,0 +1,41 @@
+@startuml
+participant "ui : TextUi" as UI
+participant "listCommand : ListCommand<Item>" as ListCommand
+participant "itemList : Itemlist" as Itemlist
+participant "item : Item" as Item
+
+activate ListCommand
+
+ListCommand -> Itemlist : getItems()
+activate Itemlist
+Itemlist --> ListCommand : return items
+deactivate Itemlist
+
+ListCommand -> ListCommand : containsItems(items)
+activate ListCommand
+ListCommand --> ListCommand : return result
+deactivate ListCommand
+
+alt category equals "NA" and not isListMarked
+    ListCommand -> UI : showList(items)
+    activate UI
+    UI --> ListCommand : display items
+    deactivate UI
+else contains Items
+    ListCommand -> ListCommand : showCustomizedItemList()
+    activate ListCommand
+    ListCommand -> Item : getCategory()
+    activate Item
+    Item --> ListCommand : return category
+    deactivate Item
+    ListCommand -> Item : getMarkStatus()
+    Item --> ListCommand : return isMark
+    ListCommand -> UI : replyToUser(item details)
+    deactivate ListCommand
+    activate UI
+    UI --> ListCommand : display marked items
+    deactivate UI
+end
+hide footbox
+deactivate ListCommand
+@enduml

@@ -11,7 +11,7 @@ public class Item {
     private String category;
     private float buyPrice;
     private float sellPrice;
-    private boolean isOOS;
+    public boolean isOOS;
 
     public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;

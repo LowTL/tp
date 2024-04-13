@@ -61,7 +61,8 @@ public class AddCommand extends Command {
             Itemlist.addItem(toAdd);
             LOGGER.info("Item added successfully.");
             System.out.print(MESSAGE_SUCCESS + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement()
-                    + ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + ")");
+                    + ", Buy: $" + String.format("%.2f", getBuyPrice()) + ", Sell: $" +
+                    String.format("%.2f", getSellPrice()) + ")");
             Storage.addToFile(Itemlist.getItems());
             if (!category.equals("NA")) {
                 System.out.println(" to " + getCategory());

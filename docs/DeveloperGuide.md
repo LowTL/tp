@@ -6,13 +6,10 @@
 
 ## Design
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
-
 ### Command
 The Command class is an abstract class which is extended to execute the various commands 
 used in the product. It contains the abstract method `execute`, which is overridden by all other Command child classes.
 
-{Describe the design of the product. Use UML diagrams and short code snippets where applicable.}
 ### Exception
 
 ### Item

@@ -37,11 +37,19 @@ manage and operate their business.
 
 - **Code Contributed:** [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=hengshuhong&breakdown=true)
 
+- **Enhancements to existing features:** 
+
 - **Documentation**
     - User Guide:
-        - Added  documentation for the features `add`, `find`, `promotion`, `del_promo` and `list_promotions`
-        - Added the Quick Start
-        - Update the Command Summary
+        - Added documentation for the features `add`, `find`, `promotion`, `del_promo` and `list_promotions`. [#86](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/86)
+        - Added the Quick Start.
+        - Update the Command Summary.
     - Developer Guide:
-        - Added implementation details of the `promotion` feature.
-        - 
+        - Added implementation details of the `promotion` feature. [#176](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/176)
+        - Update Product Scope [#181](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/181/files)
+        - Added non-functional requirements. [#181](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/181/files)
+
+
+- **Review Contributions**
+  - Fixed bug for team members that caused the application to crash. [#184](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/184)
+  - Fixed test case that failed [#187](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/187)

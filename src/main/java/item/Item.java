@@ -27,6 +27,7 @@ public class Item {
         this.sellPrice = sellPrice;
         this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
+
     }
 
     public String getCategory() {
@@ -108,7 +109,7 @@ public class Item {
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";
-        return (markString + getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
+        return (markString + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement() +
                 ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package exceptions;
 
 import common.Messages;
@@ -7,6 +8,9 @@ public class InvalidDateException extends Exception {
         switch(error) {
         case "INVALID_PERIOD":
             System.out.println(Messages.INVALID_PERIOD);
+            break;
+        case "INVALID_DATE":
+            System.out.println(Messages.INVALID_DATE);
             break;
         case "INVALID_TIME":
             System.out.println(Messages.INVALID_TIME);

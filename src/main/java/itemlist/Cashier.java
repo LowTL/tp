@@ -5,11 +5,13 @@ import item.Item;
 import item.Transaction;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import static ui.TextUi.replyToUser;
 
 public class Cashier extends Itemlist {
 
+    protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
@@ -28,19 +30,27 @@ public class Cashier extends Itemlist {
                     results.add(t);
                 }
             }
+            LOGGER.info("Transactions filtered.");
             return results;
         } else {
+            LOGGER.warning("No transactions found.");
             return null;
         }
     }
 
     public static float getTotalRevenue() {
         float totalRevenue = 0;
-        ArrayList<Transaction> allTransactions = getTransactions();
-        if (!allTransactions.isEmpty()) {
+        try {
+            ArrayList<Transaction> allTransactions = getTransactions();
+            if (allTransactions.isEmpty()) {
+                throw new EmptyListException("Transaction");
+            }
             for (Transaction t : allTransactions) {
                 totalRevenue += t.getTotalPrice();
             }
+        } catch (EmptyListException e) {
+            LOGGER.warning("No transactions found.");
+            return 0;
         }
         return totalRevenue;
     }
@@ -51,11 +61,12 @@ public class Cashier extends Itemlist {
             if (transactions.isEmpty()) {
                 throw new EmptyListException("Transaction");
             }
+            for (Transaction t : transactions) {
+                totalProfit += t.getProfit();
+            }
         } catch (EmptyListException e) {
+            LOGGER.warning("No transactions found.");
             return 0;
-        }
-        for (Transaction t : transactions) {
-            totalProfit += t.getProfit();
         }
         return totalProfit;
     }
@@ -65,8 +76,10 @@ public class Cashier extends Itemlist {
             return transactions.get(index);
         } catch (IndexOutOfBoundsException e) {
             if (index == 0) {
+                LOGGER.warning("No transactions found.");
                 System.out.println("No transactions found.");
             } else {
+                LOGGER.warning("Index out of bounds.");
                 System.out.println("Index " + index + " entered is out of bound.");
             }
             return null;
@@ -74,23 +87,31 @@ public class Cashier extends Itemlist {
     }
 
     public static Item getBestseller() {
-        Item bestSeller = Itemlist.getItem(0);
+        Item bestSeller = null;
         float[] profits = new float[Itemlist.items.size()];
         int transaction_index = 0;
         try {
-            for (Transaction t : transactions) {
+            if (transactions.isEmpty()) {
+                throw new EmptyListException("Transaction");
+            }
+            assert(Itemlist.noOfItems > 0);
+            bestSeller = Itemlist.getItem(0);
+            for (Transaction t: transactions) {
                 transaction_index = transactions.indexOf(t);
                 profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
             }
+            for (int i = 1; i < Itemlist.items.size(); i++) {
+                if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
+                    bestSeller = Itemlist.getItem(i);
+                }
+            }
+        } catch (EmptyListException e)  {
+            LOGGER.warning("No transactions found.");
+            return null;
         } catch (ArrayIndexOutOfBoundsException e) {
             replyToUser("Item at Transaction ID " + (transaction_index + 1) +
                     " no longer found in the item list.");
             return null;
-        }
-        for (int i = 1; i < Itemlist.items.size(); i++) {
-            if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
-                bestSeller = Itemlist.getItem(i);
-            }
         }
         return bestSeller;
     }

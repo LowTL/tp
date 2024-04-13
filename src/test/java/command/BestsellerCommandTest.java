@@ -26,8 +26,8 @@ public class BestsellerCommandTest extends Cashier {
         //clears the transactions list
         Cashier.transactions = new ArrayList<Transaction>();
 
-        for (int i = 0; i < Itemlist.noOfItems; i++) {
-            Itemlist.deleteItem(i);
+        while (Itemlist.getItem(0) != null) {
+            Itemlist.deleteItem(0);
         }
     }
 

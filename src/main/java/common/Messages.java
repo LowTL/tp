@@ -237,13 +237,18 @@ public class Messages {
             "'edit [ITEM_NAME] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]'";
     public static final String INVALID_SELL_FORMAT = "Invalid command format. Please use format: " +
             "'sell [ITEM_NAME] qty/[SELL_QUANTITY]'";
-    public static final String ITEM_NOT_FOUND = "Item is not available";
+    public static final String ITEM_NOT_FOUND = "Item cannot be found/unavailable";
 
-    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exits for this item and hence cannot be deleted";
+    public static final String ITEM_NOT_ON_PROMO = "Promotion does not exists for this item and hence " +
+            "cannot be deleted";
     public static final String INVALID_FIND_FORMAT = "Invalid command format. Please use format: " + "\n" +
             "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
             "2. 'find /filter1/filter2 [KEYWORD]' to search under the filters";
 
+    public static final String UNABLE_TO_DELETE = "There is a promotion that exists for this item. Please remove the " +
+            "promotion before deleting the item.";
+    public static final String EMPTY_ITEM_LIST = "There are no items with your search query.";
+    public static final String EMPTY_TRANSACTION_LIST = "There are no transactions with your search query.";
     public static final String EMPTY_LIST = "There is nothing here! Time to spend some money and stock em up!";
     public static final String WELCOME_MESSAGE = "Welcome to StockMaster, where you can master the knowledge on your " +
             "Stock!";
@@ -255,6 +260,7 @@ public class Messages {
     public static final String INVALID_TIME = "Invalid Time Format. Please ensure that the time is in 24 hours " +
             "format and have a valid range:" + "\n" + "e.g. time /from 0000 /to 2359";
 
+    public static final String INVALID_DATE = "Invalid Date has been entered. Please ensure that the date exists.";
     public static final String INVALID_MONTH = "Invalid Month has been entered. Please use format: MMM (e.g. JAN, DEC)";
 
     public static final String INVALID_DISCOUNT = "Invalid Discount has been entered. " +
@@ -301,6 +307,8 @@ public class Messages {
 
     public static final String SELL_TOO_LARGE = "Sell price is too large. Please input a smaller sell price.";
 
+    public static final String INVALID_TRANSACTION_FORMAT = "Invalid format. Please input the format:" +
+            "list_transactions item/[ITEM_NAME]";
     public static final String INVALID_LOW_STOCK_AMOUNT = "Please input a valid amount.";
 
 

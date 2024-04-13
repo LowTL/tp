@@ -27,6 +27,8 @@ import promotion.Month;
 import promotion.Promotionlist;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 
 public class Parser {
@@ -38,12 +40,15 @@ public class Parser {
 
      * @throws CommandFormatException Command does not follow the required format.
      */
+
+    private static final Logger logger = Logger.getLogger(Parser.class.getName());
     public Command parseInput(String userInput){
         final CommandType userCommand;
         final Matcher matcher = ParserFormat.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             System.out.println(Messages.INVALID_COMMAND);
             System.out.println(Messages.HELP);
+            logger.log(Level.FINE, "Invalid command received");
             return new IncorrectCommand();
         }
         String commandWord = matcher.group("commandWord").toUpperCase();
@@ -60,12 +65,14 @@ public class Parser {
             try {
                 return prepareHelp(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case LIST_ITEMS:
             try {
                 return prepareItemList(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case LIST_PROMOTIONS:
@@ -74,60 +81,70 @@ public class Parser {
             try {
                 return prepareTransactionList(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case DEL_PROMO:
             try {
                 return prepareDeletePromo(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case ADD:
             try {
                 return prepareAdd(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case DEL:
             try {
                 return prepareDelete(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case EDIT:
             try {
                 return prepareEdit(userInput);
             } catch (CommandFormatException | EditException e) {
+                logger.log(Level.WARNING, "Invalid input detected.", e);
                 break;
             }
         case FIND:
             try {
                 return prepareFind(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case SELL:
             try {
                 return prepareSell(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case PROMOTION:
             try {
                 return preparePromotion(userInput);
             } catch (CommandFormatException | InvalidDateException e) {
+                logger.log(Level.WARNING, "Invalid input detected.", e);
                 break;
             }
         case MARK:
             try {
                 return prepareMark(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case UNMARK:
             try {
                 return prepareUnmark(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case TOTAL_PROFIT:
@@ -140,6 +157,7 @@ public class Parser {
             try {
                 return prepareLowStock(userInput);
             } catch (CommandFormatException e) {
+                logger.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         default:
@@ -534,7 +552,7 @@ public class Parser {
     private Command prepareTransactionList(String args) throws CommandFormatException {
         final Matcher matcher = ParserFormat.LIST_TRANSACTION_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            throw new CommandFormatException(Messages.INVALID_COMMAND);
+            throw new CommandFormatException(CommandType.LIST_TRANSACTIONS);
         }
         if (matcher.group("itemName") == null) {
             return new ListCommand<>(Cashier.getTransactions(), "NA");

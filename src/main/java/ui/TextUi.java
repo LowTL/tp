@@ -139,8 +139,7 @@ public class TextUi {
         int counter = 0;
         for (Transaction t: transactions) {
             counter++;
-            replyToUser(counter + ". " + t.getItemName() + " " +
-                    (t.getProfit() > 0 ? "earned " : "lost ") + t.getProfit());
+            replyToUser(counter + ". " + t.toString());
         }
     }
 

@@ -1,9 +1,13 @@
 package command;
 
 import exceptions.CommandFormatException;
+import exceptions.EmptyListException;
 import item.Item;
 import itemlist.Itemlist;
+import promotion.Promotionlist;
 import storage.Storage;
+
+import java.util.logging.Level;
 
 public class DeleteCommand extends Command {
 
@@ -16,7 +20,7 @@ public class DeleteCommand extends Command {
     /**
      * Searches of the item in the item list with the same name and deletes it
      */
-    public void execute() {
+    public void execute() throws EmptyListException {
         int index = -1;
         try {
             for (Item item : Itemlist.getItems()) {
@@ -27,19 +31,25 @@ public class DeleteCommand extends Command {
             }
             if (index == -1) {
                 //throw exception;
-                System.out.println("Item does not exist.");
-            } else {
-                Itemlist.deleteItem(index);
-                System.out.println(itemName + " has been successfully deleted.");
-                Storage.overwriteFile(Itemlist.getItems());
-                if (index == Itemlist.getItems().size()) {
-                    assert (Itemlist.getItem(index) == null);
-                } else {
-                    assert (!Itemlist.getItem(index).getItemName().equals(itemName));
-                }
+                throw new CommandFormatException("ITEM_NOT_FOUND");
             }
+            if (Promotionlist.itemIsOnPromo(itemName)) {
+                throw new CommandFormatException("UNABLE_TO_DELETE");
+            }
+            Itemlist.deleteItem(index);
+            System.out.println(itemName + " has been successfully deleted.");
+            Storage.overwriteFile(Itemlist.getItems());
+            if (index == Itemlist.getItems().size()) {
+                assert (Itemlist.getItem(index) == null);
+            } else {
+                assert (!Itemlist.getItem(index).getItemName().equals(itemName));
+            }
+            LOGGER.info("Item successfully deleted.");
         } catch (IndexOutOfBoundsException e) {
+            LOGGER.log(Level.WARNING, "Item not deleted.", e);
             System.out.println("Itemlist is empty.");
+        } catch (CommandFormatException e) {
+            LOGGER.info("Promotion exists for item and thus cannot be deleted.");
         }
     }
 }

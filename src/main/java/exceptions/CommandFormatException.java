@@ -44,6 +44,9 @@ public class CommandFormatException extends Exception{
         case UNMARK:
             System.out.println(Messages.INVALID_UNMARK_FORMAT);
             break;
+        case LIST_TRANSACTIONS:
+            System.out.println(Messages.INVALID_TRANSACTION_FORMAT);
+            break;
         case LOW_STOCK:
             System.out.println(Messages.INVALID_LOW_STOCK_FORMAT);
             break;
@@ -73,6 +76,9 @@ public class CommandFormatException extends Exception{
             break;
         case "INVALID_COMMAND":
             System.out.println(Messages.INVALID_HELP_COMMAND);
+            break;
+        case "UNABLE_TO_DELETE":
+            System.out.println(Messages.UNABLE_TO_DELETE);
             break;
         case "QTY_TOO_LARGE":
             System.out.println(Messages.QTY_TOO_LARGE);

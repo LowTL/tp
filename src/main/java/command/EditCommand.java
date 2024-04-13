@@ -16,7 +16,7 @@ public class EditCommand extends Command{
     protected float newBuyPrice;
     protected float newSellPrice;
 
-    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
+    public EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
                         String newCategory,
                         float newBuyPrice, float newSellPrice) {
         this.itemName = itemName;
@@ -70,9 +70,11 @@ public class EditCommand extends Command{
         }
         if (index == -1) { // if item is not found
             //throw exception;
+            LOGGER.warning("Item not found.");
             ui.TextUi.replyToUser("item not found!");
         } else {
             Item item = Itemlist.getItem(index);
+            assert item != null;
             String itemName = item.getItemName();
             ui.TextUi.replyToUser("\n" + "Edited: ");
             if (!newItemName.equals("NA")) { // check if itemName was edited
@@ -96,16 +98,17 @@ public class EditCommand extends Command{
             }
             if (newBuyPrice != -1) { // check if buyPrice was edited
                 ui.TextUi.showEditMessage(itemName, "newBuyPrice", String.valueOf(item.getBuyPrice()),
-                        String.valueOf(newBuyPrice));
+                        String.format("%.2f", newBuyPrice));
                 item.setBuyPrice(newBuyPrice);
             }
             if (newSellPrice != -1) { // check if sellPrice was edited
                 ui.TextUi.showEditMessage(itemName, "newSellPrice", String.valueOf(item.getSellPrice()),
-                        String.valueOf(newSellPrice));
+                        String.format("%.2f", newSellPrice));
                 item.setSellPrice(newSellPrice);
             }
         }
         ui.TextUi.replyToUser("End of Edits");
+        LOGGER.info("Edit run successfully.");
         ui.TextUi.replyToUser("");
         Storage.overwriteFile(Itemlist.getItems());
     }

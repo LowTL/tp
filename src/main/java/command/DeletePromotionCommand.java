@@ -16,9 +16,9 @@ public class DeletePromotionCommand extends Command {
     }
 
     /**
-     * Deletes an existing promotion for an item
+     * Deletes a promotion from the promotion list
      *
-     * @throws CommandFormatException Command does not follow the required format.
+     * @throws CommandFormatException is thrown when the promotion for the item does not exists
      */
     @Override
     public void execute() throws CommandFormatException {

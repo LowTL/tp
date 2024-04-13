@@ -3,9 +3,12 @@ package itemlist;
 import item.Item;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Itemlist {
     public static int noOfItems;
+    protected static final Logger LOGGER = Logger.getLogger(Itemlist.class.getName());
     protected static ArrayList<Item> items = new ArrayList<>();
 
     public Itemlist() {
@@ -44,8 +47,10 @@ public class Itemlist {
             return items.get(index);
         } catch (IndexOutOfBoundsException e) {
             if (index != 0) {
+                LOGGER.log(Level.WARNING, "Index out of bound", e);
                 System.out.println("Index " + index + " entered is out of bound.");
             } else {
+                LOGGER.warning("There are no items.");
                 System.out.println("There are no items added yet!");
             }
             return null;
@@ -55,9 +60,11 @@ public class Itemlist {
     public static Item getItem(String name) {
         for (Item i: items) {
             if (i.getItemName().equals(name)) {
+                LOGGER.info("Item found.");
                 return i;
             }
         }
+        LOGGER.warning("Item not found.");
         return null;
     }
     public static int getIndex(Item item) {

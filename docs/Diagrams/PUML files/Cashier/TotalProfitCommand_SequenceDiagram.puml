@@ -1,15 +1,7 @@
 @startuml
-participant BestsellerCommand
 participant TotalProfitCommand
 participant Cashier
 participant TextUi
-
-BestsellerCommand -> Cashier: getBestseller()
-activate Cashier
-Cashier -> Cashier: Retrieve bestseller
-Cashier --> BestsellerCommand: Bestselling item
-deactivate Cashier
-BestsellerCommand -> TextUi: replyToUser("The current best-selling item is {bestseller.getItemName()}")
 
 TotalProfitCommand -> Cashier: getTotalProfit() / getTotalRevenue()
 activate Cashier

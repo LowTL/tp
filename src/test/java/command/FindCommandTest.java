@@ -1,25 +1,40 @@
 package command;
 
+import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class FindCommandTest {
 
     @Test
     public void findCommandTest() throws CommandFormatException, InvalidDateException {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
         Command addCommandTest1 = new AddCommand("testItem", 1, "EA",
                 "NA", 1, 10);
         Command findCommand = new FindCommand("item","testItem");
         Command findCommand2 = new FindCommand("NA","failFindCommand");
+        Command findCommand3 = new FindCommand("qtybuysell","1");
         try {
             addCommandTest1.execute();
             findCommand.execute();
             findCommand2.execute();
+            findCommand3.execute();
+            String expectedOutput1 = "added: testItem (Qty: 1 EA, Buy: $1, Sell: $1)"
+                    + System.lineSeparator() +
+                    "testItem (Qty: 1 EA, Buy: $1, Sell: $1)" + System.lineSeparator() +
+                    Messages.EMPTY_ITEM_LIST + System.lineSeparator() +
+                    "testItem (Qty: 1 EA, Buy: $1, Sell: $1)" + System.lineSeparator();
+            assertEquals(expectedOutput1, outputStreamCaptor.toString());
         } catch (EmptyListException e) {
             return;
         }

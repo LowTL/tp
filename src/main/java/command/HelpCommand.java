@@ -1,5 +1,6 @@
 package command;
 
+import common.HelpMessages;
 import common.Messages;
 import exceptions.CommandFormatException;
 
@@ -9,6 +10,7 @@ public class HelpCommand extends Command{
 
     public HelpCommand(String command){
         this.command = command;
+        LOGGER.info("Command successfully created");
     }
 
     /**
@@ -44,10 +46,10 @@ public class HelpCommand extends Command{
         case "bestseller":
             System.out.println(Messages.HELP_BESTSELLER);
             break;
-        case "total profit":
+        case "total_profit":
             System.out.println(Messages.HELP_TOTAL_PROFIT);
             break;
-        case "total revenue":
+        case "total_revenue":
             System.out.println(Messages.HELP_TOTAL_REVENUE);
             break;
         case "promotion":
@@ -65,8 +67,12 @@ public class HelpCommand extends Command{
         case "exit":
             System.out.println(Messages.HELP_EXIT);
             break;
+        case "list_transactions":
+            System.out.println(HelpMessages.HELP_LIST_TRANSACTIONS);
+            break;
         default:
             System.out.println(Messages.INVALID_HELP_COMMAND);
+            LOGGER.warning("Invalid help command received.");
             break;
         }
 

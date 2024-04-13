@@ -5,13 +5,13 @@ import itemlist.Itemlist;
 
 public class Item {
     public boolean isMark;
+    public boolean isOOS;
     private String itemName;
     private int quantity;
     private String unitOfMeasurement;
     private String category;
     private float buyPrice;
     private float sellPrice;
-    private boolean isOOS;
 
     public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;
@@ -27,6 +27,7 @@ public class Item {
         this.sellPrice = sellPrice;
         this.isOOS = quantity == 0;
         Itemlist.noOfItems++;
+
     }
 
     public String getCategory() {
@@ -104,10 +105,11 @@ public class Item {
         return this.isMark;
     }
 
+    @Override
     public String toString() {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";
-        return (markString + getItemName() + " (Qty: " + getQuantity() + getUnitOfMeasurement() +
+        return (markString + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement() +
                 ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
     }
 }

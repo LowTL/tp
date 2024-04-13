@@ -3,6 +3,7 @@ package command;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
+import exceptions.InvalidDateException;
 import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
@@ -10,6 +11,7 @@ import itemlist.Itemlist;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import promotion.Month;
 import promotion.Promotion;
 import promotion.Promotionlist;
 
@@ -125,6 +127,30 @@ public class ListCommandTest extends Cashier {
 
     }
 
+    @Test
+    public void listCommandTest_promotionList_correct() throws InvalidDateException, CommandFormatException {
+        AddCommand addCommand = new AddCommand("testItem", 1, "ea", "NA", 1.00F, 2.00F);
+        addCommand.execute();
+        Command testPromo = new AddPromotionCommand("testItem", 0.30F, 2, Month.valueOf("APR"),
+                2024, 4, Month.valueOf("APR"), 2024, 0000, 1100);
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outputStream));
+            testPromo.execute();
+            String expected = "The following promotion has been added" + System.lineSeparator() +
+                    "testItem have a 30.00% discount" + System.lineSeparator() +
+                    "Period: 2 APR 2024 to 4 APR 2024" + System.lineSeparator() +
+                    "Time: 0000 to 1100" + System.lineSeparator();
+            assertEquals(expected, outputStream.toString());
+        } catch (EmptyListException e) {
+            Assertions.fail("Unexpected EmptyListException thrown.");
+            throw new RuntimeException(e);
+        } catch (CommandFormatException | InvalidDateException e) {
+            Assertions.fail("Unexpected exception thrown");
+            throw new RuntimeException(e);
+        }
+
+    }
     @Test
     public void listCommandTest_itemList_empty() {
         ListCommand listCommand1 = new ListCommand(new ArrayList<Item>(), "NA", false);

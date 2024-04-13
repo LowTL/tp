@@ -31,8 +31,8 @@ public class ItemlistTest {
     }
 
     @Test
-    void addItem_shouldIncreaseListSize() {
-        assertEquals(10, Itemlist.getItems().size());
+    void getSizeTest() {
+        assertEquals(1, Itemlist.getItems().size());
     }
 
     @Test

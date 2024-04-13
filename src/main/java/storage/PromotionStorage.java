@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package storage;
 
 import exceptions.CommandFormatException;
@@ -28,6 +29,12 @@ public class PromotionStorage extends Storage{
         }
     }
 
+    /**
+     * Read lines from the file and identify promotions written inside.
+     * Add the identified promotions into a list of existing promotions.
+     *
+     * @param fileName Name of the file to read from.
+     */
     public static void readFromFile(String fileName) {
         int count = 0;
         String itemName = "";
@@ -88,26 +95,19 @@ public class PromotionStorage extends Storage{
         }
     }
 
-    public static void addToPromotionFile(ArrayList<Promotion> promotions) {
-        assert promotions != null : "Promotions cannot be null.";
-        Promotion lastPromotion = promotions.get(promotions.size() - 1);
-        String descriptionAdded = (lastPromotion.getItemName() + " have a " +
-                String.format("%.2f", (lastPromotion.getDiscount()*100)) + "% discount" + "\n" +
-                "Period: " + lastPromotion.getStartDate() + " " + lastPromotion.getStartMonth() +
-                " " + lastPromotion.getStartYear() + " to " + lastPromotion.getEndDate()+ " " +
-                lastPromotion.getEndMonth() + " " + lastPromotion.getEndYear() + "\n" + "Time: " +
-                lastPromotion.getStartTime() + " to " + lastPromotion.getEndTime() + "\n");
-        updateFile(descriptionAdded, true);
-    }
-
+    /**
+     * Writes to the indicated file and overwrite previous data
+     *
+     * @param promotions List of promotions with relevant details to write
+     */
     public static void overwritePromotionFile(ArrayList<Promotion> promotions) {
         assert promotions != null : "Promotions cannot be null.";
         int length = promotions.size();
         for (Promotion promotion: promotions) {
             String descriptionAdded = (promotion.getItemName() + " have a " +
                     String.format("%.2f", (promotion.getDiscount()*100)) + "% discount" + "\n" + "Period: " +
-                    promotion.getStartDate() + " " + promotion.getStartMonth() + " " + promotion.getStartYear() +
-                    " to " + promotion.getEndDate()+ " " + promotion.getEndMonth() + " " + promotion.getEndYear() +
+                    promotion.getStartDay() + " " + promotion.getStartMonth() + " " + promotion.getStartYear() +
+                    " to " + promotion.getEndDay()+ " " + promotion.getEndMonth() + " " + promotion.getEndYear() +
                     "\n" + "Time: " + promotion.getStartTime() + " to " + promotion.getEndTime() + "\n");
             if (promotions.indexOf(promotion) == 0) {
                 updateFile(descriptionAdded, false);

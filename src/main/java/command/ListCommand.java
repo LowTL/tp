@@ -1,7 +1,6 @@
 package command;
 
 import exceptions.EmptyListException;
-import common.Messages;
 import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
@@ -78,8 +77,8 @@ public class ListCommand<T> extends Command{
             showCustomizedItemList();
             LOGGER.info("Items listed.");
         } else {
-            TextUi.replyToUser(Messages.EMPTY_LIST);
             LOGGER.warning("No items found.");
+            throw new EmptyListException("Empty List");
         }
     }
 

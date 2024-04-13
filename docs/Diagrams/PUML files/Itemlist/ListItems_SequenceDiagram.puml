@@ -33,7 +33,7 @@ else contains Items
     ListCommand -> UI : replyToUser(item details)
     deactivate ListCommand
     activate UI
-    UI --> ListCommand : display marked items
+    UI --> ListCommand : display relevant items
     deactivate UI
 end
 hide footbox

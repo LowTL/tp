@@ -23,9 +23,54 @@ price, quantity of item, and others.
 Itemlist class is an object which contains items to be added to the stock inventory list. Able to add items, 
 remove functions, edit items inside  the list.
 
+To list items in the `Itemlist` to the user, the `ListCommand` class is used.
+
+#### Sequence Diagram of `ListCommand` when used to list items.
+
+![ListItems_SequenceDiagram](Diagrams/Images/Itemlist/ListItems_SequenceDiagram.png)
+1. An instance of `ListCommand` is created with parameters specifying what category to list, or whether to only 
+list marked items, as well as an `Itemlist` class. 
+2. The `execute()` method is then called, which first checks which type of list is passed. In this case, it wil be the 
+list of items. Afterwards, it checks for modifiers such as category or isListMarked.
+3. Depending on the modifiers, different things will happen.
+   - If there are no modifiers, `ListCommand` will display all items in the list by calling `TextUi.ShowList()`.
+4. If there are modifiers present, `ShowCustomizedItemList()` will be called.
+   - If there is a category present, `ListCommand` will get the category of every item in the `Itemlist` with 
+   `Item.getCategory()`. 
+   - If isListMarked is true, `ListCommand` will get the mark status of evey item in the `Itemlist` with 
+   `Item.getMarkStatus()`.
+   - Afterwards, `TextUi.replyToUser()` will be called, displaying the relevant items. 
+
+
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
 ![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_Sequence_Diagram.png)
+
+The `EditCommand` class extends the `command` class.
+The `EditCommand` is responsible for editing attributes of an item in the `Itemlist`. This includes changing the
+item's name, quantity, unit of measurement, category, buy price, and sell price. 
+The command modifies the relevant item if it exists and updates the system accordingly.
+
+#### Class Diagram of `EditCommand` and with partial Class Diagrams of `Item` and `Itemlist`
+
+![EditCommand_ClassDiagram](Diagrams/Images/Itemlist/EditCommand_ClassDiagram.png)
+
+#### Sequence Diagram of `EditCommand`
+![EditCommand_SequenceDiagram](Diagrams/Images/Itemlist/EditCommand_SequenceDiagram.png)
+
+1. When an instance of `EditCommand` is created, the parameters indicating the item to be edited and the new values for
+these parameters are also specified.
+2. - Afterwards, the `execute()` method will be called, which first interacts with `Itemlist` class by calling 
+`Itemlist.getItems()` to retrieve the list of all items.
+   - If the item is found, it retreives the index of the item. If not, a messasge indicating that item is not found 
+   will be displayed using `TextUi.replyToUser()`.
+3. If an item is found, the `Itemlist.getItem(index)` method is used to retrieve the item object. For each
+attribute that needs modification, the corresponding setter method on the `Item` objet is called, such as 
+`setItemName()`, `setQuantity()`, etc.
+4. Once all changes have been made, `TextUi.replyToUser()` is called to display to the user that the editing 
+process had concluded.
+5. Finally, `Storage.overwriteFile(Itemlist.getItems())` is called to write changes to the local save file.
+
 
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.

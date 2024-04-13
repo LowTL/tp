@@ -15,7 +15,7 @@ public class EditCommand extends Command{
     protected float newBuyPrice;
     protected float newSellPrice;
 
-    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
+    public EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
                         String newCategory,
                         float newBuyPrice, float newSellPrice) {
         this.itemName = itemName;

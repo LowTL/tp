@@ -28,7 +28,7 @@ public class Promotionlist {
      */
     public static boolean itemIsOnPromo(String itemName) {
         for (Promotion promotion : promotions) {
-            if (promotion.getItemName().toLowerCase().equals(itemName)) {
+            if (promotion.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 return true;
             }
         }

@@ -1,0 +1,68 @@
+@startuml
+class EditCommand {
+    - itemName : String
+    - newItemName : String
+    - newQuantity : int
+    - newUnitOfMeasurement : String
+    - newCategory : String
+    - newBuyPrice : float
+    - newSellPrice : float
+
+    + EditCommand(itemName: String, newItemName: String, newQuantity: int, newUnitOfMeasurement: String, newCategory: String, newBuyPrice: float, newSellPrice: float)
+    + getItemName() : String
+    + getNewItemName() : String
+    + getNewQuantity() : int
+    + getNewUnitOfMeasurement() : String
+    + getNewCategory() : String
+    + getNewBuyPrice() : float
+    + getNewSellPrice() : float
+    + execute() : void
+}
+
+class Item {
+    - itemName : String
+    - quantity : int
+    - unitOfMeasurement : String
+    - category : String
+    - buyPrice : float
+    - sellPrice : float
+    - isOOS : boolean
+
+    + setItemName(newName: String)
+    + setQuantity(newQuantity: int)
+    + setUnitOfMeasurement(newUnit: String)
+    + setCategory(newCategory: String)
+    + setBuyPrice(newPrice: float)
+    + setSellPrice(newPrice: float)
+    + getItemName() : String
+    + getQuantity() : int
+    + getUnitOfMeasurement() : String
+    + getCategory() : String
+    + getBuyPrice() : float
+    + getSellPrice() : float
+    + markOOS()
+    + unmarkOOS()
+}
+
+class Itemlist {
+    - items : ArrayList<Item>
+
+    + getItems() : ArrayList<Item>
+    + getItem(index: int) : Item
+    + overwriteFile(items : ArrayList<Item>)
+}
+
+class TextUi {
+    + replyToUser(message: String)
+    + showEditMessage(oldValue: String, attribute: String, newValue: String)
+}
+
+class Storage {
+    + overwriteFile(items : ArrayList<Item>)
+}
+
+EditCommand -- "0..*" Item
+EditCommand -- "1" Itemlist
+EditCommand -- "1" TextUi
+EditCommand -- "1" Storage
+@enduml

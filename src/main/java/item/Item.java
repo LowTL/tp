@@ -5,13 +5,13 @@ import itemlist.Itemlist;
 
 public class Item {
     public boolean isMark;
+    public boolean isOOS;
     private String itemName;
     private int quantity;
     private String unitOfMeasurement;
     private String category;
     private float buyPrice;
     private float sellPrice;
-    private boolean isOOS;
 
     public Item(String name, int quantity, String unitOfMeasurement, String category, float buyPrice, float sellPrice) {
         this.itemName = name;

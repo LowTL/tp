@@ -245,6 +245,8 @@ public class Messages {
             "1. 'find [KEYWORD]' to search the entire Item List" + "\n" +
             "2. 'find /filter1/filter2 [KEYWORD]' to search under the filters";
 
+    public static final String UNABLE_TO_DELETE = "There is a promotion that exists for this item. Please remove the " +
+            "promotion before deleting the item.";
     public static final String EMPTY_ITEM_LIST = "There are no items with your search query.";
     public static final String EMPTY_TRANSACTION_LIST = "There are no transactions with your search query.";
     public static final String EMPTY_LIST = "There is nothing here! Time to spend some money and stock em up!";

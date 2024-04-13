@@ -1,0 +1,112 @@
+@startuml
+participant "ui : TextUi" as UI
+participant "editCommand : EditCommand" as EditCommand
+participant "itemList : Itemlist" as Itemlist
+participant "item : Item" as Item
+participant "storage : Storage" as Storage
+
+activate EditCommand
+
+EditCommand -> Itemlist : getItems()
+activate Itemlist
+Itemlist --> EditCommand : return items
+deactivate Itemlist
+
+EditCommand -> EditCommand : find item index
+activate EditCommand
+EditCommand --> EditCommand : index found / -1 if not found
+deactivate EditCommand
+
+alt item not found
+    EditCommand -> UI : replyToUser("item not found!")
+    activate UI
+    UI --> EditCommand
+    deactivate UI
+else item found
+    EditCommand -> Itemlist : getItem(index)
+    activate Itemlist
+    Itemlist --> EditCommand : return item
+    deactivate Itemlist
+
+    loop For each editable attribute
+        alt newItemName exists
+            EditCommand -> UI : showEditMessage(newItemName)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setItemName(newItemName)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+        alt newQuantity exists
+            EditCommand -> UI : showEditMessage(newQuantity)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setQuantity(newQuantity)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+        alt newUnitOfMeasurement exists
+            EditCommand -> UI : showEditMessage(newUnitOfMeasurement)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setUnitOfMeasurement(newUnitOfMeasurement)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+            alt newCategory exists
+            EditCommand -> UI : showEditMessage(newCategory)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setCategory(newCategory)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+            alt newBuyPrice exists
+            EditCommand -> UI : showEditMessage(newBuyPrice)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setBuyPrice(newBuyPrice)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+            alt newSellPrice exists
+            EditCommand -> UI : showEditMessage(newSellPrice)
+            activate UI
+            UI --> EditCommand
+            deactivate UI
+            EditCommand -> Item : setSellPrice(newSellPrice)
+            activate Item
+            Item --> EditCommand
+            deactivate Item
+        end
+
+    end loop
+
+    EditCommand -> UI : replyToUser("End of Edits")
+    activate UI
+    UI --> EditCommand
+    deactivate UI
+
+    EditCommand -> Storage : overwriteFile(Itemlist.getItems())
+    activate Storage
+    Storage --> EditCommand
+    deactivate Storage
+end
+
+EditCommand -> UI : replyToUser("")
+activate UI
+UI --> EditCommand
+deactivate UI
+hide footbox
+deactivate EditCommand
+@enduml

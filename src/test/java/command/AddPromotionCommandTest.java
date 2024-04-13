@@ -23,7 +23,7 @@ public class AddPromotionCommandTest {
                     2024, 4, Month.valueOf("APR"), 2024, 0000, 1100);
             addCommandTest1.execute();
             promotionTest1.execute();
-            String expectedOutput1 = "added: apple (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput1 = "added: apple (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     "The following promotion has been added" + System.lineSeparator() +
                     "apple have a 30.00% discount" + System.lineSeparator() +
                     "Period: 29 FEB 2024 to 4 APR 2024" + System.lineSeparator() +
@@ -47,7 +47,7 @@ public class AddPromotionCommandTest {
                     2024, 4, Month.valueOf("APR"), 2024, 0000, 1100);
             addCommandTest2.execute();
             promotionTest2.execute();
-            String expectedOutput2 = "added: durian (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput2 = "added: durian (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     "The following promotion has been added" + System.lineSeparator() +
                     "durian have a 30.00% discount" + System.lineSeparator() +
                     "Period: 2 APR 2024 to 4 APR 2024" + System.lineSeparator() +
@@ -71,7 +71,7 @@ public class AddPromotionCommandTest {
                     2024, 4, Month.valueOf("APR"), 2026, 0000, 1100);
             addCommandTest3.execute();
             promotionTest3.execute();
-            String expectedOutput3 = "added: mango (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput3 = "added: mango (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     "The following promotion has been added" + System.lineSeparator() +
                     "mango have a 30.00% discount" + System.lineSeparator() +
                     "Period: 29 FEB 2024 to 4 APR 2026" + System.lineSeparator() +
@@ -116,7 +116,7 @@ public class AddPromotionCommandTest {
             addCommandTest1.execute();
             promotionTest1.execute();
             promotionTest2.execute();
-            String expectedOutput3 = "added: banana (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput3 = "added: banana (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     Messages.INVALID_DISCOUNT + System.lineSeparator() +
                     Messages.INVALID_DISCOUNT + System.lineSeparator();
             assertEquals(expectedOutput3, outputStreamCaptor.toString());
@@ -141,7 +141,7 @@ public class AddPromotionCommandTest {
             addCommandTest1.execute();
             promotionTest1.execute();
             promotionTest2.execute();
-            String expectedOutput3 = "added: lemon (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput3 = "added: lemon (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     Messages.INVALID_TIME + System.lineSeparator() +
                     Messages.INVALID_TIME + System.lineSeparator();
             assertEquals(expectedOutput3, outputStreamCaptor.toString());
@@ -166,7 +166,7 @@ public class AddPromotionCommandTest {
             addCommandTest1.execute();
             promotionTest1.execute();
             promotionTest2.execute();
-            String expectedOutput3 = "added: cherry (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput3 = "added: cherry (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     Messages.INVALID_DATE + System.lineSeparator() +
                     Messages.INVALID_DATE + System.lineSeparator();
             assertEquals(expectedOutput3, outputStreamCaptor.toString());
@@ -197,7 +197,7 @@ public class AddPromotionCommandTest {
             promotionTest2.execute();
             promotionTest3.execute();
             promotionTest4.execute();
-            String expectedOutput3 = "added: orange (Qty: 1 fruits, Buy: $1.0, Sell: $1.0)" + System.lineSeparator() +
+            String expectedOutput3 = "added: orange (Qty: 1 fruits, Buy: $1.00, Sell: $1.00)" + System.lineSeparator() +
                     Messages.INVALID_PERIOD + System.lineSeparator() +
                     Messages.INVALID_PERIOD + System.lineSeparator() +
                     Messages.INVALID_PERIOD + System.lineSeparator() +

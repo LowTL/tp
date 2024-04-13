@@ -15,7 +15,7 @@ public class EditCommand extends Command{
     protected float newBuyPrice;
     protected float newSellPrice;
 
-    public  EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
+    public EditCommand(String itemName, String newItemName, int newQuantity, String newUnitOfMeasurement,
                         String newCategory,
                         float newBuyPrice, float newSellPrice) {
         this.itemName = itemName;
@@ -94,12 +94,12 @@ public class EditCommand extends Command{
             }
             if (newBuyPrice != -1) { // check if buyPrice was edited
                 ui.TextUi.showEditMessage(itemName, "newBuyPrice", String.valueOf(item.getBuyPrice()),
-                        String.valueOf(newBuyPrice));
+                        String.format("%.2f", newBuyPrice));
                 item.setBuyPrice(newBuyPrice);
             }
             if (newSellPrice != -1) { // check if sellPrice was edited
                 ui.TextUi.showEditMessage(itemName, "newSellPrice", String.valueOf(item.getSellPrice()),
-                        String.valueOf(newSellPrice));
+                        String.format("%.2f", newSellPrice));
                 item.setSellPrice(newSellPrice);
             }
         }

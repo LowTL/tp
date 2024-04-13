@@ -12,14 +12,9 @@ public class BestsellerCommand extends Command {
     @Override
     public void execute() throws EmptyListException {
         Item bs = Cashier.getBestseller();
-        try {
-            if (bs == null) {
-                throw new EmptyListException("Transaction");
-            }
-        } catch (EmptyListException e) {
-            LOGGER.warning("No transaction found.");
+        if (bs != null) {
+            TextUi.replyToUser("The current best-selling item is " +
+                    bs.getItemName());
         }
-        TextUi.replyToUser("The current best-selling item is " +
-                bs.getItemName());
     }
 }

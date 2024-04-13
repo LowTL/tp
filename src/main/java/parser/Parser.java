@@ -27,9 +27,7 @@ import promotion.Month;
 import promotion.Promotionlist;
 
 
-import java.io.IOException;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parser {
 

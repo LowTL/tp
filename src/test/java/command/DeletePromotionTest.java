@@ -29,7 +29,7 @@ public class DeletePromotionTest {
             promotionTest1.execute();
             deleteFail.execute();
             deleteSuccess.execute();
-            String expectedOutput1 = "added: apple iphone (Qty: 100000 pieces, Buy: $100.5, Sell: $400.1) " +
+            String expectedOutput1 = "added: apple iphone (Qty: 100000 pieces, Buy: $100.50, Sell: $400.10) " +
                     "to electronics" + System.lineSeparator() +
                     "The following promotion has been added" + System.lineSeparator() +
                     "apple iphone have a 30.00% discount" + System.lineSeparator() +

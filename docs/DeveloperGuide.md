@@ -43,6 +43,7 @@ the Itemlist by `addItem()` method.
 ![Storage_sequenceDiagram](./Diagrams/Storage_sequenceDiagram.png)
 
 ### UI
+UI prints command output, and useful messages to the user.
 
 ### Cashier
 Cashier class extends Itemlist class, and stores `Transactions` instead of `Items`.

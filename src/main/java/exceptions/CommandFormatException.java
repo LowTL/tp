@@ -74,6 +74,9 @@ public class CommandFormatException extends Exception{
         case "INVALID_COMMAND":
             System.out.println(Messages.INVALID_HELP_COMMAND);
             break;
+        case "UNABLE_TO_DELETE":
+            System.out.println(Messages.UNABLE_TO_DELETE);
+            break;
         case "QTY_TOO_LARGE":
             System.out.println(Messages.QTY_TOO_LARGE);
             break;

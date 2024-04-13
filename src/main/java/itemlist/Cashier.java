@@ -7,6 +7,8 @@ import item.Transaction;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import static ui.TextUi.replyToUser;
+
 public class Cashier extends Itemlist {
 
     protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());

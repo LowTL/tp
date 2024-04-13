@@ -68,6 +68,9 @@ public class CommandFormatException extends Exception{
         case "INVALID_CATEGORY":
             System.out.println(Messages.INVALID_CATEGORY);
             break;
+        case "INVALID_UNITS":
+            System.out.println(Messages.INVALID_UNITS);
+            break;
         case "INVALID_COMMAND":
             System.out.println(Messages.INVALID_HELP_COMMAND);
             break;

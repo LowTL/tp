@@ -2,6 +2,7 @@ package seedu.duke;
 
 import command.Command;
 import command.ExitCommand;
+import command.LowStockCommand;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
@@ -41,6 +42,7 @@ public class StockMaster {
         TransactionLogs.readFromFile(TRANSACTION_FILE);
         PromotionStorage.updateFile("", true);
         PromotionStorage.readFromFile(PROMOTION_STORAGE_FILE);
+        new LowStockCommand().execute();
         this.normalOperation();
         ui.showGoodByeMessage(STORAGE_FILE, TRANSACTION_FILE, PROMOTION_STORAGE_FILE);
     }

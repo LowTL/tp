@@ -1,6 +1,7 @@
 package command;
 
 import common.Messages;
+import exceptions.CommandFormatException;
 
 public class HelpCommand extends Command{
 
@@ -9,6 +10,10 @@ public class HelpCommand extends Command{
     public HelpCommand(String command){
         this.command = command;
     }
+
+    /**
+     * Prints the help message for the relevant command
+     */
     @Override
     public void execute() {
         switch (command) {

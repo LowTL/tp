@@ -27,6 +27,9 @@ public class SellCommand extends Command {
         return sellQuantity;
     }
 
+    /**
+     * Checks that the item is in the list, then edits the quantity, reducing it by the amount sold
+     */
     @Override
     public void execute() {
         int index = -1;

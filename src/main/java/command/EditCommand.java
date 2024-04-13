@@ -1,6 +1,7 @@
 //@@author Fureimi
 package command;
 
+import exceptions.CommandFormatException;
 import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;
@@ -55,6 +56,9 @@ public class EditCommand extends Command{
         return newSellPrice;
     }
 
+    /**
+     * Edits the relevant params of the item in the item list
+     */
     @Override
     public void execute() {
         int index = -1; // flag to check if item exists in Itemlist

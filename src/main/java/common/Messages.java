@@ -291,6 +291,8 @@ public class Messages {
 
     public static final String INVALID_CATEGORY = "Blank category detected. Please input a category.";
 
+    public static final String INVALID_UNITS = "Invalid units of measurement.";
+
     public static final String INVALID_HELP_COMMAND = "Please input a valid command to inquire about.";
 
     public static final String QTY_TOO_LARGE = "Quantity is too large. Please input a smaller quantity.";

@@ -14,6 +14,12 @@ public class DeletePromotionCommand extends Command {
     public DeletePromotionCommand(String itemName) {
         this.itemName = itemName;
     }
+
+    /**
+     * Deletes an existing promotion for an item
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     @Override
     public void execute() throws CommandFormatException {
         if (Promotionlist.itemIsOnPromo(itemName)) {

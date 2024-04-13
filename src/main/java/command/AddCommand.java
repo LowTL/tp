@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.CommandFormatException;
 import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;
@@ -45,6 +46,9 @@ public class AddCommand extends Command {
         return sellPrice;
     }
 
+    /**
+     * Adds an item to the itemlist with the item name, quantity, units of measurement, category, buy and sell price
+     */
     @Override
     public void execute() {
         if (Itemlist.itemIsExist(itemName)) {
@@ -63,6 +67,12 @@ public class AddCommand extends Command {
         }
     }
 
+    /**
+     * Checks if the item about to be added already exists in the item list. If so, it will update the quantity of the
+     * item by adding the new amount to the existing amount. Other variables like buy and sell price will not be changed
+     *
+     * @param itemName The name of the item to be added
+     */
     public void updateQuantity(String itemName) {
         System.out.println("Item already exists and item information has been updated");
         int indexOfItem = -1;

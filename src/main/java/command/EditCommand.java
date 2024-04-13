@@ -1,7 +1,6 @@
 //@@author Fureimi
 package command;
 
-import exceptions.CommandFormatException;
 import item.Item;
 import itemlist.Itemlist;
 import storage.Storage;

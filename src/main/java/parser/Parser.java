@@ -37,7 +37,7 @@ public class Parser {
      * Takes in the user's input and calls the relevant command
      *
      * @param userInput The user's input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
 
@@ -171,7 +171,7 @@ public class Parser {
      * Formats the user's input to call HelpCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareHelp(String args) throws CommandFormatException{
@@ -194,7 +194,7 @@ public class Parser {
      * Formats the user's input to call AddCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareAdd(String args) throws CommandFormatException{
@@ -255,7 +255,7 @@ public class Parser {
      * Formats the user's input to call DeleteCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareDelete(String args) throws CommandFormatException{
@@ -275,7 +275,7 @@ public class Parser {
      * Formats the user's input to call SellCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareSell(String args) throws CommandFormatException{
@@ -317,7 +317,7 @@ public class Parser {
      * Formats the user's input to call FindCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareFind(String args) throws CommandFormatException{
@@ -337,7 +337,7 @@ public class Parser {
      * Formats the user's input to call EditCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      * @throws EditException Command does not follow the required format for the edit command.
      */
@@ -420,7 +420,7 @@ public class Parser {
      * Formats the user's input to call AddPromotionCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      * @throws InvalidDateException Date/time input is not valid.
      */
@@ -467,7 +467,7 @@ public class Parser {
      * Formats the user's input to call DeletePromotionCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareDeletePromo(String args) throws CommandFormatException{
@@ -483,7 +483,7 @@ public class Parser {
      * Formats the user's input to list all items or list them by category
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareItemList(String args) throws CommandFormatException {
@@ -508,7 +508,7 @@ public class Parser {
      * Formats the user's input to call MarkCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareMark(String args) throws CommandFormatException {
@@ -527,7 +527,7 @@ public class Parser {
      * Formats the user's input to call UnmarkCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareUnmark(String args) throws CommandFormatException {
@@ -546,7 +546,7 @@ public class Parser {
      * Formats the user's input to list all transactions or list all transactions of a certain item
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareTransactionList(String args) throws CommandFormatException {
@@ -566,7 +566,7 @@ public class Parser {
      * Formats the user's input to call LowStockCommand with the appropriate params
      *
      * @param args The user's parsed input command
-
+     *
      * @throws CommandFormatException Command does not follow the required format.
      */
     private Command prepareLowStock(String args) throws CommandFormatException{

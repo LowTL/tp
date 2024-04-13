@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 public class Cashier extends Itemlist {
 
     protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());
-    private static final ArrayList<Transaction> transactions = new ArrayList<>();
+    protected static ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
         transactions.add(transaction);
@@ -84,25 +84,21 @@ public class Cashier extends Itemlist {
         }
     }
 
-    public static Item getBestseller() throws EmptyListException {
+    public static Item getBestseller() {
         Item bestSeller = null;
         float[] profits = new float[Itemlist.items.size()];
-        try {
-            if (transactions.isEmpty()) {
-                throw new EmptyListException("Transaction");
+        if (transactions.isEmpty()) {
+            return null;
+        }
+        assert(Itemlist.noOfItems > 0);
+        bestSeller = Itemlist.getItem(0);
+        for (Transaction t: transactions) {
+            profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+        }
+        for (int i = 1; i < Itemlist.items.size(); i++) {
+            if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
+                bestSeller = Itemlist.getItem(i);
             }
-            assert(Itemlist.noOfItems > 0);
-            bestSeller = Itemlist.getItem(0);
-            for (Transaction t: transactions) {
-                profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
-            }
-            for (int i = 1; i < Itemlist.items.size(); i++) {
-                if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
-                    bestSeller = Itemlist.getItem(i);
-                }
-            }
-        } catch (EmptyListException e)  {
-            LOGGER.warning("No transactions found.");
         }
         return bestSeller;
     }

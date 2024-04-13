@@ -44,6 +44,12 @@ public class CommandFormatException extends Exception{
         case UNMARK:
             System.out.println(Messages.INVALID_UNMARK_FORMAT);
             break;
+        case LIST_TRANSACTIONS:
+            System.out.println(Messages.INVALID_TRANSACTION_FORMAT);
+            break;
+        case LOW_STOCK:
+            System.out.println(Messages.INVALID_LOW_STOCK_FORMAT);
+            break;
         default:
             System.out.println(Messages.INVALID_COMMAND);
             break;
@@ -76,6 +82,9 @@ public class CommandFormatException extends Exception{
             break;
         case "SELL_TOO_LARGE":
             System.out.println(Messages.SELL_TOO_LARGE);
+            break;
+        case "INVALID_LOW_STOCK_AMOUNT":
+            System.out.println(Messages.INVALID_LOW_STOCK_AMOUNT);
             break;
         default:
             System.out.println(error);

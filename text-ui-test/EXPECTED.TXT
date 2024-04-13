@@ -3,10 +3,6 @@ StockMaster v2.0
 ----------------
 Data is being extracted from: ./StockMasterData.txt
 Welcome to StockMaster, where you can master the knowledge on your Stock!
-Out-of-stock Items:
-No items out of stock
-Low-on-stock Items:
-No items low on stock
 Enter Command:
 ----------------
 Inventory is being saved to :./StockMasterData.txt

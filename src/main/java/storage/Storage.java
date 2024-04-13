@@ -103,8 +103,8 @@ public class Storage {
     }
 
     /**
-     * Read lines from the file and identify tasks written inside.
-     * Add the identified tasks into a list of existing tasks.
+     * Read lines from the file and identify items written inside.
+     * Add the identified items into a list of existing item lists.
      *
      * @param fileName Name of the file to read from.
      */

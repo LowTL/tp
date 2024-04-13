@@ -66,9 +66,11 @@ public class EditCommand extends Command{
         }
         if (index == -1) { // if item is not found
             //throw exception;
+            LOGGER.warning("Item not found.");
             ui.TextUi.replyToUser("item not found!");
         } else {
             Item item = Itemlist.getItem(index);
+            assert item != null;
             String itemName = item.getItemName();
             ui.TextUi.replyToUser("\n" + "Edited: ");
             if (!newItemName.equals("NA")) { // check if itemName was edited
@@ -102,6 +104,7 @@ public class EditCommand extends Command{
             }
         }
         ui.TextUi.replyToUser("End of Edits");
+        LOGGER.info("Edit run successfully.");
         ui.TextUi.replyToUser("");
         Storage.overwriteFile(Itemlist.getItems());
     }

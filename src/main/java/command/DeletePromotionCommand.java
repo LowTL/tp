@@ -1,3 +1,4 @@
+//@@author HengShuHong
 package command;
 
 import common.Messages;
@@ -14,6 +15,12 @@ public class DeletePromotionCommand extends Command {
     public DeletePromotionCommand(String itemName) {
         this.itemName = itemName;
     }
+
+    /**
+     * Deletes a promotion from the promotion list
+     *
+     * @throws CommandFormatException is thrown when the promotion for the item does not exists
+     */
     @Override
     public void execute() throws CommandFormatException {
         if (Promotionlist.itemIsOnPromo(itemName)) {

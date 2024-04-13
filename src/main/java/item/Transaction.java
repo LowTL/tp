@@ -68,4 +68,10 @@ public class Transaction {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.dateTime = currentTime.format(formatter);
     }
+
+    @Override
+    public String toString() {
+        return (this.quantity + this.item.getUnitOfMeasurement() + " " + this.getItemName() +
+                " Sell: $" + this.sellPrice + "Date: " + this.getDateTime() );
+    }
 }

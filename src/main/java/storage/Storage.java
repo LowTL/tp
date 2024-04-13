@@ -132,8 +132,8 @@ public class Storage {
         String descriptionAdded = (items.size()) + "." + " | " + markString + " | " +
                 lastItem.getItemName() + " | " + "Qty: " + lastItem.getQuantity() + " " +
                 lastItem.getUnitOfMeasurement() + " | " + "Cat: " + lastItem.getCategory() +
-                " | " + "BuyPrice: $" + lastItem.getBuyPrice() + " | " + "SellPrice: $" +
-                lastItem.getSellPrice() + "\n";
+                " | " + "BuyPrice: $" + String.format("%.2f", lastItem.getBuyPrice()) + " | " +
+                "SellPrice: $" + String.format("%.2f", lastItem.getSellPrice()) + "\n";
         updateFile(descriptionAdded, true);
     }
 
@@ -150,8 +150,9 @@ public class Storage {
             String descriptionAdded = (index + 1) + "." + " | " + markString + " | " +
                     items.get(index).getItemName() + " | " + "Qty: " + items.get(index).getQuantity() +
                     " " + items.get(index).getUnitOfMeasurement() + " | " + "Cat: " +
-                    items.get(index).getCategory() + " | " + "BuyPrice: $" + items.get(index).getBuyPrice() +
-                    " | " + "SellPrice: $" + items.get(index).getSellPrice() + "\n";
+                    items.get(index).getCategory() + " | " + "BuyPrice: $" +
+                    String.format("%.2f", items.get(index).getBuyPrice()) + " | " + "SellPrice: $" +
+                    String.format("%.2f", items.get(index).getSellPrice()) + "\n";
             if (index == 0) {
                 updateFile(descriptionAdded, false);
             } else {

@@ -11,9 +11,6 @@ import java.util.ArrayList;
 public class Promotionlist {
     private static final ArrayList<Promotion> promotions = new ArrayList<>();
 
-    public Promotionlist() {
-    }
-
     public static int getIndex(Promotion promotion) {
         return promotions.indexOf(promotion);
     }
@@ -24,7 +21,7 @@ public class Promotionlist {
 
     public static boolean itemIsOnPromo(String itemName) {
         for (Promotion promotion : promotions) {
-            if (promotion.getItemName().toLowerCase().equals(itemName)) {
+            if (promotion.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
                 return true;
             }
         }

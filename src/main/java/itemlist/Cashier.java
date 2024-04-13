@@ -6,6 +6,8 @@ import item.Transaction;
 
 import java.util.ArrayList;
 
+import static ui.TextUi.replyToUser;
+
 public class Cashier extends Itemlist {
 
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
@@ -74,8 +76,16 @@ public class Cashier extends Itemlist {
     public static Item getBestseller() {
         Item bestSeller = Itemlist.getItem(0);
         float[] profits = new float[Itemlist.items.size()];
-        for (Transaction t: transactions) {
-            profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+        int transaction_index = 0;
+        try {
+            for (Transaction t : transactions) {
+                transaction_index = transactions.indexOf(t);
+                profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            replyToUser("Item at Transaction ID " + (transaction_index + 1) +
+                    " no longer found in the item list.");
+            return null;
         }
         for (int i = 1; i < Itemlist.items.size(); i++) {
             if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {

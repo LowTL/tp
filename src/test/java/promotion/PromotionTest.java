@@ -13,7 +13,7 @@ public class PromotionTest {
 
     @Test
     public void testToString() {
-        Promotion promotion = new Promotion("Item", 0.1f, 1, Month.JAN,
+        Promotion promotion = new Promotion("item", 0.1f, 1, Month.JAN,
                 2022, 10, Month.FEB, 2023, 800, 1600);
 
         String expected = "Item have a 10.00% discount\n" +

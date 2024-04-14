@@ -27,7 +27,7 @@ only want to see their marked items. The mark feature is explained below.
   adding items to the item list. In addition, it allows the user to change the items to reflect accurately the status 
   of each item. For example, the user may want to change the selling price of specific items due to a anticipation of a
   surge in demand.
-  - **Highlights**: The implementation was challenging as it required integration with `Itemlist` as well as `Item` to 
+  - **Highlights**: The implementation was challenging as it required integration with `Itemlist` as well as `item` to 
   ensure that the parameters are edited accurately. In addition, this enhancement allows users to edit multiple 
   parameters at once, which increases convenience for the user.
 - **Code Contributed** : [RepoSense Link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=Fureimi&tabRepo=AY2324S2-CS2113-T15-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)

@@ -12,8 +12,8 @@ used in the product. It contains the abstract method `execute`, which is overrid
 
 ### Exception
 
-### Item
-Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item 
+### item
+item class is an object which represents an item in the stock inventory list. Stores data about the item such as item 
 price, quantity of item, and others.
 
 ### Itemlist
@@ -27,15 +27,14 @@ To list items in the `Itemlist` to the user, the `ListCommand` class is used.
 ![ListItems_SequenceDiagram](Diagrams/Images/Itemlist/ListItems_SequenceDiagram.png)
 1. An instance of `ListCommand` is created with parameters specifying what category to list, or whether to only 
 list marked items, as well as an `Itemlist` class. 
-2. The `execute()` method is then called, which first checks which type of list is passed. In this case, it wil be the 
-list of items. Afterwards, it checks for modifiers such as category or isListMarked.
+2. The `execute()` method is then called, checking for modifiers such as category or isListMarked.
 3. Depending on the modifiers, different things will happen.
    - If there are no modifiers, `ListCommand` will display all items in the list by calling `TextUi.ShowList()`.
 4. If there are modifiers present, `ShowCustomizedItemList()` will be called.
    - If there is a category present, `ListCommand` will get the category of every item in the `Itemlist` with 
-   `Item.getCategory()`. 
+   `item.getCategory()`. 
    - If isListMarked is true, `ListCommand` will get the mark status of evey item in the `Itemlist` with 
-   `Item.getMarkStatus()`.
+   `item.getMarkStatus()`.
    - Afterwards, `TextUi.replyToUser()` will be called, displaying the relevant items. 
 
 
@@ -48,7 +47,7 @@ The `EditCommand` is responsible for editing attributes of an item in the `Iteml
 item's name, quantity, unit of measurement, category, buy price, and sell price. 
 The command modifies the relevant item if it exists and updates the system accordingly.
 
-#### Class Diagram of `EditCommand` and with partial Class Diagrams of `Item` and `Itemlist`
+#### Class Diagram of `EditCommand` and with partial Class Diagrams of `item` and `Itemlist`
 
 ![EditCommand_ClassDiagram](Diagrams/Images/Itemlist/EditCommand_ClassDiagram.png)
 
@@ -62,7 +61,7 @@ these parameters are also specified.
    - If the item is found, it retreives the index of the item. If not, a messasge indicating that item is not found 
    will be displayed using `TextUi.replyToUser()`.
 3. If an item is found, the `Itemlist.getItem(index)` method is used to retrieve the item object. For each
-attribute that needs modification, the corresponding setter method on the `Item` objet is called, such as 
+attribute that needs modification, the corresponding setter method on the `item` objet is called, such as 
 `setItemName()`, `setQuantity()`, etc.
 4. Once all changes have been made, `TextUi.replyToUser()` is called to display to the user that the editing 
 process had concluded.
@@ -76,7 +75,7 @@ It contains command formats that must be adhered to for the methods to be called
 ### Storage
 * Storage class contains method `addToFile()` to write data of items to the default file directory, `./StockMasterData.txt`.
 * `overwriteFile()` write data of items to the default file directory, overwriting previous contents in the file.
-* Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `Item` object, which is added to 
+* Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `item` object, which is added to 
 the Itemlist by `addItem()` method.
 
 ### Class diagram
@@ -259,7 +258,7 @@ it also allows users to see which item has generated the most profit in the busi
 ## Glossary
 
 * *CLI* - Command Line Interface, where the user types commands rather than clicking options.
-* *Item* - Item to be sold at the shop, with key information such as quantity, buying/selling price, description etc.
+* *item* - item to be sold at the shop, with key information such as quantity, buying/selling price, description etc.
 
 ## Instructions for manual testing
 

@@ -20,7 +20,7 @@ public class HelpCommand extends Command{
         case "NA":
             System.out.println(HelpMessages.HELP);
             break;
-        case "list_items":
+        case "list items":
             System.out.println(HelpMessages.HELP_LIST_ITEMS);
             break;
         case "add":
@@ -47,10 +47,10 @@ public class HelpCommand extends Command{
         case "bestseller":
             System.out.println(HelpMessages.HELP_BESTSELLER);
             break;
-        case "total_profit":
+        case "total profit":
             System.out.println(HelpMessages.HELP_TOTAL_PROFIT);
             break;
-        case "total_revenue":
+        case "total revenue":
             System.out.println(HelpMessages.HELP_TOTAL_REVENUE);
             break;
         case "promotion":
@@ -68,7 +68,7 @@ public class HelpCommand extends Command{
         case "exit":
             System.out.println(HelpMessages.HELP_EXIT);
             break;
-        case "list_transactions":
+        case "list transactions":
             System.out.println(HelpMessages.HELP_LIST_TRANSACTIONS);
             break;
         default:

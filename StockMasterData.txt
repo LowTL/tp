@@ -1,9 +1,0 @@
-1. | [ ]  | lemon | Qty: 6 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-2. | [ ]  | banana | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-3. | [ ]  | apple | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-4. | [ ]  | durian | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-5. | [ ]  | mango | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-6. | [ ]  | cherry | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-7. | [ ]  | orange | Qty: 1 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00
-8. | [ ]  | apple iphone | Qty: 100000 pieces | Cat: electronics | BuyPrice: $100.50 | SellPrice: $400.10
-9. | [ ]  | testItem | Qty: 0 EA | Cat: null | BuyPrice: $1.00 | SellPrice: $10.00

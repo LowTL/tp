@@ -37,6 +37,12 @@ public class Storage {
         LOGGER.info("Line written successfully.");
     }
 
+    /**
+     * Update information in file.
+     * @param inputText The line of text to write to the file.
+     * @param ifAppend  Indicate if append the text at the end of the file (true)
+     *                  or overwrite the file (false).
+     */
     public static void updateFile(String inputText, boolean ifAppend) {
         try {
             writeToFile(getFileDirectory(), inputText, ifAppend);

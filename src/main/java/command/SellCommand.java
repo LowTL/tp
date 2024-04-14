@@ -50,7 +50,7 @@ public class SellCommand extends Command {
         assert (Objects.nonNull(Itemlist.getItem(index)));
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();
-        float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
+        float sellPrice = (this.discount > 0) ? this.discount * getSellPrice : getSellPrice;
         if (toSell.getIsOOS() || remainingQuantity < 0) {
             LOGGER.warning("Item has insufficient quantity.");
             System.out.println("There is insufficient stock!");

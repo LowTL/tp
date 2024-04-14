@@ -1,18 +1,14 @@
 package storage;
 
-import item.Transaction;
-import itemlist.Cashier;
 import org.junit.jupiter.api.Test;
-import promotion.Promotion;
-import promotion.Promotionlist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Scanner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class PromotionStorageTest {
     @Test

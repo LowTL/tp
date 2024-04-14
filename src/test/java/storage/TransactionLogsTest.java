@@ -1,9 +1,7 @@
 package storage;
 
-import item.Item;
 import item.Transaction;
 import itemlist.Cashier;
-import itemlist.Itemlist;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -12,7 +10,6 @@ import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-import static storage.Storage.interpretLines;
 
 public class TransactionLogsTest {
     @Test

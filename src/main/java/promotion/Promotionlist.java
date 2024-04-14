@@ -8,7 +8,6 @@ import storage.PromotionStorage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Promotionlist {
@@ -113,7 +112,7 @@ public class Promotionlist {
         int day = currentDateTime.getDayOfMonth();
         int hour = currentDateTime.getHour();
         int minute = currentDateTime.getMinute();
-        String formattedTime = String.valueOf(hour) + String.valueOf(minute);
+        String formattedTime = String.format("%02d%02d", hour, minute);
         int time = Integer.parseInt(formattedTime);
         if (time < promotion.getStartTime() || time > promotion.getEndTime()) {
             return false;
@@ -131,7 +130,6 @@ public class Promotionlist {
             if (day < promotion.getStartDay()) {
                 return false;
             }
-            return true;
         }
         if (year == promotion.getEndYear()) {
             if (month > promotion.getEndMonth().getValue()) {
@@ -142,7 +140,6 @@ public class Promotionlist {
             }
             return true;
         }
-        LOGGER.log(Level.WARNING, "Unable to create promotion");
         return true;
     }
 

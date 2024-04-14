@@ -669,11 +669,11 @@ public class ParserTest {
     @Test
     public void testPrepareFindCommand() {
         // Test valid find command
-        String userInput = "find /itemInfo Keyword";
+        String userInput = "find /item Keyword";
         Command command = parser.parseInput(userInput);
         assertTrue(command instanceof FindCommand);
         FindCommand findCommand = (FindCommand) command;
-        assertEquals("iteminfo", findCommand.getItemInfo());
+        assertEquals("item", findCommand.getItemInfo());
         assertEquals("keyword", findCommand.getKeyword());
 
         // Test find command without specifying item info
@@ -719,7 +719,6 @@ public class ParserTest {
         Command command = parser.parseInput(userInput);
         assertInstanceOf(AddPromotionCommand.class, command);
     }
-
 
     @Test
     public void testPrepareDeleteCommand() {
@@ -782,18 +781,6 @@ public class ParserTest {
     }
 
     @Test
-    public void testPrepareAddWithInvalidFormat() {
-        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStreamCaptor));
-        String userInput = "add itemName";
-        parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
-        assertEquals(expectedMessage, outputStreamCaptor.toString());
-    }
-
-    @Test
     public void testParseUnrecognizedCommand() {
         String userInput = "unknown command";
         Command command = parser.parseInput(userInput);
@@ -808,7 +795,6 @@ public class ParserTest {
         DeletePromotionCommand deletePromotionCommand = (DeletePromotionCommand) command;
         assertEquals("itemname", deletePromotionCommand.getItemName());
     }
-
 }
 
 

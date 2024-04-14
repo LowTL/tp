@@ -40,7 +40,7 @@ list marked items, as well as an `Itemlist` class.
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
-![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_SequenceDiagram.png)
+![AddCommand_SequenceDiagram](Diagrams/Images/Itemlist/AddCommand_SequenceDiagram.png)
 
 The `EditCommand` class extends the `command` class.
 The `EditCommand` is responsible for editing attributes of an item in the `Itemlist`. This includes changing the
@@ -70,7 +70,14 @@ process had concluded.
 
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
-It contains command formats that must be adhered to for the methods to be called.
+#### Class Diagram of `Parser`
+![Parser_ClassDiagram](Diagrams/Images/Parser/Parser_ClassDiagram.png)
+1. Parser takes in the user input, and parses out the command word.
+2. According to the command word detected, it will check that the input matches the required command format,
+throwing command format exceptions if it does not match.
+3. It then checks if the inputs for the various parameters (i.e qty/, buy/, etc) are of the correct type and appropriate value,
+throwing other exceptions accordingly.
+4. It creates a new instance of the relevant command for it to execute() its code.
 
 ### Storage
 * Storage class contains method `addToFile()` to write data of items to the default file directory, `./StockMasterData.txt`.

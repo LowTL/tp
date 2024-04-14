@@ -8,13 +8,14 @@ import promotion.Promotion;
 import ui.TextUi;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * Prints out the various <code>ArrayLists</code>, full or partial, based on modifiers.
- * @param <T> is the Type of <code>ArrayList</code> ie <code>Item</code>,
- *         <code>Transaction</code> or <code>Promotion</code>
+ *  It prints differently based on the <code>Type</code> of ArrayList used.
+ *  ie <code>Item</code>, <code>Transaction</code> or <code>Promotion</code>
  */
-public class ListCommand<T> extends Command{
+public class ListCommand extends Command{
 
     protected ArrayList<Item> itemList =  new ArrayList<>();
     protected ArrayList<Transaction> transactionList = new ArrayList<>();
@@ -96,28 +97,43 @@ public class ListCommand<T> extends Command{
     }
 
     private static boolean containsItems(ArrayList<?> arrayList) {
-        for (Object obj : arrayList) {
-            if (obj instanceof Item) {
-                return true;
+        try {
+            for (Object obj : arrayList) {
+                if (obj instanceof Item) {
+                    return true;
+                }
             }
+        } catch (NullPointerException e) {
+            LOGGER.log(Level.WARNING, "NullPointerException occurred.", e);
+            return false;
         }
         return false;
     }
 
     private static boolean containsTransactions(ArrayList<?> arrayList) {
-        for (Object obj : arrayList) {
-            if (obj instanceof Transaction) {
-                return true;
+        try {
+            for (Object obj : arrayList) {
+                if (obj instanceof Transaction) {
+                    return true;
+                }
             }
+        } catch (NullPointerException e) {
+            LOGGER.log(Level.WARNING, "NullPointerException occurred.", e);
+            return false;
         }
         return false;
     }
 
     private static boolean containsPromotions(ArrayList<?> arrayList) {
-        for (Object obj : arrayList) {
-            if (obj instanceof Promotion) {
-                return true;
+        try {
+            for (Object obj : arrayList) {
+                if (obj instanceof Promotion) {
+                    return true;
+                }
             }
+        } catch (NullPointerException e) {
+            LOGGER.log(Level.WARNING, "NullPointerException occurred.", e);
+            return false;
         }
         return false;
     }

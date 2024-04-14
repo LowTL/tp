@@ -7,12 +7,10 @@ import item.Transaction;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import static ui.TextUi.replyToUser;
-
 public class Cashier extends Itemlist {
 
+    public static ArrayList<Transaction> transactions = new ArrayList<>();
     protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());
-    private static final ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
         transactions.add(transaction);
@@ -89,29 +87,18 @@ public class Cashier extends Itemlist {
     public static Item getBestseller() {
         Item bestSeller = null;
         float[] profits = new float[Itemlist.items.size()];
-        int transactionIndex = 0;
-        try {
-            if (transactions.isEmpty()) {
-                throw new EmptyListException("Transaction");
-            }
-            assert(Itemlist.noOfItems > 0);
-            bestSeller = Itemlist.getItem(0);
-            for (Transaction t: transactions) {
-                transactionIndex = transactions.indexOf(t);
-                profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
-            }
-            for (int i = 1; i < Itemlist.items.size(); i++) {
-                if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
-                    bestSeller = Itemlist.getItem(i);
-                }
-            }
-        } catch (EmptyListException e)  {
-            LOGGER.warning("No transactions found.");
+        if (transactions.isEmpty()) {
             return null;
-        } catch (ArrayIndexOutOfBoundsException e) {
-            replyToUser("Item at Transaction ID " + (transactionIndex + 1) +
-                    " no longer found in the item list.");
-            return null;
+        }
+        assert(Itemlist.noOfItems > 0);
+        bestSeller = Itemlist.getItem(0);
+        for (Transaction t: transactions) {
+            profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+        }
+        for (int i = 1; i < Itemlist.items.size(); i++) {
+            if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
+                bestSeller = Itemlist.getItem(i);
+            }
         }
         return bestSeller;
     }

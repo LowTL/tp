@@ -497,11 +497,11 @@ public class Parser {
             throw new CommandFormatException("INVALID_CATEGORY");
         }
         boolean listMarked = matcher.group("isMark") != null;
-        return new ListCommand<>(Itemlist.getItems(), category, listMarked);
+        return new ListCommand(Itemlist.getItems(), category, listMarked);
     }
 
     private Command preparePromotionList() {
-        return new ListCommand<>(Promotionlist.getAllPromotion());
+        return new ListCommand(Promotionlist.getAllPromotion());
     }
 
     /**
@@ -555,11 +555,11 @@ public class Parser {
             throw new CommandFormatException(CommandType.LIST_TRANSACTIONS);
         }
         if (matcher.group("itemName") == null) {
-            return new ListCommand<>(Cashier.getTransactions(), "NA");
+            return new ListCommand(Cashier.getTransactions(), "NA");
         }
 
         String itemName = matcher.group(1).trim();
-        return new ListCommand<>(Cashier.getTransactions(), itemName);
+        return new ListCommand(Cashier.getTransactions(), itemName);
     }
 
     /**

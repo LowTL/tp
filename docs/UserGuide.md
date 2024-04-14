@@ -2,7 +2,8 @@
 
 ## Introduction
 
-StockMaster is a platform aimed at helping SMEs track and organise their inventory.
+StockMaster is a desktop inventory and management that provides the user with a range of tools and features to help them
+manage and operate their business. It is targeted at those who can type fast and prefer Command Line Interface (CLI) application.
 
 ## Quick Start
 
@@ -220,6 +221,16 @@ Example of usage:
 list_promotions
 ```
 
+### Low Stock Reminder: `low_stock`
+lists all out-of-stock items and low-in-stock items. </br>
+An item is considered low-in-stock if its quantity is below the stated threshold amount.
+
+Format: `low_stock /AMOUNT`
+
+Example of usage:
+```
+low_stock /15
+```
 
 ### List all available commands: `help`
 Lists all commands as per the command summary below.
@@ -250,21 +261,22 @@ the application.
 
 ## Command Summary
 
-| Action           | Format, Examples                                                                                                                                                                                                                             |
-|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Add item         | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                                      |
-| Delete item      | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                                        |
-| Edit item        | `edit [ITEM_NAME] [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM] [cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [sell/NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`                       |
-| Find item        | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                                                   |
-| Sell item        | `sell [ITEM_NAME] qty/[SELL_QUANTITY] `<br/> `e.g. sell apple qty/50`                                                                                                                                                                        |
-| Mark item        | `mark ITEM_NAME`                                                                                                                                                                                                                             |
-| Unmark item      | `unmark ITEM_NAME`                                                                                                                                                                                                                           |
-| List Inventory   | `list_items [marked] [cat/CATEGORY]`                                                                                                                                                                                                         |
-| Get Best Seller  | `bestseller`                                                                                                                                                                                                                                 |
-| Get Profit       | `total_profit`                                                                                                                                                                                                                               |
-| Get Revenue      | `total_revenue`                                                                                                                                                                                                                              |
-| Create Promotion | `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]time /from [TIME] /to [TIME]`<br/> `e.g. promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500` |
-| Delete Promotion | `del_promo ITEM_NAME` <br/> `e.g. del_promo apple`                                                                                                                                                                                           |
-| List Promotion   | `list_promotions`                                                                                                                                                                                                                            |
-| Help             | `help`                                                                                                                                                                                                                                       |
-| Exit             | `exit`                                                                                                                                                                                                                                       |
+| Action             | Format, Examples                                                                                                                                                                                                                             |
+|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Add item           | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                                      |
+| Delete item        | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                                        |
+| Edit item          | `edit [ITEM_NAME] [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM] [cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [sell/NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`                       |
+| Find item          | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                                                   |
+| Sell item          | `sell [ITEM_NAME] qty/[SELL_QUANTITY] `<br/> `e.g. sell apple qty/50`                                                                                                                                                                        |
+| Mark item          | `mark ITEM_NAME`                                                                                                                                                                                                                             |
+| Unmark item        | `unmark ITEM_NAME`                                                                                                                                                                                                                           |
+| List Inventory     | `list_items [marked] [cat/CATEGORY]`                                                                                                                                                                                                         |
+| Get Best Seller    | `bestseller`                                                                                                                                                                                                                                 |
+| Get Profit         | `total_profit`                                                                                                                                                                                                                               |
+| Get Revenue        | `total_revenue`                                                                                                                                                                                                                              |
+| Create Promotion   | `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]time /from [TIME] /to [TIME]`<br/> `e.g. promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500` |
+| Delete Promotion   | `del_promo ITEM_NAME` <br/> `e.g. del_promo apple`                                                                                                                                                                                           |
+| List Promotion     | `list_promotions`                                                                                                                                                                                                                            |
+| Low Stock Reminder | `low_stock /AMOUNT`                                                                                                                                                                                                                          |
+| Help               | `help [c/COMMAND]`                                                                                                                                                                                                                           |
+| Exit               | `exit`                                                                                                                                                                                                                                       |

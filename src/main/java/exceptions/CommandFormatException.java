@@ -1,5 +1,6 @@
 package exceptions;
 
+import common.HelpMessages;
 import parser.CommandType;
 import common.Messages;
 
@@ -78,7 +79,7 @@ public class CommandFormatException extends Exception{
             System.out.println(Messages.INVALID_UNITS);
             break;
         case "INVALID_COMMAND":
-            System.out.println(Messages.INVALID_HELP_COMMAND);
+            System.out.println(HelpMessages.INVALID_HELP_COMMAND);
             break;
         case "UNABLE_TO_DELETE":
             System.out.println(Messages.UNABLE_TO_DELETE);
@@ -94,6 +95,12 @@ public class CommandFormatException extends Exception{
             break;
         case "INVALID_LOW_STOCK_AMOUNT":
             System.out.println(Messages.INVALID_LOW_STOCK_AMOUNT);
+            break;
+        case "NEGATIVE_LOW_STOCK_AMOUNT":
+            System.out.println(Messages.NEGATIVE_LOW_STOCK_AMOUNT);
+            break;
+        case "INVALID_VALUE":
+            System.out.println(Messages.INVALID_VALUE);
             break;
         default:
             System.out.println(error);

@@ -17,6 +17,7 @@ import command.MarkCommand;
 import command.SellCommand;
 import command.TotalProfitCommand;
 import command.UnmarkCommand;
+import common.HelpMessages;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;
@@ -47,7 +48,7 @@ public class Parser {
         final Matcher matcher = ParserFormat.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             System.out.println(Messages.INVALID_COMMAND);
-            System.out.println(Messages.HELP);
+            System.out.println(HelpMessages.HELP);
             logger.log(Level.FINE, "Invalid command received.");
             return new IncorrectCommand();
         }

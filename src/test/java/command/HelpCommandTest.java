@@ -1,6 +1,6 @@
 package command;
 
-import common.Messages;
+import common.HelpMessages;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -15,7 +15,7 @@ public class HelpCommandTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         HelpCommand helpCommand = new HelpCommand("NA");
         helpCommand.execute();
-        String expectedOutput = Messages.HELP + System.lineSeparator();
+        String expectedOutput = HelpMessages.HELP + System.lineSeparator();
         assertEquals(expectedOutput, outputStreamCaptor.toString());
     }
 }

@@ -1,5 +1,6 @@
 package exceptions;
 
+import common.HelpMessages;
 import parser.CommandType;
 import common.Messages;
 
@@ -75,7 +76,7 @@ public class CommandFormatException extends Exception{
             System.out.println(Messages.INVALID_UNITS);
             break;
         case "INVALID_COMMAND":
-            System.out.println(Messages.INVALID_HELP_COMMAND);
+            System.out.println(HelpMessages.INVALID_HELP_COMMAND);
             break;
         case "UNABLE_TO_DELETE":
             System.out.println(Messages.UNABLE_TO_DELETE);

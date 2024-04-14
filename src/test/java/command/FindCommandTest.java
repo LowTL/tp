@@ -28,7 +28,7 @@ public class FindCommandTest {
                 "NA", 1, 10);
         Command findCommand = new FindCommand("item","testItem");
         Command findCommand2 = new FindCommand("NA","failFindCommand");
-        Command findCommand3 = new FindCommand("qty/buy/sell","1");
+        Command findCommand3 = new FindCommand("qty/buy/sell/uom/cat","1");
         try {
             addCommandTest1.execute();
             findCommand.execute();

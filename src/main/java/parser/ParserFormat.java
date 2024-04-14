@@ -23,7 +23,7 @@ public class ParserFormat {
             Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)");
 
     public static final Pattern FIND_COMMAND_FORMAT =
-            Pattern.compile("find(?:\\s/(?<itemInfo>[^/]+(?:/[^/]+)*))\\s(?<keyword>[^/]+)");
+            Pattern.compile("find(?:\\s/(?<itemInfo>[^/]+(?:/[^/]+)*))?\\s(?<keyword>[^/]+)");
 
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");

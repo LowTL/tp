@@ -190,17 +190,17 @@ You have earned {REVENUE} in revenue so far.
 ### Add promotion to items: `promotion`
 Creates a promotion for items that changes the sell price.
 
-Format: `promotion ITEM_NAME discount/DISCOUNT period /from DATE MONTH YEAR /to DATE MONTH YEAR
+Format: `promotion ITEM_NAME discount/DISCOUNT period /from DAY MONTH YEAR /to DAY MONTH YEAR
 time /from START_TIME /to END_TIME`
 
 * `DISCOUNT` ranges from 0 to 100 and can take in up to 2 decimal place.
 *  Format for `MONTH` is 3 alphabets `MMM`. E.g. For January, `Jan`. For December, `Dec`.  
-* `DATE` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
+* `DAY` must be a valid for the specific `[MONTH]` E.g. `30 Feb 2024` is not allowed.
 * `START_TIME` & `END_TIME` must range from 0000 to 2359. In addition, time range must be valid.
 
 Example of usage:
 ```
-promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500
+promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2025 time /from 0000 /to 2359
 ```
 ### Delete a promotion: `del_promo`
 Deletes a promotion for an item.

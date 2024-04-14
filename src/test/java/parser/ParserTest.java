@@ -669,11 +669,11 @@ public class ParserTest {
     @Test
     public void testPrepareFindCommand() {
         // Test valid find command
-        String userInput = "find /itemInfo Keyword";
+        String userInput = "find /item Keyword";
         Command command = parser.parseInput(userInput);
         assertTrue(command instanceof FindCommand);
         FindCommand findCommand = (FindCommand) command;
-        assertEquals("iteminfo", findCommand.getItemInfo());
+        assertEquals("item", findCommand.getItemInfo());
         assertEquals("keyword", findCommand.getKeyword());
 
         // Test find command without specifying item info

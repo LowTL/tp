@@ -17,13 +17,21 @@ import command.MarkCommand;
 import command.SellCommand;
 import command.TotalProfitCommand;
 import command.UnmarkCommand;
+import common.HelpMessages;
+import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
+import itemlist.Itemlist;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import promotion.Month;
+import promotion.Promotionlist;
+import storage.PromotionStorage;
+import storage.Storage;
+import storage.TransactionLogs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -39,63 +47,24 @@ public class ParserTest {
         parser = new Parser();
     }
 
+    @AfterEach
+    void tearDown() {
+        // This will be run after each test, cleaning up
+        Itemlist.getItems().clear(); // clear the list for next test
+        Promotionlist.getAllPromotion().clear();
+        Storage.updateFile("", false);
+        PromotionStorage.updateFile("", false);
+        TransactionLogs.updateFile("", false);
+    }
+
     @Test
     public void testParseCommandWithBlankText() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = " ";
         parser.parseInput(userInput);
-        String expectedMessage =
-                "Invalid command detected. Type 'help' for list of valid commands"  + System.lineSeparator() +
-                " ___________________________________________________________________________________________\n" +
-                "|                                        STOCKMASTER                                        |\n" +
-                "|___________________________________________________________________________________________|\n" +
-                "| Commands   | Format                                                                       |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| list items | list_items                                                                   |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
-                "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| sell       | sell ITEM_NAME qty/SELL_QUANTITY                                             |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| edit       | edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]              |\n" +
-                "|            |      cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] SELL/[NEW_SELL_PRICE]            |\n" +
-                "|            |      (use AT LEAST 1 of: name/ qty/, uom/, cat/, buy/, sell/)                |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| mark       | mark ITEM_NAME                                                               |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| unmark     | unmark ITEM_NAME                                                             |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| delete     | del ITEM_NAME                                                                |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
-                "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
-                "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| bestseller | bestseller                                                                   |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| total      | total_profit                                                                 |\n" +
-                "| profit     |                                                                              |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| total      | total_revenue                                                                |\n" +
-                "| revenue    |                                                                              |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| promotion  | promotion ITEM_NAME discount/DISCOUNT period /from DD MMM YYYY               |\n" +
-                "|            | to DD MMM YYYY time /from TIME /to TIME                                      |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| delete     | del_promo ITEM_NAME                                                          |\n" +
-                "| promotion  |                                                                              |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| list       | list_promotions                                                              |\n" +
-                "| promotions |                                                                              |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| low stock  | low_stock /AMOUNT                                                            |\n" +
-                "|------------|------------------------------------------------------------------------------|\n" +
-                "| exit       | exit                                                                         |\n" +
-                "|____________|______________________________________________________________________________|\n" +
-                "* type help c/COMMAND for more detailed explanations\n" +
-                "  (use the command names on the left column)" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_COMMAND  + System.lineSeparator() +
+                HelpMessages.HELP + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
     @Test
@@ -104,9 +73,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -126,9 +93,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add  ";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -138,9 +103,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/a /pc cat/test buy/1 sell/2";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -150,7 +113,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/9999999999999999999 /pc cat/test buy/1 sell/2";
         parser.parseInput(userInput);
-        String expectedMessage = "Quantity is too large. Please input a smaller quantity." + System.lineSeparator();
+        String expectedMessage = Messages.QTY_TOO_LARGE + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -160,9 +123,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/1 /pc cat/ buy/1 sell/2";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -172,7 +133,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/1 /pc cat/test buy/999999999999999999999999999 sell/2";
         parser.parseInput(userInput);
-        String expectedMessage = "Buy price is too large. Please input a smaller buy price." + System.lineSeparator();
+        String expectedMessage = Messages.BUY_TOO_LARGE + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -182,9 +143,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/1 /pc cat/test buy/-1 sell/2";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -194,7 +153,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/1 /pc cat/test buy/1 sell/99999999999999999999999999";
         parser.parseInput(userInput);
-        String expectedMessage = "Sell price is too large. Please input a smaller sell price." + System.lineSeparator();
+        String expectedMessage = Messages.SELL_TOO_LARGE + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -204,9 +163,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "add itemname qty/1 /pc cat/test buy/1 sell/-2";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
-                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
-                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_ADD_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -226,8 +183,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "help c/ ";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: 'help' or " +
-                "'help c/[COMMAND]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_HELP_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -242,12 +198,22 @@ public class ParserTest {
     }
 
     @Test
+    public void testParseHelpCommandWithValidCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "help c/add";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
     public void testParseDeleteCommandWithBlankItemName() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "del ";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: 'del [ITEM_NAME]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_DELETE_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -262,13 +228,22 @@ public class ParserTest {
     }
 
     @Test
+    public void testParseDeleteCommandWithValidItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "del validItemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
     public void testParseSellCommandWithBlankItemName() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "sell ";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid command format. Please use format: " +
-                "'sell [ITEM_NAME] qty/[SELL_QUANTITY]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_SELL_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -283,26 +258,322 @@ public class ParserTest {
     }
 
     @Test
+    public void testParseSellCommandWithValidItemNameAndInvalidQuantity() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "sell validItemName qty/a";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_SELL_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseSellCommandWithValidItemNameAndLargeQuantity() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "sell validItemName qty/9999999999999999999";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.QTY_TOO_LARGE + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
     public void testParseEditCommandWithBlankItemName() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "edit  ";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid edit command format. Please use format: " +
-                "'edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] " +
-                "buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]'\n" + "You can edit at least 1 parameter up to all available" +
-                " parameters. For example, if you only wish to update buy and sell price, you can input:\n" +
-                "'edit [ITEM_NAME] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]'" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_EDIT_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
+    @Test
+    public void testParseEditCommandWithValidItemNameAndValidQuantity() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName qty/10";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithNegativeQuantity() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName qty/-1";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_EDIT_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithLargeQuantity() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName qty/99999999999999999";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.QTY_TOO_LARGE + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithValidUOM() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName uom/kg";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithInvalidUOM() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName uom/1";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithBlankCat() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName cat/ ";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_EDIT_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithInvalidCat() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName cat/1";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithNegativeBuy() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName buy/-1";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_EDIT_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithLargeBuy() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName buy/99999999999999999";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.BUY_TOO_LARGE + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithNegativeSell() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName sell/-1";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_EDIT_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseEditCommandWithLargeSell() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "edit validItemName sell/99999999999999999";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.SELL_TOO_LARGE + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseFindCommandWithBlankInfo() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "find ";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_FIND_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseFindCommandWithBlankKeyword() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "find /info ";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_FIND_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParsePromotionCommandWithInvalidDiscount() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "promotion apple discount/invalid period /from 2 Apr 2024 /to " +
+                "3 Apr 2024 time /from 0000 /to 2359";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_PROMOTION_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParsePromotionCommandWithInvalidPeriodFormat() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "promotion apple discount/10 period /invalidformat";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_PROMOTION_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseMarkCommandWithValidItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "mark validItemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseMarkCommandWithBlankItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "mark  ";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_MARK_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseMarkCommandWithInvalidItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "mark invalidItemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseUnmarkCommandWithValidItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "unmark validItemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseUnmarkCommandWithBlankItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "unmark  ";
+        parser.parseInput(userInput);
+        String expectedMessage = Messages.INVALID_UNMARK_FORMAT + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseUnmarkCommandWithInvalidItemName() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "unmark invalidItemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseListItemsCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "list_items";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseListPromotionsCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "list_promotions";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseListTransactionsCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "list_transactions";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseTotalProfitCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "total_profit";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseTotalRevenueCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "total_revenue";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseBestsellerCommand() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "bestseller";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
+
+    @Test
+    public void testParseLowStockCommandWithValidAmount() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "low_stock /10";
+        parser.parseInput(userInput);
+        String expectedMessage = "";
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
+    }
     @Test
     public void testParseLowStockCommandWithBlankAmount() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "low_stock /";
         parser.parseInput(userInput);
-        String expectedMessage = "Invalid Command Format. Please use format: low_stock /AMOUNT" + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_LOW_STOCK_FORMAT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -312,7 +583,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "low_stock /99999999999999999999";
         parser.parseInput(userInput);
-        String expectedMessage = "Please input a valid amount." + System.lineSeparator();
+        String expectedMessage = Messages.INVALID_LOW_STOCK_AMOUNT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -322,7 +593,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "low_stock /-1";
         parser.parseInput(userInput);
-        String expectedMessage = "";
+        String expectedMessage = Messages.NEGATIVE_LOW_STOCK_AMOUNT + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -490,14 +761,14 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseTotalProfitCommand() {
+    public void testParseTotalProfitCommand2() {
         String userInput = "total_profit";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(TotalProfitCommand.class, command);
     }
 
     @Test
-    public void testParseBestsellerCommand() {
+    public void testParseBestsellerCommand2() {
         String userInput = "bestseller";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(BestsellerCommand.class, command);

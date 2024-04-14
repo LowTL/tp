@@ -399,6 +399,9 @@ public class Parser {
             if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
                 throw new EditException("BUY_PRICE");
             }
+            if (newBuyPrice >= Integer.MAX_VALUE){
+                throw new CommandFormatException("BUY_TOO_LARGE");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("BUY_TOO_LARGE");
         }
@@ -410,6 +413,9 @@ public class Parser {
                     Float.parseFloat(matcher.group("newSellPrice")) : -1;
             if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
                 throw new EditException("SELL_PRICE");
+            }
+            if (newSellPrice >= Integer.MAX_VALUE){
+                throw new CommandFormatException("SELL_TOO_LARGE");
             }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("SELL_TOO_LARGE");

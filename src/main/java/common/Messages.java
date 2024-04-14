@@ -45,11 +45,11 @@ public class Messages {
     public static final String INVALID_DISCOUNT = "Invalid Discount has been entered. " +
             "Please ensure it falls within the " + "range of 0 to 100";
 
-    public static final String INVALID_MARK_FORMAT = "Invalid Command Format. Please use format : " +
-            "mark [ITEM_NAME]";
+    public static final String INVALID_MARK_FORMAT = "Invalid command format. Please use format: " +
+            "'mark [ITEM_NAME]'";
 
-    public static final String INVALID_UNMARK_FORMAT = "Invalid Command Format. Please use format : " +
-            "unmark [ITEM_NAME]";
+    public static final String INVALID_UNMARK_FORMAT = "Invalid command format. Please use format: " +
+            "'unmark [ITEM_NAME]'";
 
     public static final String INVALID_LIST_FORMAT = "Invalid Command Format. Please use format:\n" +
             "1. 'list' to list all items in the inventory, \n" +

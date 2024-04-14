@@ -3,11 +3,21 @@ participant TotalProfitCommand
 participant Cashier
 participant TextUi
 
-TotalProfitCommand -> Cashier: getTotalProfit() / getTotalRevenue()
-activate Cashier
-Cashier -> Cashier: Calculate total profit / total revenue
-Cashier --> TotalProfitCommand: totalProfit / totalRevenue
-deactivate Cashier
-TotalProfitCommand -> TextUi: replyToUser("You have earned {totalProfit} in {profits/revenue} so far.")
+alt getTotalRevenue()
+    TotalProfitCommand -> Cashier: getTotalRevenue()
+    activate Cashier
+    Cashier -> Cashier: Calculate total revenue
+    Cashier --> TotalProfitCommand: totalRevenue
+    deactivate Cashier
+    TotalProfitCommand -> TextUi: replyToUser("You have earned {totalRevenue} in revenue so far.")
+else getTotalProfit()
+    TotalProfitCommand -> Cashier: getTotalProfit()
+    activate Cashier
+    Cashier -> Cashier: Calculate total profit
+    Cashier --> TotalProfitCommand: totalProfit
+    deactivate Cashier
+    TotalProfitCommand -> TextUi: replyToUser("You have earned {totalProfit} in profits so far.")
+end
+
 
 @enduml

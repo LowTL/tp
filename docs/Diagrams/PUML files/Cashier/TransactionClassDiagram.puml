@@ -1,0 +1,8 @@
+@startuml
+
+class Item {
+
+}
+
+Transaction "1"*-- Item
+@enduml

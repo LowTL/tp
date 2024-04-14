@@ -1,0 +1,40 @@
+@startuml
+
+package "StockMaster" {
+Class TextUi #Blue
+Class Parser #DarkMagenta
+Class Main #LightSkyBlue
+Class Storage #Green
+Class Command #Grey
+Class Cashier #Orange
+Class PromotionList
+Class Itemlist #LightGreen
+}
+
+Class User #IndianRed
+file "Storage" as File #DarkOliveGreen {
+}
+file "TransactionLogs" as File2 #DarkOliveGreen {
+}
+file "PromotionStorage"" as File3 #DarkOliveGreen {
+}
+
+User -d-> TextUi
+TextUi --> Parser
+TextUi <--> Main
+TextUi <--> Storage
+Main --> Storage
+Main -l-> Parser
+Main --> Command
+Parser --> Command
+Command --> Cashier
+Command --> Itemlist
+Command --> PromotionList
+Itemlist <--> PromotionList
+Itemlist <--> Cashier
+
+Storage <-d-> File
+Storage <-r-> File2
+Storage <-d-> File3
+
+@endumlenduml

@@ -1,0 +1,49 @@
+@startuml
+participant ":Command" as Command
+participant ":TextUi" as TextUi
+participant ":Cashier" as Cashier
+
+-> Command: execute()
+activate Command
+Command -> Cashier: addItem(transaction)
+activate Cashier
+Cashier -> Cashier: transactions.add(transaction)
+return
+Command --> TextUi: showSellMessage()
+activate TextUi
+return
+alt if itemName is not given
+Command -> Cashier: getAllTransactions()
+activate Cashier
+return transactions
+Command -> TextUi : showTransactionsList();
+activate TextUi
+return
+else if itemName is given
+Command -> Cashier: getTransactions(itemName)
+activate Cashier
+Cashier -> Cashier: Filter transactions
+return transactions
+Command -> TextUi: showTransactionsList()
+activate TextUi
+return
+end
+
+Command -> Cashier: getTransaction(index)
+activate Cashier
+Cashier -> Cashier: transactions.get(index)
+return transaction
+Command -> TextUi: showTransactionsList()
+activate TextUi
+return
+
+alt Revenue
+    ref over Command, Cashier: getTotalRevenue
+else Profit
+    ref over Command, Cashier: getTotalProfit
+end
+
+ref over Command, Cashier: getBestseller
+
+return
+@enduml

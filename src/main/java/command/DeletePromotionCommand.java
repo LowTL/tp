@@ -1,4 +1,3 @@
-//@@author HengShuHong
 package command;
 
 import common.Messages;

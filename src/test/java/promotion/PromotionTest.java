@@ -3,6 +3,9 @@ package promotion;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import storage.PromotionStorage;
+import storage.Storage;
+import storage.TransactionLogs;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -24,6 +27,9 @@ public class PromotionTest {
         // This will be run after each test, cleaning up
         Itemlist.getItems().clear(); // clear the list for next test
         Promotionlist.getAllPromotion().clear();
+        Storage.updateFile("", false);
+        PromotionStorage.updateFile("", false);
+        TransactionLogs.updateFile("", false);
     }
 }
 

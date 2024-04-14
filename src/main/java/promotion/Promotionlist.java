@@ -1,7 +1,6 @@
 //@@author HengShuHong
 package promotion;
 
-import command.Command;
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
@@ -13,9 +12,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Promotionlist {
-    private static final ArrayList<Promotion> promotions = new ArrayList<>();
 
     protected static final Logger LOGGER = Logger.getLogger(Promotionlist.class.getName());
+    private static final ArrayList<Promotion> promotions = new ArrayList<>();
 
     public static int getIndex(Promotion promotion) {
         return promotions.indexOf(promotion);

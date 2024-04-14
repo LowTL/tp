@@ -8,6 +8,9 @@ import itemlist.Itemlist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import promotion.Promotionlist;
+import storage.PromotionStorage;
+import storage.Storage;
+import storage.TransactionLogs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -48,5 +51,8 @@ public class FindCommandTest {
         // This will be run after each test, cleaning up
         Itemlist.getItems().clear(); // clear the list for next test
         Promotionlist.getAllPromotion().clear();
+        Storage.updateFile("", false);
+        PromotionStorage.updateFile("", false);
+        TransactionLogs.updateFile("", false);
     }
 }

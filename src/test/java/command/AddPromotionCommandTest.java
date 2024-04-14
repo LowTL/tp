@@ -8,11 +8,9 @@ import itemlist.Itemlist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import promotion.Month;
-import promotion.Promotion;
 import promotion.Promotionlist;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

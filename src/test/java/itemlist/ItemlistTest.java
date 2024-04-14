@@ -75,6 +75,6 @@ public class ItemlistTest {
     @Test
     void getIndex_shouldReturnCorrectIndex() {
         int index = Itemlist.getIndex(testItem);
-        assertEquals(1, index);
+        assertEquals(0, index);
     }
 }

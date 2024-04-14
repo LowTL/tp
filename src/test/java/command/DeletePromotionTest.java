@@ -4,12 +4,14 @@ import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
-import item.Transaction;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import promotion.Month;
 import promotion.Promotionlist;
+import storage.PromotionStorage;
+import storage.Storage;
+import storage.TransactionLogs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -52,6 +54,9 @@ public class DeletePromotionTest {
         // This will be run after each test, cleaning up
         Itemlist.getItems().clear(); // clear the list for next test
         Promotionlist.getAllPromotion().clear();
+        Storage.updateFile("", false);
+        PromotionStorage.updateFile("", false);
+        TransactionLogs.updateFile("", false);
     }
 
 }

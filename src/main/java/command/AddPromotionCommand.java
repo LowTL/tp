@@ -3,8 +3,6 @@ package command;
 
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
-import item.Item;
-import itemlist.Itemlist;
 import promotion.Month;
 import promotion.Promotion;
 import promotion.Promotionlist;
@@ -23,9 +21,8 @@ public class AddPromotionCommand extends Command {
             int endDate, Month endMonth, int endYear,
             int startTime,
             int endTime) {
-        Item item = Itemlist.getItem(itemName);
         this.promotion = new Promotion(
-                item.getItemName(), discount,
+                itemName, discount,
                 startDate, startMonth, startYear,
                 endDate, endMonth, endYear,
                 startTime, endTime);

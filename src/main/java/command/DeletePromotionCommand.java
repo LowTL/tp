@@ -11,6 +11,9 @@ public class DeletePromotionCommand extends Command {
 
     protected String itemName;
 
+    public String getItemName() {
+        return itemName;
+    }
     public DeletePromotionCommand(String itemName) {
         this.itemName = itemName;
     }
@@ -32,4 +35,5 @@ public class DeletePromotionCommand extends Command {
             System.out.println(Messages.ITEM_NOT_ON_PROMO);
         }
     }
+
 }

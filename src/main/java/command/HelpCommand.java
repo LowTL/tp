@@ -33,6 +33,9 @@ public class HelpCommand extends Command{
         case "edit":
             System.out.println(Messages.HELP_EDIT);
             break;
+        case "find":
+            System.out.println(Messages.HELP_FIND);
+            break;
         case "mark":
             System.out.println(Messages.HELP_MARK);
             break;

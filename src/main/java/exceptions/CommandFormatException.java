@@ -92,6 +92,9 @@ public class CommandFormatException extends Exception{
         case "INVALID_LOW_STOCK_AMOUNT":
             System.out.println(Messages.INVALID_LOW_STOCK_AMOUNT);
             break;
+        case "INVALID_VALUE":
+            System.out.println(Messages.INVALID_VALUE);
+            break;
         default:
             System.out.println(error);
         }

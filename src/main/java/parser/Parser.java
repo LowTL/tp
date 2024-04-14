@@ -48,7 +48,7 @@ public class Parser {
         if (!matcher.matches()) {
             System.out.println(Messages.INVALID_COMMAND);
             System.out.println(Messages.HELP);
-            logger.log(Level.FINE, "Invalid command received");
+            logger.log(Level.FINE, "Invalid command received.");
             return new IncorrectCommand();
         }
         String commandWord = matcher.group("commandWord").toUpperCase();
@@ -230,6 +230,10 @@ public class Parser {
         try {
             buyPrice = Float.parseFloat(matcher.group("buyPrice"));
         } catch (NumberFormatException e) {
+            throw new CommandFormatException("INVALID_VALUE");
+        }
+        // Check if the parsed quantity is larger than Integer.MAX_VALUE
+        if (buyPrice > Integer.MAX_VALUE) {
             throw new CommandFormatException("BUY_TOO_LARGE");
         }
 
@@ -237,6 +241,10 @@ public class Parser {
         try {
             sellPrice = Float.parseFloat(matcher.group("sellPrice"));
         } catch (NumberFormatException e) {
+            throw new CommandFormatException("INVALID_VALUE");
+        }
+        // Check if the parsed quantity is larger than Integer.MAX_VALUE
+        if (sellPrice > Integer.MAX_VALUE) {
             throw new CommandFormatException("SELL_TOO_LARGE");
         }
 
@@ -264,7 +272,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL);
         }
-        String itemName = matcher.group("itemName").trim();
+        String itemName = matcher.group("itemName").toLowerCase().trim();
         if (itemName.isEmpty()) {
             throw new CommandFormatException("INVALID_ITEM_NAME");
         }
@@ -476,7 +484,11 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL_PROMO);
         }
-        return new DeletePromotionCommand(matcher.group("itemName").toLowerCase());
+        String itemName = matcher.group("itemName").toLowerCase().trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+        return new DeletePromotionCommand(itemName);
     }
 
     /**

@@ -311,5 +311,7 @@ public class Messages {
             "list_transactions item/[ITEM_NAME]";
     public static final String INVALID_LOW_STOCK_AMOUNT = "Please input a valid amount.";
 
+    public static final String INVALID_VALUE = "Please input a valid amount.";
+
 
 }

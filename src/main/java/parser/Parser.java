@@ -326,6 +326,13 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);
         }
+        /*StringBuilder filters = new StringBuilder();
+        for (int i = 1; i <= matcher.groupCount("itemInfo"); i++) {
+            String segment = matcher.group("info" + i);
+            if (segment != null) {
+                filters.append(segment);
+            }
+        }*/
         String itemInfo = matcher.group("itemInfo") != null ? matcher.group("itemInfo").toLowerCase() : "NA";
         return new FindCommand(
                 itemInfo,

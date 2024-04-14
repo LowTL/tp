@@ -37,9 +37,13 @@ public class FindCommand extends Command {
         if (itemInfo.equals("NA")) {
             itemInfo = "item + qty + uom + cat + buy + sell";
         }
-        ArrayList<String> searchList = filterList();
-        TextUi.showList(searchList);
-        LOGGER.info("Itemlist successfully filtered.");
+        try {
+            ArrayList<String> searchList = filterList();
+            TextUi.showList(searchList);
+            LOGGER.info("Itemlist successfully filtered.");
+        } catch (EmptyListException e) {
+            LOGGER.warning("EMPTY LIST");
+        }
     }
 
     /**
@@ -78,5 +82,4 @@ public class FindCommand extends Command {
         }
         return searchList;
     }
-
 }

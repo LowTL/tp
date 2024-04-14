@@ -131,7 +131,6 @@ public class Promotionlist {
             if (day < promotion.getStartDay()) {
                 return false;
             }
-            return true;
         }
         if (year == promotion.getEndYear()) {
             if (month > promotion.getEndMonth().getValue()) {
@@ -142,8 +141,8 @@ public class Promotionlist {
             }
             return true;
         }
-        LOGGER.log(Level.WARNING, "Unable to create promotion");
-        return true;
+        LOGGER.log(Level.SEVERE, "Unable to create promotion");
+        return false;
     }
 
 

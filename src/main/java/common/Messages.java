@@ -287,7 +287,7 @@ public class Messages {
             "add a new one.";
 
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
-            "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
+            "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DATE] /to [END_DATE] time /from [START_TIME]" +
             " /to [END_TIME]";
 
     public static final String INVALID_LOW_STOCK_FORMAT = "Invalid Command Format. Please use format: " +

@@ -17,6 +17,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import promotion.Month;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
@@ -138,6 +141,18 @@ public class ParserTest {
                 "3 Apr 2024 time /from 0000 /to 2359";
         Command command = parser.parseInput(userInput);
         assertInstanceOf(AddPromotionCommand.class, command);
+    }
+
+    @Test
+    public void testPrepareAddWithInvalidFormat() {
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        String userInput = "add itemName";
+        parser.parseInput(userInput);
+        String expectedMessage = "Invalid command format. Please use format: " + "\n" +
+                "'add [ITEM_NAME] qty/[QUANTITY_OF_ITEM] /[UNIT_OF_MEASUREMENT] cat/[CATEGORY] " +
+                "buy/[BUY_PRICE] sell/[SELL_PRICE]'" + System.lineSeparator();
+        assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 }
 

@@ -3,6 +3,8 @@ package command;
 
 import item.Item;
 import itemlist.Itemlist;
+import promotion.Promotion;
+import promotion.Promotionlist;
 import storage.Storage;
 
 public class EditCommand extends Command{
@@ -79,6 +81,11 @@ public class EditCommand extends Command{
             if (!newItemName.equals("NA")) { // check if itemName was edited
                 ui.TextUi.showEditMessage(itemName, "newItemName", itemName, newItemName);
                 item.setItemName(newItemName);
+                if (Promotionlist.itemIsOnPromo(itemName)) {
+                    Promotion promotion = Promotionlist.getPromotion(itemName);
+                    assert promotion != null;
+                    promotion.setItemName(newItemName);
+                }
             }
             if (newQuantity != -1) { // check if quantity was edited
                 ui.TextUi.showEditMessage(itemName, "newQuantity", String.valueOf(item.getQuantity()),

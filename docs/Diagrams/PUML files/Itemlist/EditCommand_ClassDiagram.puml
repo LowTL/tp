@@ -65,4 +65,6 @@ EditCommand -- "0..*" Item
 EditCommand -- "1" Itemlist
 EditCommand -- "1" TextUi
 EditCommand -- "1" Storage
+hide circle
+skinparam classAttributeIconSize 0
 @enduml

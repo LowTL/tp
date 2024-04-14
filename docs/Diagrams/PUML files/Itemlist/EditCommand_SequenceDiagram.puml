@@ -1,10 +1,12 @@
 @startuml
-participant "ui : TextUi" as UI
-participant "editCommand : EditCommand" as EditCommand
-participant "itemList : Itemlist" as Itemlist
-participant "item : Item" as Item
-participant "storage : Storage" as Storage
+actor User
+participant "editCommand :EditCommand" as EditCommand
+participant "ui :TextUi" as UI
+participant "itemList :Itemlist" as Itemlist
+participant "item :Item" as Item
+participant "storage :Storage" as Storage
 
+User -> EditCommand : execute()
 activate EditCommand
 
 EditCommand -> Itemlist : getItems()

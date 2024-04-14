@@ -1,6 +1,5 @@
 package command;
 
-import item.Item;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,11 +11,9 @@ import storage.TransactionLogs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class AddCommandTest {
 
 
@@ -31,7 +28,8 @@ public class AddCommandTest {
     @Test
     public void testExecuteNewItemAddedSuccessfully() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator();
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory"
+                + System.lineSeparator();
         assertEquals(expectedOutput, outputStreamCaptor.toString());
         assertEquals(1, Itemlist.getItems().size());
     }

@@ -19,6 +19,7 @@ public class Itemlist {
 
     public static void deleteItem(int index) {
         items.remove(index);
+        noOfItems--;
     }
 
     public static void editQuantity(int index, int newQuantity) {

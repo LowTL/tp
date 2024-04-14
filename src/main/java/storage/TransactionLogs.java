@@ -61,6 +61,7 @@ public class TransactionLogs extends Storage {
                 Transaction toAdd = new Transaction(commandName, quantityAsInt,
                         buyAsFloat, Float.parseFloat(commandSell), commandDate);
                 Cashier.addItem(toAdd);
+                LOGGER.info("Transaction added successfully.");
             }
         }
     }
@@ -90,5 +91,6 @@ public class TransactionLogs extends Storage {
         descriptionAdded += "Profit: " + lastTransaction.getProfit() + "\n";
         descriptionAdded += "\n";
         updateFile(descriptionAdded, true);
+        LOGGER.info("Stored transaction.");
     }
 }

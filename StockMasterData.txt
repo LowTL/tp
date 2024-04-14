@@ -1,4 +1,0 @@
-1. | [ ]  | testItem | Qty: 1 EA | Cat: null | BuyPrice: $1.00 | SellPrice: $10.00
-1. | [ ]  | apple iphone | Qty: 100000 pieces | Cat: electronics | BuyPrice: $100.50 | SellPrice: $400.10
-1. | [ ]  | testItem | Qty: 1 EA | Cat: null | BuyPrice: $1.00 | SellPrice: $10.00
-1. | [ ]  | lemon | Qty: 5 fruits | Cat: null | BuyPrice: $1.00 | SellPrice: $1.00

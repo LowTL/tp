@@ -1,7 +1,6 @@
 package command;
 
 import common.HelpMessages;
-import common.Messages;
 
 public class HelpCommand extends Command{
 

@@ -11,11 +11,11 @@ public class DeletePromotionCommand extends Command {
 
     protected String itemName;
 
-    public String getItemName() {
-        return itemName;
-    }
     public DeletePromotionCommand(String itemName) {
         this.itemName = itemName;
+    }
+    public String getItemName() {
+        return itemName;
     }
 
     /**

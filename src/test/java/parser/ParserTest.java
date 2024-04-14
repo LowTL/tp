@@ -9,7 +9,6 @@ import command.DeletePromotionCommand;
 import command.EditCommand;
 import command.ExitCommand;
 import command.FindCommand;
-import command.HelpCommand;
 import command.IncorrectCommand;
 import command.ListCommand;
 import command.LowStockCommand;
@@ -20,7 +19,6 @@ import command.UnmarkCommand;
 import common.HelpMessages;
 import common.Messages;
 import exceptions.CommandFormatException;
-import exceptions.EditException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
@@ -36,7 +34,9 @@ import storage.TransactionLogs;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
 
@@ -725,12 +725,12 @@ public class ParserTest {
     public void testPrepareDeleteCommand() {
         Command addCommand = new AddCommand("lemon", 5, "fruits",
                 "NA", 1, 1);
-        Command DelCommand1 = new DeleteCommand("lemon");
-        Command DelCommand2 = new DeleteCommand(" ");
+        Command delCommand1 = new DeleteCommand("lemon");
+        Command delCommand2 = new DeleteCommand(" ");
         try {
             addCommand.execute();
-            DelCommand1.execute();
-            DelCommand2.execute();
+            delCommand1.execute();
+            delCommand2.execute();
         } catch (CommandFormatException | InvalidDateException | EmptyListException e) {
             throw new RuntimeException(e);
         }

@@ -2,7 +2,6 @@ package command;
 
 import common.Messages;
 import exceptions.CommandFormatException;
-import item.Transaction;
 import itemlist.Cashier;
 import itemlist.Itemlist;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import exceptions.EmptyListException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

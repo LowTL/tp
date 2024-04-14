@@ -83,7 +83,6 @@ public class ListCommand extends Command{
         }
     }
 
-
     private void showTransactionList() {
         TextUi.showTransactionList(transactionList);
     }

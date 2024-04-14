@@ -8,16 +8,27 @@ import item.Item;
 import item.Transaction;
 import promotion.Promotion;
 
+/**
+ * Represents a class that displays messages and command output to the user.
+ * String <code>DIVIDER</code> A string to separate current message from the previous ones.
+ * Scanner <code>in</code> A scanner to retrieve user's text inputs.
+ */
 public class TextUi {
 
     public static final String DIVIDER = "----------------";
 
     private final Scanner in;
 
+    /**
+     * Constructor for TextUi.
+     */
     public TextUi() {
         this.in = new Scanner(System.in);
     }
 
+    /**
+     * Retrieve user's input as a string.
+     */
     public static String getUserInput() {
         System.out.println("Enter Command:");
         Scanner in = new Scanner(System.in);
@@ -28,6 +39,11 @@ public class TextUi {
         return userInput;
     }
 
+    /**
+     * Determines if user's input is empty and should be ignored.
+     *
+     * @param userInput User's input.
+     */
     public static boolean shouldIgnore(String userInput) {
         return userInput.trim().isEmpty();
     }
@@ -42,6 +58,13 @@ public class TextUi {
         );
     }
 
+    /**
+     * Displays goodbye message to the user when exit the program.
+     *
+     * @param storageFilePath Directory of storage file.
+     * @param transactionLogPath Directory of transaction log file.
+     * @param promotionStoragePath Directory of promotion storage file.
+     */
     public void showGoodByeMessage(String storageFilePath, String transactionLogPath, String promotionStoragePath) {
         replyToUser(
                 DIVIDER,
@@ -55,12 +78,22 @@ public class TextUi {
         );
     }
 
+    /**
+     * Displays message to the user.
+     *
+     * @param message Message to show to the user.
+     */
     public static void replyToUser(String... message) {
         for (String m : message) {
             System.out.println(m);
         }
     }
 
+    /**
+     * Display the arraylist to the user.
+     *
+     * @param arrayList The arraylist to show to the user.
+     */
     public static <T> void showList(ArrayList<T> arrayList) {
         if (arrayList.isEmpty()) {
             replyToUser(Messages.EMPTY_LIST);
@@ -78,6 +111,14 @@ public class TextUi {
         }
     }
 
+    /**
+     * Displays message to the user when an item is sold.
+     *
+     * @param item The item sold.
+     * @param sellQuantity Quantity of the item sold.
+     * @param remainingQuantity Quantity remained for the item sold.
+     * @param sellPrice The selling price of the item sold.
+     */
     public static void showSellMessage(String item, int sellQuantity, int remainingQuantity, float sellPrice) {
         float totalValue = sellQuantity * sellPrice;
         replyToUser("Quantity of " + item + " sold: " + sellQuantity + ", for: $" + sellPrice + "\n" +
@@ -87,6 +128,13 @@ public class TextUi {
     }
 
     //@@author Fureimi
+    /**
+     * Displays a list that contains items of a certain category.
+     *
+     * @param arrayList The arraylist to show to the user.
+     * @param category The category to be listed to the user.
+     * @param isListMarked Whether the items listed are marked items.
+     */
     public static void showCustomizedList(ArrayList<Item> arrayList, String category, boolean isListMarked) {
         if (arrayList.isEmpty()) {
             replyToUser(Messages.EMPTY_LIST);

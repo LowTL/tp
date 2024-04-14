@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 
+/**
+ * Represents a class that stores and writes information of a list of promotions existed to a file.
+ * String <code>PROMOTIONSTORAGE</code> represents the designated relative file path for the file.
+ */
 public class PromotionStorage extends Storage{
 
     private static final String PRMOTIONSTORAGE = "./PromotionStorage.txt";

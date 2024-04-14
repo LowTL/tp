@@ -1,6 +1,9 @@
 package storage;
 
 import exceptions.InvalidDateException;
+import item.Item;
+import itemlist.Itemlist;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -50,20 +53,24 @@ public class StorageTest {
     }
 
     @Test
-    public void readFromFile_successful() {
+    public void interpretLinesTest() {
         String directory = "./testFile3.txt";
         File testFile = new File(directory);
-        String aLine = "A line";
+        String aLine = "1. | [ ]  | testItem | Qty: 1 unit | Cat: interpretLines | BuyPrice: $1.00 | SellPrice: $1.00";
         try {
             Storage.writeToFile(directory, aLine, true);
             Scanner scanner = new Scanner(testFile);
-            String lineSkipped = scanner.nextLine();
+            interpretLines(scanner);
             scanner.close();
-            testFile.delete();
-            assertEquals(aLine, lineSkipped);
         } catch (IOException e) {
             fail("File not found");
+        } catch (NumberFormatException e) {
+            fail("Incorrect number format");
         }
+        assert testFile.delete();
+        Item itemAdded = Itemlist.getItem(Itemlist.getItems().size() - 1);
+        Itemlist.deleteItem(Itemlist.getIndex(Itemlist.getItem("testItem")));
+        assertEquals("testItem", itemAdded.getItemName());
     }
 
     @Test

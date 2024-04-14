@@ -30,13 +30,14 @@ add apple qty/50 /pieces cat/fruits buy/4 sell/5
 add phone qty/5 /pieces cat/Electronics buy/100 sell/500
 ```
 
-### Listing all items: `list_items`
-Lists all stored items.
+### Listing items: `list_items`
+Lists stored items according to what user requests.
 
 Format: `list_items [marked] [cat/CATEGORY]`
 
+* By default, `list_items` on its own will list all stored items.
 * `marked` is an optional field. If used, it will only list marked items.
-* `CATEGORY` is an optional field. By default, it will list all the stored items.
+* `CATEGORY` is an optional field. If used, it will only list items of that category.
 
 Example of usage:
 ```
@@ -44,8 +45,13 @@ list_items
 list_items cat/Electronics
 list_items marked cat/fruits
 ```
+Example output:
+```
+1. [ ] apple (Qty: 50 pieces, Buy: $4.0, Sell: $5.0, Category: fruits)
+```
 _**Note**_<br>
-_marked **MUST** be before cat/[CATEGORY]_
+- _marked **MUST** be before cat/[CATEGORY]_
+- The `[ ]` before each item represents if an item is marked or not. More info on mark feature can be found below.
 
 ### Deleting an item: `del`
 Deletes the item from the list of items.
@@ -107,7 +113,7 @@ edit apple qty/45 buy/3.50 sell/5.50
 edit fish name/Salmon qty/1 cat/fish
 ```
 
-Expected Output:
+Example Output:
 ```
 Edited: 
 Quantity of apple from 50 to 45
@@ -248,11 +254,11 @@ the application.
 |------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Add Item         | `add ITEM_NAME qty/ITEM_QUANTITY /UNIT_OF_MEASUREMENT [cat/CATEGORY] buy/[BUY_PRICE] sell/[SELL_PRICE]`<br/> `e.g. add apple qty/50 /pieces cat/fruits buy/4.50 sell/5`                                                                      |
 | Delete Item      | `del ITEM_NAME`<br/> `e.g. del Apple`                                                                                                                                                                                                        |
-| Edit Item        | `edit [ITEM_NAME] name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM] cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] sell/[NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`                       |
+| Edit Item        | `edit [ITEM_NAME] [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM] [cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [sell/NEW_SELL_PRICE]`<br/>`e.g. edit apple name/green apple qty/10 uom/pieces cat/fruit buy/1.00 sell/2.00`                       |
 | Find Item        | `find KEYWORD`<br/> `e.g. find University`                                                                                                                                                                                                   |
 | Sell Item        | `sell [ITEM_NAME] qty/[SELL_QUANTITY] `<br/> `e.g. sell apple qty/50`                                                                                                                                                                        |
-| Mark Item        | `mark [ITEM_NAME]`                                                                                                                                                                                                                           |
-| Unmark Item      | `unmark [ITEM_NAME]`                                                                                                                                                                                                                         |
+| Mark Item        | `mark ITEM_NAME`                                                                                                                                                                                                                             |
+| Unmark Item      | `unmark ITEM_NAME`                                                                                                                                                                                                                           |
 | List Inventory   | `list_items [marked] [cat/CATEGORY]`                                                                                                                                                                                                         |
 | Get Best Seller  | `bestseller`                                                                                                                                                                                                                                 |
 | Get Profit       | `total_profit`                                                                                                                                                                                                                               |

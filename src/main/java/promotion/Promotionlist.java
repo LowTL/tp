@@ -1,6 +1,7 @@
 //@@author HengShuHong
 package promotion;
 
+import command.Command;
 import exceptions.CommandFormatException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
@@ -8,9 +9,13 @@ import storage.PromotionStorage;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Promotionlist {
     private static final ArrayList<Promotion> promotions = new ArrayList<>();
+
+    protected static final Logger LOGGER = Logger.getLogger(Promotionlist.class.getName());
 
     public static int getIndex(Promotion promotion) {
         return promotions.indexOf(promotion);
@@ -120,15 +125,25 @@ public class Promotionlist {
         if (year > promotion.getStartYear() && year < promotion.getEndYear()) {
             return true;
         }
-        if (month < promotion.getStartMonth().getValue() || month > promotion.getEndMonth().getValue()) {
-            return false;
-        }
-        if (month > promotion.getStartMonth().getValue() && month < promotion.getEndMonth().getValue()) {
+        if (year == promotion.getStartYear()) {
+            if (month < promotion.getStartMonth().getValue()) {
+                return false;
+            }
+            if (day < promotion.getStartDay()) {
+                return false;
+            }
             return true;
         }
-        if (day < promotion.getStartDay() || day > promotion.getEndDay()) {
-            return false;
+        if (year == promotion.getEndYear()) {
+            if (month > promotion.getEndMonth().getValue()) {
+                return false;
+            }
+            if (day > promotion.getEndDay()) {
+                return false;
+            }
+            return true;
         }
+        LOGGER.log(Level.WARNING, "Unable to create promotion");
         return true;
     }
 

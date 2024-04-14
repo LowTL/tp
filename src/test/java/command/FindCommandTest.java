@@ -5,7 +5,9 @@ import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
 import itemlist.Itemlist;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import promotion.Promotionlist;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -39,5 +41,12 @@ public class FindCommandTest {
             return;
         }
         assertFalse(Itemlist.itemIsExist("failFindCommand"));
+    }
+
+    @AfterEach
+    void tearDown() {
+        // This will be run after each test, cleaning up
+        Itemlist.getItems().clear(); // clear the list for next test
+        Promotionlist.getAllPromotion().clear();
     }
 }

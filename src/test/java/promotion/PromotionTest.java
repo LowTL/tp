@@ -1,5 +1,7 @@
 package promotion;
 
+import itemlist.Itemlist;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,6 +17,13 @@ public class PromotionTest {
                 "Period: 1 JAN 2022 to 10 FEB 2023\n" +
                 "Time: 0800 to 1600";
         assertEquals(expected, promotion.toString());
+    }
+
+    @AfterEach
+    void tearDown() {
+        // This will be run after each test, cleaning up
+        Itemlist.getItems().clear(); // clear the list for next test
+        Promotionlist.getAllPromotion().clear();
     }
 }
 

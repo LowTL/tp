@@ -331,6 +331,7 @@ public class Parser {
      */
     private Command prepareFind(String args) throws CommandFormatException{
         final Matcher matcher = ParserFormat.FIND_COMMAND_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);

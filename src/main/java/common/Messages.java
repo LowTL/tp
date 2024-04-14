@@ -39,6 +39,8 @@ public class Messages {
     public static final String INVALID_TIME = "Invalid Time Format. Please ensure that the time is in 24 hours " +
             "format and have a valid range:" + "\n" + "e.g. time /from 0000 /to 2359";
 
+    public static final String INVALID_FILTER = "Invalid Filter is used. Filters can only be " +
+            "[item, qty, cat, uom, buy, sell] and must be in the following format /[filter1]/[filter2] etc.";
     public static final String INVALID_DATE = "Invalid Date has been entered. Please ensure that the date exists.";
     public static final String INVALID_MONTH = "Invalid Month has been entered. Please use format: MMM (e.g. JAN, DEC)";
 
@@ -66,8 +68,8 @@ public class Messages {
             "add a new one.";
 
     public static final String INVALID_PROMOTION_FORMAT = "Invalid Command Format. Please use format:\n" +
-            "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DAY] /to [END_DAY] time /from [START_TIME]" +
-            " /to [END_TIME]";
+            "promotion [ITEM_NAME] discount/[DISCOUNT] period /from [START_DATE] /to [END_DATE] time /from [START_TIME]"
+            + " /to [END_TIME]";
 
     public static final String INVALID_LOW_STOCK_FORMAT = "Invalid Command Format. Please use format: " +
             "low_stock /AMOUNT";

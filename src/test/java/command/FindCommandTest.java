@@ -28,17 +28,18 @@ public class FindCommandTest {
                 "NA", 1, 10);
         Command findCommand = new FindCommand("item","testItem");
         Command findCommand2 = new FindCommand("NA","failFindCommand");
-        Command findCommand3 = new FindCommand("qtybuysell","1");
+        Command findCommand3 = new FindCommand("qty/buy/sell/uom/cat","1");
         try {
             addCommandTest1.execute();
             findCommand.execute();
             findCommand2.execute();
             findCommand3.execute();
-            String expectedOutput1 = "added: testItem (Qty: 1 EA, Buy: $1, Sell: $1)"
-                    + System.lineSeparator() +
-                    "testItem (Qty: 1 EA, Buy: $1, Sell: $1)" + System.lineSeparator() +
+            String expectedOutput1 = "added: testitem (Qty: 1 EA, Buy: $1.00, Sell: $10.00)"
+                    + System.lineSeparator() + "List: " + System.lineSeparator() +
+                    "1. [ ] testItem (Qty: 1 EA, Buy: $1.00, Sell: $10.00)" + System.lineSeparator() +
                     Messages.EMPTY_ITEM_LIST + System.lineSeparator() +
-                    "testItem (Qty: 1 EA, Buy: $1, Sell: $1)" + System.lineSeparator();
+                    "List: " + System.lineSeparator() +
+                    "1. [ ] testItem (Qty: 1 EA, Buy: $1.00, Sell: $10.00)" + System.lineSeparator();
             assertEquals(expectedOutput1, outputStreamCaptor.toString());
         } catch (EmptyListException e) {
             return;

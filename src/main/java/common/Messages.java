@@ -8,15 +8,15 @@ public class Messages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| list items | list_items                                                                   |\n" +
+            "| list items | list_items [marked] [cat/CATEGORY]                                           |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
             "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| sell       | sell ITEM_NAME qty/SELL_QUANTITY                                             |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| edit       | edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]              |\n" +
-            "|            |      cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] SELL/[NEW_SELL_PRICE]            |\n" +
+            "| edit       | edit ITEM_NAME [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM]              |\n" +
+            "|            |      [cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [SELL/NEW_SELL_PRICE]            |\n" +
             "|            |      (use AT LEAST 1 of: name/ qty/, uom/, cat/, buy/, sell/)                |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| mark       | mark ITEM_NAME                                                               |\n" +
@@ -154,7 +154,7 @@ public class Messages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| list items | list_items                                                                   |\n" +
+            "| list items | list_items [marked] [cat/CATEGORY]                                           |\n" +
             "|____________|______________________________________________________________________________|\n";
 
     public static final String HELP_MARK =
@@ -189,8 +189,8 @@ public class Messages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| edit       | edit ITEM_NAME name/[NEW_NAME] qty/[NEW_QUANTITY] uom/[NEW_UOM]              |\n" +
-            "|            |      cat/[NEW_CATEGORY] buy/[NEW_BUY_PRICE] SELL/[NEW_SELL_PRICE]            |\n" +
+            "| edit       | edit ITEM_NAME [name/NEW_NAME] [qty/NEW_QUANTITY] [uom/NEW_UOM]              |\n" +
+            "|            |      [cat/NEW_CATEGORY] [buy/NEW_BUY_PRICE] [SELL/NEW_SELL_PRICE]            |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
             "| example:   | edit apple qty/15 /pcs cat/fruit buy/2.50 sell/3.50                          |\n" +
             "|            | edit plastic bag qty/150                                                     |\n" +

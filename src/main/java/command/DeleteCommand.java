@@ -17,6 +17,11 @@ public class DeleteCommand extends Command {
         this.itemName = itemName.toLowerCase(); //for checking later
     }
 
+
+    public String getItemName() {
+        return itemName;
+    }
+
     /**
      * Searches of the item in the item list with the same name and deletes it
      */
@@ -52,4 +57,5 @@ public class DeleteCommand extends Command {
             LOGGER.info("Promotion exists for item and thus cannot be deleted.");
         }
     }
+
 }

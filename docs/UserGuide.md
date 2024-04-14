@@ -2,7 +2,8 @@
 
 ## Introduction
 
-StockMaster is a platform aimed at helping SMEs track and organise their inventory.
+StockMaster is a desktop inventory and management that provides the user with a range of tools and features to help them
+manage and operate their business. It is targeted at those who can type fast and prefer Command Line Interface (CLI) application.
 
 ## Quick Start
 
@@ -266,5 +267,5 @@ the application.
 | Create Promotion | `promotion [ITEM_NAME] discount/[DISCOUNT] period /from [DATE] [MONTH] [YEAR] /to [DATE] [MONTH] [YEAR]time /from [TIME] /to [TIME]`<br/> `e.g. promotion apple discount/50 period /from 2 Apr 2024 /to 4 Apr 2024 time /from 1200 /to 1500` |
 | Delete Promotion | `del_promo ITEM_NAME` <br/> `e.g. del_promo apple`                                                                                                                                                                                           |
 | List Promotion   | `list_promotions`                                                                                                                                                                                                                            |
-| Help             | `help`                                                                                                                                                                                                                                       |
+| Help             | `help [c/COMMAND]`                                                                                                                                                                                                                           |
 | Exit             | `exit`                                                                                                                                                                                                                                       |

@@ -1,4 +1,5 @@
 @startuml
+hide circle
 
 class Storage {
     +readFromFile(fileName: String)

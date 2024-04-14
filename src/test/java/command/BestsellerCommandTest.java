@@ -24,7 +24,7 @@ public class BestsellerCommandTest {
     @BeforeEach
     public void reset() {
         //clears the transactions list
-        Cashier.transactions = new ArrayList<Transaction>();
+        Cashier.transactions.clear();
 
         while (Itemlist.getItem(0) != null) {
             Itemlist.deleteItem(0);

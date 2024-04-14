@@ -18,7 +18,7 @@ public class TotalProfitCommandTest {
     @BeforeEach
     public void reset() {
         //clears the transactions list
-        Cashier.transactions = new ArrayList<>();
+        Cashier.transactions.clear();
 
         while (Itemlist.getItem(0) != null) {
             Itemlist.deleteItem(0);

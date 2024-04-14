@@ -67,6 +67,7 @@ public class ItemlistTest {
     @Test
     void getItem_shouldReturnCorrectItem() {
         Item item = Itemlist.getItem(0);
+        assert item != null;
         assertEquals("TestItem", item.getItemName());
         assertEquals(10, item.getQuantity());
     }

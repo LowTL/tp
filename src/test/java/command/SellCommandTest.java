@@ -3,7 +3,13 @@ package command;
 import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import exceptions.InvalidDateException;
+import itemlist.Itemlist;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import promotion.Promotionlist;
+import storage.PromotionStorage;
+import storage.Storage;
+import storage.TransactionLogs;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -22,6 +28,16 @@ public class SellCommandTest {
         } catch (InvalidDateException | EmptyListException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @AfterEach
+    void tearDown() {
+        // This will be run after each test, cleaning up
+        Itemlist.getItems().clear(); // clear the list for next test
+        Promotionlist.getAllPromotion().clear();
+        Storage.updateFile("", false);
+        PromotionStorage.updateFile("", false);
+        TransactionLogs.updateFile("", false);
     }
 
 }

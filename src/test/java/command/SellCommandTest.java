@@ -12,6 +12,7 @@ public class SellCommandTest {
     @Test
     public void sellItemTest() {
         try {
+
             Command sellCommandTest1 = new SellCommand("testItem", 1, 3);
             Command sellCommandTest2 = new SellCommand("testItem", 7, 14);
             sellCommandTest1.execute();

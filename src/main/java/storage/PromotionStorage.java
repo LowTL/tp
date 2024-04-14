@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 public class PromotionStorage extends Storage{
 
@@ -24,8 +25,10 @@ public class PromotionStorage extends Storage{
     public static void updateFile(String inputText, boolean ifAppend) {
         try {
             writeToFile(getFileDirectory(), inputText, ifAppend);
+            LOGGER.info("Stored promotion.");
         } catch (IOException e) {
             System.out.println("IOExceptions occurred");
+            LOGGER.warning(e.toString());
         }
     }
 
@@ -83,14 +86,19 @@ public class PromotionStorage extends Storage{
                     break;
                 default:
                     System.out.println("Read Promotion File Error");
+                    LOGGER.warning("Promotions not read from file.");
                 }
             }
             scanner.close();
+            LOGGER.info("Promotions successfully read from file.");
         } catch (FileNotFoundException e) {
             System.out.println("File does not exist.");
+            LOGGER.warning("File not found.");
         } catch (NumberFormatException e) {
             System.out.println("Invalid numbers found.");
+            LOGGER.warning("Invalid numbers found.");
         } catch (InvalidDateException | CommandFormatException e) {
+            LOGGER.log(Level.WARNING, "Other exception occurred.", e);
             System.out.println(e);;
         }
     }

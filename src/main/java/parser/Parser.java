@@ -333,7 +333,7 @@ public class Parser {
         final Matcher matcher = ParserFormat.FIND_COMMAND_FORMAT.matcher(args.trim());
 
         // Validate arg string format
-        if (!matcher.find()) {
+        if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);
         }
         String itemInfo = matcher.group("itemInfo") != null ? matcher.group("itemInfo").toLowerCase() : "NA";

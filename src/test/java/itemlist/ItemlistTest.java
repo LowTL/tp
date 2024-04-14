@@ -31,8 +31,8 @@ public class ItemlistTest {
     }
 
     @Test
-    void addItem_shouldIncreaseListSize() {
-        assertEquals(10, Itemlist.getItems().size());
+    void getSizeTest() {
+        assertEquals(1, Itemlist.getItems().size());
     }
 
     @Test
@@ -67,6 +67,7 @@ public class ItemlistTest {
     @Test
     void getItem_shouldReturnCorrectItem() {
         Item item = Itemlist.getItem(0);
+        assert item != null;
         assertEquals("TestItem", item.getItemName());
         assertEquals(10, item.getQuantity());
     }

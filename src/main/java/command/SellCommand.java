@@ -30,6 +30,9 @@ public class SellCommand extends Command {
         return sellQuantity;
     }
 
+    /**
+     * Checks that the item is in the list, then edits the quantity, reducing it by the amount sold
+     */
     @Override
     public void execute() throws CommandFormatException {
         int index = -1;
@@ -50,7 +53,7 @@ public class SellCommand extends Command {
         assert (Objects.nonNull(Itemlist.getItem(index)));
         int remainingQuantity = Itemlist.getItem(index).getQuantity() - sellQuantity;
         float getSellPrice = Itemlist.getItem(index).getSellPrice();
-        float sellPrice = (this.discount >= 0) ? this.discount * getSellPrice : getSellPrice;
+        float sellPrice = (this.discount > 0) ? this.discount * getSellPrice : getSellPrice;
         if (toSell.getIsOOS() || remainingQuantity < 0) {
             LOGGER.warning("Item has insufficient quantity.");
             System.out.println("There is insufficient stock!");

@@ -9,13 +9,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Represents a class that stores and writes information of a list of items to a file.
  * String <code>FILENAME</code> represents the designated relative file path for the file.
  */
 public class Storage {
+    protected static final Logger LOGGER = Logger.getLogger(Storage.class.getName());
     private static final String FILENAME = "./StockMasterData.txt";
+
 
     /**
      * Write contents to the file.
@@ -30,13 +34,22 @@ public class Storage {
         FileWriter writer = new FileWriter(filePath, ifAppend);
         writer.write(textToAdd);
         writer.close();
+        LOGGER.info("Line written successfully.");
     }
 
+    /**
+     * Update information in file.
+     * @param inputText The line of text to write to the file.
+     * @param ifAppend  Indicate if append the text at the end of the file (true)
+     *                  or overwrite the file (false).
+     */
     public static void updateFile(String inputText, boolean ifAppend) {
         try {
             writeToFile(getFileDirectory(), inputText, ifAppend);
+            LOGGER.info("Line written successfully.");
         } catch (IOException e) {
             System.out.println("IOExceptions occurred");
+            LOGGER.warning("IOException occurred.");
         }
     }
 
@@ -99,6 +112,7 @@ public class Storage {
                 toAdd.unmark();
             }
             Itemlist.addItem(toAdd);
+            LOGGER.info("Item successfully restored.");
         }
     }
 
@@ -113,10 +127,13 @@ public class Storage {
             Scanner scanner = new Scanner(new File(fileName));
             interpretLines(scanner);
             scanner.close();
+            LOGGER.info("Storage done reading.");
         } catch(FileNotFoundException e) {
             System.out.println("File does not exist. Creating a new Text File");
+            LOGGER.warning("File does not exist.");
         } catch(NumberFormatException e) {
             System.out.println("Invalid numbers found.");
+            LOGGER.log(Level.WARNING, "Invalid numbers found.", e);
         }
     }
 
@@ -135,6 +152,7 @@ public class Storage {
                 " | " + "BuyPrice: $" + String.format("%.2f", lastItem.getBuyPrice()) + " | " +
                 "SellPrice: $" + String.format("%.2f", lastItem.getSellPrice()) + "\n";
         updateFile(descriptionAdded, true);
+        LOGGER.info("Added line to file.");
     }
 
     /**
@@ -155,8 +173,10 @@ public class Storage {
                     String.format("%.2f", items.get(index).getSellPrice()) + "\n";
             if (index == 0) {
                 updateFile(descriptionAdded, false);
+                LOGGER.info("File overwritten.");
             } else {
                 updateFile(descriptionAdded, true);
+                LOGGER.info("File not overwritten.");
             }
         }
     }

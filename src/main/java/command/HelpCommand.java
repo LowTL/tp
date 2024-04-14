@@ -11,6 +11,10 @@ public class HelpCommand extends Command{
         this.command = command;
         LOGGER.info("Command successfully created");
     }
+
+    /**
+     * Prints the help message for the relevant command
+     */
     @Override
     public void execute() {
         switch (command) {

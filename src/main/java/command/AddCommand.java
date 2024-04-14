@@ -67,7 +67,7 @@ public class AddCommand extends Command {
             if (!category.equals("NA")) {
                 System.out.println(" to " + getCategory());
             } else {
-                System.out.println("");
+                System.out.println();
                 assert category.equals("NA");
             }
         }
@@ -77,7 +77,7 @@ public class AddCommand extends Command {
      * Performs an edit on the item if the item already exists in the item list
      * Only the item information that are different will be edited
      *
-     * @param itemName
+     * @param itemName The name of the <code>Item</code> to be edited.
      */
 
     public void updateItemInfo(String itemName) {

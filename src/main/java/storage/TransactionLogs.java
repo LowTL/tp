@@ -61,6 +61,7 @@ public class TransactionLogs extends Storage {
                 Transaction toAdd = new Transaction(commandName, quantityAsInt,
                         buyAsFloat, Float.parseFloat(commandSell), commandDate);
                 Cashier.addItem(toAdd);
+                LOGGER.info("Transaction added successfully.");
             }
         }
     }
@@ -77,6 +78,11 @@ public class TransactionLogs extends Storage {
         }
     }
 
+    /**
+     * Writes to the indicated file without overwriting the previous information.
+     *
+     * @param transactions List of transactions to write to the file.
+     */
     public static void addToLog(ArrayList<Transaction> transactions) {
         assert transactions != null : "Transactions cannot be null.";
         Transaction lastTransaction = transactions.get(transactions.size() - 1);
@@ -90,5 +96,6 @@ public class TransactionLogs extends Storage {
         descriptionAdded += "Profit: " + lastTransaction.getProfit() + "\n";
         descriptionAdded += "\n";
         updateFile(descriptionAdded, true);
+        LOGGER.info("Stored transaction.");
     }
 }

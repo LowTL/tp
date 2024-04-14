@@ -17,6 +17,9 @@ public class DeleteCommand extends Command {
         this.itemName = itemName.toLowerCase(); //for checking later
     }
 
+    /**
+     * Searches of the item in the item list with the same name and deletes it
+     */
     public void execute() throws EmptyListException {
         int index = -1;
         try {

@@ -30,61 +30,21 @@ import promotion.Promotionlist;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Parser {
 
-    public static final Pattern HELP_COMMAND_FORMAT =
-            Pattern.compile("help(?: c/(?<command>[^/]+))?");
-    public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
-                    "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
-
-
-    public static final Pattern DELETE_COMMAND_FORMAT =
-            Pattern.compile("del (?<itemName>[^/]+)");
-
-    public static final Pattern EDIT_COMMAND_FORMAT =
-        Pattern.compile("edit (?<itemName>[^/]+)" +
-                "(?:\\s+(name/(?<newItemName>[^/]+)|qty/(?<newQuantity>\\d+)|uom/(?<newUnitOfMeasurement>[^/]+)|" +
-                "cat/(?<newCategory>[^/]+)|buy/(?<newBuyPrice>\\d*\\.?\\d+)|sell/(?<newSellPrice>\\d*\\.?\\d+)))+");
-
-    public static final Pattern SELL_COMMAND_FORMAT =
-            Pattern.compile("sell (?<itemName>[^/]+) qty/(?<sellQuantity>\\d+)");
-
-    public static final Pattern FIND_COMMAND_FORMAT =
-            Pattern.compile("find(?: /(?<itemInfo>[^/]+))* (?<keyword>[^/]+)");
-
-    public static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    public static final Pattern LIST_ITEM_COMMAND_FORMAT =
-            Pattern.compile("list_items(?:\\s+(?<isMark>marked))?(?:\\s+cat/(?<category>[^/]+))?");
-
-    public static final Pattern MARK_COMMAND_FORMAT =
-            Pattern.compile("mark (?<itemName>[^/]+)");
-    public static final Pattern UNMARK_COMMAND_FORMAT =
-            Pattern.compile("unmark (?<itemName>[^/]+)");
-
-    public static final Pattern PROMOTION_COMMAND_FORMAT =
-            Pattern.compile("promotion (?<itemName>[^/]+) discount/(?<discount>\\d+(\\.\\d{1,2})?) " +
-                    "period /from (?<startDate>\\d+) (?<startMonth>\\w+) (?<startYear>\\d+) " +
-                    "/to (?<endDate>\\d+) (?<endMonth>\\w+) (?<endYear>\\d+) " +
-                    "time /from (?<startTime>\\d{4}) /to (?<endTime>\\d{4})");
-    public static final Pattern DELETE_PROMO_COMMAND_FORMAT =
-            Pattern.compile("del_promo (?<itemName>[^/]+)");
-
-    public static final Pattern LIST_TRANSACTION_COMMAND_FORMAT =
-            Pattern.compile("^list_transactions(?:\\s+item/(?<itemName>\\w+))?$");
-
-
-    public static final Pattern LOW_STOCK_COMMAND_FORMAT =
-            Pattern.compile("low_stock /(?<amount>[^/]+)");
+    /**
+     * Takes in the user's input and calls the relevant command
+     *
+     * @param userInput The user's input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
 
     private static final Logger logger = Logger.getLogger(Parser.class.getName());
     public Command parseInput(String userInput){
         final CommandType userCommand;
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
+        final Matcher matcher = ParserFormat.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             System.out.println(Messages.INVALID_COMMAND);
             System.out.println(Messages.HELP);
@@ -207,8 +167,15 @@ public class Parser {
         return new IncorrectCommand();
     }
 
+    /**
+     * Formats the user's input to call HelpCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareHelp(String args) throws CommandFormatException{
-        final Matcher matcher = HELP_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.HELP_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.HELP);
@@ -223,8 +190,15 @@ public class Parser {
         return new HelpCommand(command);
     }
 
+    /**
+     * Formats the user's input to call AddCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareAdd(String args) throws CommandFormatException{
-        final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.ADD_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.ADD);
@@ -247,6 +221,11 @@ public class Parser {
             throw new CommandFormatException("QTY_TOO_LARGE");
         }
 
+        String unitOfMeasurement = matcher.group("unitOfMeasurement").trim();
+        if (unitOfMeasurement.isEmpty()) {
+            throw new CommandFormatException("INVALID_UNITS");
+        }
+
         float buyPrice;
         try {
             buyPrice = Float.parseFloat(matcher.group("buyPrice"));
@@ -265,15 +244,22 @@ public class Parser {
         return new AddCommand(
                 itemName,
                 quantity,
-                matcher.group("unitOfMeasurement"),
+                unitOfMeasurement,
                 category,
                 buyPrice,
                 sellPrice
         );
     }
 
+    /**
+     * Formats the user's input to call DeleteCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareDelete(String args) throws CommandFormatException{
-        final Matcher matcher = DELETE_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.DELETE_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL);
@@ -285,9 +271,15 @@ public class Parser {
         return new DeleteCommand(itemName);
     }
 
-
+    /**
+     * Formats the user's input to call SellCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareSell(String args) throws CommandFormatException{
-        final Matcher matcher = SELL_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.SELL_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.SELL);
@@ -321,8 +313,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Formats the user's input to call FindCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareFind(String args) throws CommandFormatException{
-        final Matcher matcher = FIND_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.FIND_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);
@@ -334,8 +333,16 @@ public class Parser {
     }
 
     //@@author Fureimi
+    /**
+     * Formats the user's input to call EditCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     * @throws EditException Command does not follow the required format for the edit command.
+     */
     private Command prepareEdit(String args) throws CommandFormatException, EditException {
-        final Matcher matcher = EDIT_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.EDIT_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.EDIT);
         }
@@ -409,8 +416,16 @@ public class Parser {
         );
     }
 
+    /**
+     * Formats the user's input to call AddPromotionCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     * @throws InvalidDateException Date/time input is not valid.
+     */
     private Command preparePromotion(String args) throws CommandFormatException, InvalidDateException {
-        final Matcher matcher = PROMOTION_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.PROMOTION_COMMAND_FORMAT.matcher(args.trim());
 
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.PROMOTION);
@@ -448,16 +463,31 @@ public class Parser {
         }
     }
 
+    /**
+     * Formats the user's input to call DeletePromotionCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareDeletePromo(String args) throws CommandFormatException{
-        final Matcher matcher = DELETE_PROMO_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.DELETE_PROMO_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL_PROMO);
         }
         return new DeletePromotionCommand(matcher.group("itemName").toLowerCase());
     }
+
+    /**
+     * Formats the user's input to list all items or list them by category
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareItemList(String args) throws CommandFormatException {
-        final Matcher matcher = LIST_ITEM_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.LIST_ITEM_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LIST_ITEMS);
@@ -467,15 +497,22 @@ public class Parser {
             throw new CommandFormatException("INVALID_CATEGORY");
         }
         boolean listMarked = matcher.group("isMark") != null;
-        return new ListCommand<>(Itemlist.getItems(), category, listMarked);
+        return new ListCommand(Itemlist.getItems(), category, listMarked);
     }
 
     private Command preparePromotionList() {
-        return new ListCommand<>(Promotionlist.getAllPromotion());
+        return new ListCommand(Promotionlist.getAllPromotion());
     }
 
+    /**
+     * Formats the user's input to call MarkCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareMark(String args) throws CommandFormatException {
-        final Matcher matcher = MARK_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.MARK_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.MARK);
         }
@@ -486,8 +523,15 @@ public class Parser {
         return new MarkCommand(itemName);
     }
 
+    /**
+     * Formats the user's input to call UnmarkCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareUnmark(String args) throws CommandFormatException {
-        final Matcher matcher = UNMARK_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.UNMARK_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.UNMARK);
         }
@@ -498,21 +542,35 @@ public class Parser {
         return new UnmarkCommand(itemName);
     }
 
+    /**
+     * Formats the user's input to list all transactions or list all transactions of a certain item
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareTransactionList(String args) throws CommandFormatException {
-        final Matcher matcher = LIST_TRANSACTION_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.LIST_TRANSACTION_COMMAND_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LIST_TRANSACTIONS);
         }
         if (matcher.group("itemName") == null) {
-            return new ListCommand<>(Cashier.getTransactions(), "NA");
+            return new ListCommand(Cashier.getTransactions(), "NA");
         }
 
         String itemName = matcher.group(1).trim();
-        return new ListCommand<>(Cashier.getTransactions(), itemName);
+        return new ListCommand(Cashier.getTransactions(), itemName);
     }
 
+    /**
+     * Formats the user's input to call LowStockCommand with the appropriate params
+     *
+     * @param args The user's parsed input command
+     *
+     * @throws CommandFormatException Command does not follow the required format.
+     */
     private Command prepareLowStock(String args) throws CommandFormatException{
-        final Matcher matcher = LOW_STOCK_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ParserFormat.LOW_STOCK_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.LOW_STOCK);

@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class Cashier extends Itemlist {
 
+    public static ArrayList<Transaction> transactions = new ArrayList<>();
     protected static final Logger LOGGER = Logger.getLogger(Cashier.class.getName());
-    protected static ArrayList<Transaction> transactions = new ArrayList<>();
 
     public static void addItem(Transaction transaction) {
         transactions.add(transaction);

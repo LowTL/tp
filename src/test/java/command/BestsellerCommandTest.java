@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class BestsellerCommandTest extends Cashier {
+public class BestsellerCommandTest {
 
     private final BestsellerCommand bestsellerCommand = new BestsellerCommand();
 

@@ -65,6 +65,9 @@ public class CommandFormatException extends Exception{
         case "INVALID_DISCOUNT":
             System.out.println(Messages.INVALID_DISCOUNT);
             break;
+        case "INVALID_FILTER":
+            System.out.println(Messages.INVALID_FILTER);
+            break;
         case "INVALID_ITEM_NAME":
             System.out.println(Messages.INVALID_ITEM_NAME);
             break;

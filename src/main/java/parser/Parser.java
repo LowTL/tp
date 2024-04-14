@@ -322,17 +322,11 @@ public class Parser {
      */
     private Command prepareFind(String args) throws CommandFormatException{
         final Matcher matcher = ParserFormat.FIND_COMMAND_FORMAT.matcher(args.trim());
+
         // Validate arg string format
-        if (!matcher.matches()) {
+        if (!matcher.find()) {
             throw new CommandFormatException(CommandType.FIND);
         }
-        /*StringBuilder filters = new StringBuilder();
-        for (int i = 1; i <= matcher.groupCount("itemInfo"); i++) {
-            String segment = matcher.group("info" + i);
-            if (segment != null) {
-                filters.append(segment);
-            }
-        }*/
         String itemInfo = matcher.group("itemInfo") != null ? matcher.group("itemInfo").toLowerCase() : "NA";
         return new FindCommand(
                 itemInfo,

@@ -16,6 +16,10 @@ public class Cashier extends Itemlist {
         transactions.add(transaction);
     }
 
+    public static void deleteItem(int index) {
+        transactions.remove(index);
+    }
+
     public static ArrayList<Transaction> getTransactions() {
         return transactions;
     }

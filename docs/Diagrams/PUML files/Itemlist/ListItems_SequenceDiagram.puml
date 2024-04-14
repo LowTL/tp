@@ -1,41 +1,39 @@
 @startuml
-participant "ui : TextUi" as UI
-participant "listCommand : ListCommand<Item>" as ListCommand
-participant "itemList : Itemlist" as Itemlist
-participant "item : Item" as Item
+actor User
+participant "ListCommand :ListCommand" as LC
+participant "UI :TextUi" as UI
+participant "ItemList :Itemlist" as IL
 
-activate ListCommand
+User -> LC : execute()
+activate LC
 
-ListCommand -> Itemlist : getItems()
-activate Itemlist
-Itemlist --> ListCommand : return items
-deactivate Itemlist
-
-ListCommand -> ListCommand : containsItems(items)
-activate ListCommand
-ListCommand --> ListCommand : return result
-deactivate ListCommand
+LC -> IL : isEmpty()
+activate IL
+IL --> LC : false
+deactivate IL
 
 alt category equals "NA" and not isListMarked
-    ListCommand -> UI : showList(items)
+    LC -> UI : showList(itemList)
     activate UI
-    UI --> ListCommand : display items
+    UI --> LC
     deactivate UI
-else contains Items
-    ListCommand -> ListCommand : showCustomizedItemList()
-    activate ListCommand
-    ListCommand -> Item : getCategory()
-    activate Item
-    Item --> ListCommand : return category
-    deactivate Item
-    ListCommand -> Item : getMarkStatus()
-    Item --> ListCommand : return isMark
-    ListCommand -> UI : replyToUser(item details)
-    deactivate ListCommand
+else category not equals "NA" and not isListMarked
+    LC -> UI : showCustomizedList(itemList, category, false)
     activate UI
-    UI --> ListCommand : display relevant items
+    UI --> LC
     deactivate UI
+else category equals "NA" and isListMarked
+    LC -> UI : showCustomizedList(itemList, "NA", true)
+    activate UI
+    UI --> LC
+    deactivate UI
+else
+    LC -> UI : showCustomizedList(itemList, category, true)
+    activate UI
+    UI --> LC
+    deactivate UI
+    deactivate LC
 end
+
 hide footbox
-deactivate ListCommand
 @enduml

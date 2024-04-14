@@ -67,8 +67,7 @@ To list items in the `Itemlist` to the user, the `ListCommand` class is used.
 ![ListItems_SequenceDiagram](Diagrams/Images/Itemlist/ListItems_SequenceDiagram.png)
 1. An instance of `ListCommand` is created with parameters specifying what category to list, or whether to only 
 list marked items, as well as an `Itemlist` class. 
-2. The `execute()` method is then called, which first checks which type of list is passed. In this case, it wil be the 
-list of items. Afterwards, it checks for modifiers such as category or isListMarked.
+2. The `execute()` method is then called, checking for modifiers such as category or isListMarked.
 3. Depending on the modifiers, different things will happen.
    - If there are no modifiers, `ListCommand` will display all items in the list by calling `TextUi.ShowList()`.
 4. If there are modifiers present, `ShowCustomizedItemList()` will be called.

@@ -63,6 +63,9 @@ public class Item {
 
     public void setQuantity(int newQuantity) {
         this.quantity = newQuantity;
+        if (newQuantity == 0) {
+            this.isOOS = true;
+        }
     }
 
     public float getBuyPrice() {
@@ -110,6 +113,7 @@ public class Item {
         String categoryString = (getCategory() != null) ? ", Category: " + getCategory() : "";
         String markString = (this.isMark) ? "[X] " : "[ ] ";
         return (markString + getItemName() + " (Qty: " + getQuantity() + " " + getUnitOfMeasurement() +
-                ", Buy: $" + getBuyPrice() + ", Sell: $" + getSellPrice() + categoryString + ")");
+                ", Buy: $" + String.format("%.2f", getBuyPrice()) + ", Sell: $" + String.format("%.2f", getSellPrice())
+                + categoryString + ")");
     }
 }

@@ -40,7 +40,7 @@ list marked items, as well as an `Itemlist` class.
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
-![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_Sequence_Diagram.png)
+![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_SequenceDiagram.png)
 
 The `EditCommand` class extends the `command` class.
 The `EditCommand` is responsible for editing attributes of an item in the `Itemlist`. This includes changing the

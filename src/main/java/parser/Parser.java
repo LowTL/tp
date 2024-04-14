@@ -591,6 +591,9 @@ public class Parser {
         int amount;
         try {
             amount = Integer.parseInt(matcher.group("amount"));
+            if (amount <= 0){
+                throw new CommandFormatException("NEGATIVE_LOW_STOCK_AMOUNT");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("INVALID_LOW_STOCK_AMOUNT");
         }

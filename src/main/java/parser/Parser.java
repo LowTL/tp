@@ -389,8 +389,8 @@ public class Parser {
         if (newCategory.isBlank() || newCategory.isEmpty()) {
             throw new EditException("CATEGORY");
         }
-        // check if BuyPrice was edited. If no, newBuyPrice will be -1
 
+        // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice;
         try {
             newBuyPrice = matcher.group("newBuyPrice") != null ?

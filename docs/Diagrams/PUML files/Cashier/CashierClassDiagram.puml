@@ -1,34 +1,68 @@
 @startuml
+!include ../Style.puml
 
-class Cashier {
+class BestsellerCommand #LightGreen {
++ execute()
+}
+class TotalProfitCommand #LightGreen {
+command: CommandType
++ TotalProfitCommand(command)
++ execute()
+}
+class ListCommand #LightGreen {
+- transactionList: ArrayList<Transaction>
++ execute()
+}
+class SellCommand #LightGreen {
++execute()
+}
+
+class TextUi #Tan {
++replyToUser(text: String)
+}
+
+class Cashier #MistyRose {
     - transactions: ArrayList<Transaction>
     + addItem(transaction: Transaction): void
     + getTransactions(): ArrayList<Transaction>
     + getTransactions(item: Item): ArrayList<Transaction>
+    + getTransaction(index: int): Transaction
     + getTotalRevenue(): float
     + getTotalProfit(): float
-    + getTransaction(index: int): Transaction
     + getBestseller(): Item
 }
 
-class Transaction {
-    - item: Item
+class Transaction #LightSkyBlue {
+    - dateTime: String
     - totalPrice: float
-    + getItem(): Item
-    + getTotalPrice(): float
-    + getProfit(): float
+    - profit: float
+    - item: String
+    - quantity: int
+    - buyPrice: float
+    - sellPrice: float
+
+    + Transaction(String, int, float, float)
+    + Transaction(String, int, float, float, String)
 }
 
-class Item {
-    - name: String
-    - price: float
-    - cost: float
-    + getName(): String
-    + getPrice(): float
-    + getCost(): float
+class Item #LightBlue {
+    + isMark: boolean
+    + isOOS: boolean
+    - itemName: String
+    - quantity: int
+    - unitOfMeasurement: String
+    - category: String
+    - buyPrice: float
+    - sellPrice: float
+    +Item(String, int, String, String, float, float)
 }
 
-Cashier --> Transaction : has 1..* transactions
-Transaction --> Item : has 1 item
+BestsellerCommand -d->"uses" Cashier
+TotalProfitCommand-d->"uses" Cashier
+SellCommand-d->"uses" Cashier
+ListCommand-d->"uses" Cashier
+Cashier -r->TextUi
+Cashier --> Transaction : has 1..*
+Transaction --> Item : has 1
 
 @enduml

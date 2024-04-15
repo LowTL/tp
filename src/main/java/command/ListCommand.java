@@ -84,6 +84,14 @@ public class ListCommand extends Command{
     }
 
     private void showTransactionList() {
+        try {
+            if (transactionList.isEmpty()) {
+                throw new EmptyListException("Transaction");
+            }
+        } catch (EmptyListException e) {
+            LOGGER.warning("Empty list detected.");
+            return;
+        }
         TextUi.showTransactionList(transactionList);
     }
 

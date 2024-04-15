@@ -13,7 +13,7 @@ public class BestsellerCommand extends Command {
         String bs = Cashier.getBestseller();
         try {
             if (bs == null) {
-                throw new EmptyListException("Transaction");
+                throw new EmptyListException("Bestseller");
             }
         } catch (EmptyListException e) {
             LOGGER.warning("No transaction found.");

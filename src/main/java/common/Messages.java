@@ -94,5 +94,7 @@ public class Messages {
 
     public static final String INVALID_VALUE = "Please input a valid amount.";
 
+    public static final String NO_BESTSELLER = "There are no transactions. Please add a transaction " +
+            "before retrying the command.";
 
 }

@@ -15,6 +15,9 @@ public class EmptyListException extends Exception {
         case "Empty List":
             System.out.println("No results found.");
             break;
+        case "Bestseller":
+            System.out.println(Messages.NO_BESTSELLER);
+            break;
         default:
             System.out.println(error);
         }

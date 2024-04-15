@@ -1,5 +1,5 @@
 @startuml
-hide circle
+!include ../Style.puml
 
 class Storage {
     +readFromFile(fileName: String)

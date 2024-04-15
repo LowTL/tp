@@ -11,13 +11,14 @@ manage and operate their business.
 
 - New Feature: Added the capability to add/delete/list promotions
     - What it does: allows the user to add a Promotion for a certain ITEM by entering the discount, startDate,
-      endDate, startTime and endTime. When a Promotion is added for an ITEM, when the store owner uses the sell
+      endDate, startTime and endTime. When a Promotion is added for an ITEM, and the store owner uses the sell
       feature in the application, the discount will be immediately applied to the sell price and the discounted price will
-      be shown.
+      be shown if it is within the promotion period.
     - Justification: This feature improves the application as the user now have the option to create a discount campaign
       and make adjustments to the sell price automatically rather than having to manually use the edit feature.
     - Highlights: This enhancement was challenging as it involved the integration with the sell command. In particular,
-      one difficulty was to ensure that the original price of the ITEM would not be changed even during a promotion period.
+      one difficulty was to ensure that the original price of the ITEM would not be changed even during a promotion period. 
+      Another difficulty is to check if the item is within the promotion period for the given date and time.
 
 
 - New Feature: Enhanced the find command to allow the user to search based on the specified item information.

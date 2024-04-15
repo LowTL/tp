@@ -10,6 +10,8 @@ public class ParserFormat {
             Pattern.compile("add (?<itemName>[^/]+) qty/(?<quantity>\\d+) /(?<unitOfMeasurement>[^/]+)" +
                     "(?: cat/(?<category>[^/]+))? buy/(?<buyPrice>\\d*\\.?\\d+) sell/(?<sellPrice>\\d*\\.?\\d+)");
 
+    public static final Pattern LIST_PROMOTION_COMMAND_FORMAT =
+            Pattern.compile("list_promotions\\s*$");
 
     public static final Pattern DELETE_COMMAND_FORMAT =
             Pattern.compile("del (?<itemName>[^/]+)");

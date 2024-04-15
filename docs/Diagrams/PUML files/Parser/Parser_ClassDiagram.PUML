@@ -1,5 +1,5 @@
 @startuml
-
+!include ../Style.puml
 package "parser" {
     class Parser {
         -logger: Logger

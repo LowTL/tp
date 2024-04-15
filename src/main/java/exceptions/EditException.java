@@ -5,6 +5,9 @@ import ui.TextUi;
 public class EditException extends Exception {
     public EditException(String error) {
         switch (error) {
+        case "ITEM_ALREADY_EXISTS":
+            TextUi.replyToUser("New item name cannot be the same as an existing item!");
+            break;
         case "ITEM_NAME":
             TextUi.replyToUser("New item name cannot be blank!");
             break;

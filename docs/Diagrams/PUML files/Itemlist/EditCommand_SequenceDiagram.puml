@@ -1,4 +1,5 @@
 @startuml
+!include ../Style.puml
 actor User
 participant "editCommand :EditCommand" as EditCommand
 participant "ui :TextUi" as UI

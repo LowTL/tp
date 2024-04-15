@@ -9,20 +9,24 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
-import static ui.TextUi.getUserInput;
-import static ui.TextUi.showList;
 
 public class TextUiTest {
-
+    @Test
+    public void testReplyToUser() {
+        String message = "Message 1 to display";
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        TextUi.replyToUser(message);
+        assert outputStreamCaptor.toString().contains((message));
+    }
 
     @Test
     public void testValidInput() {
-
         provideInput("add Item");
-        assertEquals("add Item", getUserInput());
+        assertEquals("add Item", TextUi.getUserInput());
 
         provideInput("   ");
-        assertEquals("Invalid Command", getUserInput());
+        assertEquals("Invalid Command", TextUi.getUserInput());
     }
 
     @Test
@@ -32,7 +36,7 @@ public class TextUiTest {
         ArrayList<String> itemList = new ArrayList<>();
         itemList.add("test 1");
         itemList.add("test 2");
-        showList(itemList);
+        TextUi.showList(itemList);
         String[] output = outputStreamCaptor.toString().split("\\r?\\n");
         String line1 = "List: ";
         String line2 = "1. test 1";
@@ -47,7 +51,7 @@ public class TextUiTest {
         PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStreamCaptor));
         ArrayList<String> itemList = new ArrayList<>(); //empty arrayList
-        showList(itemList);
+        TextUi.showList(itemList);
         String[] output = outputStreamCaptor.toString().split("\\r?\\n");
         String line = "There is nothing here! Time to spend some money and stock em up!";
         List<String> expectedOutput = List.of(line);

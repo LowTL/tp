@@ -15,9 +15,14 @@
     * [Class Diagram](#storage-class-diagram)
     * [Sequence Diagram](#storage-sequence-diagram)
   * [UI](#ui)
-  * [Cashier](#cashier)
+  * [Cashier](#cashier-features)
     * [Class Diagram](#cashier-class-diagram)
     * [Sequence Diagrams](#cashier-sequence-diagrams)
+  * [Promotions](#promotion-feature)
+    * [Sequence Diagram](#promotion-sequence-diagram)
+    * [Add Promotion](#add-new-promotion)
+      * [Class Diagram](#add-promotion-class-diagram)
+      * [Sequence Diagram](#add-promotion-sequence-diagram)
 * [Product Scope](#product-scope)
 * [User Stories](#user-stories)
 * [Non-Functional Requirements](#non-functional-requirements)
@@ -136,7 +141,7 @@ the Itemlist by `addItem()` method.
 ### UI
 UI prints command output, and useful messages to the user.
 
-### Cashier
+### Cashier features 
 Cashier class extends Itemlist class, and stores `Transactions` instead of `Items`.
 It has 4 main functions: `addItem`, `getTransactions`, `getBestseller` and `getTotalProfit`.
 The main function of this class is to track transactions, as well as provide some basic
@@ -146,8 +151,15 @@ It mainly uses 4 `Command` subclasses, namely the `AddCommand`, `ListCommand`, `
 `TotalProfitCommand`. Each `Command` subclass executes their respective function, and print the result through
 `TextUi`.
 
+To improve the robustness of the program, the `Transaction` stores the `Item` sold as a `String` rather than an `Item`, 
+to allow for users to edit or delete the `Item` without losing the history of which `Item` was sold in the past.
+This also allows for the analytics to work with `Items` that no longer exist.
+
 ### Cashier Class Diagram
 ![CashierClassDiagram](Diagrams/Images/Cashier/CashierClassDiagram.png)
+
+Above is the class diagram for the `Cashier` class, and its dependencies.
+The `Command` subclasses at the top fit their respective functions, and `SellCommand` maps to the `addItem` method.
 
 ### Cashier Sequence Diagrams
 ![CashierSeqDiagram](Diagrams/Images/Cashier/CashierSequenceDiagram.png)
@@ -174,6 +186,7 @@ own business given a certain period and time. Additionally, it implements the fo
 Given below is the overall sequence diagram for the `PromotionCommand`. The reference frames are shown when explaining
 the operations.
 
+#### Promotion Sequence Diagram
 ![PromotionSequenceDiagram](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
 
 

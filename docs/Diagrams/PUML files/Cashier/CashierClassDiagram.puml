@@ -1,14 +1,24 @@
 @startuml
 !include ../Style.puml
 
-class BestsellerCommand {
+class BestsellerCommand #LightGreen {
 + execute()
 }
-class TotalProfitCommand {
+class TotalProfitCommand #LightGreen {
+command: CommandType
++ TotalProfitCommand(command)
++ execute()
 }
-class BestsellerCommand {
+class ListCommand #LightGreen {
+- transactionList: ArrayList<Transaction>
++ execute()
 }
-class BestsellerCommand {
+class SellCommand #LightGreen {
++execute()
+}
+
+class TextUi #Tan {
++replyToUser(text: String)
 }
 
 class Cashier #MistyRose {
@@ -22,7 +32,7 @@ class Cashier #MistyRose {
     + getBestseller(): Item
 }
 
-class Transaction {
+class Transaction #LightSkyBlue {
     - dateTime: String
     - totalPrice: float
     - profit: float
@@ -35,7 +45,7 @@ class Transaction {
     + Transaction(String, int, float, float, String)
 }
 
-class Item {
+class Item #LightBlue {
     + isMark: boolean
     + isOOS: boolean
     - itemName: String
@@ -47,9 +57,12 @@ class Item {
     +Item(String, int, String, String, float, float)
 }
 
-Cashier --> Transaction : has 1..* transactions
-Transaction --> Item : has 1 item
+BestsellerCommand -d->"uses" Cashier
+TotalProfitCommand-d->"uses" Cashier
+SellCommand-d->"uses" Cashier
+ListCommand-d->"uses" Cashier
+Cashier -r->TextUi
+Cashier --> Transaction : has 1..*
+Transaction --> Item : has 1
 
-hide circle
-skinparam classAttributeIconSize 0
 @enduml

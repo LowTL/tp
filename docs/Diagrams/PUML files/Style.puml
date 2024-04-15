@@ -36,5 +36,4 @@ skinparam packageStyle Rectangle
 skinparam classAttributeIconSize 0
 
 hide footbox
-hide members
 hide circle

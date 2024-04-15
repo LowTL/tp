@@ -1,5 +1,5 @@
 @startuml
-hide footbox
+!include ../Style.puml
 participant Client
 participant Storage
 participant Itemlist

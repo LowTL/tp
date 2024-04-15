@@ -38,7 +38,7 @@ only want to see their marked items. The mark feature is explained below.
 - **Documentation**:
    - User Guide:
       - Added documentation for the features `list_items`, `mark`, `unmark` and `edit`
-      - Update the command summary
+      - Update the command summary.
    - Developer Guide:
       - Added class diagram of the `EditCommand` class.
       - Added implementation details and sequence diagram of both the `list_items` and `edit` features.

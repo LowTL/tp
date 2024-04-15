@@ -95,19 +95,20 @@ public class TextUi {
      * @param arrayList The arraylist to show to the user.
      */
     public static <T> void showList(ArrayList<T> arrayList) {
-        if (arrayList.isEmpty()) {
+        if (arrayList == null || arrayList.isEmpty()) {
             replyToUser(Messages.EMPTY_LIST);
             return;
-        }
-        replyToUser("List: ");
-        int index = 1;
-        for (T item : arrayList) {
-            if (item == null) {
-                break;
+        } else {
+            replyToUser("List: ");
+            int index = 1;
+            for (T item : arrayList) {
+                if (item == null) {
+                    break;
+                }
+                String listItem = index + ". " + item;
+                replyToUser(listItem);
+                index++;
             }
-            String listItem = index + ". " + item;
-            replyToUser(listItem);
-            index++;
         }
     }
 
@@ -136,10 +137,8 @@ public class TextUi {
      * @param isListMarked Whether the items listed are marked items.
      */
     public static void showCustomizedList(ArrayList<Item> arrayList, String category, boolean isListMarked) {
-        if (arrayList.isEmpty()) {
-            replyToUser(Messages.EMPTY_LIST);
-            // case 1: user wants to list all items of a certain category
-        } else if (!category.equals("NA") && !isListMarked) {
+        // case 1: user wants to list all items of a certain category
+        if (!category.equals("NA") && !isListMarked) {
             int flag = 0;
             int counter = 1;
             for (Item item : arrayList) {

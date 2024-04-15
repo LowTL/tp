@@ -13,6 +13,9 @@ public class TotalProfitCommand extends Command {
     public void execute() {
         float totalProfit = command.equals(CommandType.TOTAL_PROFIT) ?
                 Cashier.getTotalProfit() : Cashier.getTotalRevenue();
+        if (totalProfit == 0) {
+            return;
+        }
         TextUi.replyToUser("You have earned " + totalProfit +
                 " in "+ (command.equals(CommandType.TOTAL_PROFIT) ? "profits" : "revenue") + " so far.");
     }

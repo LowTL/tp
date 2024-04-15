@@ -1,5 +1,6 @@
 package command;
 
+import common.Messages;
 import exceptions.CommandFormatException;
 import itemlist.Cashier;
 import itemlist.Itemlist;
@@ -30,8 +31,7 @@ public class TotalProfitCommandTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         totalProfitCommand.execute();
-        String expected = "There are no transactions with your search query." + System.lineSeparator() +
-                "You have earned 0.0 in profits so far." + System.lineSeparator();
+        String expected = Messages.NO_BESTSELLER + System.lineSeparator();
         assertEquals(expected, outputStream.toString());
 
     }
@@ -58,8 +58,7 @@ public class TotalProfitCommandTest {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
         totalProfitCommand.execute();
-        String expected = "There are no transactions with your search query." + System.lineSeparator() +
-                "You have earned 0.0 in revenue so far." + System.lineSeparator();
+        String expected = Messages.NO_BESTSELLER + System.lineSeparator();
         assertEquals(expected, outputStream.toString());
 
     }

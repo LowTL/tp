@@ -31,12 +31,8 @@ public class Cashier extends Itemlist {
                     results.add(t);
                 }
             }
-            LOGGER.info("Transactions filtered.");
-            return results;
-        } else {
-            LOGGER.warning("No transactions found.");
-            return null;
         }
+        return results;
     }
 
     public static float getTotalRevenue() {
@@ -44,7 +40,7 @@ public class Cashier extends Itemlist {
         try {
             ArrayList<Transaction> allTransactions = getTransactions();
             if (allTransactions.isEmpty()) {
-                throw new EmptyListException("Transaction");
+                throw new EmptyListException("Bestseller");
             }
             for (Transaction t : allTransactions) {
                 totalRevenue += t.getTotalPrice();
@@ -60,7 +56,7 @@ public class Cashier extends Itemlist {
         float totalProfit = 0;
         try {
             if (transactions.isEmpty()) {
-                throw new EmptyListException("Transaction");
+                throw new EmptyListException("Bestseller");
             }
             for (Transaction t : transactions) {
                 totalProfit += t.getProfit();

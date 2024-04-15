@@ -84,6 +84,10 @@ public class Promotion {
         return itemName;
     }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     @Override
     public String toString() {
         return getItemName() + " have a " + String.format("%.2f", (getDiscount() * 100)) +

@@ -1,6 +1,5 @@
 package item;
 
-import itemlist.Itemlist;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,14 +8,14 @@ public class Transaction {
     private String dateTime;
     private float totalPrice;
     private float profit;
-    private Item item;
+    private String item;
     private int quantity;
     private float buyPrice;
     private float sellPrice;
 
     public Transaction(String name, int inputQty, float inputBuy, float inputSell) {
         setDateTime();
-        item = Itemlist.getItem(name);
+        item = name;
         quantity = inputQty;
         buyPrice = inputBuy;
         sellPrice = inputSell;
@@ -26,7 +25,7 @@ public class Transaction {
 
     public Transaction(String name, int inputQty, float inputBuy, float inputSell, String storedTime) {
         dateTime = storedTime;
-        item = Itemlist.getItem(name);
+        item = name;
         quantity = inputQty;
         buyPrice = inputBuy;
         sellPrice = inputSell;
@@ -35,13 +34,8 @@ public class Transaction {
     }
 
     public String getItemName() {
-        return this.item.getItemName();
-    }
-
-    public Item getItem() {
         return this.item;
     }
-
     public int getQuantity() {
         return this.quantity;
     }
@@ -71,7 +65,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return (this.quantity + this.item.getUnitOfMeasurement() + " " + this.getItemName() +
-                " Sell: $" + this.sellPrice + "Date: " + this.getDateTime() );
+        return (this.quantity + " " + this.getItemName() +
+                " Sell: $" + this.sellPrice + " Date: " + this.getDateTime() );
     }
 }

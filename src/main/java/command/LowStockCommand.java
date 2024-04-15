@@ -15,6 +15,11 @@ public class LowStockCommand extends Command{
         this.lowStockAmount = lowStockAmount;
     }
 
+
+    public int getAmount() {
+        return lowStockAmount;
+    }
+
     private static void outOfStockItemsReminder(){
         int count = 0;
         System.out.println("Out-of-stock Items:");
@@ -47,4 +52,5 @@ public class LowStockCommand extends Command{
         outOfStockItemsReminder();
         lowOnStockItemsReminder(lowStockAmount);
     }
+
 }

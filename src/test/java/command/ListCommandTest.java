@@ -25,7 +25,7 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ListCommandTest extends Cashier {
+public class ListCommandTest {
 
     //clears all the lists
     @BeforeEach
@@ -37,7 +37,7 @@ public class ListCommandTest extends Cashier {
             Itemlist.deleteItem(0);
         }
         while (Cashier.getTransaction(0) != null) {
-            transactions = new ArrayList<>();
+            Cashier.transactions = new ArrayList<>();
         }
         Storage.updateFile("", false);
         PromotionStorage.updateFile("", false);
@@ -195,13 +195,13 @@ public class ListCommandTest extends Cashier {
                 "NA", 1.00F, 2.00F);
         addCommand.execute();
         SellCommand sellCommand = new SellCommand("testItem", 1, 0);
-        ListCommand listCommand1 = new ListCommand(transactions, "NA");
+        ListCommand listCommand1 = new ListCommand(Cashier.transactions, "NA");
         try {
             sellCommand.execute();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outputStream));
             listCommand1.execute();
-            String expected = "1. " + transactions.get(0) + System.lineSeparator();
+            String expected = "1. " + Cashier.transactions.get(0) + System.lineSeparator();
             assertEquals(expected, outputStream.toString());
         } catch (EmptyListException e) {
             Assertions.fail("Unexpected EmptyListException thrown.");
@@ -222,11 +222,11 @@ public class ListCommandTest extends Cashier {
         SellCommand sellCommand = new SellCommand("testItem", 1, 0);
         try {
             sellCommand.execute();
-            ListCommand listCommand1 = new ListCommand(transactions, "testItem");
+            ListCommand listCommand1 = new ListCommand(Cashier.transactions, "testItem");
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outputStream));
             listCommand1.execute();
-            String expected = "1. " + transactions.get(0) + System.lineSeparator();
+            String expected = "1. " + Cashier.transactions.get(0) + System.lineSeparator();
             assertEquals(expected, outputStream.toString());
         } catch (EmptyListException e) {
             Assertions.fail("Unexpected EmptyListException thrown.");
@@ -244,7 +244,7 @@ public class ListCommandTest extends Cashier {
                 "NA", 1.00F, 2.00F);
         addCommand.execute();
         SellCommand sellCommand = new SellCommand("testItem", 1, 0);
-        ListCommand listCommand1 = new ListCommand(transactions, "failTest");
+        ListCommand listCommand1 = new ListCommand(Cashier.transactions, "failTest");
         try {
             sellCommand.execute();
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

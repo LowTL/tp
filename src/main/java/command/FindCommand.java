@@ -1,6 +1,7 @@
 //@@author HengShuHong
 package command;
 
+import exceptions.CommandFormatException;
 import exceptions.EmptyListException;
 import item.Item;
 import itemlist.Itemlist;
@@ -35,11 +36,17 @@ public class FindCommand extends Command {
     @Override
     public void execute() throws EmptyListException {
         if (itemInfo.equals("NA")) {
-            itemInfo = "item + qty + uom + cat + buy + sell";
+            itemInfo = "item/qty/uom/cat/buy/sell";
         }
-        ArrayList<String> searchList = filterList();
-        TextUi.showList(searchList);
-        LOGGER.info("Itemlist successfully filtered.");
+        try {
+            ArrayList<String> searchList = filterList();
+            TextUi.showList(searchList);
+            LOGGER.info("Itemlist successfully filtered.");
+        } catch (EmptyListException e) {
+            LOGGER.warning("EMPTY LIST");
+        } catch (CommandFormatException e) {
+            LOGGER.warning("INVALID FILTER");
+        }
     }
 
     /**
@@ -48,28 +55,22 @@ public class FindCommand extends Command {
      * @return a list of items that matches the filter and the keyword
      * @throws EmptyListException when the filtered list is empty (nothing found)
      */
-    public ArrayList<String> filterList() throws EmptyListException {
+    public ArrayList<String> filterList() throws EmptyListException, CommandFormatException {
         ArrayList<String> searchList = new ArrayList<>();
-        for (Item item : Itemlist.getItems()) {
-            if (itemInfo.toLowerCase().contains("item") && item.getItemName().toLowerCase().contains(keyword)) {
-                searchList.add(String.valueOf(item));
-            }
-            if (itemInfo.toLowerCase().contains("qty") && Integer.toString(item.getQuantity()).equals(keyword)) {
-                searchList.add(String.valueOf(item));
-            }
-            if (itemInfo.toLowerCase().contains("uom") && item.getUnitOfMeasurement().toLowerCase().contains(keyword)) {
-                searchList.add(String.valueOf(item));
-            }
-            if (item.getCategory() != null) {
-                if (itemInfo.toLowerCase().contains("cat") && item.getCategory().toLowerCase().contains(keyword)) {
-                    searchList.add(String.valueOf(item));
-                }
-            }
-            if (itemInfo.toLowerCase().contains("buy") && Float.toString(item.getBuyPrice()).equals(keyword)) {
-                searchList.add(String.valueOf(item));
-            }
-            if (itemInfo.toLowerCase().contains("sell") && Float.toString(item.getSellPrice()).equals(keyword)) {
-                searchList.add(String.valueOf(item));
+        String [] getFilter = itemInfo.split("/");
+        for (String s : getFilter) {
+            String filter = s.toLowerCase();
+            switch (filter) {
+            case "item": //fall through
+            case "qty": //fall through
+            case "uom": //fall through
+            case "cat": //fall through
+            case "buy": //fall through
+            case "sell":
+                filterItemsBySingleFilter(searchList, filter, keyword);
+                break;
+            default:
+                throw new CommandFormatException("INVALID_FILTER");
             }
         }
         if (searchList.isEmpty()) {
@@ -79,4 +80,41 @@ public class FindCommand extends Command {
         return searchList;
     }
 
+    private void filterItemsBySingleFilter(ArrayList<String> searchList, String filter, String keyword) {
+        for (Item item : Itemlist.getItems()) {
+            if (searchList.contains(String.valueOf(item))) {
+                continue;
+            }
+            if (filter.equalsIgnoreCase("item") && item.getItemName().toLowerCase().contains(keyword)) {
+                searchList.add(String.valueOf(item));
+                continue;
+            }
+            if (filter.equalsIgnoreCase("qty") && Integer.toString(item.getQuantity()).equals(keyword)) {
+                searchList.add(String.valueOf(item));
+                continue;
+            }
+            if (filter.equalsIgnoreCase("uom") && item.getUnitOfMeasurement().toLowerCase().contains(keyword)) {
+                searchList.add(String.valueOf(item));
+                continue;
+            }
+            if (item.getCategory() != null && filter.equalsIgnoreCase("cat") && item.getCategory().toLowerCase().
+                    contains(keyword)) {
+                searchList.add(String.valueOf(item));
+                continue;
+            }
+            try {
+                if (filter.equalsIgnoreCase("buy") && Math.abs(item.getBuyPrice() - Float.parseFloat(keyword))
+                        <= 0.01f) {
+                    searchList.add(String.valueOf(item));
+                    continue;
+                }
+                if (filter.equalsIgnoreCase("sell") && Math.abs(item.getSellPrice() - Float.parseFloat(keyword))
+                        <= 0.01f) {
+                    searchList.add(String.valueOf(item));
+                }
+            } catch (NumberFormatException e) {
+                LOGGER.info("Keyword contains non numeric characters");
+            }
+        }
+    }
 }

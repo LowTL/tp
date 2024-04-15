@@ -1,13 +1,25 @@
 @startuml
-participant TotalProfitCommand
-participant Cashier
-participant TextUi
+!include ../Style.puml
 
-TotalProfitCommand -> Cashier: getTotalProfit() / getTotalRevenue()
-activate Cashier
-Cashier -> Cashier: Calculate total profit / total revenue
-Cashier --> TotalProfitCommand: totalProfit / totalRevenue
-deactivate Cashier
-TotalProfitCommand -> TextUi: replyToUser("You have earned {totalProfit} in {profits/revenue} so far.")
+participant ":TotalProfitCommand" as TotalProfitCommand
+participant ":Cashier" as Cashier
+participant ":TextUi" as TextUi
+
+alt get total revenue
+    TotalProfitCommand -> Cashier: getTotalRevenue()
+    activate Cashier
+    Cashier -> Cashier: Calculate total revenue
+    Cashier --> TotalProfitCommand: totalRevenue
+    deactivate Cashier
+    TotalProfitCommand -> TextUi: replyToUser("You have earned {totalRevenue} in revenue so far.")
+else get total profit
+    TotalProfitCommand -> Cashier: getTotalProfit()
+    activate Cashier
+    Cashier -> Cashier: Calculate total profit
+    Cashier --> TotalProfitCommand: totalProfit
+    deactivate Cashier
+    TotalProfitCommand -> TextUi: replyToUser("You have earned {totalProfit} in profits so far.")
+end
+
 
 @enduml

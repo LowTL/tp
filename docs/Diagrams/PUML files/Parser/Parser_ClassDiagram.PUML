@@ -1,0 +1,65 @@
+@startuml
+!include ../Style.puml
+package "parser" {
+    class Parser {
+        -logger: Logger
+        +parseInput(String): Command
+        +prepareHelp(String): Command
+        +prepareAdd(String): Command
+        +prepareDelete(String): Command
+        +prepareSell(String): Command
+        +prepareFind(String): Command
+        +prepareEdit(String): Command
+        +preparePromotion(String): Command
+        +prepareDeletePromo(String): Command
+        +prepareItemList(String): Command
+        +preparePromotionList(): Command
+        +prepareMark(String): Command
+        +prepareUnmark(String): Command
+        +prepareTransactionList(String): Command
+        +prepareLowStock(String): Command
+    }
+}
+
+package "command" {
+    class Command
+}
+
+package "common" {
+    class HelpMessages
+    class Messages
+}
+
+package "exceptions" {
+    class CommandFormatException
+    class EditException
+    class InvalidDateException
+}
+
+package "itemlist" {
+    class Cashier
+    class Itemlist
+}
+
+package "promotion" {
+    enum Month
+    class Promotionlist
+}
+
+Parser --> Command
+Parser --> Logger
+Parser --> HelpMessages
+Parser --> Messages
+Parser --> CommandFormatException
+Parser --> EditException
+Parser --> InvalidDateException
+Parser --> Cashier
+Parser --> Itemlist
+Parser --> Month
+Parser --> Promotionlist
+
+Parser *-- Command
+
+EditException --> CommandFormatException
+
+@enduml

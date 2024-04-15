@@ -17,10 +17,12 @@ import command.MarkCommand;
 import command.SellCommand;
 import command.TotalProfitCommand;
 import command.UnmarkCommand;
+import common.HelpMessages;
 import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;
 import exceptions.InvalidDateException;
+import item.Item;
 import itemlist.Cashier;
 import itemlist.Itemlist;
 import promotion.Month;
@@ -41,14 +43,14 @@ public class Parser {
      * @throws CommandFormatException Command does not follow the required format.
      */
 
-    private static final Logger logger = Logger.getLogger(Parser.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Parser.class.getName());
     public Command parseInput(String userInput){
         final CommandType userCommand;
         final Matcher matcher = ParserFormat.BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             System.out.println(Messages.INVALID_COMMAND);
-            System.out.println(Messages.HELP);
-            logger.log(Level.FINE, "Invalid command received");
+            System.out.println(HelpMessages.HELP);
+            LOGGER.log(Level.FINE, "Invalid command received.");
             return new IncorrectCommand();
         }
         String commandWord = matcher.group("commandWord").toUpperCase();
@@ -65,86 +67,91 @@ public class Parser {
             try {
                 return prepareHelp(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case LIST_ITEMS:
             try {
                 return prepareItemList(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case LIST_PROMOTIONS:
-            return preparePromotionList();
+            try {
+                return preparePromotionList(userInput);
+            } catch (CommandFormatException e) {
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
+                break;
+            }
         case LIST_TRANSACTIONS:
             try {
                 return prepareTransactionList(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case DEL_PROMO:
             try {
                 return prepareDeletePromo(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case ADD:
             try {
                 return prepareAdd(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case DEL:
             try {
                 return prepareDelete(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case EDIT:
             try {
                 return prepareEdit(userInput);
             } catch (CommandFormatException | EditException e) {
-                logger.log(Level.WARNING, "Invalid input detected.", e);
+                LOGGER.log(Level.WARNING, "Invalid input detected.", e);
                 break;
             }
         case FIND:
             try {
                 return prepareFind(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case SELL:
             try {
                 return prepareSell(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case PROMOTION:
             try {
                 return preparePromotion(userInput);
             } catch (CommandFormatException | InvalidDateException e) {
-                logger.log(Level.WARNING, "Invalid input detected.", e);
+                LOGGER.log(Level.WARNING, "Invalid input detected.", e);
                 break;
             }
         case MARK:
             try {
                 return prepareMark(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case UNMARK:
             try {
                 return prepareUnmark(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         case TOTAL_PROFIT:
@@ -157,7 +164,7 @@ public class Parser {
             try {
                 return prepareLowStock(userInput);
             } catch (CommandFormatException e) {
-                logger.log(Level.WARNING, "Invalid input detected.");
+                LOGGER.log(Level.WARNING, "Invalid input detected.");
                 break;
             }
         default:
@@ -230,6 +237,10 @@ public class Parser {
         try {
             buyPrice = Float.parseFloat(matcher.group("buyPrice"));
         } catch (NumberFormatException e) {
+            throw new CommandFormatException("INVALID_VALUE");
+        }
+        // Check if the parsed quantity is larger than Integer.MAX_VALUE
+        if (buyPrice > Integer.MAX_VALUE) {
             throw new CommandFormatException("BUY_TOO_LARGE");
         }
 
@@ -237,6 +248,10 @@ public class Parser {
         try {
             sellPrice = Float.parseFloat(matcher.group("sellPrice"));
         } catch (NumberFormatException e) {
+            throw new CommandFormatException("INVALID_VALUE");
+        }
+        // Check if the parsed quantity is larger than Integer.MAX_VALUE
+        if (sellPrice > Integer.MAX_VALUE) {
             throw new CommandFormatException("SELL_TOO_LARGE");
         }
 
@@ -264,7 +279,7 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL);
         }
-        String itemName = matcher.group("itemName").trim();
+        String itemName = matcher.group("itemName").toLowerCase().trim();
         if (itemName.isEmpty()) {
             throw new CommandFormatException("INVALID_ITEM_NAME");
         }
@@ -322,6 +337,7 @@ public class Parser {
      */
     private Command prepareFind(String args) throws CommandFormatException{
         final Matcher matcher = ParserFormat.FIND_COMMAND_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.FIND);
@@ -354,8 +370,15 @@ public class Parser {
         // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ?
                 matcher.group("newItemName").toLowerCase().trim() : "NA";
+
         if (newItemName.isBlank() || newItemName.isEmpty()) {
             throw new EditException("ITEM_NAME");
+        } else {
+            for (Item item : Itemlist.getItems()) {
+                if (item.getItemName().equals(newItemName) || item.getItemName().toLowerCase().equals(newItemName)) {
+                    throw new EditException("ITEM_ALREADY_EXISTS");
+                }
+            }
         }
         // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity;
@@ -381,14 +404,17 @@ public class Parser {
         if (newCategory.isBlank() || newCategory.isEmpty()) {
             throw new EditException("CATEGORY");
         }
-        // check if BuyPrice was edited. If no, newBuyPrice will be -1
 
+        // check if BuyPrice was edited. If no, newBuyPrice will be -1
         float newBuyPrice;
         try {
             newBuyPrice = matcher.group("newBuyPrice") != null ?
                     Float.parseFloat(matcher.group("newBuyPrice")) : -1;
             if (matcher.group("newBuyPrice") != null && newBuyPrice < 0) {
                 throw new EditException("BUY_PRICE");
+            }
+            if (newBuyPrice >= Integer.MAX_VALUE){
+                throw new CommandFormatException("BUY_TOO_LARGE");
             }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("BUY_TOO_LARGE");
@@ -401,6 +427,9 @@ public class Parser {
                     Float.parseFloat(matcher.group("newSellPrice")) : -1;
             if (matcher.group("newSellPrice") != null && newSellPrice < 0) {
                 throw new EditException("SELL_PRICE");
+            }
+            if (newSellPrice >= Integer.MAX_VALUE){
+                throw new CommandFormatException("SELL_TOO_LARGE");
             }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("SELL_TOO_LARGE");
@@ -476,7 +505,11 @@ public class Parser {
         if (!matcher.matches()) {
             throw new CommandFormatException(CommandType.DEL_PROMO);
         }
-        return new DeletePromotionCommand(matcher.group("itemName").toLowerCase());
+        String itemName = matcher.group("itemName").toLowerCase().trim();
+        if (itemName.isEmpty()) {
+            throw new CommandFormatException("INVALID_ITEM_NAME");
+        }
+        return new DeletePromotionCommand(itemName);
     }
 
     /**
@@ -500,7 +533,11 @@ public class Parser {
         return new ListCommand(Itemlist.getItems(), category, listMarked);
     }
 
-    private Command preparePromotionList() {
+    private Command preparePromotionList(String args) throws CommandFormatException {
+        final Matcher matcher = ParserFormat.LIST_PROMOTION_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new CommandFormatException(CommandType.LIST_PROMOTIONS);
+        }
         return new ListCommand(Promotionlist.getAllPromotion());
     }
 
@@ -579,6 +616,9 @@ public class Parser {
         int amount;
         try {
             amount = Integer.parseInt(matcher.group("amount"));
+            if (amount <= 0){
+                throw new CommandFormatException("NEGATIVE_LOW_STOCK_AMOUNT");
+            }
         } catch (NumberFormatException e) {
             throw new CommandFormatException("INVALID_LOW_STOCK_AMOUNT");
         }

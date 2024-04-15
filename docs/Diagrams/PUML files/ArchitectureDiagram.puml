@@ -1,0 +1,41 @@
+@startuml
+!include Style.puml
+
+package "" as f {
+Class TextUi #LightBlue
+Class Parser #Magenta
+Class Main #SkyBlue
+Class Storage #Green
+Class Command #Grey
+Class Cashier #Orange
+Class PromotionList #Gold
+Class Itemlist #Tan
+}
+
+Class User #IndianRed
+file "Storage" as File #DarkOliveGreen {
+}
+file "TransactionLogs" as File2 #DarkOliveGreen {
+}
+file "PromotionStorage"" as File3 #DarkOliveGreen {
+}
+
+User -d-> TextUi
+TextUi --> Parser
+TextUi <--> Main
+TextUi <--> Storage
+Main --> Storage
+Main -l-> Parser
+Main --> Command
+Parser --> Command
+Command --> Cashier
+Command --> Itemlist
+Command --> PromotionList
+Itemlist <--> PromotionList
+Itemlist <--> Cashier
+
+Storage <-d-> File
+Storage <-r-> File2
+Storage <-d-> File3
+
+@enduml

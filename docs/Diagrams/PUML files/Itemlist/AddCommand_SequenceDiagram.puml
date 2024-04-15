@@ -2,32 +2,31 @@
 !include ../Style.puml
 
 actor User
-participant "Parser" as Parser
-participant "AddCommand" as AddCommand
-participant "Itemlist" as Itemlist
-participant "EditCommand" as EditCommand
+participant ":Parser" as Parser
+participant ":AddCommand" as AddCommand
+participant ":Itemlist" as Itemlist
+participant ":EditCommand" as EditCommand
 
 User -> Parser: add command
 activate Parser
 
 Parser -> AddCommand: prepareAdd(userInput)
 activate AddCommand
-AddCommand -> Itemlist: itemIsExist(itemName)
 activate Itemlist
 alt Item exists
-    Itemlist -> AddCommand: true
     AddCommand -> EditCommand: edit Item
     activate EditCommand
     EditCommand -> Itemlist: editQuantity(index, newQuantity)
     deactivate EditCommand
+    Itemlist --> AddCommand
     AddCommand -> User: Output success message
 else Item does not exist
-Itemlist -> AddCommand: false
     AddCommand -> Itemlist: addItem(item)
-    deactivate Itemlist
+    Itemlist --> AddCommand
 
 AddCommand -> User: Output success message
 deactivate AddCommand
-deactivate Parser
 end
+deactivate Itemlist
+deactivate Parser
 @enduml

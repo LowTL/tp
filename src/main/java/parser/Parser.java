@@ -22,6 +22,7 @@ import common.Messages;
 import exceptions.CommandFormatException;
 import exceptions.EditException;
 import exceptions.InvalidDateException;
+import item.Item;
 import itemlist.Cashier;
 import itemlist.Itemlist;
 import promotion.Month;
@@ -369,8 +370,15 @@ public class Parser {
         // check if itemName was edited. If no, newItemName will be NA
         String newItemName = matcher.group("newItemName") != null ?
                 matcher.group("newItemName").toLowerCase().trim() : "NA";
+
         if (newItemName.isBlank() || newItemName.isEmpty()) {
             throw new EditException("ITEM_NAME");
+        } else {
+            for (Item item : Itemlist.getItems()) {
+                if (item.getItemName().equals(newItemName) || item.getItemName().toLowerCase().equals(newItemName)) {
+                    throw new EditException("ITEM_ALREADY_EXISTS");
+                }
+            }
         }
         // check if quantity was edited. If no, newQuantity will be -1
         int newQuantity;

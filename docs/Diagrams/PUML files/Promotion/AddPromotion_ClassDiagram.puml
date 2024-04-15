@@ -14,11 +14,11 @@ class Promotionlist #Honeydew {
     + getIndex(promotion : Promotions)
     + itemIsOnPromo(itemName: String)
     + isLeapYear(year: Int)
-    + addPromotion((promotion : Promotions)
+    + addPromotion(promotion : Promotions)
     + isValidDiscount(discount: Float)
-    + isVerifiedTime(startTime: Int, endTime: Int)
+    + isValidTime(startTime: Int, endTime: Int)
     + isValidDuration(...)
-    + isValidMonth( date: Int, month: Month, year: Int)
+    + isValidMonth(date: Int, month: Month, year: Int)
     + getAllPromotion()
 }
 
@@ -61,7 +61,7 @@ enum Month #LightYellow {
     DEC(12)
 }
 
-AddPromotionCommand --> Promotionlist : 1
+AddPromotionCommand --> Promotionlist : uses
 Promotionlist --> Promotion : 0..*
 
 

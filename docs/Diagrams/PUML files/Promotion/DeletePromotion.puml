@@ -5,12 +5,12 @@
 mainframe sd DeletePromotion
 
 participant ":PromotionCommand" as PromotionCommand
-participant "<<class>>\nPromotionlist" as Promotionlist
+participant ":Promotionlist" as Promotionlist
 participant ":TextUi" as TextUi
 
 alt item has an ongoing promotion
     PromotionCommand -> Promotionlist : getPromotion(itemName)
-    Promotionlist -> PromotionCommand : promotion
+    Promotionlist --> PromotionCommand : promotion
     PromotionCommand -> Promotionlist : getIndex(promotion)
     Promotionlist --> PromotionCommand : index
     PromotionCommand -> Promotionlist : deletePromotion(index)

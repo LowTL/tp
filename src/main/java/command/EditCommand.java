@@ -5,6 +5,7 @@ import item.Item;
 import itemlist.Itemlist;
 import promotion.Promotion;
 import promotion.Promotionlist;
+import storage.PromotionStorage;
 import storage.Storage;
 
 public class EditCommand extends Command{
@@ -85,6 +86,7 @@ public class EditCommand extends Command{
                     Promotion promotion = Promotionlist.getPromotion(itemName);
                     assert promotion != null;
                     promotion.setItemName(newItemName);
+                    PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
                 }
             }
             if (newQuantity != -1) { // check if quantity was edited

@@ -5,6 +5,7 @@ import item.Item;
 import itemlist.Itemlist;
 import promotion.Promotion;
 import promotion.Promotionlist;
+import storage.PromotionStorage;
 import storage.Storage;
 
 public class EditCommand extends Command{
@@ -58,7 +59,7 @@ public class EditCommand extends Command{
     }
 
     /**
-     * Edits the relevant params of the item in the item list
+     * Edits the relevant params of the item in the item list and prints out to the user.
      */
     @Override
     public void execute() {
@@ -85,6 +86,7 @@ public class EditCommand extends Command{
                     Promotion promotion = Promotionlist.getPromotion(itemName);
                     assert promotion != null;
                     promotion.setItemName(newItemName);
+                    PromotionStorage.overwritePromotionFile(Promotionlist.getAllPromotion());
                 }
             }
             if (newQuantity != -1) { // check if quantity was edited

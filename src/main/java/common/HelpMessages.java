@@ -13,7 +13,7 @@ public class HelpMessages {
             "| list       | list_transactions [item/ITEM_NAME]                                           |\n" +
             "| transaction|                                                                              |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
+            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT [cat/CATEGORY]       |\n" +
             "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| sell       | sell ITEM_NAME qty/SELL_QUANTITY                                             |\n" +
@@ -29,7 +29,7 @@ public class HelpMessages {
             "| delete     | del ITEM_NAME                                                                |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
-            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
+            "|            | 2. find /FILTER1/FILTER2 KEYWORD  - to search under the filters*             |\n" +
             "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| bestseller | bestseller                                                                   |\n" +
@@ -54,7 +54,8 @@ public class HelpMessages {
             "| exit       | exit                                                                         |\n" +
             "|____________|______________________________________________________________________________|\n" +
             "* type help c/COMMAND for more detailed explanations\n" +
-            "  (use the command names on the left column)";
+            "  (use the command names on the left column)\n" +
+            "* parameters in [] are optional and can be omitted.";
 
     public static final String HELP_EXIT =
             " ___________________________________________________________________________________________\n" +
@@ -144,7 +145,7 @@ public class HelpMessages {
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
-            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
+            "|            | 2. find /FILTER1/FILTER2 KEYWORD  - to search under the filters*             |\n" +
             "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
             "| example:   | find apple                                                                   |\n" +
@@ -218,7 +219,7 @@ public class HelpMessages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
-            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT cat/[CATEGORY]       |\n" +
+            "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT [cat/CATEGORY]       |\n" +
             "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
             "| example:   | add apple qty/100 /pcs cat/fruit buy/1.50 sell/2.50                          |\n" +
@@ -233,7 +234,7 @@ public class HelpMessages {
             "|___________________________________________________________________________________________|\n" +
             "| Commands          | Format                                                                |\n" +
             "|-------------------|-----------------------------------------------------------------------|\n" +
-            "| list_transactions | list_transactions item/[ITEM_NAME]                                    |\n" +
+            "| list_transactions | list_transaction [item/ITEM_NAME]                                     |\n" +
             "|-------------------|-----------------------------------------------------------------------|\n" +
             "| example:          | list_transactions item/apple                                          |\n" +
             "|___________________|_______________________________________________________________________|\n";

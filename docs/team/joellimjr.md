@@ -38,6 +38,12 @@ manage and operate their business.
     - Justification: It reminds the user upon starting up the app to restock out-of-stock items
       and warn the user about the items that are running low in stock.
 
+- **New Feature:** Detailed help command
+    - What it does: An extension of the help command, it gives users more detailed information about 
+      a specific command along with examples.
+    - Justification: Some of the commands have many input variables, some of which are optional. 
+      This feature aims to help users understand the specific requirements of the commands
+
 
 - **Code Contributed:** [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=Joellimjr&tabRepo=AY2324S2-CS2113-T15-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
@@ -49,3 +55,13 @@ manage and operate their business.
     - Developer Guide:
         - Added implementation details and class diagram of the `Parser` class.
         - Added implementation details and sequence diagram of the `add` feature.
+
+
+- **J-Unit Testing**
+    - Added J-Unit testing:
+        - ParserTest
+        - AddCommandTest
+        - HelpCommandTest
+        - SellCommandTest
+        - LowStockCommandTest
+  

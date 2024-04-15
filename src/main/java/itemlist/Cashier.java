@@ -1,7 +1,6 @@
 package itemlist;
 
 import exceptions.EmptyListException;
-import item.Item;
 import item.Transaction;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class Cashier extends Itemlist {
         ArrayList<Transaction> results = new ArrayList<>();
         if (!transactions.isEmpty()) {
             for (Transaction t : transactions) {
-                if (t.getItem().getItemName().equals(itemName)) {
+                if (t.getItemName().equals(itemName)) {
                     results.add(t);
                 }
             }
@@ -88,20 +87,24 @@ public class Cashier extends Itemlist {
         }
     }
 
-    public static Item getBestseller() {
-        Item bestSeller = null;
-        float[] profits = new float[Itemlist.items.size()];
+    public static String getBestseller() {
         if (transactions.isEmpty()) {
             return null;
         }
+        String bestSeller = transactions.get(0).getItemName();
+        ArrayList<String> tempNames = new ArrayList<>();
+        float[] profits = new float[transactions.size()];
         assert(Itemlist.noOfItems > 0);
-        bestSeller = Itemlist.getItem(0);
         for (Transaction t: transactions) {
-            profits[Itemlist.getIndex(t.getItem())] += t.getProfit();
+            if (!tempNames.contains(t.getItemName())) {
+                tempNames.add(t.getItemName());
+            }
+            profits[tempNames.indexOf(t.getItemName())] += t.getProfit();
         }
-        for (int i = 1; i < Itemlist.items.size(); i++) {
-            if (profits[i] > profits[Itemlist.getIndex(bestSeller)]) {
-                bestSeller = Itemlist.getItem(i);
+        for (int i = 1; i < tempNames.size(); i++) {
+            if (profits[i] > profits[tempNames.indexOf(bestSeller)]) {
+                System.out.println(tempNames.get(i));
+                bestSeller = tempNames.get(i);
             }
         }
         return bestSeller;

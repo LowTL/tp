@@ -78,7 +78,7 @@ public class ListCommand extends Command{
             showCustomizedItemList();
             LOGGER.info("Items listed.");
         } else {
-            LOGGER.warning("No items found.");
+            LOGGER.warning("No results found.");
             throw new EmptyListException("Empty List");
         }
     }

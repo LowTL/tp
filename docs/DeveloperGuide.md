@@ -155,6 +155,9 @@ To improve the robustness of the program, the `Transaction` stores the `Item` so
 to allow for users to edit or delete the `Item` without losing the history of which `Item` was sold in the past.
 This also allows for the analytics to work with `Items` that no longer exist.
 
+Note: To simulate the reality of business accounting, the `delete` command for `Transactions` are omitted on purpose.
+In actual accounting software, transactions are not allowed to be deleted or edited to preserve its credibility.
+
 ### Cashier Class Diagram
 ![CashierClassDiagram](Diagrams/Images/Cashier/CashierClassDiagram.png)
 
@@ -334,5 +337,146 @@ it also allows users to see which item has generated the most profit in the busi
 * *item* - item to be sold at the shop, with key information such as quantity, buying/selling price, description etc.
 
 ## Instructions for manual testing
+Note: These instructions only provide a starting point for testers to work on.
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+For the most optimal testing, please follow the instructions section by section to test all the features.
+
+### Launch and shutdown
+1. Initial launch
+   1. Download the jar file and move it into an empty folder
+   2. Open the terminal, change to the correct directory and run `java -jar tp.jar`. Expected outcome:
+    ```
+    ----------------
+    StockMaster v2.0
+    ----------------
+    Data is being extracted from: ./StockMasterData.txt
+    Welcome to StockMaster, where you can master the knowledge on your Stock!
+    Out-of-stock Items:
+    No items out of stock
+    Low-on-stock Items: (less than 10)
+    No items low on stock
+    Enter Command:
+    ```
+2. Closing the Application
+   1. Type `exit` into the terminal.
+   2. Expected outcome:
+    ```
+    ----------------
+    Inventory is being saved to :./StockMasterData.txt
+    ----------------
+    Transactions are being saved to:./TransactionLogs.txt
+    ----------------
+    Promotions are being saved to: ./PromotionStorage.txt
+    ----------------
+    Thank you for using StockMaster, hope we have helped your lazy ass!
+    ```
+   At this point, you should be able to see the logs folder for logging, as well as `StockMasterData.txt`, 
+   `TransactionLogs.txt` and `PromotionStorage.txt` in the directory that the jar was in.
+
+### Adding test data
+To test the rest of the features, there must be data to work on. By running several `add` commands, we can populate the
+`Itemlist`, in order to work on them. You can use the following command:
+
+`add testItem qty/10 /ea buy/1.00 sell/2.00`
+
+You should see the following output:
+```
+added: testItem (Qty: 10 ea Buy: $1.00 Sell: $2.00)
+```
+
+You can also use the following command to test optional arguments:
+
+`add testItem2 qty/10 /ea cat/testCat buy/1.00 sell/2.00`
+
+You should see the following output:
+```
+added: testItem (Qty: 10 ea Buy: $1.00 Sell: $2.00) to testCat
+```
+
+### List Items
+To test this feature, you can use the above 2 commands (in [Adding Test Data](#adding-test-data)) to populate the `Itemlist` first.
+
+Make sure that there are no existing `Storage` files, or `Item` in the program to get the exact outputs below.
+You can clear the existing data by exiting the program (via `exit`) and deleting all the save files 
+(`StockMasterData.txt`, `TransactionLogs.txt`, `PromotionStorage.txt`) in the folder.
+
+After using the two lines above, you can test the following command: `list_items`
+
+Output:
+```
+List:
+1. [ ] testitem (Qty: 10 ea, Buy: $1.00, Sell: $2.00)
+2. [ ] testitem2 (Qty: 10 ea, Buy: $1.00, Sell: $2.00, Category: testCat)
+```
+
+### Adding a new Transaction
+To add a new transaction, the `sell` command is used:
+Input: `sell testitem qty/5`
+Output:
+```
+Quantity of testitem sold: 5, for: $2.0
+Quantity remaining: 5
+Total value sold: 10.0
+```
+
+### Adding a new promotion
+Input: `promotion testitem discount/50 period /from 15 APR 2024 /to 31 DEC 2024 time /from 0000 /to 2359`
+Output:
+```
+The following promotion has been added
+testitem have a 50.00% discount
+Period: 15 APR 2024 to 31 DEC 2024
+Time: 0000 to 2359
+```
+
+To see the current promotion in action, run the following command:
+Input: `sell testitem qty/5`
+Output:
+```
+Quantity of testitem sold: 5, for: $1.0
+Quantity remaining: 5
+Total value sold: 5.0
+```
+
+As seen above, there is a 50% discount applied to the selling price of `testitem` (from $2.0 to $1.0)
+
+### Viewing the promotion
+Input: `list_promotion`
+Output:
+```
+1. testitem have a 50.00% discount
+Period: 15 APR 2024 to 31 DEC 2024
+Time: 0000 to 2359
+```
+
+### Deleting a promotion
+Note: If there is a promotion for the item, users will not be allowed to delete the item until the promotion is deleted.
+This is a safeguard against bloating the `PromotionStorage` file with unnecessary promotions.
+
+Input: `del_promo testitem`
+Output: `Promotion for testitem has been removed`
+
+### Viewing the transactions
+Input: `list_transactions`
+Output:
+```
+1. 5 testitem Sell: $2.0 Date: 2024-04-12 16:37:19
+2. 5 testitem Sell: $1.0 Date: 2024-04-12 16:41:24
+```
+Note: The date displayed will differ based on your system time.
+
+### Viewing the bestseller, total profits and total revenue
+1. Bestseller input: `bestseller`
+    Expected outcome: `The current best-selling item is testitem.`
+2. Total profit input: 'total_profit'
+   Expected outcome: `You have earned 5.0 in profits so far.`
+3. Total revenue input: 'total_revenue'
+   Expected outcome: `You have earned 15.0 in revenue so far.`
+
+### Deleting an item
+Input: `del testitem`
+Output: `testitem has been successfully deleted.`
+
+**Note**: If the item still has a promotion, the item cannot be deleted.
+Input `del_promo testitem` If you receive the error `There is a promotion that exists for this item. Please remove 
+the promotion before deleting the item.`

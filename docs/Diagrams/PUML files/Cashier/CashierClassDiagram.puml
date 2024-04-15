@@ -1,6 +1,15 @@
 @startuml
+!include ../Style.puml
 
-skinparam classFontColor automatic
+class BestsellerCommand {
++ execute()
+}
+class TotalProfitCommand {
+}
+class BestsellerCommand {
+}
+class BestsellerCommand {
+}
 
 class Cashier #MistyRose {
     - transactions: ArrayList<Transaction>

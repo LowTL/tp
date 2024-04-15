@@ -2,9 +2,9 @@
 !include Style.puml
 
 package "" as f {
-Class TextUi #Blue
-Class Parser #DarkMagenta
-Class Main #DarkBlue
+Class TextUi #LightBlue
+Class Parser #Magenta
+Class Main #SkyBlue
 Class Storage #Green
 Class Command #Grey
 Class Cashier #Orange

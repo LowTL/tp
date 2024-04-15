@@ -10,7 +10,7 @@
   * [Itemlist](#itemlist)
     * [Sequence Diagram](#sequence-diagram-of-listcommand-when-used-to-list-items)
   * [Parser](#parser)
-    * [Class Diagram]
+    * [Class Diagram](#class-diagram-of-parser)
   * [Storage](#storage)
     * [Class Diagram](#storage-class-diagram)
     * [Sequence Diagram](#storage-sequence-diagram)

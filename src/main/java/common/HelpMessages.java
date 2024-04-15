@@ -26,7 +26,7 @@ public class HelpMessages {
             "| delete     | del ITEM_NAME                                                                |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
-            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
+            "|            | 2. find /FILTER1/FILTER2 KEYWORD  - to search under the filters*             |\n" +
             "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| bestseller | bestseller                                                                   |\n" +
@@ -142,7 +142,7 @@ public class HelpMessages {
             "| Commands   | Format                                                                       |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
             "| find       | 1. find KEYWORD  - to search the entire Item List                            |\n" +
-            "|            | 2. find /filter1/filter2 KEYWORD  - to search under the filters*             |\n" +
+            "|            | 2. find /FILTER1/FILTER2 KEYWORD  - to search under the filters*             |\n" +
             "|            |    * (filters: item, qty, uom, cat, buy, sell)                               |\n" +
             "|            |------------------------------------------------------------------------------|\n" +
             "| example:   | find apple                                                                   |\n" +

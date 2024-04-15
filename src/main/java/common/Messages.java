@@ -54,10 +54,10 @@ public class Messages {
             "'unmark ITEM_NAME'";
 
     public static final String INVALID_LIST_FORMAT = "Invalid Command Format. Please use format:\n" +
-            "1. 'list' to list all items in the inventory, \n" +
-            "2. 'list cat/CATEGORY' to list all items in that category, or \n" +
-            "3. 'list marked' to list all marked items, or \n" +
-            "4. 'list marked cat/CATEGORY' to list all marked items in that category.\n" +
+            "1. 'list_items' to list all items in the inventory, \n" +
+            "2. 'list_items cat/CATEGORY' to list all items in that category, or \n" +
+            "3. 'list_items marked' to list all marked items, or \n" +
+            "4. 'list_items marked cat/CATEGORY' to list all marked items in that category.\n" +
             "Please note that marked must be in front of cat/CATEGORY.";
 
     public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format: " +

@@ -1,6 +1,5 @@
 package item;
 
-import itemlist.Itemlist;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

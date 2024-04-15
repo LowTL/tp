@@ -1,8 +1,6 @@
 package command;
 
-import common.Messages;
 import exceptions.EmptyListException;
-import item.Item;
 import itemlist.Cashier;
 import ui.TextUi;
 

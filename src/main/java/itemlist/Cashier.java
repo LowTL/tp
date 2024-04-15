@@ -1,6 +1,5 @@
 package itemlist;
 
-import common.Messages;
 import exceptions.EmptyListException;
 import item.Transaction;
 

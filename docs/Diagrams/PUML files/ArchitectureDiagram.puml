@@ -4,7 +4,7 @@
 package "" as f {
 Class TextUi #Blue
 Class Parser #DarkMagenta
-Class Main #LightSkyBlue
+Class Main #DarkBlue
 Class Storage #Green
 Class Command #Grey
 Class Cashier #Orange

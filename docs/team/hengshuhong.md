@@ -21,9 +21,9 @@ manage and operate their business.
       Another difficulty is to check if the item is within the promotion period for the given date and time.
 
 
-- **New Feature: Enhanced the find command to allow the user to search based on the specified item information.**
+- **New Feature: Enhanced the find command to allow the user to search based on the specified item information**
     - What it does: allows the user to look through a filtered list to find the ITEM information based on the KEYWORD
-      For instance, the user can find all ITEMS that has a buy price or sell price of $`1`
+      For instance, the user can find all ITEMS that has a buy price or sell price of $`1`.
     - Justification: This feature increases the capabilities of the search function, as it can allow the user to quickly
       retrieve the data that is being searched for by narrow the scope of the search.
     - Highlights: The difficulty in this enhancement was the approach to implement this improvement. This is because this
@@ -31,8 +31,8 @@ manage and operate their business.
       feature, but yet still able to provide more than 1 filter to narrow the scope.
 
 
-- **New Feature: Enhanced the add command to prevent duplicate entries.**
-    - What it does: it prevents the user from accidentally inputting duplicated items. Instead, when the user adds a
+- **New Feature: Enhanced the add command to prevent duplicate entries**
+    - What it does: It prevents the user from accidentally inputting duplicated items. Instead, when the user adds a
       duplicated item, the item information will be updated based on the latest input and the quantity will be increased.
     - Justification: This feature enables the user to not have duplicate entries of the same items to avoid the
       overflowing of the inventory list with duplicated item.

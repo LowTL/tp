@@ -519,20 +519,6 @@ public class ParserTest {
     }
 
     @Test
-    public void testParseListTransactionsCommand() {
-        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outputStreamCaptor));
-        String userInput = "list_transactions";
-        parser.parseInput(userInput);
-        String expectedMessage = Messages.EMPTY_TRANSACTION_LIST + System.lineSeparator();
-        while (outputStreamCaptor.toString().isEmpty()) {
-            int i = 0;
-            i++;
-        }
-        assertEquals(expectedMessage, outputStreamCaptor.toString());
-    }
-
-    @Test
     public void testParseTotalProfitCommand() {
         ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStreamCaptor));

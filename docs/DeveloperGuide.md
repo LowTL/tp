@@ -344,7 +344,7 @@ For the most optimal testing, please follow the instructions section by section 
 ### Launch and shutdown
 1. Initial launch
    1. Download the jar file and move it into an empty folder
-   2. Open the terminal, change to the correct directory and run `java -jar tp.jar`. Expected outcome:
+   2. Open the terminal, change to the correct directory and run `java -jar StockMaster.jar`. Expected outcome:
     ```
     ----------------
     StockMaster v2.0

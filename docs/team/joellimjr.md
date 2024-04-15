@@ -38,6 +38,7 @@ manage and operate their business.
     - Justification: It reminds the user upon starting up the app to restock out-of-stock items
       and warn the user about the items that are running low in stock.
 
+
 - **New Feature:** Detailed help command
     - What it does: An extension of the help command, it gives users more detailed information about 
       a specific command along with examples.

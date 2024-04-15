@@ -30,7 +30,8 @@ manage and operate their business.
       enhancement is an extension of the previous find command, meaning that it must still be able to retain its original
       feature, but yet still able to provide more than 1 filter to narrow the scope.
 
-**- New Feature: Enhanced the add command to prevent duplicate entries**
+
+- **New Feature: Enhanced the add command to prevent duplicate entries.**
     - What it does: it prevents the user from accidentally inputting duplicated items. Instead, when the user adds a
       duplicated item, the item information will be updated based on the latest input and the quantity will be increased.
     - Justification: This feature enables the user to not have duplicate entries of the same items to avoid the
@@ -40,7 +41,7 @@ manage and operate their business.
 
 - **Documentation**
     - User Guide:
-        - Add documentation for the features `add`, `find`, `promotion`, `del_promo` and `list_promotions`
+        - Add documentation for the features `add`, `find`, `promotion`, `del_promo` and `list_promotions` [#86](https://github.com/AY2324S2-CS2113-T15-4/tp/pull/86)
         - Add the Quick Start
         - Update the Command Summary
 

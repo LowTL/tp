@@ -525,6 +525,10 @@ public class ParserTest {
         String userInput = "list_transactions";
         parser.parseInput(userInput);
         String expectedMessage = Messages.EMPTY_TRANSACTION_LIST + System.lineSeparator();
+        while (outputStreamCaptor.toString().isEmpty()) {
+            int i = 0;
+            i++;
+        }
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 

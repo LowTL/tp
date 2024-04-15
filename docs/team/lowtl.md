@@ -1,6 +1,6 @@
 # Low Tjun Lym - Project Portfolio Page
 
-## [Project: Stockmaster](https://github.com/AY2324S2-CS2113-T15-4/tp)
+## Project: StockMaster
 StockMaster is  a desktop inventory and management that provides the user with a range of tools and features to help them
 manage and operate their business.
 

@@ -1,16 +1,18 @@
 @startuml
-participant TotalProfitCommand
-participant Cashier
-participant TextUi
+!include ../Style.puml
 
-alt getTotalRevenue()
+participant ":TotalProfitCommand" as TotalProfitCommand
+participant ":Cashier" as Cashier
+participant ":TextUi" as TextUi
+
+alt get total revenue
     TotalProfitCommand -> Cashier: getTotalRevenue()
     activate Cashier
     Cashier -> Cashier: Calculate total revenue
     Cashier --> TotalProfitCommand: totalRevenue
     deactivate Cashier
     TotalProfitCommand -> TextUi: replyToUser("You have earned {totalRevenue} in revenue so far.")
-else getTotalProfit()
+else get total profit
     TotalProfitCommand -> Cashier: getTotalProfit()
     activate Cashier
     Cashier -> Cashier: Calculate total profit

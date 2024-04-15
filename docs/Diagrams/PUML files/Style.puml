@@ -31,7 +31,7 @@ skinparam Package {
 }
 
 skinparam Class {
-    FontColor #FFFFFF
+    FontColor #000000
     FontSize 15
     BorderThickness 1
     BorderColor #FFFFFF
@@ -58,12 +58,12 @@ skinparam Participant {
     Padding 20
 }
 
-skinparam ArrowFontStyle bold
 skinparam MinClassWidth 50
 skinparam ParticipantPadding 10
 skinparam Shadowing false
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle
+skinparam classAttributeIconSize 0
 
 hide footbox
 hide members

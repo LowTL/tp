@@ -1,6 +1,8 @@
 @startuml
 
-class Cashier {
+skinparam classFontColor automatic
+
+class Cashier #MistyRose {
     - transactions: ArrayList<Transaction>
     + addItem(transaction: Transaction): void
     + getTransactions(): ArrayList<Transaction>
@@ -15,7 +17,7 @@ class Transaction {
     - dateTime: String
     - totalPrice: float
     - profit: float
-    - item: Item
+    - item: String
     - quantity: int
     - buyPrice: float
     - sellPrice: float
@@ -25,12 +27,20 @@ class Transaction {
 }
 
 class Item {
-    - name: String
-    - price: float
-    - cost: float
+    + isMark: boolean
+    + isOOS: boolean
+    - itemName: String
+    - quantity: int
+    - unitOfMeasurement: String
+    - category: String
+    - buyPrice: float
+    - sellPrice: float
+    +Item(String, int, String, String, float, float)
 }
 
 Cashier --> Transaction : has 1..* transactions
 Transaction --> Item : has 1 item
 
+hide circle
+skinparam classAttributeIconSize 0
 @enduml

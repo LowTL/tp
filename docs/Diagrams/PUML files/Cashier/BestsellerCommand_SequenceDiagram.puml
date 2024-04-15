@@ -1,15 +1,15 @@
 @startuml
 !include ../Style.puml
 
-participant BestsellerCommand
-participant Cashier
-participant TextUi
+participant ":BestsellerCommand" as BestsellerCommand
+participant ":Cashier" as Cashier
+participant ":TextUi" as TextUi
 
 BestsellerCommand -> Cashier: getBestseller()
 activate Cashier
 Cashier -> Cashier: Retrieve bestseller
-Cashier --> BestsellerCommand: Bestselling item
+Cashier --> BestsellerCommand: itemName
 deactivate Cashier
-BestsellerCommand -> TextUi: replyToUser("The current best-selling item is {bestseller.getItemName()}")
+BestsellerCommand -> TextUi: replyToUser("The current best-selling item is {itemName}")
 
 @enduml

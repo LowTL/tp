@@ -1,37 +1,40 @@
 @startuml
 !include ../Style.puml
-participant Client
-participant Storage
-participant Itemlist
-participant Item
-participant Scanner
-participant File
+participant ":Client"
+participant ":Storage"
+participant ":Itemlist"
+participant ":Item"
+participant ":Scanner"
+participant ":File"
 
-Client -> Storage: readFromFile(fileName)
-activate Storage
-Storage -> File: new File(fileName)
-activate File
-Storage -> Scanner: new Scanner(File)
-activate Scanner
-Scanner --> File: interpretLines(scanner)
-File --> Storage: Close Scanner
-deactivate Scanner
-deactivate File
-deactivate Storage
+":Client" -> ":Storage": readFromFile(fileName)
+activate ":Storage"
+":Storage" -> ":File": new File(fileName)
+activate ":File"
+":Storage" -> ":Scanner": new Scanner(File)
+activate ":Scanner"
+":Scanner" -> ":File": interpretLines(scanner)
+":File" --> ":Storage": Close Scanner
+deactivate ":Scanner"
+deactivate ":File"
+":Storage" --> ":Client"
+deactivate ":Storage"
 
-Client -> Storage: addToFile(items)
-activate Storage
-Storage -> Itemlist: addItem(toAdd)
-activate Itemlist
-Itemlist --> Storage
-deactivate Itemlist
-Storage -> Storage: updateFile(descriptionAdded, true)
-deactivate Storage
+":Client" -> ":Storage": addToFile(items)
+activate ":Storage"
+":Storage" -> ":Itemlist": addItem(toAdd)
+activate ":Itemlist"
+":Itemlist" --> ":Storage"
+deactivate ":Itemlist"
+":Storage" -> ":Storage": updateFile(descriptionAdded, true)
+":Storage" --> ":Client"
+deactivate ":Storage"
 
-Client -> Storage: overwriteFile(items)
-activate Storage
+":Client" -> ":Storage": overwriteFile(items)
+activate ":Storage"
 loop for each item in items
-    Storage -> Storage: updateFile(descriptionAdded, ifAppend)
+    ":Storage" -> ":Storage": updateFile(descriptionAdded, ifAppend)
 end
-deactivate Storage
+":Storage" --> ":Client"
+deactivate ":Storage"
 @enduml

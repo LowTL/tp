@@ -1,19 +1,64 @@
 # Developer Guide
 
+## Table of contents
+
+* [Acknowledgements](#acknowledgements)
+* [Design](#design)
+  * [Architecture Diagram](#architecture-diagram)
+  * [Command](#command)
+  * [Item](#item)
+  * [Itemlist](#itemlist)
+    * [Sequence Diagram](#sequence-diagram-of-listcommand-when-used-to-list-items)
+  * [Parser](#parser)
+    * [Class Diagram](#class-diagram-of-parser)
+  * [Storage](#storage)
+    * [Class Diagram](#storage-class-diagram)
+    * [Sequence Diagram](#storage-sequence-diagram)
+  * [UI](#ui)
+  * [Cashier](#cashier-features)
+    * [Class Diagram](#cashier-class-diagram)
+    * [Sequence Diagrams](#cashier-sequence-diagrams)
+  * [Promotions](#promotion-feature)
+    * [Sequence Diagram](#promotion-sequence-diagram)
+    * [Add Promotion](#add-new-promotion)
+      * [Class Diagram](#add-promotion-class-diagram)
+      * [Sequence Diagram](#add-promotion-sequence-diagram)
+* [Product Scope](#product-scope)
+* [User Stories](#user-stories)
+* [Non-Functional Requirements](#non-functional-requirements)
+* [Glossary](#glossary)
+* [Instructions for manual testing](#instructions-for-manual-testing)
+
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+**DG Adapted from**
+
+* [Addressbook-Level3](https://github.com/se-edu/addressbook-level3)
 
 ## Design
+
+### Architecture Diagram
+![ArchitectureDiagram](Diagrams/Images/ArchitectureDiagram.png)
+
+The **Architecture Diagram** above explains the high-level design of the program.
+
+#### Main components of the architecture
+`Main` is the `StockMaster` class, and controls the operation and closing of the app.
+
+The program consists of several components:
+* `TextUi` handles interaction with the User
+* `Parser` converts the user input into `Command`
+* `Command` executes the commands given by the user
+* `Itemlist`, `Cashier` and `PromotionList` are ArrayLists of type `Item`, `Transaction` and `Promotion`
+respectively.
+* `Storage` reads from and writes to the hard disk.
 
 ### Command
 The Command class is an abstract class which is extended to execute the various commands 
 used in the product. It contains the abstract method `execute`, which is overridden by all other Command child classes.
 
-### Exception
-
-### item
-item class is an object which represents an item in the stock inventory list. Stores data about the item such as item 
+### Item
+Item class is an object which represents an item in the stock inventory list. Stores data about the item such as item 
 price, quantity of item, and others.
 
 ### Itemlist
@@ -70,6 +115,7 @@ process had concluded.
 
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
+
 #### Class Diagram of `Parser`
 ![Parser_ClassDiagram](Diagrams/Images/Parser/Parser_ClassDiagram.png)
 1. Parser takes in the user input, and parses out the command word.
@@ -85,24 +131,43 @@ throwing other exceptions accordingly.
 * Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `item` object, which is added to 
 the Itemlist by `addItem()` method.
 
-### Class diagram
+### Storage Class diagram
 ![Storage_ClassDiagram](Diagrams/Images/Storage/Storage_ClassDiagram.png)
-### Sequence diagram
+
+### Storage Sequence diagram
+
 ![Storage_sequenceDiagram](Diagrams/Images/Storage/Storage_sequenceDiagram.png)
 
 ### UI
 UI prints command output, and useful messages to the user.
 
-### Cashier
+### Cashier features 
 Cashier class extends Itemlist class, and stores `Transactions` instead of `Items`.
+It has 4 main functions: `addItem`, `getTransactions`, `getBestseller` and `getTotalProfit`.
+The main function of this class is to track transactions, as well as provide some basic
+business analytics to the app.
 
-#### Class Diagram
+It mainly uses 4 `Command` subclasses, namely the `AddCommand`, `ListCommand`, `BestsellerCommand` and 
+`TotalProfitCommand`. Each `Command` subclass executes their respective function, and print the result through
+`TextUi`.
+
+To improve the robustness of the program, the `Transaction` stores the `Item` sold as a `String` rather than an `Item`, 
+to allow for users to edit or delete the `Item` without losing the history of which `Item` was sold in the past.
+This also allows for the analytics to work with `Items` that no longer exist.
+
+### Cashier Class Diagram
 ![CashierClassDiagram](Diagrams/Images/Cashier/CashierClassDiagram.png)
 
-#### Sequence Diagrams
-![BestsellerCommand](Diagrams/Images/Cashier/BestsellerCommand_SequenceDiagram.png)
-The `BestsellerCommand` calls the `getBestseller()` command from the Cashier
+Above is the class diagram for the `Cashier` class, and its dependencies.
+The `Command` subclasses at the top fit their respective functions, and `SellCommand` maps to the `addItem` method.
 
+### Cashier Sequence Diagrams
+![CashierSeqDiagram](Diagrams/Images/Cashier/CashierSequenceDiagram.png)
+
+BestsellerCommand: `getBestseller` ref from the overall sequence diagram above:
+![BestsellerCommand](Diagrams/Images/Cashier/BestsellerCommand_SequenceDiagram.png)
+
+TotalProfitCommand: `getTotalProfit` and `getTotalRevenue` refs from the overall sequence diagram:
 ![TotalProfitCommand](Diagrams/Images/Cashier/TotalProfitCommand_SequenceDiagram.png)
 
 ## Implementation
@@ -121,6 +186,7 @@ own business given a certain period and time. Additionally, it implements the fo
 Given below is the overall sequence diagram for the `PromotionCommand`. The reference frames are shown when explaining
 the operations.
 
+#### Promotion Sequence Diagram
 ![PromotionSequenceDiagram](Diagrams/Images/Promotion/Promotion_SequenceDigram.png)
 
 

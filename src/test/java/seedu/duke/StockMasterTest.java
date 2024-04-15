@@ -1,12 +1,17 @@
 package seedu.duke;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import exceptions.CommandFormatException;
+import exceptions.EmptyListException;
+import exceptions.InvalidDateException;
 import org.junit.jupiter.api.Test;
 
-class StockMasterTest {
+
+import java.io.IOException;
+
+public class StockMasterTest {
+
     @Test
-    public void sampleTest() {
-        assertTrue(true);
+    public void testStockMaster() throws CommandFormatException, InvalidDateException, IOException, EmptyListException {
+        StockMaster stockMaster = new StockMaster();
     }
 }

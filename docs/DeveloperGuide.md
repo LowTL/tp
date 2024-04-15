@@ -9,6 +9,7 @@
   * [Item](#item)
   * [Itemlist](#itemlist)
     * [Sequence Diagram](#sequence-diagram-of-listcommand-when-used-to-list-items)
+    * [Class Diagram](#class-diagram-of-editcommand-and-with-partial-class-diagrams-of-item-and-itemlist)
   * [Parser](#parser)
     * [Class Diagram](#class-diagram-of-parser)
   * [Storage](#storage)

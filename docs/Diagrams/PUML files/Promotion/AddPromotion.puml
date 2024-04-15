@@ -6,10 +6,10 @@ mainframe sd AddPromotion
 autoactivate on
 
 participant ":PromotionCommand" as PromotionCommand
-participant "<<class>>\nPromotionlist" as Promotionlist
+participant ":Promotionlist" as Promotionlist
 participant ":TextUi" as TextUi
-participant "<<class>>\nItemlist" as Itemlist
-participant "<<class>>\n Promotion" as Promotion
+participant ":Itemlist" as Itemlist
+participant ":Promotion" as Promotion
 
 PromotionCommand -> Promotionlist : addPromotion(promotion)
 Promotionlist -> Itemlist : isItemExist(itemName)

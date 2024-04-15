@@ -105,6 +105,9 @@ public class PromotionStorage extends Storage{
         } catch (InvalidDateException | CommandFormatException e) {
             LOGGER.log(Level.WARNING, "Other exception occurred.", e);
             System.out.println(e);;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println(fileName + " is not written in a correct format.");
+            LOGGER.warning("Incorrect documentation format.");
         }
         scanner.close();
     }

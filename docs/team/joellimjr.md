@@ -61,6 +61,7 @@ manage and operate their business.
     - Added J-Unit testing:
         - ParserTest
         - AddCommandTest
+        - EditCommandTest
         - HelpCommandTest
         - SellCommandTest
         - LowStockCommandTest

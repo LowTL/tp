@@ -10,6 +10,9 @@ public class HelpMessages {
             "|------------|------------------------------------------------------------------------------|\n" +
             "| list items | list_items [marked] [cat/CATEGORY]                                           |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
+            "| list       | list_transactions [item/ITEM_NAME]                                           |\n" +
+            "| transaction|                                                                              |\n" +
+            "|------------|------------------------------------------------------------------------------|\n" +
             "| add        | add ITEM_NAME qty/QUANTITY_OF_ITEM /UNIT_OF_MEASUREMENT [cat/CATEGORY]       |\n" +
             "|            |     buy/BUY_PRICE sell/SELL_PRICE                                            |\n" +
             "|------------|------------------------------------------------------------------------------|\n" +
@@ -233,7 +236,7 @@ public class HelpMessages {
             "|-------------------|-----------------------------------------------------------------------|\n" +
             "| list_transactions | list_transaction [item/ITEM_NAME]                                     |\n" +
             "|-------------------|-----------------------------------------------------------------------|\n" +
-            "| example:          | list_transaction item/apple                                           |\n" +
+            "| example:          | list_transactions item/apple                                          |\n" +
             "|___________________|_______________________________________________________________________|\n";
 
     public static final String INVALID_HELP_COMMAND = "Please input a valid command to inquire about.";

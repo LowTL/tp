@@ -26,8 +26,10 @@ public class Messages {
 
     public static final String UNABLE_TO_DELETE = "There is a promotion that exists for this item. Please remove the " +
             "promotion before deleting the item.";
-    public static final String EMPTY_ITEM_LIST = "There are no items with your search query.";
-    public static final String EMPTY_TRANSACTION_LIST = "There are no transactions with your search query.";
+    public static final String EMPTY_ITEM_LIST = "There are no items at the moment.";
+    public static final String EMPTY_TRANSACTION_LIST = "There are no transactions at the moment.";
+    public static final String EMPTY_FILTERED_ITEM_LIST = "There are no items with your search query.";
+    public static final String EMPTY_FILTERED_TRANSACTION_LIST = "There are no transactions with your search query.";
     public static final String EMPTY_LIST = "There is nothing here! Time to spend some money and stock em up!";
     public static final String WELCOME_MESSAGE = "Welcome to StockMaster, where you can master the knowledge on your " +
             "Stock!";
@@ -96,5 +98,8 @@ public class Messages {
 
     public static final String INVALID_VALUE = "Please input a valid amount.";
 
+    public static final String NO_BESTSELLER = "There are no transactions. Please add a transaction " +
+            "before retrying the command.";
 
+    public static final String EMPTY_PROMOTION_LIST = "There are no promotions at the moment.";
 }

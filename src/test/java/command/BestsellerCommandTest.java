@@ -36,7 +36,7 @@ public class BestsellerCommandTest {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outputStream));
             bestsellerCommand.execute();
-            String expected = Messages.EMPTY_TRANSACTION_LIST + System.lineSeparator();
+            String expected = Messages.NO_BESTSELLER + System.lineSeparator();
             assertEquals(expected, outputStream.toString());
         } catch (EmptyListException e) {
             throw new RuntimeException(e);

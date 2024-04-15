@@ -84,7 +84,7 @@ public class StockMaster {
         }
     }
 
-    private void normalOperation() throws IOException, CommandFormatException,
+    private void normalOperation() throws CommandFormatException,
             InvalidDateException, EmptyListException {
         String userInput;
         do {

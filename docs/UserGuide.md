@@ -9,7 +9,7 @@ manage and operate their business. It is targeted at those who can type fast and
 
 1. Ensure that you have Java 11 or above installed.
 2. Download the latest version of `StockMaster` from [here](https://github.com/AY2324S2-CS2113-T15-4/tp/releases/tag/v2.1b).
-3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar [CS2113-T15-4][StockMaster].jar` command to run the application.
+3. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar CS2113-T15-4.StockMaster.jar` command to run the application.
 
 ## Features
 

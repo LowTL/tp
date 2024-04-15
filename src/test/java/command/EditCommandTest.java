@@ -49,8 +49,8 @@ public class EditCommandTest {
     public void testExecuteEditItemName() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NewTestItem", -1, "NA", "NA", -1, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Name of TestItem from TestItem to NewTestItem" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -61,8 +61,8 @@ public class EditCommandTest {
     public void testExecuteEditQuantity() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", 50, "NA", "NA", -1, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Quantity of TestItem from 10 to 50" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -73,8 +73,8 @@ public class EditCommandTest {
     public void testExecuteEditInvalidQuantity() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", -100, "NA", "NA", -1, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Quantity of TestItem from 10 to -100" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -85,8 +85,8 @@ public class EditCommandTest {
     public void testExecuteEditUnitOfMeasurement() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", -1, "kg", "NA", -1, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Unit of Measurement of TestItem from pcs to kg" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -97,8 +97,8 @@ public class EditCommandTest {
     public void testExecuteEditCategory() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", -1, "NA", "NewTestCategory", -1, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Category of TestItem from TestCategory to NewTestCategory" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -109,8 +109,8 @@ public class EditCommandTest {
     public void testExecuteEditBuyPrice() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", -1, "NA", "NA", 6.0f, -1).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Buy Price of TestItem from 5.0 to 6.00" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -121,8 +121,8 @@ public class EditCommandTest {
     public void testExecuteEditSellPrice() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NA", -1, "NA", "NA", -1, 12.0f).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Sell Price of TestItem from 10.0 to 12.00" + System.lineSeparator() +
                 "End of Edits" + System.lineSeparator() + System.lineSeparator();
@@ -133,8 +133,8 @@ public class EditCommandTest {
     public void testExecuteEditMultipleAttributes() {
         new AddCommand("TestItem", 10, "pcs", "TestCategory", 5.0f, 10.0f).execute();
         new EditCommand("TestItem", "NewTestItem", 50, "kg", "NewTestCategory", 6.0f, 12.0f).execute();
-        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" + System.lineSeparator() +
-                "\n" +
+        String expectedOutput = "added: testitem (Qty: 10 pcs, Buy: $5.00, Sell: $10.00) to TestCategory" +
+                System.lineSeparator() + "\n" +
                 "Edited: " + System.lineSeparator() +
                 "Name of TestItem from TestItem to NewTestItem" + System.lineSeparator() +
                 "Quantity of TestItem from 10 to 50" + System.lineSeparator() +

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class StockMasterTest {
 
     @Test
-    public void testRun_ExitImmediately() throws CommandFormatException, InvalidDateException, IOException, EmptyListException {
+    public void testStockMaster() throws CommandFormatException, InvalidDateException, IOException, EmptyListException {
         StockMaster stockMaster = new StockMaster();
     }
 }

@@ -9,15 +9,20 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertLinesMatch;
-import static ui.TextUi.getUserInput;
-import static ui.TextUi.showList;
+import static ui.TextUi.*;
 
 public class TextUiTest {
-
+    @Test
+    public void testReplyToUser() {
+        String message = "Message 1 to display";
+        ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outputStreamCaptor));
+        replyToUser(message);
+        assert outputStreamCaptor.toString().contains((message));
+    }
 
     @Test
     public void testValidInput() {
-
         provideInput("add Item");
         assertEquals("add Item", getUserInput());
 

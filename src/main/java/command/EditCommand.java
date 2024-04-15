@@ -59,7 +59,7 @@ public class EditCommand extends Command{
     }
 
     /**
-     * Edits the relevant params of the item in the item list
+     * Edits the relevant params of the item in the item list and prints out to the user.
      */
     @Override
     public void execute() {

@@ -13,7 +13,7 @@ public class EmptyListException extends Exception {
             System.out.println(Messages.EMPTY_TRANSACTION_LIST);
             break;
         case "Empty List":
-            System.out.println(Messages.EMPTY_LIST);
+            System.out.println("No results found.");
             break;
         default:
             System.out.println(error);

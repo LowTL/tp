@@ -5,6 +5,8 @@ participant ":TotalProfitCommand" as TotalProfitCommand
 participant ":Cashier" as Cashier
 participant ":TextUi" as TextUi
 
+
+mainframe sd
 alt get total revenue
     TotalProfitCommand -> Cashier: getTotalRevenue()
     activate Cashier
@@ -20,6 +22,5 @@ else get total profit
     deactivate Cashier
     TotalProfitCommand -> TextUi: replyToUser("You have earned {totalProfit} in profits so far.")
 end
-
 
 @enduml

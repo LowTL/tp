@@ -504,7 +504,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "list_items";
         parser.parseInput(userInput);
-        String expectedMessage = "";
+        String expectedMessage = Messages.EMPTY_ITEM_LIST + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -514,7 +514,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "list_promotions";
         parser.parseInput(userInput);
-        String expectedMessage = "";
+        String expectedMessage = Messages.EMPTY_PROMOTION_LIST + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 
@@ -524,7 +524,7 @@ public class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         String userInput = "list_transactions";
         parser.parseInput(userInput);
-        String expectedMessage = "";
+        String expectedMessage = Messages.EMPTY_TRANSACTION_LIST + System.lineSeparator();
         assertEquals(expectedMessage, outputStreamCaptor.toString());
     }
 

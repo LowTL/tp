@@ -10,7 +10,7 @@ Command -> Cashier: addItem(transaction)
 activate Cashier
 Cashier -> Cashier: transactions.add(transaction)
 return
-Command --> TextUi: showSellMessage()
+Command -> TextUi: showSellMessage()
 activate TextUi
 return
 alt if itemName is not given

@@ -31,12 +31,8 @@ public class Cashier extends Itemlist {
                     results.add(t);
                 }
             }
-            LOGGER.info("Transactions filtered.");
-            return results;
-        } else {
-            LOGGER.warning("No transactions found.");
-            return null;
         }
+        return results;
     }
 
     public static float getTotalRevenue() {

@@ -54,8 +54,9 @@ public class PromotionStorage extends Storage{
         Month endMonth = null;
         int startTime = 0;
         int endTime = 0;
+        Scanner scanner = null;
         try {
-            Scanner scanner = new Scanner(new File(fileName));
+            scanner = new Scanner(new File(fileName));
             while (scanner.hasNext()) {
                 String fileLine = scanner.nextLine();
                 switch (count) {
@@ -105,6 +106,7 @@ public class PromotionStorage extends Storage{
             LOGGER.log(Level.WARNING, "Other exception occurred.", e);
             System.out.println(e);;
         }
+        scanner.close();
     }
 
     /**

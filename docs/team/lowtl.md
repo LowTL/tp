@@ -6,10 +6,9 @@ manage and operate their business.
 
 ### Summary of Contribution
 * Overall organisation of project
-* **New Feature:** `Cashier` class.
 * Logging & some testing
-* 
-  * Allows users to create and store `Transactions`, in an extension of the `Item` class.
+* **New Feature:** `Cashier` class.
+  * Allows users to create and store `Transactions`, in an extension of the `item` class.
   * Contains the `getTotalProfit`, `getTotalRevenue`, and `getBestseller` methods, for basic business analysis.
 
 

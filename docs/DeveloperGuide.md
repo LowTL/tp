@@ -72,22 +72,22 @@ list marked items, as well as an `Itemlist` class.
    - If there are no modifiers, `ListCommand` will display all items in the list by calling `TextUi.ShowList()`.
 4. If there are modifiers present, `ShowCustomizedItemList()` will be called.
    - If there is a category present, `ListCommand` will get the category of every item in the `Itemlist` with 
-   `Item.getCategory()`. 
+   `item.getCategory()`. 
    - If isListMarked is true, `ListCommand` will get the mark status of evey item in the `Itemlist` with 
-   `Item.getMarkStatus()`.
+   `item.getMarkStatus()`.
    - Afterwards, `TextUi.replyToUser()` will be called, displaying the relevant items. 
 
 
 The `AddCommand` class extends the `Command` class, allowing users to add items to the `Itemlist`
 
-![AddCommand_SequenceDiagram](Diagrams/Images/AddCommand_Sequence_Diagram.png)
+![AddCommand_SequenceDiagram](Diagrams/Images/Itemlist/AddCommand_SequenceDiagram.png)
 
 The `EditCommand` class extends the `command` class.
 The `EditCommand` is responsible for editing attributes of an item in the `Itemlist`. This includes changing the
 item's name, quantity, unit of measurement, category, buy price, and sell price. 
 The command modifies the relevant item if it exists and updates the system accordingly.
 
-#### Class Diagram of `EditCommand` and with partial Class Diagrams of `Item` and `Itemlist`
+#### Class Diagram of `EditCommand` and with partial Class Diagrams of `item` and `Itemlist`
 
 ![EditCommand_ClassDiagram](Diagrams/Images/Itemlist/EditCommand_ClassDiagram.png)
 
@@ -101,7 +101,7 @@ these parameters are also specified.
    - If the item is found, it retreives the index of the item. If not, a messasge indicating that item is not found 
    will be displayed using `TextUi.replyToUser()`.
 3. If an item is found, the `Itemlist.getItem(index)` method is used to retrieve the item object. For each
-attribute that needs modification, the corresponding setter method on the `Item` objet is called, such as 
+attribute that needs modification, the corresponding setter method on the `item` objet is called, such as 
 `setItemName()`, `setQuantity()`, etc.
 4. Once all changes have been made, `TextUi.replyToUser()` is called to display to the user that the editing 
 process had concluded.
@@ -110,12 +110,20 @@ process had concluded.
 
 ### Parser
 Parser class processes user inputs and sieves out relevant details before calling the relevant methods.
-It contains command formats that must be adhered to for the methods to be called.
+
+#### Class Diagram of `Parser`
+![Parser_ClassDiagram](Diagrams/Images/Parser/Parser_ClassDiagram.png)
+1. Parser takes in the user input, and parses out the command word.
+2. According to the command word detected, it will check that the input matches the required command format,
+throwing command format exceptions if it does not match.
+3. It then checks if the inputs for the various parameters (i.e qty/, buy/, etc) are of the correct type and appropriate value,
+throwing other exceptions accordingly.
+4. It creates a new instance of the relevant command for it to execute() its code.
 
 ### Storage
 * Storage class contains method `addToFile()` to write data of items to the default file directory, `./StockMasterData.txt`.
 * `overwriteFile()` write data of items to the default file directory, overwriting previous contents in the file.
-* Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `Item` object, which is added to 
+* Method `readFromFile()` retrieve information from the file when program restarts. Information is used to create new `item` object, which is added to 
 the Itemlist by `addItem()` method.
 
 ### Storage Class diagram
@@ -310,7 +318,7 @@ it also allows users to see which item has generated the most profit in the busi
 ## Glossary
 
 * *CLI* - Command Line Interface, where the user types commands rather than clicking options.
-* *Item* - Item to be sold at the shop, with key information such as quantity, buying/selling price, description etc.
+* *item* - item to be sold at the shop, with key information such as quantity, buying/selling price, description etc.
 
 ## Instructions for manual testing
 

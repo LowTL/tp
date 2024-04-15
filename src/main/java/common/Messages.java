@@ -62,7 +62,8 @@ public class Messages {
 
     public static final String INVALID_DEL_PROMO_FORMAT = "Invalid Command Format. Please use format: " +
             "del_promo [ITEM_NAME]";
-    public static final String INVALID_PROMOLIST_FORMAT = "Invalid Command Format.";
+    public static final String INVALID_PROMOLIST_FORMAT = "Invalid Command Format. Please use format: " +
+            "list_promotions";
 
     public static final String ITEM_IS_PROMO = "Item already has a promotion. Please remove the current promotion to " +
             "add a new one.";
